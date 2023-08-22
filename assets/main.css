@@ -1,12 +1,16 @@
 html, body {
   font-family: sans-serif;
+  margin: 0;
   padding: 0;
   line-height: 1.2;
 }
 body {
   display: flex;
+  height: calc(100vh - 32px);
+  padding: 16px;
   align-items: center;
-  justify-content: center;
+  justify-content: space-evenly;
+  flex-direction: column;
   color: rgba(0, 0, 0, .6);
 }
 .diagram {
@@ -83,4 +87,9 @@ body {
 }
 .arrow-top-left {
   rotate: 315deg;
+}
+
+#history {
+  height: 240px;
+  width: 100%;
 }

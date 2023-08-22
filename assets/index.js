@@ -1,4 +1,8 @@
-const API_URL = 'http://localhost:3000/api';
+import {
+  Chart
+} from 'https://unpkg.com/frappe-charts@1.6.1/dist/frappe-charts.min.esm.js';
+
+const API_URL = '/api';
 
 const ARROW_LEFT = 'arrow-left';
 const ARROW_BOTTOM_LEFT = 'arrow-bottom-left';
@@ -20,6 +24,39 @@ const roofToBattery = document.getElementById('roof-to-battery');
 const batteryToGrid = document.getElementById('battery-to-grid');
 const batteryPercentage = document.getElementById('battery-percentage');
 const batteryHealth = document.getElementById('battery-health');
+
+const chart = new Chart('#history', {
+  axisOptions: { xIsSeries: true },
+  barOptions: { stacked: true },
+  colors: ['#651FFF', '#2979FF', '#00E5FF', '#76FF03'],
+  data: {
+    datasets: [
+      {
+        chartType: 'bar',
+        name: 'Dach',
+        values: []
+      },
+      {
+        chartType: 'bar',
+        name: 'Batterie',
+        values: []
+      },
+      {
+        chartType: 'bar',
+        name: 'Netz',
+        values: []
+      },
+      {
+        chartType: 'line',
+        name: 'Haus',
+        values: []
+      }
+    ]
+  },
+  labels: [],
+  lineOptions: { hideDots: 1 },
+  type: 'axis-mixed'
+});
 
 function showArrow(element, getDirection) {
   for (
@@ -71,6 +108,16 @@ async function update() {
   showArrow(
     batteryToGrid,
     () => json.power.toGrid > 0 ? ARROW_RIGHT : ''
+  );
+
+  chart.addDataPoint(
+    new Date().toLocaleTimeString(),
+    [
+      json.power.fromRoof,
+      json.power.fromBattery - json.power.toBattery,
+      json.power.fromGrid - json.power.toGrid,
+      json.power.currentUsage
+    ]
   );
 }
 
