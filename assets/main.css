@@ -1,0 +1,86 @@
+html, body {
+  font-family: sans-serif;
+  padding: 0;
+  line-height: 1.2;
+}
+body {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgba(0, 0, 0, .6);
+}
+.diagram {
+  display: grid;
+  grid-template-columns: repeat(5, 5fr);
+  text-align: center;
+  align-items: center;
+}
+.diagram > div {
+  box-sizing: border-box;
+  padding: 16px;
+}
+.diagram > div > * {
+  display: block;
+}
+#house::before, #roof::before, #battery::before, #grid::before {
+  content: '';
+  display: block;
+  width: 48px;
+  height: 48px;
+  margin: 0 auto 8px;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+#house::before {
+  background-image: url(./icons8-house-96.png);
+}
+#roof::before {
+  background-image: url(./icons8-solar-96.png);
+}
+#battery::before {
+  background-image: url(./icons8-battery-96.png);
+}
+#grid::before {
+  background-image: url(./icons8-electricity-96.png);
+}
+.arrow {
+  font-size: 0;
+  width: 48px;
+  height: 48px;
+  margin: auto;
+  background-position: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+.arrow-left,
+.arrow-bottom-left,
+.arrow-down,
+.arrow-bottom-right,
+.arrow-right,
+.arrow-top-right,
+.arrow-up ,
+.arrow-top-left {
+  background-image: url(./icons8-arrow-96.png);
+}
+.arrow-left {
+  rotate: 270deg;
+}
+.arrow-bottom-left {
+  rotate: 225deg;
+}
+.arrow-down {
+  rotate: 180deg;
+}
+.arrow-bottom-right {
+  rotate: 135deg;
+}
+.arrow-right {
+  rotate: 90deg;
+}
+.arrow-top-right {
+  rotate: 45deg;
+}
+.arrow-top-left {
+  rotate: 315deg;
+}

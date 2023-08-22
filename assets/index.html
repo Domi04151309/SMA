@@ -1,0 +1,43 @@
+<html lang="de">
+  <head>
+    <title>Solar</title>
+    <link rel="icon" href="./icons8-house-96.png" type="image/png" >
+    <link rel="stylesheet" href="./main.css">
+  </head>
+  <body>
+    <div class="diagram">
+      <div></div>
+      <div></div>
+      <div id="house">
+        <span>?</span>
+        <small>Haus</small>
+      </div>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div id="roof-to-house" class="arrow">Vom Dach zum Hause</div>
+      <div id="battery-to-house" class="arrow">Von der Batterie zum Haus</div>
+      <div id="grid-to-house" class="arrow">Vom Netz zum Haus</div>
+      <div></div>
+      <div id="roof">
+        <span>?</span>
+        <small>Dach</small>
+      </div>
+      <div id="roof-to-battery" class="arrow">Vom Dach zur Batterie</div>
+      <div id="battery">
+        <span>?</span>
+        <small>
+          Batterie<br>
+          <span id="battery-percentage">?</span> % geladen<br>
+          <span id="battery-health">?</span> % Kapazität
+        </small>
+      </div>
+      <div id="battery-to-grid" class="arrow">Von der Batterie ins Netz</div>
+      <div id="grid">
+        <span>?</span>
+        <small>Netz</small>
+      </div>
+    </div>
+    <script src="./index.js" type="module"></script>
+  </body>
+</html>
