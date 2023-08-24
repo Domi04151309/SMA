@@ -77,16 +77,16 @@ footer {
   background-repeat: no-repeat;
 }
 #house::before {
-  background-image: url(./icons8-house-96.png);
+  background-image: url(./images/icons8-house-96.png);
 }
 #roof::before {
-  background-image: url(./icons8-solar-96.png);
+  background-image: url(./images/icons8-solar-96.png);
 }
 #battery::before {
-  background-image: url(./icons8-battery-96.png);
+  background-image: url(./images/icons8-battery-96.png);
 }
 #grid::before {
-  background-image: url(./icons8-electricity-96.png);
+  background-image: url(./images/icons8-electricity-96.png);
 }
 .arrow {
   font-size: 0;
@@ -97,27 +97,11 @@ footer {
   background-size: contain;
   background-repeat: no-repeat;
 }
-.arrow-left,
-.arrow-bottom-left,
-.arrow-down,
-.arrow-bottom-right,
 .arrow-right,
 .arrow-top-right,
 .arrow-up ,
 .arrow-top-left {
-  background-image: url(./icons8-arrow-96.png);
-}
-.arrow-left {
-  rotate: 270deg;
-}
-.arrow-bottom-left {
-  rotate: 225deg;
-}
-.arrow-down {
-  rotate: 180deg;
-}
-.arrow-bottom-right {
-  rotate: 135deg;
+  background-image: url(./images/icons8-arrow-96.png);
 }
 .arrow-right {
   rotate: 90deg;
