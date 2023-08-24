@@ -78,16 +78,17 @@ function showArrow(element, getDirection) {
 async function update() {
   const response = await fetch(API_URL);
   const json = await response.json();
-  house.textContent = json.power.currentUsage + ' W';
-  roof.textContent = json.power.fromRoof + ' W';
-  battery.textContent = json.power.fromBattery + ' W';
+  house.textContent = (json.power.currentUsage ?? '?') + ' W';
+  roof.textContent = (json.power.fromRoof ?? '?') + ' W';
+  battery.textContent = (json.power.fromBattery ?? '?') + ' W';
   grid.textContent = (
     json.power.toGrid > 0
       ? -json.power.toGrid
-      : json.power.fromGrid
+      : json.power.fromGrid ?? '?'
   ) + ' W';
-  batteryPercentage.textContent = json.general.batteryPercentage;
-  batteryHealth.textContent = json.general.batteryCapacityOfOriginalCapacity;
+  batteryPercentage.textContent = json.general.batteryPercentage ?? '?';
+  batteryHealth.textContent = json.general.batteryCapacityOfOriginalCapacity ??
+    '?';
 
   showArrow(
     roofToHouse,
@@ -113,10 +114,10 @@ async function update() {
   chart.addDataPoint(
     new Date().toLocaleTimeString(),
     [
-      json.power.fromRoof,
-      json.power.fromBattery - json.power.toBattery,
-      json.power.fromGrid - json.power.toGrid,
-      json.power.currentUsage
+      json.power.fromRoof ?? 0,
+      (json.power.fromBattery ?? 0) - (json.power.toBattery ?? 0),
+      (json.power.fromGrid ?? 0) - (json.power.toGrid ?? 0),
+      json.power.currentUsage ?? 0
     ]
   );
 }

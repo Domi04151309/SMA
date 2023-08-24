@@ -4,10 +4,19 @@ import { OBJECT_MAP } from './objectmap.js';
 const IP_ADDRESS = '192.168.20.60';
 
 export async function getData() {
-  const response = await fetch(
-    'https://' + IP_ADDRESS + '/dyn/getDashValues.json'
-  );
-  const json = await response.json();
+  let json, response;
+  try {
+    response = await fetch(
+      'https://' + IP_ADDRESS + '/dyn/getDashValues.json'
+    );
+    json = await response.json();
+  } catch {
+    return {
+      energy: {},
+      general: {},
+      power: {}
+    };
+  }
   const filteredJson = Object.fromEntries(
     Object.entries(Object.values(json.result)[0])
       .map(([key, value]) => [key, value['9'][0].val])
