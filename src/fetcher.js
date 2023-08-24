@@ -1,13 +1,12 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 import { OBJECT_MAP } from './objectmap.js';
-
-const IP_ADDRESS = '192.168.20.60';
+import { PLANT_IP_ADDRESS } from './config.js';
 
 export async function getData() {
   let json, response;
   try {
     response = await fetch(
-      'https://' + IP_ADDRESS + '/dyn/getDashValues.json'
+      'https://' + PLANT_IP_ADDRESS + '/dyn/getDashValues.json'
     );
     json = await response.json();
   } catch {

@@ -1,10 +1,8 @@
+import { HISTORY_FILE, PORT } from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import express from 'express';
-import { getData } from './fetcher.js';
+import { getData } from './src/fetcher.js';
 import open from 'open';
-
-const HISTORY_FILE = 'historyData.json';
-const PORT = 3000;
 
 const historyData = [];
 const app = express();
@@ -25,7 +23,7 @@ async function fetchNewData() {
 await fetchNewData();
 setInterval(fetchNewData, 10000);
 
-app.use(express.static('assets'));
+app.use(express.static('public'));
 
 app.get('/api/history', (_, res) => {
   res.set('Access-Control-Allow-Origin', '*');
