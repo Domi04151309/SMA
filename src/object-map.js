@@ -1,4 +1,3 @@
-/* eslint-disable */
 export const OBJECT_MAP = {
     Operation_Health: {
         obj: "6180",

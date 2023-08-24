@@ -5,12 +5,22 @@
     "es2022": true
   },
   "extends": [
-    "eslint:all"
+    "eslint:all",
+    "plugin:array-func/all",
+    "plugin:eslint-comments/recommended",
+    "plugin:import/recommended",
+    "plugin:no-use-extend-native/recommended",
+    "plugin:promise/recommended",
+    "plugin:sonarjs/recommended",
+    "plugin:unicorn/all"
   ],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
   },
+  "ignorePatterns": [
+    "src/object-map.js"
+  ],
   "rules": {
     "array-element-newline": ["error", "consistent"],
     "arrow-parens": ["error", "as-needed"],
@@ -90,6 +100,20 @@
       "error",
       "declaration",
       { "allowArrowFunctions": true }
-    ]
+    ],
+
+    "array-func/prefer-array-from": "off",
+    "eslint-comments/no-unused-disable": "error",
+    "import/no-unresolved": "off",
+    "sonarjs/cognitive-complexity": "off",
+    "unicorn/no-array-callback-reference": "off",
+    "unicorn/no-array-reduce": "off",
+    "unicorn/no-empty-file": "off",
+    "unicorn/no-for-loop": "off",
+    "unicorn/no-negated-condition": "off",
+    "unicorn/no-null": "off",
+    "unicorn/prefer-query-selector": "off",
+    "unicorn/switch-case-braces": "off",
+    "unicorn/prefer-number-properties": "off"
   }
 }

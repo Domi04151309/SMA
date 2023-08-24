@@ -11,11 +11,11 @@ async function fetchLiveData() {
   try {
     const response = await fetch(API_URL + '/now');
     return await response.json();
-  } catch (exception) {
+  } catch (error) {
     clearInterval(interval);
     throw new Error(
       'The backend is currently unreachable!',
-      { cause: exception }
+      { cause: error }
     );
   }
 }
@@ -27,12 +27,8 @@ async function update(data = null) {
   if (data === null) charts.update(json);
 }
 
-async function initialize() {
-  const response = await fetch(API_URL + '/history');
-  const json = await response.json();
-  charts = new Charts(json);
-  await update(json.at(-1));
-  interval = setInterval(update, 10000);
-}
-
-initialize();
+const response = await fetch(API_URL + '/history');
+const json = await response.json();
+charts = new Charts(json);
+await update(json.at(-1));
+interval = setInterval(update, 10_000);

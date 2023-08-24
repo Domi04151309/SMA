@@ -25,7 +25,7 @@ function showArrow(element, getDirection) {
     ]
   ) element.classList.remove(previousDirection);
   const direction = getDirection();
-  if (direction.length !== 0) element.classList.add(getDirection());
+  if (direction.length > 0) element.classList.add(getDirection());
 }
 
 export const PowerSection = {
