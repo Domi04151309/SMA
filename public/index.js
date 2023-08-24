@@ -30,6 +30,7 @@ const energyToGrid = document.getElementById('energy-to-grid');
 
 let historyChart = null;
 let batteryChart = null;
+let interval = null;
 
 function showArrow(element, getDirection) {
   for (
@@ -49,8 +50,16 @@ function showArrow(element, getDirection) {
 }
 
 async function fetchLiveData() {
-  const response = await fetch(API_URL + '/now');
-  return await response.json();
+  try {
+    const response = await fetch(API_URL + '/now');
+    return await response.json();
+  } catch (exception) {
+    clearInterval(interval);
+    throw new Error(
+      'The backend is currently unreachable!',
+      { cause: exception }
+    );
+  }
 }
 
 function updateCharts(json) {
@@ -168,7 +177,7 @@ async function initialize() {
     tooltipOptions: { formatTooltipY: value => value + ' %' }
   });
   await update(json.at(-1));
-  setInterval(update, 10000);
+  interval = setInterval(update, 10000);
 }
 
 initialize();
