@@ -115,7 +115,7 @@ tr:nth-child(even) {
   rotate: 315deg;
 }
 
-#history {
+#history-chart, #battery-chart {
   height: 240px;
   width: 100%;
 }
