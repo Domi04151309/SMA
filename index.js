@@ -1,5 +1,6 @@
 import express from 'express';
 import { getData } from './fetcher.js';
+import open from 'open';
 
 const app = express();
 const port = 3000;
@@ -14,4 +15,5 @@ app.get('/api', async (_, res) => {
 app.listen(port, () => {
   // eslint-disable-next-line no-console
   console.log(`App running at http://localhost:${port}/`);
+  open(`http://localhost:${port}/`);
 });
