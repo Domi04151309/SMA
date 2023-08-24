@@ -1,11 +1,15 @@
+<!DOCTYPE html>
 <html lang="de">
   <head>
-    <title>Solar</title>
+    <title>Echtzeit-Übersicht Solarenergieerzeugung für Zuhause</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Überwachen und optimieren Sie die Erzeugung von Solarenergie für Ihr Zuhause mit unserer umfassenden Datenübersicht. Erhalten Sie Echtzeit-Einblicke in Ihre Solarstromerzeugung.">
+    <meta name="theme-color" content="#ffffff"/>
     <link rel="icon" href="./images/icons8-house-96.png" type="image/png" >
     <link rel="stylesheet" href="./main.css">
   </head>
   <body>
-    <div class="diagram">
+    <div id="diagram">
       <div></div>
       <div></div>
       <div id="house">
@@ -38,7 +42,8 @@
         <small>Netz</small>
       </div>
     </div>
-    <div>
+    <div id="source-chart"></div>
+    <div id="energy">
       <h1>Energie</h1>
       <table>
         <tr>

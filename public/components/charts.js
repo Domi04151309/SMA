@@ -14,6 +14,23 @@ export class Charts {
       lineOptions: { hideDots: 1 },
       type: 'axis-mixed'
     };
+    this.sourceChart = new Chart('#source-chart', {
+      ...commonChartOptions,
+      data: {
+        datasets: [
+          {
+            values: [
+              json.at(-1).energy.fromRoof ?? 0,
+              json.at(-1).energy.fromGrid ?? 0
+            ]
+          }
+        ],
+        labels: ['Vom Dach', 'Vom Netz']
+      },
+      title: 'Quelle',
+      tooltipOptions: { formatTooltipY: value => value + ' Wh' },
+      type: 'pie'
+    });
     this.historyChart = new Chart('#history-chart', {
       ...commonChartOptions,
       data: {
