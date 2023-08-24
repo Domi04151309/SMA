@@ -25,6 +25,9 @@ h1, h2, h3, h4, h5, h6, th {
   font-weight: normal;
   color: var(--text-color-primary);
 }
+h1 {
+  font-size: 1.5em;
+}
 table {
   border-collapse: collapse;
   border-spacing: 0;
@@ -38,6 +41,17 @@ th, td {
 tr:nth-child(even) {
   background-color: #f2f2f2;
 }
+footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  padding: 32px;
+  text-align: center;
+  width: 100%;
+  font-size: 12px;
+  box-sizing: border-box;
+}
+
 .diagram {
   display: grid;
   grid-template-columns: repeat(5, 5fr);

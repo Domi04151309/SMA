@@ -1,5 +1,5 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
-import { OBJECT_MAP } from './objectmap.js';
+import { OBJECT_MAP } from './object-map.js';
 import { PLANT_IP_ADDRESS } from './config.js';
 
 export async function getData() {

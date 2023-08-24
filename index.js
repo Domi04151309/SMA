@@ -16,7 +16,7 @@ try {
 }
 
 async function fetchNewData() {
-  while (historyData.length > 8_640) historyData.pop();
+  while (historyData.length > 8_640) historyData.shift();
   historyData.push(await getData());
 }
 
