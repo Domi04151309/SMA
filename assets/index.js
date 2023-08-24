@@ -13,10 +13,10 @@ const ARROW_TOP_RIGHT = 'arrow-top-right';
 const ARROW_UP = 'arrow-up';
 const ARROW_TOP_LEFT = 'arrow-top-left';
 
-const house = document.querySelector('#house > span');
-const roof = document.querySelector('#roof > span');
-const battery = document.querySelector('#battery > span');
-const grid = document.querySelector('#grid > span');
+const house = document.querySelector('#house span');
+const roof = document.querySelector('#roof span');
+const battery = document.querySelector('#battery span');
+const grid = document.querySelector('#grid span');
 const roofToHouse = document.getElementById('roof-to-house');
 const batteryToHouse = document.getElementById('battery-to-house');
 const gridToHouse = document.getElementById('grid-to-house');
@@ -54,14 +54,12 @@ async function fetchLiveData() {
 
 async function update(data = null) {
   const json = data ?? await fetchLiveData();
-  house.textContent = (json.power.currentUsage ?? '?') + ' W';
-  roof.textContent = (json.power.fromRoof ?? '?') + ' W';
-  battery.textContent = (json.power.fromBattery ?? '?') + ' W';
-  grid.textContent = (
-    json.power.toGrid > 0
-      ? -json.power.toGrid
-      : json.power.fromGrid ?? '?'
-  ) + ' W';
+  house.textContent = json.power.currentUsage ?? '?';
+  roof.textContent = json.power.fromRoof ?? '?';
+  battery.textContent = json.power.fromBattery ?? '?';
+  grid.textContent = json.power.toGrid > 0
+    ? -json.power.toGrid
+    : json.power.fromGrid ?? '?';
   batteryPercentage.textContent = json.general.batteryPercentage ?? '?';
   batteryHealth.textContent = json.general.batteryCapacityOfOriginalCapacity ??
     '?';
