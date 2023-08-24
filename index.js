@@ -2,6 +2,7 @@ import { HISTORY_FILE, PERSISTENT_HISTORY, PORT } from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 import compression from 'compression';
 import express from 'express';
+import { fileURLToPath } from 'node:url';
 import { getData } from './src/fetcher.js';
 import open from 'open';
 
@@ -49,13 +50,15 @@ app.get('/api/now', (_, res) => {
   res.send(historyData.at(-1));
 });
 
-app.use((req, res) => {
-  res.status(404).send('Not Found');
-});
-
-app.use((err, req, res) => {
-  console.error(err.stack);
-  res.status(500).send('Internal Server Error');
+app.get('/frappe-charts.js', (req, res) => {
+  res.sendFile(
+    fileURLToPath(
+      new URL(
+        './node_modules/frappe-charts/dist/frappe-charts.min.esm.js',
+        import.meta.url
+      )
+    )
+  );
 });
 
 app.listen(PORT, () => {

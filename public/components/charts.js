@@ -1,6 +1,6 @@
 import {
   Chart
-} from 'https://unpkg.com/frappe-charts@1.6.1/dist/frappe-charts.min.esm.js';
+} from '../frappe-charts.js';
 
 export class Charts {
   constructor(json) {
