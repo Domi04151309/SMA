@@ -1,5 +1,6 @@
 import { HISTORY_FILE, PERSISTENT_HISTORY, PORT } from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'fs';
+import compression from 'compression';
 import express from 'express';
 import { getData } from './src/fetcher.js';
 import open from 'open';
@@ -34,6 +35,8 @@ if (PERSISTENT_HISTORY) {
 await fetchNewData();
 setInterval(fetchNewData, 10000);
 
+app.disable('x-powered-by');
+app.use(compression());
 app.use(express.static('public'));
 
 app.get('/api/history', (_, res) => {
@@ -44,6 +47,15 @@ app.get('/api/history', (_, res) => {
 app.get('/api/now', (_, res) => {
   res.set('Access-Control-Allow-Origin', '*');
   res.send(historyData.at(-1));
+});
+
+app.use((req, res) => {
+  res.status(404).send('Not Found');
+});
+
+app.use((err, req, res) => {
+  console.error(err.stack);
+  res.status(500).send('Internal Server Error');
 });
 
 app.listen(PORT, () => {
