@@ -20,14 +20,11 @@ export async function getData() {
   const filteredJson = Object.fromEntries(
     Object.entries(Object.values(json.result)[0])
       .map(([key, value]) => [key, value['9'][0].val])
-      // eslint-disable-next-line no-unused-vars
-      .filter(([_, value]) => typeof value === 'number')
+      .filter(pair => typeof pair[1] === 'number')
   );
   const mappedJson = Object.fromEntries(
     Object.entries(OBJECT_MAP)
       .map(([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]])
-      // eslint-disable-next-line no-unused-vars, no-undefined
-      .filter(([_, value]) => value !== undefined)
   );
   return {
     energy: {
