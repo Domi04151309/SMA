@@ -24,6 +24,9 @@ const roofToBattery = document.getElementById('roof-to-battery');
 const batteryToGrid = document.getElementById('battery-to-grid');
 const batteryPercentage = document.getElementById('battery-percentage');
 const batteryHealth = document.getElementById('battery-health');
+const energyFromRoof = document.getElementById('energy-from-roof');
+const energyFromGrid = document.getElementById('energy-from-grid');
+const energyToGrid = document.getElementById('energy-to-grid');
 
 let chart = null;
 
@@ -93,6 +96,10 @@ async function update(data = null) {
       json.power.currentUsage ?? 0
     ]
   );
+
+  energyFromRoof.textContent = json.energy.fromRoof ?? '?';
+  energyFromGrid.textContent = json.energy.fromGrid ?? '?';
+  energyToGrid.textContent = json.energy.ToGrid ?? '?';
 }
 
 async function initialize() {

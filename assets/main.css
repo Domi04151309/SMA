@@ -1,3 +1,7 @@
+:root {
+  --text-color-primary: rgba(0, 0, 0, .87);
+  --text-color-secondary: rgba(0, 0, 0, .6);
+}
 html, body {
   font-family: sans-serif;
   margin: 0;
@@ -5,19 +9,41 @@ html, body {
   line-height: 1.2;
 }
 body {
-  display: flex;
-  height: calc(100vh - 32px);
-  padding: 16px;
+  display: grid;
+  height: calc(100% - 64px);
+  padding: 32px;
+  gap: 32px;
+  grid-template-columns: repeat(2, 2fr);
+  color: var(--text-color-secondary);
+  justify-content: center;
   align-items: center;
-  justify-content: space-evenly;
-  flex-direction: column;
-  color: rgba(0, 0, 0, .6);
+}
+body > * {
+  overflow: hidden;
+}
+h1, h2, h3, h4, h5, h6, th {
+  font-weight: normal;
+  color: var(--text-color-primary);
+}
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+tr:nth-child(even) {
+  background-color: #f2f2f2;
 }
 .diagram {
   display: grid;
   grid-template-columns: repeat(5, 5fr);
   text-align: center;
-  align-items: center;
+  width: fit-content;
+  margin: auto;
 }
 .diagram > div {
   box-sizing: border-box;
