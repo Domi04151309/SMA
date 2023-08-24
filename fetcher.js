@@ -14,7 +14,8 @@ export async function getData() {
     return {
       energy: {},
       general: {},
-      power: {}
+      power: {},
+      timestamp: Date.now()
     };
   }
   const filteredJson = Object.fromEntries(
@@ -47,6 +48,7 @@ export async function getData() {
       fromRoof: mappedJson.PvGen_PvW,
       toBattery: mappedJson.Battery_CurrentCharging,
       toGrid: mappedJson.Metering_GridMs_TotWOut
-    }
+    },
+    timestamp: Date.now()
   };
 }
