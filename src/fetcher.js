@@ -16,8 +16,8 @@ function subtractIfNumber(object, propertyName, value) {
 
 const strings = {};
 
-/* eslint-disable no-await-in-loop */
 export async function getData() {
+  // Prepare result
   const result = {
     energy: {
       batteryCapacity: 0,
@@ -39,25 +39,42 @@ export async function getData() {
     },
     timestamp: Date.now()
   };
-  let mappedJson = null;
+
+  // Dispatch fetch requests
+  const dataRequests = [];
+  const translationRequests = [];
   for (const address of PLANT_IP_ADDRESSES) {
-    let json;
-    try {
-      let response = await fetch(
-        'https://' + address + '/dyn/getDashValues.json'
-      );
-      json = await response.json();
-      if (!(address in strings)) {
-        response = await fetch(
-          'https://' + address + '/data/l10n/de-DE.json'
-        );
-        // eslint-disable-next-line require-atomic-updates
-        strings[address] = await response.json();
-      }
-    } catch {
-      console.warn('Failed fetching data from ' + address);
-      continue;
-    }
+    dataRequests.push(fetch(
+      'https://' + address + '/dyn/getDashValues.json'
+    ));
+    if (!(address in strings)) translationRequests.push(fetch(
+      'https://' + address + '/data/l10n/de-DE.json'
+    ));
+  }
+
+  // Convert responses to JSON
+  const dataParserPromises = [];
+  const translationParserPromises = [];
+  for (
+    const response of await Promise.all(dataRequests)
+  ) dataParserPromises.push(response.json());
+  for (
+    const response of await Promise.all(translationRequests)
+  ) translationParserPromises.push(response.json());
+
+  // Save translations
+  const translationParsers = await Promise.all(translationParserPromises);
+  for (
+    const [index, json] of translationParsers.entries()
+  ) strings[index] = json;
+
+  // Format data
+  const debugInfo = PRINT_DEBUG_INFO
+    ? Object.fromEntries(Object.keys(OBJECT_MAP).map(key => [key, []]))
+    : null;
+  let mappedJson = null;
+  const dataParsers = await Promise.all(dataParserPromises);
+  for (const [index, json] of dataParsers.entries()) {
     const filteredJson = Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
         .map(([key, value]) => [key, Object.values(value)[0][0].val])
@@ -65,7 +82,7 @@ export async function getData() {
           entry => [
             entry[0],
             typeof entry[1] === 'object' && entry[1] !== null
-              ? strings[address][entry[1][0].tag]
+              ? strings[index][entry[1][0].tag]
               : entry[1]
           ]
         )
@@ -74,10 +91,9 @@ export async function getData() {
       Object.entries(OBJECT_MAP)
         .map(([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]])
     );
-    // eslint-disable-next-line no-console
-    if (PRINT_DEBUG_INFO) console.table(
-      Object.fromEntries(Object.entries(mappedJson).filter(item => item[1]))
-    );
+    if (PRINT_DEBUG_INFO) for (
+      const [key, value] of Object.entries(mappedJson)
+    ) debugInfo[key].push(value);
     addIfNumber(result.energy, 'batteryCapacity', mappedJson.Bat_CapacRtgWh);
     setIfNumber(result.energy, 'fromGrid', mappedJson.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', mappedJson.Metering_PvGen_PvWh);
@@ -104,6 +120,11 @@ export async function getData() {
     'currentUsage',
     mappedJson.Metering_GridMs_TotWOut
   );
+  // eslint-disable-next-line no-console
+  if (PRINT_DEBUG_INFO) console.table(
+    Object.fromEntries(
+      Object.entries(debugInfo).filter(entry => entry[1].some(Boolean))
+    )
+  );
   return result;
 }
-/* eslint-enable no-await-in-loop */
