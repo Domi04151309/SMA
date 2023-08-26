@@ -64,7 +64,9 @@ export const PowerSection = {
       () => {
         if (json.power.toBattery > 0) return ARROW_RIGHT;
         else if (
-          json.power.fromRoof + json.power.fromBattery > json.power.currentUsage
+          json.power.fromRoof + json.power.fromBattery >
+            json.power.currentUsage &&
+          json.power.toGrid > 0
         ) return ARROW_MINUS;
         return '';
       }

@@ -9,7 +9,10 @@ export class Charts {
         xAxisMode: 'tick',
         xIsSeries: 1
       },
-      barOptions: { stacked: 1 },
+      barOptions: {
+        spaceRatio: 0.1,
+        stacked: 1
+      },
       colors: ['#651FFF', '#2979FF', '#00E5FF', '#76FF03'],
       height: 240,
       lineOptions: { hideDots: 1 },
@@ -83,6 +86,10 @@ export class Charts {
           { label: 'Leer', value: 0 },
           { label: 'Voll', value: 100 }
         ]
+      },
+      lineOptions: {
+        hideDots: 1,
+        regionFill: 1
       },
       title: 'Batterie',
       tooltipOptions: { formatTooltipY: value => value + ' %' }
