@@ -1,4 +1,5 @@
 import { Charts } from './components/charts.js';
+import { Devices } from './components/devices.js';
 import { EnergySection } from './components/energy-section.js';
 import { PowerSection } from './components/power-section.js';
 
@@ -27,8 +28,11 @@ async function update(data = null) {
   if (data === null) charts.update(json);
 }
 
-const response = await fetch(API_URL + '/history');
-const json = await response.json();
+let response = await fetch(API_URL + '/history');
+let json = await response.json();
 charts = new Charts(json);
 await update(json.at(-1));
+response = await fetch(API_URL + '/devices');
+json = await response.json();
+Devices.update(json);
 interval = setInterval(update, 10_000);

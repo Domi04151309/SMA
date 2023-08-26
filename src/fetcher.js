@@ -16,7 +16,7 @@ function subtractIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] -= value;
 }
 
-async function fetchDeviceData() {
+export async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
   const translationRequests = [];
@@ -99,7 +99,21 @@ async function fetchDeviceData() {
   return result;
 }
 
-export async function getLiveData() {
+export async function getDevices(prefetched = null) {
+  const devices = prefetched ?? await fetchDeviceData();
+  const result = [];
+  for (const [index, device] of devices.entries()) result.push({
+    address: PLANT_IP_ADDRESSES[index],
+    mode: device.Operation_RunStt,
+    model: device.Name_Model,
+    status: device.Operation_Health,
+    vendor: device.Name_Vendor
+  });
+  return result;
+}
+
+export async function getLiveData(prefetched = null) {
+  const devices = prefetched ?? await fetchDeviceData();
   const result = {
     energy: {
       batteryCapacity: 0,
@@ -122,7 +136,7 @@ export async function getLiveData() {
     timestamp: Date.now()
   };
   let device = null;
-  for (device of await fetchDeviceData()) {
+  for (device of devices) {
     addIfNumber(result.energy, 'batteryCapacity', device.Bat_CapacRtgWh);
     setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);

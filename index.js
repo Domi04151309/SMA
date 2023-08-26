@@ -1,10 +1,12 @@
 import { HISTORY_FILE, PERSISTENT_HISTORY, PORT } from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { fetchDeviceData, getDevices, getLiveData } from './src/fetcher.js';
 import compression from 'compression';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
-import { getLiveData } from './src/fetcher.js';
 import open from 'open';
+
+const ACCESS_CONTROL_ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
 
 const historyData = [];
 const app = express();
@@ -15,9 +17,9 @@ function exitHandler(options) {
   if (options.exit) process.exit();
 }
 
-async function fetchNewData() {
+async function fetchNewData(prefetched = null) {
   while (historyData.length > 8640) historyData.shift();
-  historyData.push(await getLiveData());
+  historyData.push(await getLiveData(prefetched));
 }
 
 if (PERSISTENT_HISTORY) {
@@ -34,7 +36,9 @@ if (PERSISTENT_HISTORY) {
   process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
 }
 
-await fetchNewData();
+const deviceData = await fetchDeviceData();
+const devices = await getDevices(deviceData);
+await fetchNewData(deviceData);
 setInterval(fetchNewData, 10_000);
 
 app.disable('x-powered-by');
@@ -42,13 +46,18 @@ app.use(compression());
 app.use(express.static('public'));
 
 app.get('/api/history', (_, response) => {
-  response.set('Access-Control-Allow-Origin', '*');
+  response.set(ACCESS_CONTROL_ALLOW_ORIGIN, '*');
   response.send(historyData);
 });
 
 app.get('/api/now', (_, response) => {
-  response.set('Access-Control-Allow-Origin', '*');
+  response.set(ACCESS_CONTROL_ALLOW_ORIGIN, '*');
   response.send(historyData.at(-1));
+});
+
+app.get('/api/devices', (_, response) => {
+  response.set(ACCESS_CONTROL_ALLOW_ORIGIN, '*');
+  response.send(devices);
 });
 
 app.get('/frappe-charts.js', (_, response) => {

@@ -9,24 +9,27 @@ html, body {
   line-height: 1.5;
 }
 body {
+  padding: 16px;
+  color: var(--text-color-secondary);
+}
+.main-grid {
   display: grid;
   min-height: calc(100vh - 64px);
-  padding: 16px;
   gap: 16px;
   grid-template-columns: repeat(1, 1fr);
-  color: var(--text-color-secondary);
   justify-content: center;
   align-items: center;
 }
-body > * {
+.main-grid > * {
   overflow: hidden;
 }
 h1, h2, h3, h4, h5, h6, th {
   font-weight: normal;
   color: var(--text-color-primary);
 }
-h1 {
-  font-size: 1.5em;
+h1, text {
+  font-size: 12px;
+  color: var(--text-color-secondary);
 }
 table {
   border-collapse: collapse;
@@ -42,12 +45,8 @@ tr:nth-child(even) {
   background-color: #f2f2f2;
 }
 footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
   padding: 32px;
   text-align: center;
-  width: 100%;
   font-size: 12px;
   box-sizing: border-box;
 }
@@ -117,12 +116,19 @@ footer {
   background-image: url(./images/icons8-minus-96.png);
 }
 
-#energy {
+#energy, #devices {
   padding: 10px 20px;
 }
-#energy > h1, text {
-  font-size: 12px;
-  color: var(--text-color-secondary);
+#devices tr:not(:first-child) {
+  display: block;
+  padding: 16px;
+}
+#devices th, #devices .icon {
+  display: none;
+}
+#devices td {
+  display: block;
+  padding: 0;
 }
 
 #source-chart, #history-chart, #battery-chart {
@@ -131,9 +137,28 @@ footer {
 }
 
 @media (min-width: 1080px) {
-  body {
+  .main-grid {
     grid-template-columns: repeat(2, 2fr);
     padding: 32px;
     gap: 32px;
+  }
+  #devices {
+    grid-column: span 2;
+  }
+  #devices tr:not(:first-child) {
+    display: table-row;
+    padding: 0;
+  }
+  #devices th {
+    display: table-cell;
+  }
+  #devices td, #devices .icon {
+    display: table-cell;
+    padding: 16px;
+  }
+  #devices .icon {
+    background: url(./images/icons8-dynamo-96.png) no-repeat;
+    background-position: center;
+    background-size: 2em;
   }
 }

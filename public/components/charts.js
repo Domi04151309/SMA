@@ -34,7 +34,7 @@ export class Charts {
       },
       title: 'Quelle genutzter Energie',
       tooltipOptions: {
-        formatTooltipY: value => value.toLocaleString('de') + ' Wh'
+        formatTooltipY: value => value?.toLocaleString('de') + ' Wh'
       },
       type: 'pie'
     });
@@ -68,7 +68,7 @@ export class Charts {
       },
       title: 'Leistung',
       tooltipOptions: {
-        formatTooltipY: value => value.toLocaleString('de') + ' W'
+        formatTooltipY: value => value?.toLocaleString('de') + ' W'
       }
     });
     this.batteryChart = new Chart('#battery-chart', {
