@@ -2,6 +2,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 import { PLANT_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 
+const strings = {};
+
 function setIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] = value;
 }
@@ -14,32 +16,7 @@ function subtractIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] -= value;
 }
 
-const strings = {};
-
-export async function getData() {
-  // Prepare result
-  const result = {
-    energy: {
-      batteryCapacity: 0,
-      fromGrid: 0,
-      fromRoof: 0,
-      toGrid: 0
-    },
-    general: {
-      batteryCapacityOfOriginalCapacity: null,
-      batteryPercentage: null
-    },
-    power: {
-      currentUsage: 0,
-      fromBattery: 0,
-      fromGrid: 0,
-      fromRoof: 0,
-      toBattery: 0,
-      toGrid: 0
-    },
-    timestamp: Date.now()
-  };
-
+async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
   const translationRequests = [];
@@ -91,7 +68,7 @@ export async function getData() {
   } catch (error) {
     console.error('Failed parsing data:', error.message);
   }
-  for (const [index, json] of dataParsers.entries()) {
+  const result = [...dataParsers.entries()].map(([index, json]) => {
     const filteredJson = Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
         .map(([key, value]) => [key, Object.values(value)[0][0].val])
@@ -111,37 +88,66 @@ export async function getData() {
     if (PRINT_DEBUG_INFO) for (
       const [key, value] of Object.entries(mappedJson)
     ) debugInfo[key].push(value);
-    addIfNumber(result.energy, 'batteryCapacity', mappedJson.Bat_CapacRtgWh);
-    setIfNumber(result.energy, 'fromGrid', mappedJson.Metering_GridMs_TotWhIn);
-    addIfNumber(result.energy, 'fromRoof', mappedJson.Metering_PvGen_PvWh);
-    addIfNumber(result.energy, 'toGrid', mappedJson.Metering_TotWhOut);
-    setIfNumber(
-      result.general,
-      'batteryCapacityOfOriginalCapacity',
-      mappedJson.Bat_Diag_ActlCapacNom
-    );
-    setIfNumber(result.general, 'batteryPercentage', mappedJson.Battery_ChaStt);
-    addIfNumber(
-      result.power,
-      'fromBattery',
-      mappedJson.Battery_CurrentDischarging
-    );
-    addIfNumber(result.power, 'currentUsage', mappedJson.GridMs_TotW_Cur);
-    addIfNumber(result.power, 'fromGrid', mappedJson.Metering_GridMs_TotWIn);
-    addIfNumber(result.power, 'fromRoof', mappedJson.PvGen_PvW);
-    addIfNumber(result.power, 'toBattery', mappedJson.Battery_CurrentCharging);
-    setIfNumber(result.power, 'toGrid', mappedJson.Metering_GridMs_TotWOut);
-  }
-  subtractIfNumber(
-    result.power,
-    'currentUsage',
-    mappedJson?.Metering_GridMs_TotWOut
-  );
+    return mappedJson;
+  });
   // eslint-disable-next-line no-console
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
       Object.entries(debugInfo).filter(entry => entry[1].some(Boolean))
     )
+  );
+  return result;
+}
+
+export async function getLiveData() {
+  const result = {
+    energy: {
+      batteryCapacity: 0,
+      fromGrid: 0,
+      fromRoof: 0,
+      toGrid: 0
+    },
+    general: {
+      batteryCapacityOfOriginalCapacity: null,
+      batteryPercentage: null
+    },
+    power: {
+      currentUsage: 0,
+      fromBattery: 0,
+      fromGrid: 0,
+      fromRoof: 0,
+      toBattery: 0,
+      toGrid: 0
+    },
+    timestamp: Date.now()
+  };
+  let device = null;
+  for (device of await fetchDeviceData()) {
+    addIfNumber(result.energy, 'batteryCapacity', device.Bat_CapacRtgWh);
+    setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
+    addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);
+    addIfNumber(result.energy, 'toGrid', device.Metering_TotWhOut);
+    setIfNumber(
+      result.general,
+      'batteryCapacityOfOriginalCapacity',
+      device.Bat_Diag_ActlCapacNom
+    );
+    setIfNumber(result.general, 'batteryPercentage', device.Battery_ChaStt);
+    addIfNumber(
+      result.power,
+      'fromBattery',
+      device.Battery_CurrentDischarging
+    );
+    addIfNumber(result.power, 'currentUsage', device.GridMs_TotW_Cur);
+    addIfNumber(result.power, 'fromGrid', device.Metering_GridMs_TotWIn);
+    addIfNumber(result.power, 'fromRoof', device.PvGen_PvW);
+    addIfNumber(result.power, 'toBattery', device.Battery_CurrentCharging);
+    setIfNumber(result.power, 'toGrid', device.Metering_GridMs_TotWOut);
+  }
+  subtractIfNumber(
+    result.power,
+    'currentUsage',
+    device?.Metering_GridMs_TotWOut
   );
   return result;
 }

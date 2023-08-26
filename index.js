@@ -3,7 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import compression from 'compression';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
-import { getData } from './src/fetcher.js';
+import { getLiveData } from './src/fetcher.js';
 import open from 'open';
 
 const historyData = [];
@@ -17,7 +17,7 @@ function exitHandler(options) {
 
 async function fetchNewData() {
   while (historyData.length > 8640) historyData.shift();
-  historyData.push(await getData());
+  historyData.push(await getLiveData());
 }
 
 if (PERSISTENT_HISTORY) {
