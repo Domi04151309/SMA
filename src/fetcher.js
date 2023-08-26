@@ -55,25 +55,42 @@ export async function getData() {
   // Convert responses to JSON
   const dataParserPromises = [];
   const translationParserPromises = [];
-  for (
-    const response of await Promise.all(dataRequests)
-  ) dataParserPromises.push(response.json());
-  for (
-    const response of await Promise.all(translationRequests)
-  ) translationParserPromises.push(response.json());
+  try {
+    for (
+      const response of await Promise.all(dataRequests)
+    ) dataParserPromises.push(response.json());
+  } catch (error) {
+    console.error('Failed fetching data:', error.message);
+  }
+  try {
+    for (
+      const response of await Promise.all(translationRequests)
+    ) translationParserPromises.push(response.json());
+  } catch (error) {
+    console.error('Failed fetching translation:', error.message);
+  }
 
   // Save translations
-  const translationParsers = await Promise.all(translationParserPromises);
-  for (
-    const [index, json] of translationParsers.entries()
-  ) strings[index] = json;
+  try {
+    const translationParsers = await Promise.all(translationParserPromises);
+    for (
+      const [index, json] of translationParsers.entries()
+    ) strings[index] = json;
+  } catch (error) {
+    console.error('Failed parsing translation:', error.message);
+  }
 
   // Format data
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(Object.keys(OBJECT_MAP).map(key => [key, []]))
     : null;
   let mappedJson = null;
-  const dataParsers = await Promise.all(dataParserPromises);
+  const dataParsers = [];
+  try {
+    dataParsers.push(...await Promise.all(dataParserPromises));
+  } catch (error) {
+    console.error('Failed parsing data:', error.message);
+  }
   for (const [index, json] of dataParsers.entries()) {
     const filteredJson = Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
@@ -118,7 +135,7 @@ export async function getData() {
   subtractIfNumber(
     result.power,
     'currentUsage',
-    mappedJson.Metering_GridMs_TotWOut
+    mappedJson?.Metering_GridMs_TotWOut
   );
   // eslint-disable-next-line no-console
   if (PRINT_DEBUG_INFO) console.table(
