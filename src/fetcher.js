@@ -14,6 +14,8 @@ function subtractIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] -= value;
 }
 
+const strings = {};
+
 /* eslint-disable no-await-in-loop */
 export async function getData() {
   const result = {
@@ -39,12 +41,19 @@ export async function getData() {
   };
   let mappedJson = null;
   for (const address of PLANT_IP_ADDRESSES) {
-    let json, response;
+    let json;
     try {
-      response = await fetch(
+      let response = await fetch(
         'https://' + address + '/dyn/getDashValues.json'
       );
       json = await response.json();
+      if (!(address in strings)) {
+        response = await fetch(
+          'https://' + address + '/data/l10n/de-DE.json'
+        );
+        // eslint-disable-next-line require-atomic-updates
+        strings[address] = await response.json();
+      }
     } catch {
       console.warn('Failed fetching data from ' + address);
       continue;
@@ -52,7 +61,14 @@ export async function getData() {
     const filteredJson = Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
         .map(([key, value]) => [key, Object.values(value)[0][0].val])
-        .filter(pair => typeof pair[1] === 'number')
+        .map(
+          entry => [
+            entry[0],
+            typeof entry[1] === 'object' && entry[1] !== null
+              ? strings[address][entry[1][0].tag]
+              : entry[1]
+          ]
+        )
     );
     mappedJson = Object.fromEntries(
       Object.entries(OBJECT_MAP)
