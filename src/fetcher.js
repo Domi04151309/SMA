@@ -153,6 +153,7 @@ export async function getLiveData(prefetched = null) {
       device.Battery_CurrentDischarging
     );
     addIfNumber(result.power, 'currentUsage', device.GridMs_TotW_Cur);
+    addIfNumber(result.power, 'currentUsage', device.Metering_GridMs_TotWIn);
     addIfNumber(result.power, 'fromGrid', device.Metering_GridMs_TotWIn);
     addIfNumber(result.power, 'fromRoof', device.PvGen_PvW);
     addIfNumber(result.power, 'toBattery', device.Battery_CurrentCharging);

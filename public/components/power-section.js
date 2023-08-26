@@ -66,7 +66,8 @@ export const PowerSection = {
         else if (
           json.power.fromRoof + json.power.fromBattery >
             json.power.currentUsage &&
-          json.power.toGrid > 0
+          json.power.toGrid > 0 &&
+          json.power.fromRoof
         ) return ARROW_MINUS;
         return '';
       }
