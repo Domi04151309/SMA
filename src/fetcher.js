@@ -2,6 +2,8 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 import { PLANT_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 
+const FULFILLED = 'fulfilled';
+
 const strings = {};
 
 function setIfNumber(object, propertyName, value) {
@@ -20,11 +22,11 @@ export async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
   const translationRequests = [];
-  for (const address of PLANT_IP_ADDRESSES) {
+  for (const [index, address] of PLANT_IP_ADDRESSES.entries()) {
     dataRequests.push(fetch(
       'https://' + address + '/dyn/getDashValues.json'
     ));
-    if (!(address in strings)) translationRequests.push(fetch(
+    if (!(index in strings)) translationRequests.push(fetch(
       'https://' + address + '/data/l10n/de-DE.json'
     ));
   }
@@ -32,43 +34,46 @@ export async function fetchDeviceData() {
   // Convert responses to JSON
   const dataParserPromises = [];
   const translationParserPromises = [];
-  try {
-    for (
-      const response of await Promise.all(dataRequests)
-    ) dataParserPromises.push(response.json());
-  } catch (error) {
-    console.error('Failed fetching data:', error.message);
-  }
-  try {
-    for (
-      const response of await Promise.all(translationRequests)
-    ) translationParserPromises.push(response.json());
-  } catch (error) {
-    console.error('Failed fetching translation:', error.message);
-  }
+  for (
+    const response of await Promise.allSettled(dataRequests)
+  ) if (
+    response.status === FULFILLED
+  ) dataParserPromises.push(response.value.json());
+  else console.error('Failed fetching data:', response.reason);
+  for (
+    const response of await Promise.allSettled(translationRequests)
+  ) if (
+    response.status === FULFILLED
+  ) translationParserPromises.push(response.value.json());
+  else console.error('Failed fetching translation:', response.reason);
 
   // Save translations
-  try {
-    const translationParsers = await Promise.all(translationParserPromises);
-    for (
-      const [index, json] of translationParsers.entries()
-    ) strings[index] = json;
-  } catch (error) {
-    console.error('Failed parsing translation:', error.message);
-  }
+  const translationParsers = await Promise.allSettled(
+    translationParserPromises
+  );
+  for (
+    const [index, json] of translationParsers.entries()
+  ) if (
+    json.status === FULFILLED
+  ) strings[index] = json.value;
+  else console.error('Failed fetching translation:', json.reason);
 
   // Format data
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(Object.keys(OBJECT_MAP).map(key => [key, []]))
     : null;
   let mappedJson = null;
-  const dataParsers = [];
-  try {
-    dataParsers.push(...await Promise.all(dataParserPromises));
-  } catch (error) {
-    console.error('Failed parsing data:', error.message);
-  }
-  const result = [...dataParsers.entries()].map(([index, json]) => {
+  const dataParsers = await Promise.allSettled(dataParserPromises);
+  const result = [
+    ...dataParsers
+      .filter(promise => {
+        if (promise.status === FULFILLED) return true;
+        console.error('Failed parsing data:', promise.reason);
+        return false;
+      })
+      .map(promise => promise.value)
+      .entries()
+  ].map(([index, json]) => {
     const filteredJson = Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
         .map(([key, value]) => [key, Object.values(value)[0][0].val])
