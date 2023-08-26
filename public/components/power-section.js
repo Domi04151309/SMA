@@ -2,6 +2,7 @@ const ARROW_RIGHT = 'arrow-right';
 const ARROW_TOP_RIGHT = 'arrow-top-right';
 const ARROW_UP = 'arrow-up';
 const ARROW_TOP_LEFT = 'arrow-top-left';
+const ARROW_MINUS = 'arrow-minus';
 
 const house = document.querySelector('#house span');
 const roof = document.querySelector('#roof span');
@@ -21,7 +22,8 @@ function showArrow(element, getDirection) {
       ARROW_RIGHT,
       ARROW_TOP_RIGHT,
       ARROW_UP,
-      ARROW_TOP_LEFT
+      ARROW_TOP_LEFT,
+      ARROW_MINUS
     ]
   ) element.classList.remove(previousDirection);
   const direction = getDirection();
@@ -30,19 +32,24 @@ function showArrow(element, getDirection) {
 
 export const PowerSection = {
   update(json) {
-    house.textContent = json.power.currentUsage ?? '?';
-    roof.textContent = json.power.fromRoof ?? '?';
-    battery.textContent = json.power.fromBattery ?? '?';
+    house.textContent = json.power.currentUsage
+      ?.toLocaleString('de') ?? '?';
+    roof.textContent = json.power.fromRoof
+      ?.toLocaleString('de') ?? '?';
+    battery.textContent = json.power.fromBattery
+      ?.toLocaleString('de') ?? '?';
     grid.textContent = json.power.toGrid > 0
-      ? -json.power.toGrid
-      : json.power.fromGrid ?? '?';
+      ? -json.power.toGrid?.toLocaleString('de')
+      : json.power.fromGrid?.toLocaleString('de') ?? '?';
     batteryPercentage.textContent = json.general.batteryPercentage ?? '?';
     batteryHealth.textContent = json.general
       .batteryCapacityOfOriginalCapacity ?? '?';
 
     showArrow(
       roofToHouse,
-      () => json.power.fromRoof > 0 ? ARROW_TOP_RIGHT : ''
+      () => json.power.fromRoof > 0 && json.power.currentUsage > 0
+        ? ARROW_TOP_RIGHT
+        : ''
     );
     showArrow(
       batteryToHouse,
@@ -54,7 +61,13 @@ export const PowerSection = {
     );
     showArrow(
       roofToBattery,
-      () => json.power.toBattery > 0 ? ARROW_RIGHT : ''
+      () => {
+        if (json.power.toBattery > 0) return ARROW_RIGHT;
+        else if (
+          json.power.fromRoof > json.power.currentUsage
+        ) return ARROW_MINUS;
+        return '';
+      }
     );
     showArrow(
       batteryToGrid,

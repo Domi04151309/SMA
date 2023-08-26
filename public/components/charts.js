@@ -11,6 +11,7 @@ export class Charts {
       },
       barOptions: { stacked: 1 },
       colors: ['#651FFF', '#2979FF', '#00E5FF', '#76FF03'],
+      height: 240,
       lineOptions: { hideDots: 1 },
       type: 'axis-mixed'
     };
@@ -20,15 +21,18 @@ export class Charts {
         datasets: [
           {
             values: [
-              json.at(-1).energy.fromRoof ?? 0,
+              (json.at(-1).energy.fromRoof ?? 0) -
+                (json.at(-1).energy.toGrid ?? 0),
               json.at(-1).energy.fromGrid ?? 0
             ]
           }
         ],
         labels: ['Vom Dach', 'Vom Netz']
       },
-      title: 'Quelle',
-      tooltipOptions: { formatTooltipY: value => value + ' Wh' },
+      title: 'Quelle genutzter Energie',
+      tooltipOptions: {
+        formatTooltipY: value => value.toLocaleString('de') + ' Wh'
+      },
       type: 'pie'
     });
     this.historyChart = new Chart('#history-chart', {
@@ -56,10 +60,13 @@ export class Charts {
             values: json.map(item => item.power.currentUsage ?? 0)
           }
         ],
-        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString())
+        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString()),
+        yMarkers: [{ label: '', value: 0 }]
       },
       title: 'Leistung',
-      tooltipOptions: { formatTooltipY: value => value + ' W' }
+      tooltipOptions: {
+        formatTooltipY: value => value.toLocaleString('de') + ' W'
+      }
     });
     this.batteryChart = new Chart('#battery-chart', {
       ...commonChartOptions,
@@ -71,7 +78,11 @@ export class Charts {
             values: json.map(item => item.general.batteryPercentage ?? 0)
           }
         ],
-        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString())
+        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString()),
+        yMarkers: [
+          { label: 'Leer', value: 0 },
+          { label: 'Voll', value: 100 }
+        ]
       },
       title: 'Batterie',
       tooltipOptions: { formatTooltipY: value => value + ' %' }

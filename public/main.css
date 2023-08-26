@@ -113,6 +113,9 @@ footer {
 .arrow-top-left {
   rotate: 315deg;
 }
+.arrow-minus {
+  background-image: url(./images/icons8-minus-96.png);
+}
 
 #energy {
   padding: 10px 20px;
