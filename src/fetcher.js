@@ -60,7 +60,11 @@ export async function fetchDeviceData() {
 
   // Format data
   const debugInfo = PRINT_DEBUG_INFO
-    ? Object.fromEntries(Object.keys(OBJECT_MAP).map(key => [key, []]))
+    ? Object.fromEntries(
+      Object.keys(OBJECT_MAP)
+        .sort()
+        .map(key => [key, []])
+    )
     : null;
   let mappedJson = null;
   const dataParsers = await Promise.allSettled(dataParserPromises);
@@ -98,7 +102,10 @@ export async function fetchDeviceData() {
   // eslint-disable-next-line no-console
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
-      Object.entries(debugInfo).filter(entry => entry[1].some(Boolean))
+      Object.entries(debugInfo).filter(
+        // eslint-disable-next-line no-undefined
+        entry => entry[1].some(item => item !== undefined)
+      )
     )
   );
   return result;
@@ -122,8 +129,10 @@ export async function getLiveData(prefetched = null) {
   const result = {
     energy: {
       batteryCapacity: 0,
+      fromBattery: 0,
       fromGrid: 0,
       fromRoof: 0,
+      toBattery: 0,
       toGrid: 0
     },
     general: {
@@ -143,9 +152,12 @@ export async function getLiveData(prefetched = null) {
   let device = null;
   for (device of devices) {
     addIfNumber(result.energy, 'batteryCapacity', device.Bat_CapacRtgWh);
+    addIfNumber(result.energy, 'fromBattery', device.BatDsch_BatDsch);
     setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);
+    addIfNumber(result.energy, 'toBattery', device.BatChrg_BatChrg);
     addIfNumber(result.energy, 'toGrid', device.Metering_TotWhOut);
+    subtractIfNumber(result.energy, 'toGrid', device.BatChrg_BatChrg);
     setIfNumber(
       result.general,
       'batteryCapacityOfOriginalCapacity',
