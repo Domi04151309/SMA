@@ -1,4 +1,9 @@
-import { HISTORY_FILE, PERSISTENT_HISTORY, PORT } from './src/config.js';
+import {
+  HISTORY_FILE,
+  OPEN_BROWSER_ON_START,
+  PERSISTENT_HISTORY,
+  PORT
+} from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { fetchDeviceData, getDevices, getLiveData } from './src/fetcher.js';
 import compression from 'compression';
@@ -75,5 +80,5 @@ app.listen(PORT, () => {
   const url = `http://localhost:${PORT}/`;
   // eslint-disable-next-line no-console
   console.log(url);
-  open(url);
+  if (OPEN_BROWSER_ON_START) open(url);
 });
