@@ -5,9 +5,10 @@ import {
   PORT
 } from './src/config.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
-import { fetchDeviceData, getDevices, getLiveData } from './src/fetcher.js';
+import { getDevices, getLiveData } from './src/mapper.js';
 import compression from 'compression';
 import express from 'express';
+import { fetchDeviceData } from './src/fetcher.js';
 import { fileURLToPath } from 'node:url';
 import open from 'open';
 
