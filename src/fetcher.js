@@ -16,6 +16,18 @@ function isFulfilled(promise) {
   return promise.status === 'fulfilled' && promise.value !== null;
 }
 
+async function allSettledHandling(
+  promises,
+  errorMessage,
+  lambda = () => null
+) {
+  const settled = await Promise.allSettled(promises);
+  for (
+    const [index, promise] of settled.entries()
+  ) if (isFulfilled(promise)) lambda(promise.value, index);
+  else console.error(errorMessage, promise.reason);
+}
+
 function setIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] = value;
 }
@@ -44,27 +56,25 @@ export async function fetchDeviceData() {
   // Convert responses to JSON
   const dataParserPromises = [];
   const translationParserPromises = [];
-  for (
-    const response of await Promise.allSettled(dataRequests)
-  ) if (
-    isFulfilled(response)
-  ) dataParserPromises.push(saveJson(response.value));
-  else console.error('Failed fetching data:', response.reason);
-  for (
-    const response of await Promise.allSettled(translationRequests)
-  ) if (
-    isFulfilled(response)
-  ) translationParserPromises.push(saveJson(response.value));
-  else console.error('Failed fetching translation:', response.reason);
+  await allSettledHandling(
+    dataRequests,
+    'Failed fetching data',
+    promise => dataParserPromises.push(saveJson(promise))
+  );
+  await allSettledHandling(
+    translationRequests,
+    'Failed fetching translation',
+    promise => translationParserPromises.push(saveJson(promise))
+  );
 
   // Save translations
-  const translationParsers = await Promise.allSettled(
-    translationParserPromises
+  await allSettledHandling(
+    translationParserPromises,
+    'Failed parsing translation',
+    (promise, index) => {
+      strings[index] = promise;
+    }
   );
-  for (
-    const [index, json] of translationParsers.entries()
-  ) if (isFulfilled(json)) strings[index] = json.value;
-  else console.error('Failed fetching translation:', json.reason);
 
   // Format data
   const debugInfo = PRINT_DEBUG_INFO
@@ -74,39 +84,34 @@ export async function fetchDeviceData() {
         .map(key => [key, []])
     )
     : null;
-  let mappedJson = null;
-  const dataParsers = await Promise.allSettled(dataParserPromises);
-  const result = [
-    ...dataParsers
-      .filter(promise => {
-        if (isFulfilled(promise)) return true;
-        console.error('Failed parsing data:', promise.reason);
-        return false;
-      })
-      .map(promise => promise.value)
-      .entries()
-  ].map(([index, json]) => {
-    const filteredJson = Object.fromEntries(
-      Object.entries(Object.values(json.result)[0])
-        .map(([key, value]) => [key, Object.values(value)[0][0].val])
-        .map(
-          entry => [
-            entry[0],
-            typeof entry[1] === 'object' && entry[1] !== null
-              ? strings[index][entry[1][0].tag]
-              : entry[1]
-          ]
+  const result = [];
+  await allSettledHandling(
+    dataParserPromises,
+    'Failed parsing data',
+    (json, index) => {
+      const filteredJson = Object.fromEntries(
+        Object.entries(Object.values(json.result)[0])
+          .map(([key, value]) => [key, Object.values(value)[0][0].val])
+          .map(
+            entry => [
+              entry[0],
+              typeof entry[1] === 'object' && entry[1] !== null
+                ? strings[index][entry[1][0].tag]
+                : entry[1]
+            ]
+          )
+      );
+      const mappedJson = Object.fromEntries(
+        Object.entries(OBJECT_MAP).map(
+          ([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]]
         )
-    );
-    mappedJson = Object.fromEntries(
-      Object.entries(OBJECT_MAP)
-        .map(([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]])
-    );
-    if (PRINT_DEBUG_INFO) for (
-      const [key, value] of Object.entries(mappedJson)
-    ) debugInfo[key].push(value);
-    return mappedJson;
-  });
+      );
+      if (PRINT_DEBUG_INFO) for (
+        const [key, value] of Object.entries(mappedJson)
+      ) debugInfo[key].push(value);
+      result.push(mappedJson);
+    }
+  );
   // eslint-disable-next-line no-console
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
