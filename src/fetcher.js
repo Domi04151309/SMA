@@ -2,9 +2,19 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
 import { PLANT_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 
-const FULFILLED = 'fulfilled';
-
 const strings = {};
+
+async function saveFetch(url) {
+  return await fetch(url).catch(() => null);
+}
+
+async function saveJson(response) {
+  return await response.json().catch(() => null);
+}
+
+function isFulfilled(promise) {
+  return promise.status === 'fulfilled' && promise.value !== null;
+}
 
 function setIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] = value;
@@ -23,10 +33,10 @@ export async function fetchDeviceData() {
   const dataRequests = [];
   const translationRequests = [];
   for (const [index, address] of PLANT_IP_ADDRESSES.entries()) {
-    dataRequests.push(fetch(
+    dataRequests.push(saveFetch(
       'https://' + address + '/dyn/getDashValues.json'
     ));
-    if (!(index in strings)) translationRequests.push(fetch(
+    if (!(index in strings)) translationRequests.push(saveFetch(
       'https://' + address + '/data/l10n/de-DE.json'
     ));
   }
@@ -37,14 +47,14 @@ export async function fetchDeviceData() {
   for (
     const response of await Promise.allSettled(dataRequests)
   ) if (
-    response.status === FULFILLED
-  ) dataParserPromises.push(response.value.json());
+    isFulfilled(response)
+  ) dataParserPromises.push(saveJson(response.value));
   else console.error('Failed fetching data:', response.reason);
   for (
     const response of await Promise.allSettled(translationRequests)
   ) if (
-    response.status === FULFILLED
-  ) translationParserPromises.push(response.value.json());
+    isFulfilled(response)
+  ) translationParserPromises.push(saveJson(response.value));
   else console.error('Failed fetching translation:', response.reason);
 
   // Save translations
@@ -53,9 +63,7 @@ export async function fetchDeviceData() {
   );
   for (
     const [index, json] of translationParsers.entries()
-  ) if (
-    json.status === FULFILLED
-  ) strings[index] = json.value;
+  ) if (isFulfilled(json)) strings[index] = json.value;
   else console.error('Failed fetching translation:', json.reason);
 
   // Format data
@@ -71,7 +79,7 @@ export async function fetchDeviceData() {
   const result = [
     ...dataParsers
       .filter(promise => {
-        if (promise.status === FULFILLED) return true;
+        if (isFulfilled(promise)) return true;
         console.error('Failed parsing data:', promise.reason);
         return false;
       })
