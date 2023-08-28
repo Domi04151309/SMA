@@ -15,11 +15,7 @@ export async function getWeather() {
     const response = await fetch('https://wttr.in/' + location.join(',') +
       '?lang=de&format=j1');
     const json = await response.json();
-    return {
-      // eslint-disable-next-line camelcase
-      current_condition: json.current_condition,
-      weather: json.weather.slice(0, 1)
-    };
+    return json.weather[0];
   } catch (error) {
     console.error(error);
     return {};

@@ -116,7 +116,7 @@ footer {
   background-image: url(./images/icons8-minus-96.png);
 }
 
-#energy, #devices {
+#energy, #weather, #devices {
   padding: 10px 20px;
 }
 #devices tr:not(:first-child) {
@@ -131,7 +131,7 @@ footer {
   padding: 0;
 }
 
-#source-chart, #history-chart, #battery-chart {
+#source-chart, #history-chart, #battery-chart, #weather-chart {
   height: 240px;
   width: 100%;
 }

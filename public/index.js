@@ -2,6 +2,7 @@ import { Charts } from './components/charts.js';
 import { Devices } from './components/devices.js';
 import { EnergySection } from './components/energy-section.js';
 import { PowerSection } from './components/power-section.js';
+import { WeatherSection } from './components/weather-section.js';
 
 const API_URL = '/api';
 
@@ -35,4 +36,8 @@ await update(json.at(-1));
 response = await fetch(API_URL + '/devices');
 json = await response.json();
 Devices.update(json);
+response = await fetch(API_URL + '/weather');
+json = await response.json();
+// eslint-disable-next-line no-new
+new WeatherSection(json);
 interval = setInterval(update, 10_000);
