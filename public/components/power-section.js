@@ -36,8 +36,9 @@ export const PowerSection = {
       ?.toLocaleString('de') ?? '?';
     roof.textContent = json.power.fromRoof
       ?.toLocaleString('de') ?? '?';
-    battery.textContent = json.power.fromBattery
-      ?.toLocaleString('de') ?? '?';
+    battery.textContent = json.power.toBattery > 0
+      ? -json.power.toBattery?.toLocaleString('de')
+      : json.power.fromBattery?.toLocaleString('de') ?? '?';
     grid.textContent = json.power.toGrid > 0
       ? -json.power.toGrid?.toLocaleString('de')
       : json.power.fromGrid?.toLocaleString('de') ?? '?';

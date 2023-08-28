@@ -14,10 +14,8 @@ body {
 }
 .main-grid {
   display: grid;
-  min-height: calc(100vh - 64px);
   gap: 16px;
   grid-template-columns: repeat(1, 1fr);
-  justify-content: center;
   align-items: center;
 }
 .main-grid > * {
@@ -57,7 +55,6 @@ footer {
   text-align: center;
   width: fit-content;
   margin: auto;
-  grid-row: span 2;
 }
 #diagram > div {
   box-sizing: border-box;
@@ -116,6 +113,10 @@ footer {
   background-image: url(./images/icons8-minus-96.png);
 }
 
+#diagram, #history-chart, #energy {
+  grid-row: span 2;
+}
+
 #energy, #weather, #devices {
   padding: 10px 20px;
 }
@@ -132,14 +133,20 @@ footer {
 }
 
 #source-chart, #history-chart, #battery-chart, #weather-chart {
-  height: 240px;
+  display: flex;
+  align-items: flex-end;
+  margin-top: -64px;
+  height: 304px;
   width: 100%;
 }
+ #history-chart {
+  height: 544px;
+ }
 
 @media (min-width: 1080px) {
   .main-grid {
     grid-template-columns: repeat(2, 2fr);
-    padding: 32px;
+    padding: 16px;
     gap: 32px;
   }
   #devices {

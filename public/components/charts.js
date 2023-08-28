@@ -13,7 +13,7 @@ export class Charts {
         spaceRatio: 0.1,
         stacked: 1
       },
-      colors: ['#651FFF', '#2979FF', '#00E5FF', '#76FF03'],
+      colors: ['#00E676', '#00B0FF', '#2979FF', '#651FFF'],
       height: 240,
       lineOptions: { hideDots: 1 },
       type: 'axis-mixed'
@@ -25,12 +25,14 @@ export class Charts {
           {
             values: [
               (json.at(-1).energy.fromRoof ?? 0) -
-                (json.at(-1).energy.toGrid ?? 0),
+                (json.at(-1).energy.toGrid ?? 0) -
+                (json.at(-1).energy.toBattery ?? 0),
+              json.at(-1).energy.fromBattery ?? 0,
               json.at(-1).energy.fromGrid ?? 0
             ]
           }
         ],
-        labels: ['Vom Dach', 'Vom Netz']
+        labels: ['Vom Dach', 'Aus der Batterie', 'Vom Netz']
       },
       title: 'Quelle genutzter Energie',
       tooltipOptions: {
@@ -66,6 +68,7 @@ export class Charts {
         labels: json.map(item => new Date(item.timestamp).toLocaleTimeString()),
         yMarkers: [{ label: '', value: 0 }]
       },
+      height: 480,
       title: 'Leistung',
       tooltipOptions: {
         formatTooltipY: value => value?.toLocaleString('de') + ' W'

@@ -9,7 +9,7 @@ export const EnergySection = {
   update(json) {
     energyFromRoof.textContent = json.energy.fromRoof.toLocaleString('de');
     energyFromRoofUsed.textContent = (
-      json.energy.fromRoof - json.energy.toGrid
+      json.energy.fromRoof - json.energy.toGrid - json.energy.toBattery
     ).toLocaleString('de');
     energyFromBattery.textContent = json.energy.fromBattery.toLocaleString(
       'de'
