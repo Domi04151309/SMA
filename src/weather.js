@@ -1,12 +1,16 @@
+let plantLocation = [];
+
 async function getLocation() {
+  if (plantLocation.length === 2) return plantLocation;
   try {
     const response = await fetch('http://ip-api.com/json/?fields=192');
     const json = await response.json();
-    return Object.values(json);
+    // eslint-disable-next-line require-atomic-updates
+    plantLocation = Object.values(json);
   } catch (error) {
     console.error(error);
-    return [];
   }
+  return plantLocation;
 }
 
 export async function getWeather() {

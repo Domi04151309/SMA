@@ -8,6 +8,7 @@ import { getWeather } from './src/weather.js';
 const ACCESS_CONTROL_ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
 
 const historyData = [];
+let devices = null;
 
 function exitHandler(options) {
   if (options.cleanup) writeFileSync(HISTORY_FILE, JSON.stringify(historyData));
@@ -15,9 +16,11 @@ function exitHandler(options) {
   if (options.exit) process.exit();
 }
 
-async function fetchNewData(prefetched = null) {
+async function fetchNewData() {
   while (historyData.length > 8640) historyData.shift();
-  historyData.push(await getLiveData(prefetched));
+  const deviceData = await fetchDeviceData();
+  historyData.push(await getLiveData(deviceData));
+  devices = await getDevices(deviceData);
 }
 
 if (PERSISTENT_HISTORY) {
@@ -34,9 +37,7 @@ if (PERSISTENT_HISTORY) {
   process.on('SIGUSR2', exitHandler.bind(null, { exit: true }));
 }
 
-const deviceData = await fetchDeviceData();
-const devices = await getDevices(deviceData);
-await fetchNewData(deviceData);
+await fetchNewData();
 setInterval(fetchNewData, 10_000);
 
 new Server().registerApiEndpint('/history', () => historyData)
