@@ -1,6 +1,6 @@
 import {
   Chart
-} from '../frappe-charts.js';
+} from '../frappe-charts.min.esm.js';
 
 export class Charts {
   constructor(json) {
