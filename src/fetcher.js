@@ -83,8 +83,14 @@ export async function fetchDeviceData() {
           .map(
             entry => [
               entry[0],
-              typeof entry[1] === 'object' && entry[1] !== null
-                ? strings[index][entry[1][0].tag]
+              typeof entry[1] === 'object' &&
+              entry[1] !== null
+                // eslint-disable-next-line no-extra-parens
+                ? (
+                  index in strings
+                    ? strings[index][entry[1][0].tag]
+                    : entry[1][0].tag
+                )
                 : entry[1]
             ]
           )
