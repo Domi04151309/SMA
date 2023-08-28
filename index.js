@@ -3,6 +3,7 @@ import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { getDevices, getLiveData } from './src/mapper.js';
 import { Server } from './src/server.js';
 import { fetchDeviceData } from './src/fetcher.js';
+import { getWeather } from './src/weather.js';
 
 const ACCESS_CONTROL_ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
 
@@ -41,4 +42,5 @@ setInterval(fetchNewData, 10_000);
 new Server().registerApiEndpint('/history', () => historyData)
   .registerApiEndpint('/now', () => historyData.at(-1))
   .registerApiEndpint('/devices', () => devices)
+  .registerApiEndpint('/weather', async () => await getWeather())
   .start();

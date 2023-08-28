@@ -27,9 +27,12 @@ export class Server {
   }
 
   registerApiEndpint(path, getResponse) {
-    this.app.get('/api' + path, (_, response) => {
+    this.app.get('/api' + path, async (_, response) => {
+      const sendableResponse = getResponse.constructor.name === 'AsyncFunction'
+        ? await getResponse()
+        : getResponse();
       response.set('Access-Control-Allow-Origin', '*');
-      response.send(getResponse());
+      response.send(sendableResponse);
     });
     return this;
   }
