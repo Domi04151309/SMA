@@ -3,7 +3,7 @@
   "scripts": {
     "start": "node index.js",
     "lint": "eslint . && tsc",
-    "docs": "typedoc --exclude \"**/node_modules/**\" --entryPointStrategy expand ./ --out ./out/"
+    "docs": "typedoc --readme README.md --exclude \"**/node_modules/**\" --entryPointStrategy expand ./ --out ./out/"
   },
   "devDependencies": {
     "@types/compression": "^1.7.2",
