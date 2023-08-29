@@ -8,17 +8,6 @@ frontend. It provides various API endpoints and requires configuration settings
 that are managed through a config file. This document will guide you through the
 setup, configuration, and usage of the project.
 
-## Table of Contents
-
-- [Getting Started](#getting-started)
-  - [Prerequisites](#prerequisites)
-  - [Installation](#installation)
-  - [Configuration](#configuration)
-- [Usage](#usage)
-- [API Endpoints](#api-endpoints)
-- [Configuration](#configuration)
-- [Contributing](#contributing)
-
 ## Getting Started
 
 Follow these instructions to set up the project locally on your machine.
@@ -39,9 +28,9 @@ Follow these instructions to set up the project locally on your machine.
 
 2. Install the project dependencies:
 
- ```bash
- npm install
- ```
+   ```bash
+   npm install
+   ```
 
 ### Configuration
 
@@ -66,7 +55,7 @@ To start the Express server, run the following command:
 npm start
 ```
 
-This will start the server and make it available at http://localhost:3000.
+This will start the server and make it available at http://localhost:3000/.
 
 ## API Endpoints
 
