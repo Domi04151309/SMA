@@ -20,6 +20,7 @@
     "**/*.js"
   ],
   "exclude": [
+    "out/*",
     "src/object-map.js"
   ]
 }

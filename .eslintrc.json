@@ -24,6 +24,7 @@
     "project": ["./tsconfig.json"]
   },
   "ignorePatterns": [
+    "out/*",
     "src/object-map.js"
   ],
   "rules": {
