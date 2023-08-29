@@ -89,7 +89,7 @@ export async function fetchDeviceData() {
                 ? (
                   index in strings
                     ? strings[index][entry[1][0].tag]
-                    : entry[1][0].tag
+                    : '#' + entry[1][0].tag
                 )
                 : entry[1]
             ]

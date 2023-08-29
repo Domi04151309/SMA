@@ -2,6 +2,16 @@ import {
   Chart
 } from '../frappe-charts.min.esm.js';
 
+function toTimeString(date) {
+  return date.toLocaleTimeString(
+    'de',
+    {
+      hour: 'numeric',
+      minute: 'numeric'
+    }
+  ) + ' Uhr';
+}
+
 export class Charts {
   constructor(json) {
     const commonChartOptions = {
@@ -65,7 +75,7 @@ export class Charts {
             values: json.map(item => item.power.currentUsage ?? 0)
           }
         ],
-        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString()),
+        labels: json.map(item => toTimeString(new Date(item.timestamp))),
         yMarkers: [{ label: '', value: 0 }]
       },
       height: 480,
@@ -84,7 +94,7 @@ export class Charts {
             values: json.map(item => item.general.batteryPercentage ?? 0)
           }
         ],
-        labels: json.map(item => new Date(item.timestamp).toLocaleTimeString()),
+        labels: json.map(item => toTimeString(new Date(item.timestamp))),
         yMarkers: [
           { label: 'Leer', value: 0 },
           { label: 'Voll', value: 100 }
@@ -95,13 +105,19 @@ export class Charts {
         regionFill: 1
       },
       title: 'Batterie',
-      tooltipOptions: { formatTooltipY: value => value + ' %' }
+      tooltipOptions: {
+        formatTooltipY: value => value + ' % | ' + (
+          json.at(-1).energy.batteryCapacity *
+          json.at(-1).general.batteryCapacityOfOriginalCapacity / 100 *
+          value / 100
+        ).toLocaleString('de') + ' Wh'
+      }
     });
   }
 
   update(json) {
     this.historyChart.addDataPoint(
-      new Date(json.timestamp).toLocaleTimeString(),
+      toTimeString(new Date(json.timestamp)),
       [
         json.power.fromRoof ?? 0,
         json.power.fromBattery ?? 0,
@@ -110,7 +126,7 @@ export class Charts {
       ]
     );
     this.batteryChart.addDataPoint(
-      new Date(json.timestamp).toLocaleTimeString(),
+      toTimeString(new Date(json.timestamp)),
       [json.general.batteryPercentage ?? 0]
     );
   }
