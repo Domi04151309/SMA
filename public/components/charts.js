@@ -12,6 +12,26 @@ function toTimeString(date) {
   ) + ' Uhr';
 }
 
+addEventListener('beforeprint', () => {
+  for (
+    const chart of document.querySelectorAll('.chart-container svg')
+  ) {
+    chart.setAttribute(
+      'viewBox',
+      '0 0 ' + chart.width.baseVal.value + ' ' + chart.height.baseVal.value
+    );
+    chart.style.width = '100%';
+  }
+});
+addEventListener('afterprint', () => {
+  for (
+    const chart of document.querySelectorAll('.chart-container svg')
+  ) {
+    chart.removeAttribute('viewBox');
+    chart.style.width = '';
+  }
+});
+
 export class Charts {
   constructor(json, devices) {
     const commonChartOptions = {

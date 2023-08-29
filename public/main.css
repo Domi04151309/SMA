@@ -143,7 +143,11 @@ footer {
   height: 544px;
  }
 
-@media (min-width: 1080px) {
+ #energy, #weather-chart, #devices {
+   break-before: page;
+ }
+
+@media screen and (min-width: 1080px) {
   .main-grid {
     grid-template-columns: repeat(2, 2fr);
     padding: 16px;
@@ -174,5 +178,14 @@ footer {
   }
   #devices .icon.energy-meter {
     background-image: url(./images/icons8-energy-meter-96.png);
+  }
+}
+
+@media print {
+  a {
+    color: inherit;
+  }
+  #devices a {
+    display: none;
   }
 }
