@@ -1,8 +1,8 @@
-import { Charts } from './components/charts.js';
-import { Devices } from './components/devices.js';
-import { EnergySection } from './components/energy-section.js';
-import { PowerSection } from './components/power-section.js';
-import { WeatherSection } from './components/weather-section.js';
+import { Charts } from '/components/charts.js';
+import { Devices } from '/components/devices.js';
+import { EnergySection } from '/components/energy-section.js';
+import { PowerSection } from '/components/power-section.js';
+import { WeatherSection } from '/components/weather-section.js';
 
 const API_URL = '/api';
 
@@ -48,3 +48,27 @@ new WeatherSection(json);
 
 interval = setInterval(update, 10_000);
 devices = null;
+
+if ('serviceWorker' in navigator) {
+  try {
+    const registration = await navigator.serviceWorker.register('/sw.js');
+    registration.addEventListener('updatefound', () => {
+      const updatedWorker = registration.installing;
+      if (updatedWorker === null) return;
+      updatedWorker.addEventListener('statechange', () => {
+        if (
+          updatedWorker.state === 'installed' &&
+          navigator.serviceWorker.controller
+        ) updatedWorker.postMessage({ action: 'skipWaiting' }, []);
+      });
+    });
+  } catch (error) {
+    console.error('ServiceWorker registration failed:', error);
+  }
+  let refreshing = false;
+  navigator.serviceWorker.addEventListener('controllerchange', () => {
+    if (refreshing) return;
+    window.location.reload();
+    refreshing = true;
+  });
+}

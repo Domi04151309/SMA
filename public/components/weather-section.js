@@ -1,6 +1,6 @@
 import {
   Chart
-} from '../frappe-charts.min.esm.js';
+} from '/frappe-charts.min.esm.js';
 
 const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');

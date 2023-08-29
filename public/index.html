@@ -5,11 +5,15 @@
     <meta name="viewport" content="width=device-width">
     <meta name="description" content="Überwachen und optimieren Sie die Erzeugung von Solarenergie für Ihr Zuhause mit unserer umfassenden Datenübersicht. Erhalten Sie Echtzeit-Einblicke in Ihre Solarstromerzeugung.">
     <meta name="theme-color" content="#ffffff"/>
-    <link rel="icon" href="./images/icons8-house-96.png" type="image/png" >
-    <link rel="stylesheet" href="./main.css">
+    <link rel="manifest" href="/pwa/manifest.json">
+    <link rel="icon" href="/images/icons8-home.svg" type="image/svg+xml" >
+    <link rel="stylesheet" href="/main.css">
   </head>
   <body>
-    <div class="main-grid">
+    <header>
+      <h1>Solarenergie</h1>
+    </header>
+    <main>
       <div id="diagram">
         <div></div>
         <div></div>
@@ -44,7 +48,7 @@
       </div>
       <div id="history-chart"></div>
       <div id="energy">
-        <h1>Energie</h1>
+        <h2>Energie</h2>
         <table>
           <tr>
             <th>Vom Dach (erzeugt)</th>
@@ -76,7 +80,7 @@
       <div id="battery-chart"></div>
       <div id="weather-chart"></div>
       <div id="weather">
-        <h1>Wetter</h1>
+        <h2>Wetter</h2>
         <table>
           <tr>
             <th>Sonnenaufgang</th>
@@ -97,7 +101,7 @@
         </table>
       </div>
       <div id="devices">
-        <h1>Geräte</h1>
+        <h2>Geräte</h2>
         <table>
           <tr>
             <th></th>
@@ -119,10 +123,10 @@
           </tr>
         </template>
       </div>
-    </div>
+    </main>
     <footer>
       Icons by <a href="https://icons8.com/">Icons8</a>
     </footer>
-    <script src="./index.js" type="module"></script>
+    <script src="/index.js" type="module"></script>
   </body>
 </html>

@@ -1,6 +1,6 @@
 import {
   Chart
-} from '../frappe-charts.min.esm.js';
+} from '/frappe-charts.min.esm.js';
 
 function toTimeString(date) {
   return date.toLocaleTimeString(
