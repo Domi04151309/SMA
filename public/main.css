@@ -164,8 +164,15 @@ footer {
     padding: 16px;
   }
   #devices .icon {
-    background: url(./images/icons8-dynamo-96.png) no-repeat;
+    background-image: url(./images/icons8-dynamo-96.png);
+    background-repeat: no-repeat;
     background-position: center;
     background-size: 2em;
+  }
+  #devices .icon.battery {
+    background-image: url(./images/icons8-battery-96.png);
+  }
+  #devices .icon.energy-meter {
+    background-image: url(./images/icons8-energy-meter-96.png);
   }
 }

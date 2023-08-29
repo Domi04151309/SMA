@@ -7,6 +7,7 @@ import { WeatherSection } from './components/weather-section.js';
 const API_URL = '/api';
 
 let charts = null;
+let devices = null;
 let interval = null;
 
 async function fetchLiveData() {
@@ -29,15 +30,21 @@ async function update(data = null) {
   if (data === null) charts.update(json);
 }
 
-let response = await fetch(API_URL + '/history');
-let json = await response.json();
-charts = new Charts(json);
-await update(json.at(-1));
+let json, response;
+
 response = await fetch(API_URL + '/devices');
+devices = await response.json();
+Devices.update(devices);
+
+response = await fetch(API_URL + '/history');
 json = await response.json();
-Devices.update(json);
+charts = new Charts(json, devices);
+await update(json.at(-1));
+
 response = await fetch(API_URL + '/weather');
 json = await response.json();
 // eslint-disable-next-line no-new
 new WeatherSection(json);
+
 interval = setInterval(update, 10_000);
+devices = null;

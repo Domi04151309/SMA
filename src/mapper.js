@@ -15,31 +15,41 @@ function subtractIfNumber(object, propertyName, value) {
 
 export async function getDevices(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
-  const result = [];
-  for (const [index, device] of devices.entries()) result.push({
-    address: PLANT_IP_ADDRESSES[index],
-    mode: device.Operation_RunStt,
-    model: device.Name_Model,
-    status: device.Operation_Health,
-    vendor: device.Name_Vendor
-  });
+  const result = {
+    batteries: [],
+    energyMeters: [],
+    inverters: []
+  };
+  for (const [index, device] of devices.entries()) {
+    result.inverters.push({
+      address: PLANT_IP_ADDRESSES[index],
+      mode: device.Operation_RunStt,
+      model: device.Name_Model,
+      status: device.Operation_Health,
+      vendor: device.Name_Vendor
+    });
+    if (device.Bat_CapacRtgWh) result.batteries.push({
+      capacity: device.Bat_CapacRtgWh,
+      capacityOfOriginalCapacity: device.Bat_Diag_ActlCapacNom
+    });
+    if (
+      device.Energy_Meter_Add &&
+      !result.energyMeters.includes(device.Energy_Meter_Add)
+    ) result.energyMeters.push(device.Energy_Meter_Add);
+  }
   return result;
 }
 
 export async function getLiveData(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
   const result = {
+    batteryPercentage: null,
     energy: {
-      batteryCapacity: 0,
       fromBattery: 0,
       fromGrid: 0,
       fromRoof: 0,
       toBattery: 0,
       toGrid: 0
-    },
-    general: {
-      batteryCapacityOfOriginalCapacity: null,
-      batteryPercentage: null
     },
     power: {
       currentUsage: 0,
@@ -53,19 +63,13 @@ export async function getLiveData(prefetched = null) {
   };
   let device = null;
   for (device of devices) {
-    addIfNumber(result.energy, 'batteryCapacity', device.Bat_CapacRtgWh);
     addIfNumber(result.energy, 'fromBattery', device.BatDsch_BatDsch);
     setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);
     addIfNumber(result.energy, 'toBattery', device.BatChrg_BatChrg);
     addIfNumber(result.energy, 'toGrid', device.Metering_TotWhOut);
     subtractIfNumber(result.energy, 'toGrid', device.BatChrg_BatChrg);
-    setIfNumber(
-      result.general,
-      'batteryCapacityOfOriginalCapacity',
-      device.Bat_Diag_ActlCapacNom
-    );
-    setIfNumber(result.general, 'batteryPercentage', device.Battery_ChaStt);
+    setIfNumber(result, 'batteryPercentage', device.Battery_ChaStt);
     addIfNumber(
       result.power,
       'fromBattery',

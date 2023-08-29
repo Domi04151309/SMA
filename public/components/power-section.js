@@ -14,7 +14,6 @@ const gridToHouse = document.getElementById('grid-to-house');
 const roofToBattery = document.getElementById('roof-to-battery');
 const batteryToGrid = document.getElementById('battery-to-grid');
 const batteryPercentage = document.getElementById('battery-percentage');
-const batteryHealth = document.getElementById('battery-health');
 
 function showArrow(element, getDirection) {
   for (
@@ -42,9 +41,7 @@ export const PowerSection = {
     grid.textContent = json.power.toGrid > 0
       ? -json.power.toGrid?.toLocaleString('de')
       : json.power.fromGrid?.toLocaleString('de') ?? '?';
-    batteryPercentage.textContent = json.general.batteryPercentage ?? '?';
-    batteryHealth.textContent = json.general
-      .batteryCapacityOfOriginalCapacity ?? '?';
+    batteryPercentage.textContent = json.batteryPercentage ?? '?';
 
     showArrow(
       roofToHouse,

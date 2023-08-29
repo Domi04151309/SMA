@@ -13,7 +13,7 @@ function toTimeString(date) {
 }
 
 export class Charts {
-  constructor(json) {
+  constructor(json, devices) {
     const commonChartOptions = {
       axisOptions: {
         xAxisMode: 'tick',
@@ -91,7 +91,7 @@ export class Charts {
           {
             chartType: 'line',
             name: 'Batterie',
-            values: json.map(item => item.general.batteryPercentage ?? 0)
+            values: json.map(item => item.batteryPercentage ?? 0)
           }
         ],
         labels: json.map(item => toTimeString(new Date(item.timestamp))),
@@ -107,8 +107,8 @@ export class Charts {
       title: 'Batterie',
       tooltipOptions: {
         formatTooltipY: value => value + ' % | ' + (
-          json.at(-1).energy.batteryCapacity *
-          json.at(-1).general.batteryCapacityOfOriginalCapacity / 100 *
+          (devices.batteries[0]?.capacity ?? 0) *
+          (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100 *
           value / 100
         ).toLocaleString('de') + ' Wh'
       }
@@ -127,7 +127,7 @@ export class Charts {
     );
     this.batteryChart.addDataPoint(
       toTimeString(new Date(json.timestamp)),
-      [json.general.batteryPercentage ?? 0]
+      [json.batteryPercentage ?? 0]
     );
   }
 }
