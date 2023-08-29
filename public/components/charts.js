@@ -1,3 +1,4 @@
+// @ts-expect-error
 import { Chart } from '/frappe-charts.min.esm.js';
 
 export const commonChartOptions = {
@@ -11,6 +12,11 @@ export const commonChartOptions = {
   type: 'axis-mixed'
 };
 
+/**
+ * @param {string} selector
+ * @param {any} options
+ * @returns {void}
+ */
 export function error(selector, options) {
   const errorOptions = {
     colors: ['#D50000'],
@@ -34,22 +40,27 @@ export function error(selector, options) {
 
 addEventListener('beforeprint', () => {
   for (
-    const chart of document.querySelectorAll('.chart-container svg')
+    const chart of /** @type {NodeListOf<SVGElement>} */ (
+      document.querySelectorAll('.chart-container svg')
+    )
   ) {
     chart.setAttribute(
       'viewBox',
-      '0 0 ' + chart.width.baseVal.value + ' ' + chart.height.baseVal.value
+      '0 0 ' + chart.getAttribute('width') + ' ' + chart.getAttribute('height')
     );
     chart.style.width = '100%';
   }
 });
 addEventListener('afterprint', () => {
   for (
-    const chart of document.querySelectorAll('.chart-container svg')
+    const chart of /** @type {NodeListOf<SVGElement>} */ (
+      document.querySelectorAll('.chart-container svg')
+    )
   ) {
     chart.removeAttribute('viewBox');
     chart.style.width = '';
   }
 });
 
+// @ts-expect-error
 export { Chart } from '/frappe-charts.min.esm.js';

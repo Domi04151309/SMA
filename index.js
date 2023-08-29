@@ -5,17 +5,25 @@ import { Server } from './src/server.js';
 import { fetchDeviceData } from './src/fetcher.js';
 import { getWeather } from './src/weather.js';
 
-const ACCESS_CONTROL_ALLOW_ORIGIN = 'Access-Control-Allow-Origin';
-
+/** @type {ApiNowResponse[]} */
 const historyData = [];
+/** @type {ApiDevicesResponse|null} */
 let devices = null;
 
+/**
+ *
+ * @param {{ cleanup?: boolean, exit?: boolean}} options
+ * @returns {void}
+ */
 function exitHandler(options) {
   if (options.cleanup) writeFileSync(HISTORY_FILE, JSON.stringify(historyData));
   // eslint-disable-next-line unicorn/no-process-exit
   if (options.exit) process.exit();
 }
 
+/**
+ * @returns {Promise<void>}
+ */
 async function fetchNewData() {
   while (historyData.length > 8640) historyData.shift();
   const deviceData = await fetchDeviceData();
@@ -26,7 +34,7 @@ async function fetchNewData() {
 if (PERSISTENT_HISTORY) {
   try {
     if (existsSync(HISTORY_FILE)) historyData.push(
-      ...JSON.parse(readFileSync(HISTORY_FILE))
+      ...JSON.parse(readFileSync(HISTORY_FILE).toString())
     );
   } catch (error) {
     console.error('Failed opening history file!', error);

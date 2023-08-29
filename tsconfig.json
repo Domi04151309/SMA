@@ -1,0 +1,25 @@
+{
+  "compilerOptions": {
+    "target": "es2022",
+    "module": "es2022",
+    "moduleResolution": "bundler",
+
+    "paths": {
+        "/*": ["./public/*"],
+        "/frappe-charts.min.esm.js": [
+          "./node_modules/frappe-charts/dist/frappe-charts.min.esm.js"
+        ]
+    },
+    "outDir": "/tmp/sma/",
+    "allowJs": true,
+    "checkJs": true,
+    "strict": true
+  },
+  "include": [
+    "**/*.d.ts",
+    "**/*.js"
+  ],
+  "exclude": [
+    "src/object-map.js"
+  ]
+}

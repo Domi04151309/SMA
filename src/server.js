@@ -20,7 +20,10 @@ export class Server {
     );
   }
 
-  registerNodeModulesFile(path, filePath) {
+  registerNodeModulesFile(
+    /** @type {string} */ path,
+    /** @type {string} */ filePath
+  ) {
     this.app.get(path, (_, response) => {
       response.sendFile(
         fileURLToPath(new URL('../node_modules/' + filePath, import.meta.url))
@@ -28,7 +31,10 @@ export class Server {
     });
   }
 
-  registerApiEndpoint(path, getResponse) {
+  registerApiEndpoint(
+    /** @type {string} */ path,
+    /** @type {() => unknown} */ getResponse
+  ) {
     this.app.get('/api' + path, async (_, response) => {
       const sendableResponse = getResponse.constructor.name === 'AsyncFunction'
         ? await getResponse()

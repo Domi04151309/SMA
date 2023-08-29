@@ -6,16 +6,22 @@ import { WeatherSection } from '/components/weather-section.js';
 
 const API_URL = '/api';
 
+/** @type {HistoryCharts|null} */
 let charts = null;
+/** @type {ApiDevicesResponse|null} */
 let devices = null;
+/** @type {number|null} */
 let interval = null;
 
+/**
+ * @returns {Promise<void>}
+ */
 async function fetchLiveData() {
   try {
     const response = await fetch(API_URL + '/now');
     return await response.json();
   } catch (error) {
-    clearInterval(interval);
+    if (interval !== null) clearInterval(interval);
     throw new Error(
       'The backend is currently unreachable!',
       { cause: error }
@@ -23,11 +29,15 @@ async function fetchLiveData() {
   }
 }
 
+/**
+ * @param {any|null} data
+ * @returns {Promise<void>}
+ */
 async function update(data = null) {
   const json = data ?? await fetchLiveData();
   PowerSection.update(json);
   EnergySection.update(json);
-  if (data === null) charts.update(json);
+  if (data === null && charts !== null) charts.update(json);
 }
 
 let json, response;
@@ -35,7 +45,7 @@ let json, response;
 try {
   response = await fetch(API_URL + '/devices');
   devices = await response.json();
-  Devices.update(devices);
+  if (devices !== null) Devices.update(devices);
 } catch {
   console.error('Failed loading devices');
 }
@@ -43,7 +53,7 @@ try {
 try {
   response = await fetch(API_URL + '/history');
   json = await response.json();
-  charts = new HistoryCharts(json, devices);
+  if (devices !== null) charts = new HistoryCharts(json, devices);
   await update(json.at(-1));
 } catch {
   console.error('Failed loading history');
@@ -60,6 +70,7 @@ try {
   WeatherSection.error();
 }
 
+// @ts-expect-error
 interval = setInterval(update, 10_000);
 devices = null;
 

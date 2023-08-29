@@ -6,7 +6,14 @@ const sunHours = document.getElementById('sun-hours');
 const uvIndex = document.getElementById('uv-index');
 
 export class WeatherSection {
-  constructor(json) {
+  constructor(/** @type {ApiWeatherResponse} */ json) {
+    if (
+      sunrise === null ||
+      sunset === null ||
+      sunHours === null ||
+      uvIndex === null
+    ) throw new Error('Invalid layout');
+
     this.weatherChart = new Chart('#weather-chart', {
       ...commonChartOptions,
       colors: ['#FFD600', '#304FFE', '#2979FF', '#40C4FF', '#84FFFF'],
@@ -47,14 +54,14 @@ export class WeatherSection {
       },
       title: 'Wetterverlauf',
       tooltipOptions: {
-        formatTooltipX: value => {
+        formatTooltipX: (/** @type {string|null} */ value) => {
           if (value === null) return '';
           const time = (parseInt(value, 10) * 100).toString();
           return value + ' | ' + json?.hourly?.find(
             item => item.time === time
           )?.lang_de[0]?.value;
         },
-        formatTooltipY: value => value + ' %'
+        formatTooltipY: (/** @type {number|null} */ value) => value + ' %'
       },
       type: 'line'
     });

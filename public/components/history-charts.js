@@ -1,5 +1,9 @@
 import { Chart, commonChartOptions, error } from '/components/charts.js';
 
+/**
+ * @param {Date} date
+ * @returns {string}
+ */
 function toTimeString(date) {
   return date.toLocaleTimeString(
     'de',
@@ -11,18 +15,21 @@ function toTimeString(date) {
 }
 
 export class HistoryCharts {
-  constructor(json, devices) {
+  constructor(
+    /** @type {ApiNowResponse[]} */ json,
+    /** @type {ApiDevicesResponse} */ devices
+  ) {
     this.sourceChart = new Chart('#source-chart', {
       ...commonChartOptions,
       data: {
         datasets: [
           {
             values: [
-              (json.at(-1).energy.fromRoof ?? 0) -
-                (json.at(-1).energy.toGrid ?? 0) -
-                (json.at(-1).energy.toBattery ?? 0),
-              json.at(-1).energy.fromBattery ?? 0,
-              json.at(-1).energy.fromGrid ?? 0
+              (json.at(-1)?.energy?.fromRoof ?? 0) -
+                (json.at(-1)?.energy?.toGrid ?? 0) -
+                (json.at(-1)?.energy?.toBattery ?? 0),
+              json.at(-1)?.energy?.fromBattery ?? 0,
+              json.at(-1)?.energy?.fromGrid ?? 0
             ]
           }
         ],
@@ -30,7 +37,9 @@ export class HistoryCharts {
       },
       title: 'Quelle genutzter Energie',
       tooltipOptions: {
-        formatTooltipY: value => value?.toLocaleString('de') + ' Wh'
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value?.toLocaleString('de') + ' Wh'
       },
       type: 'pie'
     });
@@ -69,7 +78,9 @@ export class HistoryCharts {
       height: 480,
       title: 'Leistung',
       tooltipOptions: {
-        formatTooltipY: value => value?.toLocaleString('de') + ' W'
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value?.toLocaleString('de') + ' W'
       }
     });
     this.batteryChart = new Chart('#battery-chart', {
@@ -94,23 +105,25 @@ export class HistoryCharts {
       },
       title: 'Batterie',
       tooltipOptions: {
-        formatTooltipY: value => value + ' % | ' + (
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value + ' % | ' + (
           (devices.batteries[0]?.capacity ?? 0) *
           (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100 *
-          value / 100
+          (value ?? 0) / 100
         ).toLocaleString('de') + ' Wh'
       }
     });
   }
 
-  update(json) {
+  update(/** @type {ApiNowResponse} */ json) {
     this.historyChart.addDataPoint(
       toTimeString(new Date(json.timestamp)),
       [
-        json.power.fromRoof ?? 0,
-        json.power.fromBattery ?? 0,
-        json.power.fromGrid ?? 0,
-        json.power.currentUsage ?? 0
+        json.power.fromRoof,
+        json.power.fromBattery,
+        json.power.fromGrid,
+        json.power.currentUsage
       ]
     );
     this.batteryChart.addDataPoint(

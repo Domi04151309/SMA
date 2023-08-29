@@ -1,6 +1,11 @@
+/** @type {string[]} */
 let plantLocation = [];
+/** @type {ApiWeatherResponse|null} */
 let weather = null;
 
+/**
+ * @returns {Promise<string[]>}
+ */
 async function getLocation() {
   if (plantLocation.length === 2) return plantLocation;
   try {
@@ -14,6 +19,9 @@ async function getLocation() {
   return plantLocation;
 }
 
+/**
+ * @returns {Promise<ApiWeatherResponse|object>}
+ */
 export async function getWeather() {
   if (
     weather !== null &&
@@ -28,7 +36,7 @@ export async function getWeather() {
     const json = await response.json();
     // eslint-disable-next-line require-atomic-updates
     [weather] = json.weather;
-    return weather;
+    return weather ?? {};
   } catch (error) {
     console.error(error);
     return {};

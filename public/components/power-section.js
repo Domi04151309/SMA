@@ -15,6 +15,12 @@ const roofToBattery = document.getElementById('roof-to-battery');
 const batteryToGrid = document.getElementById('battery-to-grid');
 const batteryPercentage = document.getElementById('battery-percentage');
 
+/**
+ *
+ * @param {Element} element
+ * @param {() => string} getDirection
+ * @returns {void}
+ */
 function showArrow(element, getDirection) {
   for (
     const previousDirection of [
@@ -30,18 +36,28 @@ function showArrow(element, getDirection) {
 }
 
 export const PowerSection = {
-  update(json) {
-    house.textContent = json.power.currentUsage
-      ?.toLocaleString('de') ?? '?';
-    roof.textContent = json.power.fromRoof
-      ?.toLocaleString('de') ?? '?';
+  update(/** @type {ApiNowResponse} */ json) {
+    if (
+      house === null ||
+      roof === null ||
+      battery === null ||
+      grid === null ||
+      batteryPercentage === null ||
+      roofToHouse === null ||
+      batteryToHouse === null ||
+      gridToHouse === null ||
+      roofToBattery === null ||
+      batteryToGrid === null
+    ) throw new Error('Invalid layout');
+    house.textContent = json.power.currentUsage.toLocaleString('de');
+    roof.textContent = json.power.fromRoof.toLocaleString('de');
     battery.textContent = json.power.toBattery > 0
-      ? -json.power.toBattery?.toLocaleString('de')
-      : json.power.fromBattery?.toLocaleString('de') ?? '?';
+      ? (-json.power.toBattery).toLocaleString('de')
+      : json.power.fromBattery.toLocaleString('de');
     grid.textContent = json.power.toGrid > 0
-      ? -json.power.toGrid?.toLocaleString('de')
-      : json.power.fromGrid?.toLocaleString('de') ?? '?';
-    batteryPercentage.textContent = json.batteryPercentage ?? '?';
+      ? (-json.power.toGrid).toLocaleString('de')
+      : json.power.fromGrid.toLocaleString('de');
+    batteryPercentage.textContent = json.batteryPercentage?.toString() ?? '?';
 
     showArrow(
       roofToHouse,

@@ -1,21 +1,42 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = 0;
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { PLANT_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 
+/** @type {{[index: number]: string[]}} */
 const strings = {};
 
+/**
+ * @param {string} url
+ * @returns {Promise<Response|null>}
+ */
 async function saveFetch(url) {
   return await fetch(url).catch(() => null);
 }
 
+/**
+ * @param {Response|null} response
+ * @returns {Promise<any|null>}
+ */
 async function saveJson(response) {
-  return await response.json().catch(() => null);
+  return await response?.json()?.catch(() => null) ?? null;
 }
 
+/**
+ * @template T
+ * @param {PromiseSettledResult<T>} promise
+ * @returns {boolean}
+ */
 function isFulfilled(promise) {
   return promise.status === 'fulfilled' && promise.value !== null;
 }
 
+/**
+ * @template T
+ * @param {Promise<T>[]} promises
+ * @param {string} errorMessage
+ * @param {(result: T, index: number) => void} lambda
+ * @returns {Promise<void>}
+ */
 async function allSettledHandling(
   promises,
   errorMessage,
@@ -24,10 +45,15 @@ async function allSettledHandling(
   const settled = await Promise.allSettled(promises);
   for (
     const [index, promise] of settled.entries()
+    // @ts-expect-error
   ) if (isFulfilled(promise)) lambda(promise.value, index);
+  // @ts-expect-error
   else console.error(errorMessage, promise.reason);
 }
 
+/**
+ * @returns {Promise<any[]>}
+ */
 export async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
@@ -42,7 +68,9 @@ export async function fetchDeviceData() {
   }
 
   // Convert responses to JSON
+  /** @type {Promise<any>[]} */
   const dataParserPromises = [];
+  /** @type {Promise<any>[]} */
   const translationParserPromises = [];
   await allSettledHandling(
     dataRequests,
@@ -65,13 +93,15 @@ export async function fetchDeviceData() {
   );
 
   // Format data
+  /** @type {any} */
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(
       Object.keys(OBJECT_MAP)
         .sort()
         .map(key => [key, []])
     )
-    : null;
+    : {};
+  /** @type {any[]} */
   const result = [];
   await allSettledHandling(
     dataParserPromises,
@@ -110,8 +140,9 @@ export async function fetchDeviceData() {
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
       Object.entries(debugInfo).filter(
-        // eslint-disable-next-line no-undefined
-        entry => entry[1].some(item => item !== undefined)
+        entry => entry[1].some(
+          (/** @type {unknown} */ item) => (item ?? null) !== null
+        )
       )
     )
   );

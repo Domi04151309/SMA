@@ -1,5 +1,9 @@
 const CACHE_NAME = 'solar-cache';
 
+/**
+ * @param {{request: Request}} event
+ * @returns {Promise<Response|undefined>}
+ */
 async function fetchManagement(event) {
   const offlineCache = await caches.open(CACHE_NAME);
   const cachedResult = await offlineCache.match(event.request);
@@ -25,10 +29,12 @@ async function fetchManagement(event) {
 }
 
 self.addEventListener('message', event => {
+  // @ts-expect-error Missing worker types in context
   if (event.data.action === 'skipWaiting') self.skipWaiting();
 });
 
 self.addEventListener('fetch', event => {
+  // @ts-expect-error Missing worker types in context
   event.respondWith(fetchManagement(event));
 });
 
@@ -41,5 +47,6 @@ self.addEventListener('activate', event => {
       // eslint-disable-next-line no-await-in-loop
     ) await caches.delete(cacheName);
   };
+  // @ts-expect-error Missing worker types in context
   event.waitUntil(onActivate());
 });

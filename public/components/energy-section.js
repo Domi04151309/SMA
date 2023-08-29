@@ -6,7 +6,15 @@ const energyToBattery = document.getElementById('energy-to-battery');
 const energyToGrid = document.getElementById('energy-to-grid');
 
 export const EnergySection = {
-  update(json) {
+  update(/** @type {ApiNowResponse} */ json) {
+    if (
+      energyFromRoof === null ||
+      energyFromRoofUsed === null ||
+      energyFromBattery === null ||
+      energyFromGrid === null ||
+      energyToBattery === null ||
+      energyToGrid === null
+    ) throw new Error('Invalid layout');
     energyFromRoof.textContent = json.energy.fromRoof.toLocaleString('de');
     energyFromRoofUsed.textContent = (
       json.energy.fromRoof - json.energy.toGrid - json.energy.toBattery

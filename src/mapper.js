@@ -1,20 +1,43 @@
 import { PLANT_IP_ADDRESSES } from './config.js';
 import { fetchDeviceData } from './fetcher.js';
 
+/**
+ * @param {any} object
+ * @param {string} propertyName
+ * @param {unknown} value
+ * @returns {void}
+ */
 function setIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] = value;
 }
 
+/**
+ * @param {any} object
+ * @param {string} propertyName
+ * @param {unknown} value
+ * @returns {void}
+ */
 function addIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] += value;
 }
 
+/**
+ * @param {any} object
+ * @param {string} propertyName
+ * @param {unknown} value
+ * @returns {void}
+ */
 function subtractIfNumber(object, propertyName, value) {
   if (typeof value === 'number') object[propertyName] -= value;
 }
 
+/**
+ * @param {any|null} prefetched
+ * @returns {Promise<ApiDevicesResponse>}
+ */
 export async function getDevices(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
+  /** @type {ApiDevicesResponse} */
   const result = {
     batteries: [],
     energyMeters: [],
@@ -40,6 +63,10 @@ export async function getDevices(prefetched = null) {
   return result;
 }
 
+/**
+ * @param {any|null} prefetched
+ * @returns {Promise<ApiNowResponse>}
+ */
 export async function getLiveData(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
   const result = {
