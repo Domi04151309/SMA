@@ -12,21 +12,23 @@ export class Server {
     this.app.use(express.static('public'));
     this.registerNodeModulesFile(
       '/frappe-charts.min.esm.js',
-      '../node_modules/frappe-charts/dist/frappe-charts.min.esm.js'
+      'frappe-charts/dist/frappe-charts.min.esm.js'
     );
     this.registerNodeModulesFile(
       '/frappe-charts.min.esm.js.map',
-      '../node_modules/frappe-charts/dist/frappe-charts.min.esm.js.map'
+      'frappe-charts/dist/frappe-charts.min.esm.js.map'
     );
   }
 
   registerNodeModulesFile(path, filePath) {
     this.app.get(path, (_, response) => {
-      response.sendFile(fileURLToPath(new URL(filePath, import.meta.url)));
+      response.sendFile(
+        fileURLToPath(new URL('../node_modules/' + filePath, import.meta.url))
+      );
     });
   }
 
-  registerApiEndpint(path, getResponse) {
+  registerApiEndpoint(path, getResponse) {
     this.app.get('/api' + path, async (_, response) => {
       const sendableResponse = getResponse.constructor.name === 'AsyncFunction'
         ? await getResponse()

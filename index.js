@@ -40,8 +40,8 @@ if (PERSISTENT_HISTORY) {
 await fetchNewData();
 setInterval(fetchNewData, 10_000);
 
-new Server().registerApiEndpint('/history', () => historyData)
-  .registerApiEndpint('/now', () => historyData.at(-1))
-  .registerApiEndpint('/devices', () => devices)
-  .registerApiEndpint('/weather', async () => await getWeather())
+new Server().registerApiEndpoint('/history', () => historyData)
+  .registerApiEndpoint('/now', () => historyData.at(-1))
+  .registerApiEndpoint('/devices', () => devices)
+  .registerApiEndpoint('/weather', async () => await getWeather())
   .start();
