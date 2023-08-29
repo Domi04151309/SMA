@@ -1,6 +1,6 @@
-import { Charts } from '/components/charts.js';
 import { Devices } from '/components/devices.js';
 import { EnergySection } from '/components/energy-section.js';
+import { HistoryCharts } from '/components/history-charts.js';
 import { PowerSection } from '/components/power-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 
@@ -32,19 +32,33 @@ async function update(data = null) {
 
 let json, response;
 
-response = await fetch(API_URL + '/devices');
-devices = await response.json();
-Devices.update(devices);
+try {
+  response = await fetch(API_URL + '/devices');
+  devices = await response.json();
+  Devices.update(devices);
+} catch {
+  console.error('Failed loading devices');
+}
 
-response = await fetch(API_URL + '/history');
-json = await response.json();
-charts = new Charts(json, devices);
-await update(json.at(-1));
+try {
+  response = await fetch(API_URL + '/history');
+  json = await response.json();
+  charts = new HistoryCharts(json, devices);
+  await update(json.at(-1));
+} catch {
+  console.error('Failed loading history');
+  HistoryCharts.error();
+}
 
-response = await fetch(API_URL + '/weather');
-json = await response.json();
-// eslint-disable-next-line no-new
-new WeatherSection(json);
+try {
+  response = await fetch(API_URL + '/weather');
+  json = await response.json();
+  // eslint-disable-next-line no-new
+  new WeatherSection(json);
+} catch {
+  console.error('Failed loading weather');
+  WeatherSection.error();
+}
 
 interval = setInterval(update, 10_000);
 devices = null;

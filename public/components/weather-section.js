@@ -1,6 +1,4 @@
-import {
-  Chart
-} from '/frappe-charts.min.esm.js';
+import { Chart, commonChartOptions, error } from '/components/charts.js';
 
 const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');
@@ -10,13 +8,7 @@ const uvIndex = document.getElementById('uv-index');
 export class WeatherSection {
   constructor(json) {
     this.weatherChart = new Chart('#weather-chart', {
-      axisOptions: {
-        xAxisMode: 'tick',
-        xIsSeries: 1
-      },
-      barOptions: {
-        spaceRatio: 0.1
-      },
+      ...commonChartOptions,
       colors: ['#FFD600', '#304FFE', '#2979FF', '#40C4FF', '#84FFFF'],
       data: {
         datasets: [
@@ -49,7 +41,6 @@ export class WeatherSection {
           { label: '', value: 100 }
         ]
       },
-      height: 240,
       lineOptions: {
         hideDots: 1,
         regionFill: 1
@@ -75,5 +66,11 @@ export class WeatherSection {
       ? '?'
       : sunHourValue.toLocaleString('de');
     uvIndex.textContent = json?.uvIndex ?? '?';
+  }
+
+  static error() {
+    error('#weather-chart', {
+      title: 'Wetterverlauf'
+    });
   }
 }
