@@ -1,4 +1,4 @@
-import { PLANT_IP_ADDRESSES } from './config.js';
+import { INVERTER_IP_ADDRESSES } from './config.js';
 import { fetchDeviceData } from './fetcher.js';
 
 /**
@@ -45,7 +45,7 @@ export async function getDevices(prefetched = null) {
   };
   for (const [index, device] of devices.entries()) {
     result.inverters.push({
-      address: PLANT_IP_ADDRESSES[index],
+      address: INVERTER_IP_ADDRESSES[index],
       mode: device.Operation_RunStt,
       model: device.Name_Model,
       status: device.Operation_Health,

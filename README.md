@@ -40,7 +40,7 @@ in a text editor and set the required configuration values:
 
 ```javascript
 ...
-export const PLANT_IP_ADDRESSES = [
+export const INVERTER_IP_ADDRESSES = [
   '192.168.20.60',
   '192.168.20.62'
 ];

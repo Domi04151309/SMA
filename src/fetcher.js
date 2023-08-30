@@ -1,5 +1,5 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-import { PLANT_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
+import { INVERTER_IP_ADDRESSES, PRINT_DEBUG_INFO } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 
 /** @type {{[index: number]: string[]}} */
@@ -58,7 +58,7 @@ export async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
   const translationRequests = [];
-  for (const [index, address] of PLANT_IP_ADDRESSES.entries()) {
+  for (const [index, address] of INVERTER_IP_ADDRESSES.entries()) {
     dataRequests.push(saveFetch(
       'https://' + address + '/dyn/getDashValues.json'
     ));
