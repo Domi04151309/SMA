@@ -1,20 +1,24 @@
+declare interface Energy {
+  fromBattery: number,
+  fromGrid: number,
+  fromRoof: number,
+  toBattery: number,
+  toGrid: number
+}
+
+declare interface Power {
+  currentUsage: number,
+  fromBattery: number,
+  fromGrid: number,
+  fromRoof: number,
+  toBattery: number,
+  toGrid: number
+}
+
 declare interface NowResponse {
   batteryPercentage: number|null,
-  energy: {
-    fromBattery: number,
-    fromGrid: number,
-    fromRoof: number,
-    toBattery: number,
-    toGrid: number
-  },
-  power: {
-    currentUsage: number,
-    fromBattery: number,
-    fromGrid: number,
-    fromRoof: number,
-    toBattery: number,
-    toGrid: number
-  },
+  energy: Energy,
+  power: Power,
   timestamp: number
 }
 
@@ -37,21 +41,27 @@ declare interface DevicesResponse {
   inverters: Inverter[]
 }
 
+declare interface Astronomy {
+  sunrise: string,
+  sunset: string
+}
+
+declare interface WeatherTranslation {
+  value: string
+}
+
 declare interface WeatherHour {
   chanceoffog: string,
   chanceofovercast: string,
   chanceofrain: string,
   chanceofsnow: string,
   chanceofsunshine: string,
-  lang_de: [{ value: string }]
+  lang_de: WeatherTranslation[],
   time: string
 }
 
 declare interface WeatherResponse {
-  astronomy: [{
-    sunrise: string,
-    sunset: string
-  }],
+  astronomy: Astronomy[],
   date: string,
   hourly: WeatherHour[],
   sunHour: string,
