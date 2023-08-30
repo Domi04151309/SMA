@@ -16,8 +16,8 @@ function toTimeString(date) {
 
 export class HistoryCharts {
   constructor(
-    /** @type {ApiNowResponse[]} */ json,
-    /** @type {ApiDevicesResponse} */ devices
+    /** @type {NowResponse[]} */ json,
+    /** @type {DevicesResponse} */ devices
   ) {
     this.sourceChart = new Chart('#source-chart', {
       ...commonChartOptions,
@@ -116,7 +116,7 @@ export class HistoryCharts {
     });
   }
 
-  update(/** @type {ApiNowResponse} */ json) {
+  update(/** @type {NowResponse} */ json) {
     this.historyChart.addDataPoint(
       toTimeString(new Date(json.timestamp)),
       [

@@ -1,4 +1,4 @@
-declare interface ApiNowResponse {
+declare interface NowResponse {
   batteryPercentage: number|null,
   energy: {
     fromBattery: number,
@@ -31,7 +31,7 @@ declare interface Inverter {
   vendor: string
 }
 
-declare interface ApiDevicesResponse {
+declare interface DevicesResponse {
   batteries: Battery[],
   energyMeters: number[],
   inverters: Inverter[]
@@ -47,7 +47,7 @@ declare interface WeatherHour {
   time: string
 }
 
-declare interface ApiWeatherResponse {
+declare interface WeatherResponse {
   astronomy: [{
     sunrise: string,
     sunset: string

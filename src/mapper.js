@@ -2,7 +2,7 @@ import { INVERTER_IP_ADDRESSES } from './config.js';
 import { fetchDeviceData } from './fetcher.js';
 
 /**
- * @param {any} object
+ * @param {{[key: string]: unknown}} object
  * @param {string} propertyName
  * @param {unknown} value
  * @returns {void}
@@ -12,7 +12,7 @@ function setIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {any} object
+ * @param {{[key: string]: number}} object
  * @param {string} propertyName
  * @param {unknown} value
  * @returns {void}
@@ -22,7 +22,7 @@ function addIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {any} object
+ * @param {{[key: string]: number}} object
  * @param {string} propertyName
  * @param {unknown} value
  * @returns {void}
@@ -32,12 +32,12 @@ function subtractIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {any|null} prefetched
- * @returns {Promise<ApiDevicesResponse>}
+ * @param {any[]|null} prefetched
+ * @returns {Promise<DevicesResponse>}
  */
 export async function getDevices(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
-  /** @type {ApiDevicesResponse} */
+  /** @type {DevicesResponse} */
   const result = {
     batteries: [],
     energyMeters: [],
@@ -64,8 +64,8 @@ export async function getDevices(prefetched = null) {
 }
 
 /**
- * @param {any|null} prefetched
- * @returns {Promise<ApiNowResponse>}
+ * @param {any[]|null} prefetched
+ * @returns {Promise<NowResponse>}
  */
 export async function getLiveData(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();

@@ -6,7 +6,7 @@ const energyToBattery = document.getElementById('energy-to-battery');
 const energyToGrid = document.getElementById('energy-to-grid');
 
 export const EnergySection = {
-  update(/** @type {ApiNowResponse} */ json) {
+  update(/** @type {NowResponse} */ json) {
     if (
       energyFromRoof === null ||
       energyFromRoofUsed === null ||

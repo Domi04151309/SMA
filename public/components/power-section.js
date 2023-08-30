@@ -36,7 +36,7 @@ function showArrow(element, getDirection) {
 }
 
 export const PowerSection = {
-  update(/** @type {ApiNowResponse} */ json) {
+  update(/** @type {NowResponse} */ json) {
     if (
       house === null ||
       roof === null ||

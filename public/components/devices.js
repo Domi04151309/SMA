@@ -4,7 +4,7 @@ const rowTemplate = document.getElementsByTagName('template')[0].content;
 const INVALID_LAYOUT = 'Invalid layout';
 
 export const Devices = {
-  addBatteries(/** @type {ApiDevicesResponse} */ json) {
+  addBatteries(/** @type {DevicesResponse} */ json) {
     for (const device of json.batteries) {
       const row = rowTemplate.cloneNode(true);
       if (!(row instanceof DocumentFragment)) return;
@@ -28,7 +28,7 @@ export const Devices = {
     }
   },
 
-  addEnergyMeters(/** @type {ApiDevicesResponse} */ json) {
+  addEnergyMeters(/** @type {DevicesResponse} */ json) {
     for (const device of json.energyMeters) {
       const row = rowTemplate.cloneNode(true);
       if (!(row instanceof DocumentFragment)) return;
@@ -50,7 +50,7 @@ export const Devices = {
     }
   },
 
-  addInverters(/** @type {ApiDevicesResponse} */ json) {
+  addInverters(/** @type {DevicesResponse} */ json) {
     for (const device of json.inverters) {
       const row = rowTemplate.cloneNode(true);
       if (!(row instanceof DocumentFragment)) throw new Error(INVALID_LAYOUT);
@@ -76,7 +76,7 @@ export const Devices = {
     }
   },
 
-  update(/** @type {ApiDevicesResponse} */ json) {
+  update(/** @type {DevicesResponse} */ json) {
     while (
       (deviceTable?.childNodes?.length ?? 0) > 1
     ) deviceTable?.lastChild?.remove();

@@ -8,13 +8,13 @@ const API_URL = '/api';
 
 /** @type {HistoryCharts|null} */
 let charts = null;
-/** @type {ApiDevicesResponse|null} */
+/** @type {DevicesResponse|null} */
 let devices = null;
 /** @type {number|null} */
 let interval = null;
 
 /**
- * @returns {Promise<void>}
+ * @returns {Promise<NowResponse>}
  */
 async function fetchLiveData() {
   try {
@@ -30,7 +30,7 @@ async function fetchLiveData() {
 }
 
 /**
- * @param {any|null} data
+ * @param {NowResponse|null} data
  * @returns {Promise<void>}
  */
 async function update(data = null) {

@@ -5,9 +5,9 @@ import { Server } from './src/server.js';
 import { fetchDeviceData } from './src/fetcher.js';
 import { getWeather } from './src/weather.js';
 
-/** @type {ApiNowResponse[]} */
+/** @type {NowResponse[]} */
 const historyData = [];
-/** @type {ApiDevicesResponse|null} */
+/** @type {DevicesResponse|null} */
 let devices = null;
 
 /**

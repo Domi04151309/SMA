@@ -6,7 +6,7 @@ const sunHours = document.getElementById('sun-hours');
 const uvIndex = document.getElementById('uv-index');
 
 export class WeatherSection {
-  constructor(/** @type {ApiWeatherResponse} */ json) {
+  constructor(/** @type {WeatherResponse} */ json) {
     if (
       sunrise === null ||
       sunset === null ||

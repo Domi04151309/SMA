@@ -14,7 +14,7 @@ export const commonChartOptions = {
 
 /**
  * @param {string} selector
- * @param {any} options
+ * @param {object} options
  * @returns {void}
  */
 export function error(selector, options) {

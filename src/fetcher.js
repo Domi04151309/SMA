@@ -23,15 +23,6 @@ async function saveJson(response) {
 
 /**
  * @template T
- * @param {PromiseSettledResult<T>} promise
- * @returns {boolean}
- */
-function isFulfilled(promise) {
-  return promise.status === 'fulfilled' && promise.value !== null;
-}
-
-/**
- * @template T
  * @param {Promise<T>[]} promises
  * @param {string} errorMessage
  * @param {(result: T, index: number) => void} lambda
@@ -45,14 +36,17 @@ async function allSettledHandling(
   const settled = await Promise.allSettled(promises);
   for (
     const [index, promise] of settled.entries()
-    // @ts-expect-error
-  ) if (isFulfilled(promise)) lambda(promise.value, index);
-  // @ts-expect-error
-  else console.error(errorMessage, promise.reason);
+  ) if (
+    promise.status === 'fulfilled' && promise.value
+  ) lambda(promise.value, index);
+  else if (
+    promise.status === 'rejected' && promise.reason
+  ) console.error(errorMessage, promise.reason);
+  else console.error(errorMessage);
 }
 
 /**
- * @returns {Promise<any[]>}
+ * @returns {Promise<object[]>}
  */
 export async function fetchDeviceData() {
   // Dispatch fetch requests
@@ -93,7 +87,7 @@ export async function fetchDeviceData() {
   );
 
   // Format data
-  /** @type {any} */
+  /** @type {{[key: string]: unknown[]}} */
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(
       Object.keys(OBJECT_MAP)
@@ -101,7 +95,7 @@ export async function fetchDeviceData() {
         .map(key => [key, []])
     )
     : {};
-  /** @type {any[]} */
+  /** @type {object[]} */
   const result = [];
   await allSettledHandling(
     dataParserPromises,

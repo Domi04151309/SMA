@@ -62,13 +62,13 @@ This will start the server and make it available at http://localhost:3000/.
 The project provides the following API endpoints:
 
 - **GET /api/devices**: Returns a list of devices. See
-  [`ApiDevicesResponse`](https://domi04151309.github.io/SMA/interfaces/types.ApiDevicesResponse.html).
+  [`DevicesResponse`](https://domi04151309.github.io/SMA/interfaces/types.DevicesResponse.html).
 - **GET /api/history**: Returns a list of collected data points. See
-  [`ApiNowResponse`](https://domi04151309.github.io/SMA/interfaces/types.ApiNowResponse.html).
+  [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
 - **GET /api/now**: Returns the latest data point. See
-  [`ApiNowResponse`](https://domi04151309.github.io/SMA/interfaces/types.ApiNowResponse.html).
+  [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
 - **GET /api/weather**: Returns todays weather. See
-  [`ApiWeatherResponse`](https://domi04151309.github.io/SMA/interfaces/types.ApiWeatherResponse.html).
+  [`WeatherResponse`](https://domi04151309.github.io/SMA/interfaces/types.WeatherResponse.html).
 
 For more detailed information about each endpoint, refer to the source code and documentation.
 

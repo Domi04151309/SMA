@@ -1,6 +1,6 @@
 /** @type {string[]} */
 let plantLocation = [];
-/** @type {ApiWeatherResponse|null} */
+/** @type {WeatherResponse|null} */
 let weather = null;
 
 /**
@@ -20,7 +20,7 @@ async function getLocation() {
 }
 
 /**
- * @returns {Promise<ApiWeatherResponse|object>}
+ * @returns {Promise<WeatherResponse|object>}
  */
 export async function getWeather() {
   if (
