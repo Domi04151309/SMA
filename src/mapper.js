@@ -14,7 +14,7 @@ function setIfNumber(object, propertyName, value) {
 /**
  * @param {{[key: string]: number}} object
  * @param {string} propertyName
- * @param {unknown} value
+ * @param {number} value
  * @returns {void}
  */
 function addIfNumber(object, propertyName, value) {
@@ -24,7 +24,7 @@ function addIfNumber(object, propertyName, value) {
 /**
  * @param {{[key: string]: number}} object
  * @param {string} propertyName
- * @param {unknown} value
+ * @param {number} value
  * @returns {void}
  */
 function subtractIfNumber(object, propertyName, value) {

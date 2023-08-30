@@ -134,9 +134,7 @@ export async function fetchDeviceData() {
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
       Object.entries(debugInfo).filter(
-        entry => entry[1].some(
-          (/** @type {unknown} */ item) => (item ?? null) !== null
-        )
+        entry => entry[1].some(item => (item ?? null) !== null)
       )
     )
   );
