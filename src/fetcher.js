@@ -7,18 +7,12 @@ const strings = {};
 
 /**
  * @param {string} url
- * @returns {Promise<Response|null>}
- */
-async function saveFetch(url) {
-  return await fetch(url).catch(() => null);
-}
-
-/**
- * @param {Response|null} response
  * @returns {Promise<any|null>}
  */
-async function saveJson(response) {
-  return await response?.json()?.catch(() => null) ?? null;
+async function fetchJson(url) {
+  // Catch fetch errors here because they are otherwise uncatchable.
+  const response = await fetch(url).catch(() => null);
+  return await response?.json();
 }
 
 /**
@@ -56,34 +50,18 @@ export async function fetchDeviceData() {
   const dataRequests = [];
   const translationRequests = [];
   for (const [index, address] of INVERTER_IP_ADDRESSES.entries()) {
-    dataRequests.push(saveFetch(
+    dataRequests.push(fetchJson(
       'https://' + address + '/dyn/getDashValues.json'
     ));
-    if (!(index in strings)) translationRequests.push(saveFetch(
+    if (!(index in strings)) translationRequests.push(fetchJson(
       'https://' + address + '/data/l10n/de-DE.json'
     ));
   }
 
-  // Convert responses to JSON
-  /** @type {Promise<any>[]} */
-  const dataParserPromises = [];
-  /** @type {Promise<any>[]} */
-  const translationParserPromises = [];
-  await allSettledHandling(
-    dataRequests,
-    'Failed fetching data',
-    promise => dataParserPromises.push(saveJson(promise))
-  );
+  // Save translations
   await allSettledHandling(
     translationRequests,
     'Failed fetching translation',
-    promise => translationParserPromises.push(saveJson(promise))
-  );
-
-  // Save translations
-  await allSettledHandling(
-    translationParserPromises,
-    'Failed parsing translation',
     (promise, index) => {
       strings[index] = promise;
     }
@@ -101,8 +79,8 @@ export async function fetchDeviceData() {
   /** @type {object[]} */
   const result = [];
   await allSettledHandling(
-    dataParserPromises,
-    'Failed parsing data',
+    dataRequests,
+    'Failed fetching data',
     (json, index) => {
       const filteredJson = Object.fromEntries(
         Object.entries(Object.values(json.result)[0])
