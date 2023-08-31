@@ -14,7 +14,10 @@ async function getLocation() {
     // eslint-disable-next-line require-atomic-updates
     plantLocation = Object.values(json);
   } catch (error) {
-    console.error(error);
+    console.error(
+      'Failed getting location:',
+      error instanceof Error ? error.message : error
+    );
   }
   return plantLocation;
 }
@@ -38,7 +41,10 @@ export async function getWeather() {
     [weather] = json.weather;
     return weather ?? {};
   } catch (error) {
-    console.error(error);
+    console.error(
+      'Failed getting weather:',
+      error instanceof Error ? error.message : error
+    );
     return {};
   }
 }

@@ -41,7 +41,10 @@ async function allSettledHandling(
   ) lambda(promise.value, index);
   else if (
     promise.status === 'rejected' && promise.reason
-  ) console.error(errorMessage, promise.reason);
+  ) console.error(
+    errorMessage + ':',
+    promise.reason?.message ?? promise.reason
+  );
   else console.error(errorMessage);
 }
 
@@ -140,3 +143,16 @@ export async function fetchDeviceData() {
   );
   return result;
 }
+
+const originalEmitWarning = process.emitWarning;
+/** @type {(warning: string | Error, ...otherArguments: any[]) => void} */
+process.emitWarning = (warning, ...otherArguments) => {
+  if (
+    typeof warning === 'string' &&
+    warning.includes('NODE_TLS_REJECT_UNAUTHORIZED')
+  ) {
+    process.emitWarning = originalEmitWarning;
+    return;
+  }
+  originalEmitWarning.call(process, warning, ...otherArguments);
+};
