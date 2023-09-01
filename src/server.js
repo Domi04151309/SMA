@@ -10,7 +10,9 @@ export class Server {
     this.app = express();
     this.app.use(helmet());
     this.app.use(compression());
-    this.app.use(express.static('public'));
+    this.app.use(
+      express.static(fileURLToPath(new URL('../public/', import.meta.url)))
+    );
     this.registerNodeModulesFile(
       '/frappe-charts.min.esm.js',
       'frappe-charts/dist/frappe-charts.min.esm.js'
