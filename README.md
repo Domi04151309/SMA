@@ -34,17 +34,14 @@ Follow these instructions to set up the project locally on your machine.
 
 ### Configuration
 
-Open the
-[`config.js`](https://github.com/Domi04151309/SMA/blob/main/src/config.js) file
-in a text editor and set the required configuration values:
+Create an `inverters.json` file in a text editor and set the required
+configuration values:
 
 ```javascript
-...
-export const INVERTER_IP_ADDRESSES = [
-  '192.168.20.60',
-  '192.168.20.62'
-];
-...
+[
+  "192.168.20.60",
+  "192.168.20.62"
+]
 ```
 
 ## Usage

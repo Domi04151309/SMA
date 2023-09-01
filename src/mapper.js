@@ -1,5 +1,5 @@
-import { INVERTER_IP_ADDRESSES } from './config.js';
 import { fetchDeviceData } from './fetcher.js';
+import { getAddresses } from './inverters.js';
 
 /**
  * @param {{[key: string]: unknown}} object
@@ -45,7 +45,7 @@ export async function getDevices(prefetched = null) {
   };
   for (const [index, device] of devices.entries()) {
     result.inverters.push({
-      address: INVERTER_IP_ADDRESSES[index],
+      address: getAddresses()[index],
       mode: device.Operation_RunStt,
       model: device.Name_Model,
       status: device.Operation_Health,
