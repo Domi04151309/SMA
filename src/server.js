@@ -2,12 +2,13 @@ import { OPEN_BROWSER_ON_START, PORT } from './config.js';
 import compression from 'compression';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
+import helmet from 'helmet';
 import open from 'open';
 
 export class Server {
   constructor() {
     this.app = express();
-    this.app.disable('x-powered-by');
+    this.app.use(helmet());
     this.app.use(compression());
     this.app.use(express.static('public'));
     this.registerNodeModulesFile(
