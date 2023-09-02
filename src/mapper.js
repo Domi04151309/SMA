@@ -37,6 +37,7 @@ function subtractIfNumber(object, propertyName, value) {
  */
 export async function getDevices(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
+  const addresses = await getAddresses();
   /** @type {DevicesResponse} */
   const result = {
     batteries: [],
@@ -45,7 +46,7 @@ export async function getDevices(prefetched = null) {
   };
   for (const [index, device] of devices.entries()) {
     result.inverters.push({
-      address: getAddresses()[index],
+      address: addresses[index],
       mode: device.Operation_RunStt,
       model: device.Name_Model,
       status: device.Operation_Health,

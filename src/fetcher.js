@@ -66,7 +66,7 @@ function getLoggerKey(id) {
 export async function fetchDeviceLogger() {
   // Dispatch fetch requests
   const dataRequests = [];
-  for (const address of getAddresses()) dataRequests.push(fetchJson(
+  for (const address of await getAddresses()) dataRequests.push(fetchJson(
     'https://' + address + '/dyn/getDashLogger.json'
   ));
 
@@ -95,7 +95,8 @@ export async function fetchDeviceData() {
   // Dispatch fetch requests
   const dataRequests = [];
   const translationRequests = [];
-  for (const [index, address] of getAddresses().entries()) {
+  const addresses = await getAddresses();
+  for (const [index, address] of addresses.entries()) {
     dataRequests.push(fetchJson(
       'https://' + address + '/dyn/getDashValues.json'
     ));
