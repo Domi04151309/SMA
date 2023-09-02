@@ -232,7 +232,7 @@ h2, .match-chart-padding {
   padding: 0;
 }
 
-#source-chart, #history-chart, #battery-chart, #weather-chart {
+#source-chart, #history-chart, #battery-chart, #grid-chart, #weather-chart {
   display: flex;
   align-items: flex-end;
   margin-top: -64px;
@@ -257,6 +257,9 @@ h2, .match-chart-padding {
   }
   #devices, #history-chart {
     grid-column: span 2;
+  }
+  #energy {
+    grid-row: span 2;
   }
   #devices tr:not(:first-child) {
     display: table-row;

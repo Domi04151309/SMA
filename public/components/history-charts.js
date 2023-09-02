@@ -85,6 +85,7 @@ export class HistoryCharts {
     });
     this.batteryChart = new Chart('#battery-chart', {
       ...commonChartOptions,
+      colors: ['#00B0FF'],
       data: {
         datasets: [
           {
@@ -99,10 +100,6 @@ export class HistoryCharts {
           { label: 'Voll', value: 100 }
         ]
       },
-      lineOptions: {
-        hideDots: 1,
-        regionFill: 1
-      },
       title: 'Batterie',
       tooltipOptions: {
         formatTooltipY: (
@@ -112,6 +109,26 @@ export class HistoryCharts {
           (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100 *
           (value ?? 0) / 100
         ).toLocaleString('de') + ' Wh'
+      }
+    });
+    this.gridChart = new Chart('#grid-chart', {
+      ...commonChartOptions,
+      colors: ['#2979FF'],
+      data: {
+        datasets: [
+          {
+            chartType: 'line',
+            name: 'Netz',
+            values: json.map(item => item.power.toGrid - item.power.fromGrid)
+          }
+        ],
+        labels: json.map(item => toTimeString(new Date(item.timestamp)))
+      },
+      title: 'Netzeinspeisung',
+      tooltipOptions: {
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value?.toLocaleString('de') + ' W'
       }
     });
   }
@@ -129,6 +146,10 @@ export class HistoryCharts {
     this.batteryChart.addDataPoint(
       toTimeString(new Date(json.timestamp)),
       [json.batteryPercentage ?? 0]
+    );
+    this.gridChart.addDataPoint(
+      toTimeString(new Date(json.timestamp)),
+      [json.power.toGrid - json.power.fromGrid]
     );
   }
 

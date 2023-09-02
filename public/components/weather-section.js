@@ -48,11 +48,6 @@ export class WeatherSection {
           { label: '', value: 100 }
         ]
       },
-      lineOptions: {
-        hideDots: 1,
-        regionFill: 1,
-        spline: 1
-      },
       title: 'Wetterverlauf',
       tooltipOptions: {
         formatTooltipX: (/** @type {string|null} */ value) => {
