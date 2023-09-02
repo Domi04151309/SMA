@@ -5,8 +5,6 @@ import { getWeather } from './src/weather.js';
 
 /** @type {NowResponse[]} */
 const historyData = await constructHistory();
-/** @type {DevicesResponse|null} */
-let devices = null;
 
 /**
  * @returns {Promise<void>}
@@ -15,7 +13,6 @@ async function fetchNewData() {
   while (historyData.length > 288) historyData.shift();
   const deviceData = await fetchDeviceData();
   historyData.push(await getLiveData(deviceData));
-  devices = await getDevices(deviceData);
 }
 
 await fetchNewData();
@@ -23,6 +20,6 @@ setInterval(fetchNewData, 300_000);
 
 new Server().registerApiEndpoint('/history', () => historyData)
   .registerApiEndpoint('/now', async () => await getLiveData())
-  .registerApiEndpoint('/devices', () => devices)
+  .registerApiEndpoint('/devices', async () => await getDevices())
   .registerApiEndpoint('/weather', async () => await getWeather())
   .start();
