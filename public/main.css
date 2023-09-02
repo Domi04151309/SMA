@@ -1,6 +1,10 @@
 :root {
   --text-color-primary: rgba(0, 0, 0, .87);
   --text-color-secondary: rgba(0, 0, 0, .6);
+  --border-color: #f4f4f4;
+  --border-radius: 8px;
+  --border-radius-2: 16px;
+  --card-shadow: 0 4px 6px 0 rgba(0, 0, 0, .2);
 }
 html, body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
@@ -32,7 +36,7 @@ header h1 {
 }
 main {
   margin-top: 54px;
-  padding: 16px;
+  padding: 2px 0;
 }
 h1, h2, h3, h4, h5, h6, th {
   font-weight: normal;
@@ -44,10 +48,12 @@ h3, text {
   color: var(--text-color-secondary);
 }
 table {
-  border-collapse: collapse;
-  border-spacing: 0;
   width: 100%;
+  border-spacing: 0;
+  border-collapse: separate;
+  border-radius: var(--border-radius);
   border: 1px solid #ddd;
+  overflow: hidden;
 }
 th, td {
   text-align: left;
@@ -67,20 +73,45 @@ footer {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(1, 1fr);
+  align-items: start;
 }
 
-#diagram {
+.quick-card, .quick-card {
+  margin-bottom: 16px;
+  padding: 16px;
+  border-radius: var(--border-radius-2);
+  box-shadow: var(--card-shadow);
+  border: 1px solid var(--footer-color);
+}
+.quick-card > img {
+  display: block;
+  height: 48px;
+  width: 48px;
+  margin-bottom: 16px;
+}
+.quick-card > div {
+  display: flex;
+  justify-content: space-between;
+}
+.quick-card > div > span {
+  font-size: 1.17em;
+}
+.quick-card > div > span:first-child {
+  color: var(--text-color-primary);
+}
+
+#power {
   display: grid;
   grid-template-columns: repeat(5, 5fr);
   text-align: center;
   width: fit-content;
   margin: auto;
 }
-#diagram > div {
+#power > div {
   box-sizing: border-box;
   padding: 16px;
 }
-#diagram > div > * {
+#power > div > * {
   display: block;
 }
 #house::before, #roof::before, #battery::before, #grid::before {
@@ -133,11 +164,7 @@ footer {
   background-image: url(/images/icons8-minus-96.png);
 }
 
-#history-chart {
-  grid-row: span 2;
-}
-
-h2, #energy, #weather, #devices {
+h2, .match-chart-padding {
   margin-bottom: 0;
   padding: 0 20px 10px;
 }
@@ -165,13 +192,12 @@ h2, #energy, #weather, #devices {
   height: 544px;
  }
 
- #energy, #weather-chart, #devices {
-   break-before: page;
- }
-
 @media screen and (min-width: 1080px) {
   main {
     padding: 32px;
+  }
+  tr:not(:last-child) > * {
+    border-bottom: 1px solid #ddd;
   }
   .grid-1-2 {
     grid-template-columns: repeat(2, 2fr);

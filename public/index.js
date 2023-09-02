@@ -2,6 +2,7 @@ import { Devices } from '/components/devices.js';
 import { EnergySection } from '/components/energy-section.js';
 import { HistoryCharts } from '/components/history-charts.js';
 import { PowerSection } from '/components/power-section.js';
+import { QuickSection } from '/components/quick-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 
 const API_URL = '/api';
@@ -35,6 +36,7 @@ async function fetchLiveData() {
  */
 async function update(data = null) {
   const json = data ?? await fetchLiveData();
+  QuickSection.updateSource(json);
   PowerSection.update(json);
   EnergySection.update(json);
   if (data === null && charts !== null) charts.update(json);
@@ -63,6 +65,7 @@ try {
 try {
   response = await fetch(API_URL + '/weather');
   json = await response.json();
+  QuickSection.updateWeather(json);
   // eslint-disable-next-line no-new
   new WeatherSection(json);
 } catch {
