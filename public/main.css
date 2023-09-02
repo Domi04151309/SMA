@@ -142,14 +142,11 @@ footer {
   display: block;
   height: 48px;
   width: 48px;
-  margin-bottom: 16px;
+  margin-bottom: 8px;
 }
 .quick-card > div {
   display: flex;
   justify-content: space-between;
-}
-.quick-card > div > span {
-  font-size: 1.17em;
 }
 .quick-card > div > span:first-child {
   color: var(--text-color-primary);

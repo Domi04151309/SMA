@@ -1,4 +1,4 @@
-import { Devices } from '/components/devices.js';
+import { DevicesSection } from '/components/devices-section.js';
 import { EnergySection } from '/components/energy-section.js';
 import { HistoryCharts } from '/components/history-charts.js';
 import { MoneySection } from '/components/money-section.js';
@@ -50,7 +50,7 @@ let json, response;
 try {
   response = await fetch(API_URL + '/devices');
   devices = await response.json();
-  if (devices !== null) Devices.update(devices);
+  if (devices !== null) DevicesSection.update(devices);
 } catch {
   console.error('Failed loading devices');
 }

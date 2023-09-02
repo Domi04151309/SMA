@@ -3,7 +3,7 @@ const rowTemplate = document.getElementsByTagName('template')[0].content;
 
 const INVALID_LAYOUT = 'Invalid layout';
 
-export const Devices = {
+export const DevicesSection = {
   addBatteries(/** @type {DevicesResponse} */ json) {
     for (const device of json.batteries) {
       const row = rowTemplate.cloneNode(true);
