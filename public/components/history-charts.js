@@ -89,7 +89,7 @@ export class HistoryCharts {
         datasets: [
           {
             chartType: 'line',
-            name: 'Batterie',
+            name: 'Batterieladung',
             values: json.map(item => item.batteryPercentage ?? 0)
           }
         ],

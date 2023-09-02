@@ -31,21 +31,15 @@ header h1 {
   margin: 0;
 }
 main {
-  display: grid;
   margin-top: 54px;
   padding: 16px;
-  gap: 16px;
-  grid-template-columns: repeat(1, 1fr);
-  align-items: center;
-}
-main > * {
-  overflow: hidden;
 }
 h1, h2, h3, h4, h5, h6, th {
   font-weight: normal;
   color: var(--text-color-primary);
 }
-h2, text {
+h3, text {
+  margin-top: 0;
   font-size: 12px;
   color: var(--text-color-secondary);
 }
@@ -67,6 +61,12 @@ footer {
   text-align: center;
   font-size: 12px;
   box-sizing: border-box;
+}
+
+.grid-1-2 {
+  display: grid;
+  gap: 16px;
+  grid-template-columns: repeat(1, 1fr);
 }
 
 #diagram {
@@ -133,12 +133,13 @@ footer {
   background-image: url(/images/icons8-minus-96.png);
 }
 
-#diagram, #history-chart, #energy {
+#history-chart {
   grid-row: span 2;
 }
 
-#energy, #weather, #devices {
-  padding: 10px 20px;
+h2, #energy, #weather, #devices {
+  margin-bottom: 0;
+  padding: 0 20px 10px;
 }
 #devices tr:not(:first-child) {
   display: block;
@@ -158,6 +159,7 @@ footer {
   margin-top: -64px;
   height: 304px;
   width: 100%;
+  overflow: hidden;
 }
  #history-chart {
   height: 544px;
@@ -169,11 +171,13 @@ footer {
 
 @media screen and (min-width: 1080px) {
   main {
-    grid-template-columns: repeat(2, 2fr);
     padding: 32px;
+  }
+  .grid-1-2 {
+    grid-template-columns: repeat(2, 2fr);
     gap: 32px;
   }
-  #devices {
+  #devices, #history-chart {
     grid-column: span 2;
   }
   #devices tr:not(:first-child) {

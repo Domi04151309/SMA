@@ -14,94 +14,107 @@
       <h1>Solarenergie</h1>
     </header>
     <main>
-      <div id="diagram">
-        <div></div>
-        <div></div>
-        <div id="house">
-          <div><span>?</span> W</div>
-          <small>Haus</small>
-        </div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div id="roof-to-house" class="arrow">Vom Dach zum Hause</div>
-        <div id="battery-to-house" class="arrow">Von der Batterie zum Haus</div>
-        <div id="grid-to-house" class="arrow">Vom Netz zum Haus</div>
-        <div></div>
-        <div id="roof">
-          <div><span>?</span> W</div>
-          <small>Dach</small>
-        </div>
-        <div id="roof-to-battery" class="arrow">Vom Dach zur Batterie</div>
-        <div id="battery">
-          <div><span>?</span> W</div>
-          <small>
-            Batterie<br>
-            <span id="battery-percentage">?</span> % geladen
-          </small>
-        </div>
-        <div id="battery-to-grid" class="arrow">Von der Batterie ins Netz</div>
-        <div id="grid">
-          <div><span>?</span> W</div>
-          <small>Netz</small>
+      <h2>Echtzeit-Übersicht</h2>
+      <div class="grid-1-2">
+        <div id="diagram">
+          <div></div>
+          <div></div>
+          <div id="house">
+            <div><span>?</span> W</div>
+            <small>Haus</small>
+          </div>
+          <div></div>
+          <div></div>
+          <div></div>
+          <div id="roof-to-house" class="arrow">Vom Dach zum Hause</div>
+          <div id="battery-to-house" class="arrow">Von der Batterie zum Haus</div>
+          <div id="grid-to-house" class="arrow">Vom Netz zum Haus</div>
+          <div></div>
+          <div id="roof">
+            <div><span>?</span> W</div>
+            <small>Dach</small>
+          </div>
+          <div id="roof-to-battery" class="arrow">Vom Dach zur Batterie</div>
+          <div id="battery">
+            <div><span>?</span> W</div>
+            <small>
+              Batterie<br>
+              <span id="battery-percentage">?</span> % geladen
+            </small>
+          </div>
+          <div id="battery-to-grid" class="arrow">Von der Batterie ins Netz</div>
+          <div id="grid">
+            <div><span>?</span> W</div>
+            <small>Netz</small>
+          </div>
         </div>
       </div>
-      <div id="history-chart"></div>
-      <div id="energy">
-        <h2>Energie</h2>
-        <table>
-          <tr>
-            <th>Vom Dach (erzeugt)</th>
-            <td><span id="energy-from-roof">?</span> Wh</td>
-          </tr>
-          <tr>
-            <th>Vom Dach (direkt genutzt)</th>
-            <td><span id="energy-from-roof-used">?</span> Wh</td>
-          </tr>
-          <tr>
-            <th>Aus der Batterie</th>
-            <td><span id="energy-from-battery">?</span> Wh</td>
-          </tr>
-          <tr>
-            <th>Vom Netz</th>
-            <td><span id="energy-from-grid">?</span> Wh</td>
-          </tr>
-          <tr>
-            <th>In die Batterie</th>
-            <td><span id="energy-to-battery">?</span> Wh</td>
-          </tr>
-          <tr>
-            <th>Ins Netz</th>
-            <td><span id="energy-to-grid">?</span> Wh</td>
-          </tr>
-        </table>
+      <h2>Wetter</h2>
+      <div class="grid-1-2">
+        <div id="weather-chart"></div>
+        <div id="weather">
+          <h3>Wetterdaten</h3>
+          <table>
+            <tr>
+              <th>Sonnenaufgang</th>
+              <td id="sunrise">?</td>
+            </tr>
+            <tr>
+              <th>Sonnenuntergang</th>
+              <td id="sunset">?</td>
+            </tr>
+            <tr>
+              <th>Sonnenstunden</th>
+              <td><span id="sun-hours">?</span> Stunden</td>
+            </tr>
+            <tr>
+              <th>UV-Index</th>
+              <td id="uv-index">?</td>
+            </tr>
+          </table>
+        </div>
       </div>
-      <div id="source-chart"></div>
-      <div id="battery-chart"></div>
-      <div id="weather-chart"></div>
-      <div id="weather">
-        <h2>Wetter</h2>
-        <table>
-          <tr>
-            <th>Sonnenaufgang</th>
-            <td id="sunrise">?</td>
-          </tr>
-          <tr>
-            <th>Sonnenuntergang</th>
-            <td id="sunset">?</td>
-          </tr>
-          <tr>
-            <th>Sonnenstunden</th>
-            <td><span id="sun-hours">?</span> Stunden</td>
-          </tr>
-          <tr>
-            <th>UV-Index</th>
-            <td id="uv-index">?</td>
-          </tr>
-        </table>
+      <h2>Verlauf</h2>
+      <div class="grid-1-2">
+        <div id="history-chart"></div>
+        <div id="battery-chart"></div>
+        <div id="energy">
+          <h3>Energie</h3>
+          <table>
+            <tr>
+              <th>Vom Dach (erzeugt)</th>
+              <td><span id="energy-from-roof">?</span> Wh</td>
+            </tr>
+            <tr>
+              <th>Vom Dach (direkt genutzt)</th>
+              <td><span id="energy-from-roof-used">?</span> Wh</td>
+            </tr>
+            <tr>
+              <th>Aus der Batterie</th>
+              <td><span id="energy-from-battery">?</span> Wh</td>
+            </tr>
+            <tr>
+              <th>Vom Netz</th>
+              <td><span id="energy-from-grid">?</span> Wh</td>
+            </tr>
+            <tr>
+              <th>In die Batterie</th>
+              <td><span id="energy-to-battery">?</span> Wh</td>
+            </tr>
+            <tr>
+              <th>Ins Netz</th>
+              <td><span id="energy-to-grid">?</span> Wh</td>
+            </tr>
+          </table>
+        </div>
       </div>
+      <h2>Nachhaltigkeit</h2>
+      <div class="grid-1-2">
+        <div id="source-chart"></div>
+      </div>
+      <h2>Einstellungen</h2>
       <div id="devices">
-        <h2>Geräte</h2>
+        <h3>Geräte</h3>
         <table>
           <tr>
             <th></th>

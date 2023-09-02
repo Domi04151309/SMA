@@ -50,7 +50,8 @@ export class WeatherSection {
       },
       lineOptions: {
         hideDots: 1,
-        regionFill: 1
+        regionFill: 1,
+        spline: 1
       },
       title: 'Wetterverlauf',
       tooltipOptions: {
