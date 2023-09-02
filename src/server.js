@@ -1,4 +1,6 @@
 import { OPEN_BROWSER_ON_START, PORT } from './config.js';
+import { Settings } from './settings.js';
+import bodyParser from 'body-parser';
 import compression from 'compression';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
@@ -10,6 +12,7 @@ export class Server {
     this.app = express();
     this.app.use(helmet());
     this.app.use(compression());
+    this.app.use(bodyParser.json());
     this.app.use(
       express.static(fileURLToPath(new URL('../public/', import.meta.url)))
     );
@@ -21,6 +24,14 @@ export class Server {
       '/frappe-charts.min.esm.js.map',
       'frappe-charts/dist/frappe-charts.min.esm.js.map'
     );
+    this.registerApiEndpoint('/settings', () => Settings.get());
+    this.app.put('/api/settings', (request, response) => {
+      for (
+        const [key, value] of Object.entries(request.body)
+      ) Settings.setItem(key, value.toString());
+      Settings.save();
+      response.status(204).send();
+    });
   }
 
   registerNodeModulesFile(
