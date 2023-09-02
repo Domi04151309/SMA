@@ -25,7 +25,7 @@ function exitHandler(options) {
  * @returns {Promise<void>}
  */
 async function fetchNewData() {
-  while (historyData.length > 8640) historyData.shift();
+  while (historyData.length > 288) historyData.shift();
   const deviceData = await fetchDeviceData();
   historyData.push(await getLiveData(deviceData));
   devices = await getDevices(deviceData);
@@ -46,10 +46,10 @@ if (PERSISTENT_HISTORY) {
 }
 
 await fetchNewData();
-setInterval(fetchNewData, 10_000);
+setInterval(fetchNewData, 300_000);
 
 new Server().registerApiEndpoint('/history', () => historyData)
-  .registerApiEndpoint('/now', () => historyData.at(-1))
+  .registerApiEndpoint('/now', async () => await getLiveData())
   .registerApiEndpoint('/devices', () => devices)
   .registerApiEndpoint('/weather', async () => await getWeather())
   .start();

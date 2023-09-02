@@ -8,6 +8,8 @@ import { QuickSection } from '/components/quick-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 
 const API_URL = '/api';
+const LIVE_UPDATE_DELAY = 10_000;
+const CHART_UPDATE_DELAY = 300_000;
 
 /** @type {HistoryCharts|null} */
 let charts = null;
@@ -15,6 +17,7 @@ let charts = null;
 let devices = null;
 /** @type {number|null} */
 let interval = null;
+let updateCounter = 0;
 
 /**
  * @returns {Promise<NowResponse>}
@@ -37,12 +40,16 @@ async function fetchLiveData() {
  * @returns {Promise<void>}
  */
 async function update(data = null) {
+  updateCounter += LIVE_UPDATE_DELAY;
   const json = data ?? await fetchLiveData();
   QuickSection.updateSource(json);
   PowerSection.update(json);
   EnergySection.update(json);
   MoneySection.update(json);
-  if (data === null && charts !== null) charts.update(json);
+  if (data === null && charts !== null && updateCounter >= CHART_UPDATE_DELAY) {
+    updateCounter = 0;
+    charts.update(json);
+  }
 }
 
 let json, response;
