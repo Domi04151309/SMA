@@ -3,6 +3,14 @@ import { OBJECT_MAP } from './object-map.js';
 import { PRINT_DEBUG_INFO } from './config.js';
 import { getAddresses } from './inverters.js';
 
+/** @type {{[index: string]: string}} */
+const LOGGER_MAP = {
+  2720: 'PvGen_PvW',
+  7000: 'Metering_TotWhOut',
+  7040: 'Metering_GridMs_TotWhIn',
+  7090: 'Battery_ChaStt'
+};
+
 /** @type {{[index: number]: string[]}} */
 const strings = {};
 
@@ -41,6 +49,43 @@ async function allSettledHandling(
     promise.reason?.message ?? promise.reason
   );
   else console.error(errorMessage);
+}
+
+/**
+ * @param {string} id
+ * @returns {string}
+ */
+function getLoggerKey(id) {
+  if (id in LOGGER_MAP) return LOGGER_MAP[id];
+  return id;
+}
+
+/**
+ * @returns {Promise<any[]>}
+ */
+export async function fetchDeviceLogger() {
+  // Dispatch fetch requests
+  const dataRequests = [];
+  for (const address of getAddresses()) dataRequests.push(fetchJson(
+    'https://' + address + '/dyn/getDashLogger.json'
+  ));
+
+  // Format data
+  /** @type {object[]} */
+  const result = [];
+  await allSettledHandling(
+    dataRequests,
+    'Failed fetching logger',
+    json => {
+      result.push(
+        Object.fromEntries(
+          Object.entries(Object.values(json.result)[0])
+            .map(([key, value]) => [getLoggerKey(key), Object.values(value)[0]])
+        )
+      );
+    }
+  );
+  return result;
 }
 
 /**

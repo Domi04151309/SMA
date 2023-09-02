@@ -1,4 +1,4 @@
-import { fetchDeviceData } from './fetcher.js';
+import { fetchDeviceData, fetchDeviceLogger } from './fetcher.js';
 import { getAddresses } from './inverters.js';
 
 /**
@@ -61,6 +61,78 @@ export async function getDevices(prefetched = null) {
     ) result.energyMeters.push(device.Energy_Meter_Add);
   }
   return result;
+}
+
+/**
+ * @param {number|undefined} wattHours
+ * @param {number} hours
+ * @returns {number}
+ */
+function wattHoursToWatts(wattHours, hours) {
+  if (!wattHours) return 0;
+  return wattHours / hours;
+}
+
+/**
+ * @returns {Promise<NowResponse[]>}
+ */
+export async function constructHistory() {
+  const devices = await fetchDeviceLogger();
+  if (devices.length === 0) return [];
+  const datasets = devices[0].Metering_TotWhOut.map(
+    (/** @type {{t: number, v: number}} */ item) => ({
+      batteryPercentage: null,
+      energy: {
+        fromBattery: 0,
+        fromGrid: 0,
+        fromRoof: 0,
+        toBattery: 0,
+        toGrid: 0
+      },
+      power: {
+        currentUsage: 0,
+        fromBattery: 0,
+        fromGrid: 0,
+        fromRoof: 0,
+        toBattery: 0,
+        toGrid: 0
+      },
+      timestamp: item.t * 1000
+    })
+  );
+  for (const device of devices) for (
+    const [index, dataset] of datasets.entries()
+  ) {
+    if (device?.Battery_ChaStt) setIfNumber(
+      dataset,
+      'batteryPercentage',
+      device.Battery_ChaStt[index]?.v
+    );
+    if (device?.Metering_GridMs_TotWhIn && index > 0) setIfNumber(
+      dataset.power,
+      'fromGrid',
+      wattHoursToWatts(
+        device.Metering_GridMs_TotWhIn[index]?.v -
+          device.Metering_GridMs_TotWhIn[index - 1]?.v,
+        5 / 60
+      )
+    );
+    if (device?.PvGen_PvW) addIfNumber(
+      dataset.power,
+      'fromRoof',
+      device.PvGen_PvW[index]?.v
+    );
+    if (device?.Metering_TotWhOut && index > 0) addIfNumber(
+      dataset.power,
+      'toGrid',
+      wattHoursToWatts(
+        device.Metering_TotWhOut[index]?.v -
+          device.Metering_TotWhOut[index - 1]?.v,
+        5 / 60
+      )
+    );
+  }
+  return datasets;
 }
 
 /**
