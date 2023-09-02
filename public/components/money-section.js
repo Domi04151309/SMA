@@ -28,7 +28,7 @@ export const MoneySection = {
       json.energy.fromGrid / 1000 * energyPriceInValue
     ).toLocaleString('de', localeOptions);
     energySavedCostIn.textContent = (
-      json.energy.fromRoof / 1000 * energyPriceInValue
+      (json.energy.fromRoof - json.energy.toGrid) / 1000 * energyPriceInValue
     ).toLocaleString('de', localeOptions);
     energyCostOut.textContent = (
       json.energy.toGrid / 1000 * energyPriceOutValue
