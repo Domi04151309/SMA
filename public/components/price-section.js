@@ -1,5 +1,8 @@
+import { MoneySection } from '/components/money-section.js';
+
 const energyPriceIn = document.querySelectorAll('.energy-price-in');
 const energyPriceOut = document.querySelectorAll('.energy-price-out');
+const dialog = document.getElementById('input-dialog');
 
 export const PriceSection = {
   update() {
@@ -20,16 +23,43 @@ export const PriceSection = {
 
 /**
  * @param {string} message
+ * @param {string|null} initialValue
  * @returns {Promise<string>}
  */
-async function openModal(message) {
+async function openModal(message, initialValue) {
   return await new Promise((resolve, reject) => {
-    const value = prompt(message);
-    if (value === null) {
-      reject(new Error('no input'));
+    if (!(dialog instanceof HTMLDialogElement)) {
+      reject(new Error('invalid layout'));
       return;
     }
-    resolve(message);
+    const dialogText = dialog.querySelector('p');
+    const dialogInput = dialog.querySelector('input');
+    const cancel = dialog.querySelector('.cancel');
+    const ok = dialog.querySelector('.ok');
+    if (
+      dialogText === null ||
+      dialogInput === null ||
+      cancel === null ||
+      ok === null
+    ) {
+      reject(new Error('invalid layout'));
+      return;
+    }
+    dialogText.textContent = message;
+    dialogInput.value = initialValue ?? '';
+    const closeListener = () => {
+      dialog.close();
+    };
+    const okListener = () => {
+      dialog.close();
+      cancel.removeEventListener('click', closeListener);
+      ok.removeEventListener('click', okListener);
+      resolve(dialogInput.value);
+    };
+    cancel.addEventListener('click', closeListener);
+    ok.addEventListener('click', okListener);
+    dialog.showModal();
+    dialogInput.focus();
   });
 }
 
@@ -38,10 +68,12 @@ document.getElementById('energy-price-in')?.addEventListener(
   async () => {
     try {
       const input = await openModal(
-        'Bitte lege einen neuen Einkaufspreis in €/kWh fest.'
+        'Bitte lege einen neuen Einkaufspreis in €/kWh fest.',
+        localStorage.getItem('energyPriceIn')
       );
       localStorage.setItem('energyPriceIn', input);
       PriceSection.update();
+      MoneySection.update();
     } catch {
       // Do nothing on cancel
     }
@@ -53,10 +85,12 @@ document.getElementById('energy-price-out')?.addEventListener(
   async () => {
     try {
       const input = await openModal(
-        'Bitte lege einen neuen Verkaufspreis in €/kWh fest.'
+        'Bitte lege einen neuen Verkaufspreis in €/kWh fest.',
+        localStorage.getItem('energyPriceOut')
       );
       localStorage.setItem('energyPriceOut', input);
       PriceSection.update();
+      MoneySection.update();
     } catch {
       // Do nothing on cancel
     }

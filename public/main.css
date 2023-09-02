@@ -97,6 +97,26 @@ button:hover, .btn:hover {
 button:active, .btn:active {
   filter: brightness(1.4);
 }
+dialog {
+  background: #fff;
+  color: var(--text-color-primary);
+  padding: 16px;
+  box-shadow: var(--card-shadow);
+  border-radius: var(--border-radius);
+  border: 1px solid var(--border-color);
+  text-align: center;
+}
+dialog > div {
+  display: flex;
+}
+dialog > div > input {
+  flex: 1;
+  margin-bottom: 16px;
+}
+dialog::backdrop {
+  background: rgba(0, 0, 0, .5);
+}
+
 footer {
   padding: 32px;
   text-align: center;

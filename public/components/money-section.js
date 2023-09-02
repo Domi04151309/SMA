@@ -2,8 +2,13 @@ const energyCostIn = document.getElementById('energy-cost-in');
 const energySavedCostIn = document.getElementById('energy-saved-cost-in');
 const energyCostOut = document.getElementById('energy-cost-out');
 
+/** @type {NowResponse|null} */
+let lastEntry = null;
+
 export const MoneySection = {
-  update(/** @type {NowResponse} */ json) {
+  update(/** @type {NowResponse|null} */ json = lastEntry) {
+    if (json === null) return;
+    lastEntry = json;
     if (
       energyCostIn === null ||
       energySavedCostIn === null ||
