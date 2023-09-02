@@ -127,6 +127,26 @@
       <h2>Nachhaltigkeit</h2>
       <div class="grid-1-2">
         <div id="source-chart"></div>
+        <div class="match-chart-padding">
+          <h3>Ökonomisch</h3>
+          <table>
+            <tr>
+              <th>Gezahlt</th>
+              <td><span id="energy-cost-in"></span> €</td>
+              <td>bei <span class="energy-price-in"></span> €/kWh</td>
+            </tr>
+            <tr>
+              <th>Gespart</th>
+              <td><span id="energy-saved-cost-in"></span> €</td>
+              <td>bei <span class="energy-price-in"></span> €/kWh</td>
+            </tr>
+            <tr>
+              <th>Verdient</th>
+              <td><span id="energy-cost-out"></span> €</td>
+              <td>bei <span class="energy-price-out"></span> €/kWh</td>
+            </tr>
+          </table>
+        </div>
       </div>
       <h2>Einstellungen</h2>
       <div id="devices" class="match-chart-padding">
@@ -138,7 +158,7 @@
             <th>Modell</th>
             <th>Info</th>
             <th>Status</th>
-            <th>Link</th>
+            <th width="1%">Link</th>
           </tr>
         </table>
         <template>
@@ -148,9 +168,24 @@
             <td class="model"></td>
             <td class="mode"></td>
             <td class="status"></td>
-            <td><a class="link" target="_blank">Öffnen</a></td>
+            <td><a class="btn link" target="_blank">Öffnen</a></td>
           </tr>
         </template>
+      </div>
+      <div class="match-chart-padding">
+        <h3>Preise</h3>
+        <table>
+          <tr>
+            <th>Einkaufspreis</th>
+            <td><span class="energy-price-in"></span> €/kWh</td>
+            <td width="1%"><button id="energy-price-in" type="button">Ändern</button></td>
+          </tr>
+          <tr>
+            <th>Verkaufspreis</th>
+            <td><span class="energy-price-out"></span> €/kWh</td>
+            <td><button id="energy-price-out" type="button">Ändern</button></td>
+          </tr>
+        </table>
       </div>
     </main>
     <footer>

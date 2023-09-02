@@ -1,7 +1,9 @@
 import { Devices } from '/components/devices.js';
 import { EnergySection } from '/components/energy-section.js';
 import { HistoryCharts } from '/components/history-charts.js';
+import { MoneySection } from '/components/money-section.js';
 import { PowerSection } from '/components/power-section.js';
+import { PriceSection } from '/components/price-section.js';
 import { QuickSection } from '/components/quick-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 
@@ -39,6 +41,7 @@ async function update(data = null) {
   QuickSection.updateSource(json);
   PowerSection.update(json);
   EnergySection.update(json);
+  MoneySection.update(json);
   if (data === null && charts !== null) charts.update(json);
 }
 
@@ -72,6 +75,8 @@ try {
   console.error('Failed loading weather');
   WeatherSection.error();
 }
+
+PriceSection.update();
 
 // @ts-expect-error
 interval = setInterval(update, 10_000);
