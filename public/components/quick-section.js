@@ -12,7 +12,7 @@ const weatherSecondaryLabel = document.querySelector(
 function getMatchingTime() {
   const time = new Date();
   return (
-    Math.round((time.getHours() + time.getMinutes() / 100) / 3) * 300
+    Math.floor((time.getHours() + time.getMinutes() / 100) / 3) * 300
   ).toString();
 }
 
