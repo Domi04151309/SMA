@@ -1,4 +1,5 @@
 import { MoneySection } from '/components/money-section.js';
+import { Settings } from '../utils/settings.js';
 
 const energyPriceIn = document.querySelectorAll('.energy-price-in');
 const energyPriceOut = document.querySelectorAll('.energy-price-out');
@@ -7,10 +8,10 @@ const dialog = document.getElementById('input-dialog');
 export const PriceSection = {
   update() {
     const energyPriceInValue = parseFloat(
-      localStorage.getItem('energyPriceIn') ?? '0'
+      Settings.getItem('energyPriceIn') ?? '0'
     );
     const energyPriceOutValue = parseFloat(
-      localStorage.getItem('energyPriceOut') ?? '0'
+      Settings.getItem('energyPriceOut') ?? '0'
     );
     for (
       const element of energyPriceIn
@@ -69,9 +70,9 @@ document.getElementById('energy-price-in')?.addEventListener(
     try {
       const input = await openModal(
         'Bitte lege einen neuen Einkaufspreis in €/kWh fest.',
-        localStorage.getItem('energyPriceIn')
+        Settings.getItem('energyPriceIn')
       );
-      localStorage.setItem('energyPriceIn', input);
+      Settings.setItem('energyPriceIn', input);
       PriceSection.update();
       MoneySection.update();
     } catch {
@@ -86,9 +87,9 @@ document.getElementById('energy-price-out')?.addEventListener(
     try {
       const input = await openModal(
         'Bitte lege einen neuen Verkaufspreis in €/kWh fest.',
-        localStorage.getItem('energyPriceOut')
+        Settings.getItem('energyPriceOut')
       );
-      localStorage.setItem('energyPriceOut', input);
+      Settings.setItem('energyPriceOut', input);
       PriceSection.update();
       MoneySection.update();
     } catch {

@@ -1,3 +1,5 @@
+import { Settings } from '../utils/settings.js';
+
 const energyCostIn = document.getElementById('energy-cost-in');
 const energySavedCostIn = document.getElementById('energy-saved-cost-in');
 const energyCostOut = document.getElementById('energy-cost-out');
@@ -19,10 +21,10 @@ export const MoneySection = {
       minimumFractionDigits: 2
     };
     const energyPriceInValue = parseFloat(
-      localStorage.getItem('energyPriceIn') ?? '0'
+      Settings.getItem('energyPriceIn') ?? '0'
     );
     const energyPriceOutValue = parseFloat(
-      localStorage.getItem('energyPriceOut') ?? '0'
+      Settings.getItem('energyPriceOut') ?? '0'
     );
     energyCostIn.textContent = (
       json.energy.fromGrid / 1000 * energyPriceInValue
