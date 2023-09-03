@@ -104,12 +104,18 @@ export async function constructHistory() {
   for (const device of devices) for (
     const [index, dataset] of datasets.entries()
   ) {
+    setIfNumber(
+      dataset.energy,
+      'fromGrid',
+      device.Metering_GridMs_TotWhIn[index]?.v
+    );
+    addIfNumber(dataset.energy, 'toGrid', device.Metering_TotWhOut[index]?.v);
     if (device?.Battery_ChaStt) setIfNumber(
       dataset,
       'batteryPercentage',
       device.Battery_ChaStt[index]?.v
     );
-    if (device?.Metering_GridMs_TotWhIn && index > 0) setIfNumber(
+    if (index > 0) setIfNumber(
       dataset.power,
       'fromGrid',
       wattHoursToWatts(
@@ -123,7 +129,7 @@ export async function constructHistory() {
       'fromRoof',
       device.PvGen_PvW[index]?.v
     );
-    if (device?.Metering_TotWhOut && index > 0) addIfNumber(
+    if (index > 0) addIfNumber(
       dataset.power,
       'toGrid',
       wattHoursToWatts(

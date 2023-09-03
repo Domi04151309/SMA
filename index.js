@@ -1,6 +1,5 @@
 import { constructHistory, getDevices, getLiveData } from './src/mapper.js';
 import { Server } from './src/server.js';
-import { fetchDeviceData } from './src/fetcher.js';
 import { getWeather } from './src/weather.js';
 
 /** @type {NowResponse[]} */
@@ -11,8 +10,7 @@ const historyData = await constructHistory();
  */
 async function fetchNewData() {
   while (historyData.length > 288) historyData.shift();
-  const deviceData = await fetchDeviceData();
-  historyData.push(await getLiveData(deviceData));
+  historyData.push(await getLiveData());
 }
 
 await fetchNewData();
