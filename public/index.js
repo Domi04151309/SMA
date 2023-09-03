@@ -1,4 +1,5 @@
 import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
+import { ConnectionBanner } from '/components/connection-banner.js';
 import { DevicesSection } from '/components/devices-section.js';
 import { EnergySection } from '/components/energy-section.js';
 import { MoneySection } from '/components/money-section.js';
@@ -13,8 +14,6 @@ const CHART_UPDATE_DELAY = 300_000;
 
 /** @type {DataCharts|null} */
 let charts = null;
-/** @type {number|null} */
-let interval = null;
 let updateCounter = 0;
 
 /**
@@ -45,6 +44,7 @@ async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
 async function update(data = null) {
   updateCounter += LIVE_UPDATE_DELAY;
   await fetchApiData('/now', json => {
+    ConnectionBanner.connected();
     QuickSection.updateSource(json);
     PowerSection.update(json);
     EnergySection.update(json);
@@ -57,9 +57,7 @@ async function update(data = null) {
       updateCounter = 0;
       charts.update(json);
     }
-  }, () => {
-    if (interval !== null) clearInterval(interval);
-  });
+  }, () => ConnectionBanner.disconnected());
 }
 
 PriceSection.update();
@@ -80,8 +78,7 @@ await Promise.allSettled([
   }, () => WeatherSection.error())
 ]);
 
-// @ts-expect-error
-interval = setInterval(update, LIVE_UPDATE_DELAY);
+setInterval(update, LIVE_UPDATE_DELAY);
 
 if ('serviceWorker' in navigator) {
   try {
