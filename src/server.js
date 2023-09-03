@@ -10,7 +10,10 @@ import open from 'open';
 export class Server {
   constructor() {
     this.app = express();
-    this.app.use(helmet());
+    this.app.use(helmet({
+      contentSecurityPolicy: false,
+      strictTransportSecurity: false
+    }));
     this.app.use(compression());
     this.app.use(bodyParser.json());
     this.app.use(
