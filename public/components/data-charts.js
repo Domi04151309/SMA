@@ -14,35 +14,11 @@ function toTimeString(date) {
   ) + ' Uhr';
 }
 
-export class HistoryCharts {
+export class DataCharts {
   constructor(
     /** @type {NowResponse[]} */ json,
     /** @type {DevicesResponse} */ devices
   ) {
-    this.sourceChart = new Chart('#source-chart', {
-      ...commonChartOptions,
-      data: {
-        datasets: [
-          {
-            values: [
-              (json.at(-1)?.energy?.fromRoof ?? 0) -
-                (json.at(-1)?.energy?.toGrid ?? 0) -
-                (json.at(-1)?.energy?.toBattery ?? 0),
-              json.at(-1)?.energy?.fromBattery ?? 0,
-              json.at(-1)?.energy?.fromGrid ?? 0
-            ]
-          }
-        ],
-        labels: ['Vom Dach', 'Aus der Batterie', 'Vom Netz']
-      },
-      title: 'Quelle genutzter Energie',
-      tooltipOptions: {
-        formatTooltipY: (
-          /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' Wh'
-      },
-      type: 'pie'
-    });
     this.historyChart = new Chart('#history-chart', {
       ...commonChartOptions,
       barOptions: {
@@ -130,6 +106,30 @@ export class HistoryCharts {
           /** @type {number|null} */ value
         ) => value?.toLocaleString('de') + ' W'
       }
+    });
+    this.sourceChart = new Chart('#source-chart', {
+      ...commonChartOptions,
+      data: {
+        datasets: [
+          {
+            values: [
+              (json.at(-1)?.energy?.fromRoof ?? 0) -
+                (json.at(-1)?.energy?.toGrid ?? 0) -
+                (json.at(-1)?.energy?.toBattery ?? 0),
+              json.at(-1)?.energy?.fromBattery ?? 0,
+              json.at(-1)?.energy?.fromGrid ?? 0
+            ]
+          }
+        ],
+        labels: ['Vom Dach', 'Aus der Batterie', 'Vom Netz']
+      },
+      title: 'Quelle genutzter Energie',
+      tooltipOptions: {
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value?.toLocaleString('de') + ' Wh'
+      },
+      type: 'pie'
     });
   }
 

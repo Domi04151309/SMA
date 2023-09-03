@@ -1,6 +1,6 @@
+import { DataCharts } from '/components/data-charts.js';
 import { DevicesSection } from '/components/devices-section.js';
 import { EnergySection } from '/components/energy-section.js';
-import { HistoryCharts } from '/components/history-charts.js';
 import { MoneySection } from '/components/money-section.js';
 import { PowerSection } from '/components/power-section.js';
 import { PriceSection } from '/components/price-section.js';
@@ -11,7 +11,7 @@ const API_URL = '/api';
 const LIVE_UPDATE_DELAY = 10_000;
 const CHART_UPDATE_DELAY = 300_000;
 
-/** @type {HistoryCharts|null} */
+/** @type {DataCharts|null} */
 let charts = null;
 /** @type {DevicesResponse|null} */
 let devices = null;
@@ -52,10 +52,8 @@ async function update(data = null) {
   }
 }
 
-let json, response;
-
 try {
-  response = await fetch(API_URL + '/devices');
+  const response = await fetch(API_URL + '/devices');
   devices = await response.json();
   if (devices !== null) DevicesSection.update(devices);
 } catch {
@@ -63,18 +61,18 @@ try {
 }
 
 try {
-  response = await fetch(API_URL + '/history');
-  json = await response.json();
-  if (devices !== null) charts = new HistoryCharts(json, devices);
+  const response = await fetch(API_URL + '/history');
+  const json = await response.json();
+  if (devices !== null) charts = new DataCharts(json, devices);
   await update(json.at(-1));
 } catch {
   console.error('Failed loading history');
-  HistoryCharts.error();
+  DataCharts.error();
 }
 
 try {
-  response = await fetch(API_URL + '/weather');
-  json = await response.json();
+  const response = await fetch(API_URL + '/weather');
+  const json = await response.json();
   QuickSection.updateWeather(json);
   // eslint-disable-next-line no-new
   new WeatherSection(json);
@@ -86,7 +84,7 @@ try {
 PriceSection.update();
 
 // @ts-expect-error
-interval = setInterval(update, 10_000);
+interval = setInterval(update, LIVE_UPDATE_DELAY);
 devices = null;
 
 if ('serviceWorker' in navigator) {
