@@ -20,18 +20,16 @@ let interval = null;
 let updateCounter = 0;
 
 /**
- * @returns {Promise<NowResponse>}
+ * @returns {Promise<NowResponse|null>}
  */
 async function fetchLiveData() {
   try {
     const response = await fetch(API_URL + '/now');
     return await response.json();
-  } catch (error) {
+  } catch {
     if (interval !== null) clearInterval(interval);
-    throw new Error(
-      'The backend is currently unreachable!',
-      { cause: error }
-    );
+    console.warn('The backend is currently unreachable');
+    return null;
   }
 }
 
@@ -42,6 +40,7 @@ async function fetchLiveData() {
 async function update(data = null) {
   updateCounter += LIVE_UPDATE_DELAY;
   const json = data ?? await fetchLiveData();
+  if (json === null) return;
   QuickSection.updateSource(json);
   PowerSection.update(json);
   EnergySection.update(json);
@@ -53,21 +52,23 @@ async function update(data = null) {
 }
 
 try {
-  const response = await fetch(API_URL + '/devices');
-  devices = await response.json();
-  if (devices !== null) DevicesSection.update(devices);
+  const response = await fetch(API_URL + '/history');
+  const json = await response.json();
+  charts = new DataCharts(json);
+  await update(json.at(-1));
 } catch {
-  console.error('Failed loading devices');
+  console.warn('Failed loading history');
+  DataCharts.error();
 }
 
 try {
-  const response = await fetch(API_URL + '/history');
-  const json = await response.json();
-  if (devices !== null) charts = new DataCharts(json, devices);
-  await update(json.at(-1));
+  const response = await fetch(API_URL + '/devices');
+  devices = await response.json();
+  if (devices === null) throw new Error('Invalid state');
+  if (charts !== null) charts.setBatteryInfo(devices.batteries[0]);
+  DevicesSection.update(devices);
 } catch {
-  console.error('Failed loading history');
-  DataCharts.error();
+  console.warn('Failed loading devices');
 }
 
 try {
@@ -77,7 +78,7 @@ try {
   // eslint-disable-next-line no-new
   new WeatherSection(json);
 } catch {
-  console.error('Failed loading weather');
+  console.warn('Failed loading weather');
   WeatherSection.error();
 }
 

@@ -1,19 +1,19 @@
-/** @type {{[key: string]: string}} */
-let settings = {};
-
 try {
   const response = await fetch('/api/settings');
-  settings = await response.json();
+  const settings = await response.json();
+  for (
+    const [key, value] of Object.entries(settings)
+  ) localStorage.setItem(key, value);
 } catch {
-  console.error('Failed loading settings');
+  console.warn('Failed loading settings');
 }
 
 export const Settings = {
   getItem(/** @type {string} */ key) {
-    return settings[key];
+    return localStorage.getItem(key);
   },
   setItem(/** @type {string} */ key, /** @type {string} */ value) {
-    settings[key] = value;
+    localStorage.setItem(key, value);
     (async () => {
       /** @type {{[key: string]: string}} */
       const requestBody = {};

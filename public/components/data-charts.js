@@ -15,10 +15,10 @@ function toTimeString(date) {
 }
 
 export class DataCharts {
-  constructor(
-    /** @type {NowResponse[]} */ json,
-    /** @type {DevicesResponse} */ devices
-  ) {
+  /** @type {Battery|null} */
+  battery = null;
+
+  constructor(/** @type {NowResponse[]} */ json) {
     this.historyChart = new Chart('#history-chart', {
       ...commonChartOptions,
       barOptions: {
@@ -81,8 +81,8 @@ export class DataCharts {
         formatTooltipY: (
           /** @type {number|null} */ value
         ) => value + ' % | ' + (
-          (devices.batteries[0]?.capacity ?? 0) *
-          (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100 *
+          (this.battery?.capacity ?? 0) *
+          (this.battery?.capacityOfOriginalCapacity ?? 0) / 100 *
           (value ?? 0) / 100
         ).toLocaleString('de') + ' Wh'
       }
@@ -131,6 +131,10 @@ export class DataCharts {
       },
       type: 'pie'
     });
+  }
+
+  setBatteryInfo(/** @type {Battery|null} */ batteryInfo) {
+    this.battery = batteryInfo;
   }
 
   update(/** @type {NowResponse} */ json) {

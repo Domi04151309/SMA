@@ -2,7 +2,7 @@ const CACHE_NAME = 'solar-cache';
 
 /**
  * @param {{request: Request}} event
- * @returns {Promise<Response|undefined>}
+ * @returns {Promise<Response>}
  */
 async function fetchManagement(event) {
   const offlineCache = await caches.open(CACHE_NAME);
@@ -23,7 +23,7 @@ async function fetchManagement(event) {
     return result;
   } catch {
     const offlinePage = await offlineCache.match(event.request);
-    if (!offlinePage) throw new Error('Page not in offline cache');
+    if (!offlinePage) return new Response();
     return offlinePage;
   }
 }
