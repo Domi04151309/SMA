@@ -1,26 +1,7 @@
-/** @type {string[]} */
-let plantLocation = [];
+import { Settings } from './settings.js';
+
 /** @type {WeatherResponse|null} */
 let weather = null;
-
-/**
- * @returns {Promise<string[]>}
- */
-async function getLocation() {
-  if (plantLocation.length === 2) return plantLocation;
-  try {
-    const response = await fetch('http://ip-api.com/json/?fields=192');
-    const json = await response.json();
-    // eslint-disable-next-line require-atomic-updates
-    plantLocation = Object.values(json);
-  } catch (error) {
-    console.error(
-      'Failed getting location:',
-      error instanceof Error ? error.message : error
-    );
-  }
-  return plantLocation;
-}
 
 /**
  * @returns {Promise<WeatherResponse|object>}
@@ -33,10 +14,19 @@ export async function getWeather() {
       .split('T')[0]
   ) return weather;
   try {
-    const location = await getLocation();
-    const response = await fetch('https://wttr.in/' + location.join(',') +
-      '?lang=de&format=j1');
+    const response = await fetch('https://wttr.in/' +
+      Settings.getItem('location') + '?lang=de&format=j1');
     const json = await response.json();
+    if (Settings.getItem('location').length === 0) {
+      Settings.setItem(
+        'location',
+        [
+          json.nearest_area[0].latitude,
+          json.nearest_area[0].longitude
+        ].join(',')
+      );
+      Settings.save();
+    }
     // eslint-disable-next-line require-atomic-updates
     [weather] = json.weather;
     return weather ?? {};
