@@ -1,4 +1,4 @@
-import { DataCharts } from '/components/data-charts.js';
+import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
 import { DevicesSection } from '/components/devices-section.js';
 import { EnergySection } from '/components/energy-section.js';
 import { MoneySection } from '/components/money-section.js';
@@ -13,23 +13,28 @@ const CHART_UPDATE_DELAY = 300_000;
 
 /** @type {DataCharts|null} */
 let charts = null;
-/** @type {DevicesResponse|null} */
-let devices = null;
 /** @type {number|null} */
 let interval = null;
 let updateCounter = 0;
 
 /**
- * @returns {Promise<NowResponse|null>}
+ * @param {string} apiEndpoint
+ * @param {(json: any) => Promise<void>|void} onSuccess
+ * @param {(() => Promise<void>|void)|null} onError
+ * @returns {Promise<void>}
  */
-async function fetchLiveData() {
+async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
   try {
-    const response = await fetch(API_URL + '/now');
-    return await response.json();
+    const response = await fetch(API_URL + apiEndpoint);
+    if (
+      onSuccess.constructor.name === 'AsyncFunction'
+    ) await onSuccess(await response.json());
+    else onSuccess(await response.json());
   } catch {
-    if (interval !== null) clearInterval(interval);
-    console.warn('The backend is currently unreachable');
-    return null;
+    console.warn('Failed loading', API_URL + apiEndpoint);
+    if (onError === null) return;
+    if (onError.constructor.name === 'AsyncFunction') await onError();
+    else onError();
   }
 }
 
@@ -39,54 +44,44 @@ async function fetchLiveData() {
  */
 async function update(data = null) {
   updateCounter += LIVE_UPDATE_DELAY;
-  const json = data ?? await fetchLiveData();
-  if (json === null) return;
-  QuickSection.updateSource(json);
-  PowerSection.update(json);
-  EnergySection.update(json);
-  MoneySection.update(json);
-  if (data === null && charts !== null && updateCounter >= CHART_UPDATE_DELAY) {
-    updateCounter = 0;
-    charts.update(json);
-  }
-}
-
-try {
-  const response = await fetch(API_URL + '/history');
-  const json = await response.json();
-  charts = new DataCharts(json);
-  await update(json.at(-1));
-} catch {
-  console.warn('Failed loading history');
-  DataCharts.error();
-}
-
-try {
-  const response = await fetch(API_URL + '/devices');
-  devices = await response.json();
-  if (devices === null) throw new Error('Invalid state');
-  if (charts !== null) charts.setBatteryInfo(devices.batteries[0]);
-  DevicesSection.update(devices);
-} catch {
-  console.warn('Failed loading devices');
-}
-
-try {
-  const response = await fetch(API_URL + '/weather');
-  const json = await response.json();
-  QuickSection.updateWeather(json);
-  // eslint-disable-next-line no-new
-  new WeatherSection(json);
-} catch {
-  console.warn('Failed loading weather');
-  WeatherSection.error();
+  await fetchApiData('/now', json => {
+    QuickSection.updateSource(json);
+    PowerSection.update(json);
+    EnergySection.update(json);
+    MoneySection.update(json);
+    if (
+      data === null &&
+      charts !== null &&
+      updateCounter >= CHART_UPDATE_DELAY
+    ) {
+      updateCounter = 0;
+      charts.update(json);
+    }
+  }, () => {
+    if (interval !== null) clearInterval(interval);
+  });
 }
 
 PriceSection.update();
 
+await Promise.allSettled([
+  fetchApiData('/history', async json => {
+    charts = new DataCharts(json);
+    await update(json.at(-1));
+  }, () => DataCharts.error()),
+  fetchApiData('/devices', json => {
+    setBatteryInfo(json.batteries[0]);
+    DevicesSection.update(json);
+  }),
+  fetchApiData('/weather', json => {
+    QuickSection.updateWeather(json);
+    // eslint-disable-next-line no-new
+    new WeatherSection(json);
+  }, () => WeatherSection.error())
+]);
+
 // @ts-expect-error
 interval = setInterval(update, LIVE_UPDATE_DELAY);
-devices = null;
 
 if ('serviceWorker' in navigator) {
   try {

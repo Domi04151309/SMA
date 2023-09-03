@@ -1,5 +1,8 @@
 import { Chart, commonChartOptions, error } from '/components/charts.js';
 
+/** @type {Battery|null} */
+let battery = null;
+
 /**
  * @param {Date} date
  * @returns {string}
@@ -14,10 +17,15 @@ function toTimeString(date) {
   ) + ' Uhr';
 }
 
-export class DataCharts {
-  /** @type {Battery|null} */
-  battery = null;
+/**
+ * @param {Battery|null} batteryInfo
+ * @returns {void}
+ */
+export function setBatteryInfo(batteryInfo) {
+  battery = batteryInfo;
+}
 
+export class DataCharts {
   constructor(/** @type {NowResponse[]} */ json) {
     this.historyChart = new Chart('#history-chart', {
       ...commonChartOptions,
@@ -81,8 +89,8 @@ export class DataCharts {
         formatTooltipY: (
           /** @type {number|null} */ value
         ) => value + ' % | ' + (
-          (this.battery?.capacity ?? 0) *
-          (this.battery?.capacityOfOriginalCapacity ?? 0) / 100 *
+          (battery?.capacity ?? 0) *
+          (battery?.capacityOfOriginalCapacity ?? 0) / 100 *
           (value ?? 0) / 100
         ).toLocaleString('de') + ' Wh'
       }
@@ -131,10 +139,6 @@ export class DataCharts {
       },
       type: 'pie'
     });
-  }
-
-  setBatteryInfo(/** @type {Battery|null} */ batteryInfo) {
-    this.battery = batteryInfo;
   }
 
   update(/** @type {NowResponse} */ json) {
