@@ -77,9 +77,8 @@ export class Server {
 
   start() {
     this.app.listen(PORT, () => {
-      const url = 'http://localhost:' + PORT + '/';
       // eslint-disable-next-line no-console
-      console.log(url);
+      console.log('http://localhost:' + PORT + '/');
     });
   }
 }
