@@ -32,6 +32,9 @@ export async function findInverters() {
   if (!localInterface || !localInterface.cidr) throw new Error(
     'Unknown network configuration'
   );
+  if (ip.isV6Format(localInterface.address)) throw new Error(
+    'IPv6 discovery is not supported yet'
+  );
 
   /** @type {Promise<string|null>[]} */
   const promises = [];

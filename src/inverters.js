@@ -40,7 +40,8 @@ export async function getAddresses() {
   }
   else try {
     inverters.push(...await autofillInverters(invertersFilePath));
-  } catch {
+  } catch (error) {
+    console.error(error instanceof Error ? error.message : error);
     writeFileSync(invertersFilePath, JSON.stringify([]));
     console.warn(
       'Please enter your converters\' ip addresses in the `' +
