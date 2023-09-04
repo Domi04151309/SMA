@@ -16,8 +16,9 @@ async function fetchNewData() {
 await fetchNewData();
 setInterval(fetchNewData, 300_000);
 
-new Server().registerApiEndpoint('/history', () => historyData)
-  .registerApiEndpoint('/now', async () => await getLiveData())
+new Server()
   .registerApiEndpoint('/devices', async () => await getDevices())
+  .registerApiEndpoint('/history', () => historyData)
+  .registerApiEndpoint('/now', async () => await getLiveData())
   .registerApiEndpoint('/weather', async () => await getWeather())
   .start();

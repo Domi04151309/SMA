@@ -1,4 +1,4 @@
-import { OPEN_BROWSER_ON_START, PORT } from './config.js';
+import { PORT } from './config.js';
 import { Settings } from './settings.js';
 import bodyParser from 'body-parser';
 import compression from 'compression';
@@ -6,7 +6,6 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import helmet from 'helmet';
 import ip from 'ip';
-import open from 'open';
 
 export class Server {
   constructor() {
@@ -77,12 +76,10 @@ export class Server {
   }
 
   start() {
-    this.app.listen(PORT, async () => {
+    this.app.listen(PORT, () => {
       const url = 'http://localhost:' + PORT + '/';
       // eslint-disable-next-line no-console
       console.log(url);
-      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
-      if (OPEN_BROWSER_ON_START) await open(url);
     });
   }
 }

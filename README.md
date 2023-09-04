@@ -64,8 +64,8 @@ The project provides the following API endpoints:
   [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
 - **GET /api/now**: Returns the latest data point. See
   [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
-- **GET /api/settings**: Returns settings.
-- **PUT /api/settings**: Updates settings.
+- **GET /api/settings**: Returns settings. (accessible only from private networks)
+- **PUT /api/settings**: Updates settings. (accessible only from private networks)
 - **GET /api/weather**: Returns todays weather. See
   [`WeatherResponse`](https://domi04151309.github.io/SMA/interfaces/types.WeatherResponse.html).
 
