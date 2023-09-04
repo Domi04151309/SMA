@@ -62,6 +62,7 @@ The project provides the following API endpoints:
   [`DevicesResponse`](https://domi04151309.github.io/SMA/interfaces/types.DevicesResponse.html).
 - **GET /api/history**: Returns a list of collected data points. See
   [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
+- **GET /api/licenses**: Returns all licenses.
 - **GET /api/now**: Returns the latest data point. See
   [`NowResponse`](https://domi04151309.github.io/SMA/interfaces/types.NowResponse.html).
 - **GET /api/settings**: Returns settings. (accessible only from private networks)
