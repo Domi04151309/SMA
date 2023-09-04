@@ -5,6 +5,7 @@ import compression from 'compression';
 import express from 'express';
 import { fileURLToPath } from 'node:url';
 import helmet from 'helmet';
+import ip from 'ip';
 import open from 'open';
 
 export class Server {
@@ -27,12 +28,23 @@ export class Server {
       '/frappe-charts.min.esm.js.map',
       'frappe-charts/dist/frappe-charts.min.esm.js.map'
     );
-    this.registerApiEndpoint('/settings', () => Settings.get());
+    this.registerApiEndpoint('/settings', request => {
+      if (
+        request.socket.remoteAddress &&
+        ip.isPrivate(request.socket.remoteAddress)
+      ) return Settings.get();
+      return {};
+    });
     this.app.put('/api/settings', (request, response) => {
-      for (
-        const [key, value] of Object.entries(request.body)
-      ) Settings.setItem(key, value.toString());
-      Settings.save();
+      if (
+        request.socket.remoteAddress &&
+        ip.isPrivate(request.socket.remoteAddress)
+      ) {
+        for (
+          const [key, value] of Object.entries(request.body)
+        ) Settings.setItem(key, value.toString());
+        Settings.save();
+      }
       response.status(204).send();
     });
   }
@@ -50,12 +62,12 @@ export class Server {
 
   registerApiEndpoint(
     /** @type {string} */ path,
-    /** @type {() => unknown} */ getResponse
+    /** @type {(request: express.Request) => unknown} */ getResponse
   ) {
-    this.app.get('/api' + path, async (_, response) => {
+    this.app.get('/api' + path, async (request, response) => {
       const sendableResponse = getResponse.constructor.name === 'AsyncFunction'
-        ? await getResponse()
-        : getResponse();
+        ? await getResponse(request)
+        : getResponse(request);
       response.set('Access-Control-Allow-Origin', '*');
       response.send(sendableResponse);
     });
