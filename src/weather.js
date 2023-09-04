@@ -4,7 +4,7 @@ import { Settings } from './settings.js';
 let weather = null;
 
 /**
- * @returns {Promise<WeatherResponse|object>}
+ * @returns {Promise<WeatherResponse>}
  */
 export async function getWeather() {
   if (

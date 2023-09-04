@@ -78,7 +78,7 @@ export const DevicesSection = {
 
   update(/** @type {DevicesResponse} */ json) {
     while (
-      (deviceTable?.childNodes?.length ?? 0) > 1
+      (deviceTable?.childNodes.length ?? 0) > 1
     ) deviceTable?.lastChild?.remove();
     this.addInverters(json);
     this.addBatteries(json);

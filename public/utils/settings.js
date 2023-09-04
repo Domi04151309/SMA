@@ -1,5 +1,6 @@
 try {
   const response = await fetch('/api/settings');
+  /** @type {{[key: string]: string}} */
   const settings = await response.json();
   for (
     const [key, value] of Object.entries(settings)
@@ -26,6 +27,6 @@ export const Settings = {
           method: 'PUT'
         }
       );
-    })();
+    })().catch(() => null);
   }
 };

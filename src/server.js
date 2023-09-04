@@ -41,7 +41,9 @@ export class Server {
         ip.isPrivate(request.socket.remoteAddress)
       ) {
         for (
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
           const [key, value] of Object.entries(request.body)
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
         ) Settings.setItem(key, value.toString());
         Settings.save();
       }
@@ -75,11 +77,12 @@ export class Server {
   }
 
   start() {
-    this.app.listen(PORT, () => {
+    this.app.listen(PORT, async () => {
       const url = 'http://localhost:' + PORT + '/';
       // eslint-disable-next-line no-console
       console.log(url);
-      if (OPEN_BROWSER_ON_START) open(url);
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+      if (OPEN_BROWSER_ON_START) await open(url);
     });
   }
 }

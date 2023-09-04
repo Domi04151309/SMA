@@ -31,6 +31,7 @@ export async function getAddresses() {
     new URL('../' + INVERTERS_FILE, import.meta.url)
   );
   if (existsSync(invertersFilePath)) try {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     inverters.push(...JSON.parse(readFileSync(invertersFilePath).toString()));
   } catch (error) {
     console.error(

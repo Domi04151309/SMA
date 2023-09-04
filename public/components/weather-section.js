@@ -21,26 +21,26 @@ export class WeatherSection {
         datasets: [
           {
             name: 'Sonne',
-            values: json?.hourly?.map(hour => hour.chanceofsunshine) ?? []
+            values: json.hourly?.map(hour => hour.chanceofsunshine) ?? []
           },
           {
             name: 'Regen',
-            values: json?.hourly?.map(hour => hour.chanceofrain) ?? []
+            values: json.hourly?.map(hour => hour.chanceofrain) ?? []
           },
           {
             name: 'Nebel',
-            values: json?.hourly?.map(hour => hour.chanceoffog) ?? []
+            values: json.hourly?.map(hour => hour.chanceoffog) ?? []
           },
           {
             name: 'Wolken',
-            values: json?.hourly?.map(hour => hour.chanceofovercast) ?? []
+            values: json.hourly?.map(hour => hour.chanceofovercast) ?? []
           },
           {
             name: 'Schnee',
-            values: json?.hourly?.map(hour => hour.chanceofsnow) ?? []
+            values: json.hourly?.map(hour => hour.chanceofsnow) ?? []
           }
         ],
-        labels: json?.hourly?.map(
+        labels: json.hourly?.map(
           hour => parseInt(hour.time, 10) / 100 + ' Uhr'
         ) ?? [],
         yMarkers: [
@@ -53,7 +53,7 @@ export class WeatherSection {
         formatTooltipX: (/** @type {string|null} */ value) => {
           if (value === null) return '';
           const time = (parseInt(value, 10) * 100).toString();
-          return value + ' | ' + json?.hourly?.find(
+          return value + ' | ' + json.hourly?.find(
             item => item.time === time
           )?.lang_de[0]?.value;
         },
@@ -62,13 +62,13 @@ export class WeatherSection {
       type: 'line'
     });
 
-    const sunHourValue = parseFloat(json?.sunHour ?? '');
-    sunrise.textContent = json?.astronomy[0]?.sunrise ?? '?';
-    sunset.textContent = json?.astronomy[0]?.sunset ?? '?';
+    const sunHourValue = parseFloat(json.sunHour ?? '');
+    sunrise.textContent = json.astronomy?.at(0)?.sunrise ?? '?';
+    sunset.textContent = json.astronomy?.at(0)?.sunset ?? '?';
     sunHours.textContent = isNaN(sunHourValue)
       ? '?'
       : sunHourValue.toLocaleString('de');
-    uvIndex.textContent = json?.uvIndex ?? '?';
+    uvIndex.textContent = json.uvIndex ?? '?';
   }
 
   static error() {

@@ -38,22 +38,22 @@ export class DataCharts {
           {
             chartType: 'bar',
             name: 'Dach',
-            values: json.map(item => item.power.fromRoof ?? 0)
+            values: json.map(item => item.power.fromRoof)
           },
           {
             chartType: 'bar',
             name: 'Batterie',
-            values: json.map(item => item.power.fromBattery ?? 0)
+            values: json.map(item => item.power.fromBattery)
           },
           {
             chartType: 'bar',
             name: 'Netz',
-            values: json.map(item => item.power.fromGrid ?? 0)
+            values: json.map(item => item.power.fromGrid)
           },
           {
             chartType: 'line',
             name: 'Haus',
-            values: json.map(item => item.power.currentUsage ?? 0)
+            values: json.map(item => item.power.currentUsage)
           }
         ],
         labels: json.map(item => toTimeString(new Date(item.timestamp))),
@@ -121,11 +121,11 @@ export class DataCharts {
         datasets: [
           {
             values: [
-              (json.at(-1)?.energy?.fromRoof ?? 0) -
-                (json.at(-1)?.energy?.toGrid ?? 0) -
-                (json.at(-1)?.energy?.toBattery ?? 0),
-              json.at(-1)?.energy?.fromBattery ?? 0,
-              json.at(-1)?.energy?.fromGrid ?? 0
+              (json.at(-1)?.energy.fromRoof ?? 0) -
+                (json.at(-1)?.energy.toGrid ?? 0) -
+                (json.at(-1)?.energy.toBattery ?? 0),
+              json.at(-1)?.energy.fromBattery ?? 0,
+              json.at(-1)?.energy.fromGrid ?? 0
             ]
           }
         ],

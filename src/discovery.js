@@ -26,7 +26,7 @@ export async function findInverters() {
   const localInterface = Object.values(networkInterfaces())
     .flat()
     .find(
-      item => item?.internal === false && ip.isPrivate(item?.address)
+      item => item?.internal === false && ip.isPrivate(item.address)
     );
 
   if (!localInterface || !localInterface.cidr) throw new Error(

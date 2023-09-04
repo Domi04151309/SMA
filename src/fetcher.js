@@ -11,22 +11,27 @@ const LOGGER_MAP = {
   7090: 'Battery_ChaStt'
 };
 
-/** @type {{[index: number]: string[]}} */
+/**
+ * @typedef {{[index: string]: string}} Translation
+ * @type {{[index: number]: Translation}}
+ */
 const strings = {};
 
 /**
+ * @template T
  * @param {string} url
- * @returns {Promise<any|null>}
+ * @returns {Promise<T|null>}
  */
 async function fetchJson(url) {
   // Catch fetch errors here because they are otherwise uncatchable.
   const response = await fetch(url).catch(() => null);
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return await response?.json();
 }
 
 /**
  * @template T
- * @param {Promise<T>[]} promises
+ * @param {Promise<T|null>[]} promises
  * @param {string} errorMessage
  * @param {(result: T, index: number) => void} lambda
  * @returns {Promise<void>}
@@ -61,23 +66,25 @@ function getLoggerKey(id) {
 }
 
 /**
- * @returns {Promise<any[]>}
+ * @returns {Promise<SMASimplifiedDashLogger[]>}
  */
 export async function fetchDeviceLogger() {
   // Dispatch fetch requests
+  /** @type {Promise<SMADashLogger|null>[]} */
   const dataRequests = [];
   for (const address of await getAddresses()) dataRequests.push(fetchJson(
     'https://' + address + '/dyn/getDashLogger.json'
   ));
 
   // Format data
-  /** @type {object[]} */
+  /** @type {SMASimplifiedDashLogger[]} */
   const result = [];
   await allSettledHandling(
     dataRequests,
     'Failed fetching logger',
-    json => {
+    (/** @type {SMADashLogger} */ json) => {
       result.push(
+        // @ts-expect-error
         Object.fromEntries(
           Object.entries(Object.values(json.result)[0])
             .map(([key, value]) => [getLoggerKey(key), Object.values(value)[0]])
@@ -89,10 +96,11 @@ export async function fetchDeviceLogger() {
 }
 
 /**
- * @returns {Promise<object[]>}
+ * @returns {Promise<SMASimplifiedDashValues[]>}
  */
 export async function fetchDeviceData() {
   // Dispatch fetch requests
+  /** @type {Promise<SMADashValues|null>[]} */
   const dataRequests = [];
   const translationRequests = [];
   const addresses = await getAddresses();
@@ -109,13 +117,17 @@ export async function fetchDeviceData() {
   await allSettledHandling(
     translationRequests,
     'Failed fetching translation',
-    (promise, index) => {
-      strings[index] = promise;
+    (json, index) => {
+      if (
+        typeof json === 'object' &&
+        !Array.isArray(json) &&
+        json !== null
+      ) strings[index] = /** @type {{[key: string]: string}} */ (json);
     }
   );
 
   // Format data
-  /** @type {{[key: string]: unknown[]}} */
+  /** @type {{[key: string]: unknown[]}} */// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(
       Object.keys(OBJECT_MAP)
@@ -123,12 +135,12 @@ export async function fetchDeviceData() {
         .map(key => [key, []])
     )
     : {};
-  /** @type {object[]} */
+  /** @type {SMASimplifiedDashValues[]} */
   const result = [];
   await allSettledHandling(
     dataRequests,
     'Failed fetching data',
-    (json, index) => {
+    (/** @type {SMADashValues} */json, index) => {
       const filteredJson = Object.fromEntries(
         Object.entries(Object.values(json.result)[0])
           .map(([key, value]) => [key, Object.values(value)[0][0].val])
@@ -147,18 +159,21 @@ export async function fetchDeviceData() {
             ]
           )
       );
-      const mappedJson = Object.fromEntries(
-        Object.entries(OBJECT_MAP).map(
-          ([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]]
+      const mappedJson = /** @type {SMASimplifiedDashValues} */(
+        Object.fromEntries(
+          Object.entries(OBJECT_MAP).map(
+            ([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]]
+          )
         )
       );
+      // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (PRINT_DEBUG_INFO) for (
         const [key, value] of Object.entries(mappedJson)
       ) debugInfo[key].push(value);
       result.push(mappedJson);
     }
   );
-  // eslint-disable-next-line no-console
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-console
   if (PRINT_DEBUG_INFO) console.table(
     Object.fromEntries(
       Object.entries(debugInfo).filter(
@@ -169,6 +184,7 @@ export async function fetchDeviceData() {
   return result;
 }
 
+// eslint-disable-next-line @typescript-eslint/unbound-method
 const originalEmitWarning = process.emitWarning;
 /** @type {(warning: string | Error, ...otherArguments: any[]) => void} */
 process.emitWarning = (warning, ...otherArguments) => {
@@ -179,5 +195,6 @@ process.emitWarning = (warning, ...otherArguments) => {
     process.emitWarning = originalEmitWarning;
     return;
   }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
   originalEmitWarning.call(process, warning, ...otherArguments);
 };

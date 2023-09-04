@@ -216,7 +216,7 @@ export const QuickSection = {
       !(weatherIcon instanceof HTMLImageElement)
     ) throw new Error('Invalid layout');
     const currentTime = getMatchingTime();
-    const currentState = json?.hourly?.find(
+    const currentState = json.hourly?.find(
       item => item.time === currentTime
     );
     weatherIcon.src = '/images/' + getWeatherIcon(currentState?.weatherCode);

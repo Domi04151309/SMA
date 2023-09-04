@@ -2,8 +2,9 @@ import { fetchDeviceData, fetchDeviceLogger } from './fetcher.js';
 import { getAddresses } from './inverters.js';
 
 /**
- * @param {{[key: string]: unknown}} object
- * @param {string} propertyName
+ * @template T
+ * @param {{[K in keyof T]: any}} object
+ * @param {keyof T} propertyName
  * @param {unknown} value
  * @returns {void}
  */
@@ -12,9 +13,10 @@ function setIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {{[key: string]: number}} object
- * @param {string} propertyName
- * @param {number} value
+ * @template T
+ * @param {{[K in keyof T]: any}} object
+ * @param {keyof T} propertyName
+ * @param {number|undefined} value
  * @returns {void}
  */
 function addIfNumber(object, propertyName, value) {
@@ -22,9 +24,10 @@ function addIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {{[key: string]: number}} object
- * @param {string} propertyName
- * @param {number} value
+ * @template T
+ * @param {{[K in keyof T]: any}} object
+ * @param {keyof T} propertyName
+ * @param {number|undefined} value
  * @returns {void}
  */
 function subtractIfNumber(object, propertyName, value) {
@@ -32,7 +35,7 @@ function subtractIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {any[]|null} prefetched
+ * @param {SMASimplifiedDashValues[]|null} prefetched
  * @returns {Promise<DevicesResponse>}
  */
 export async function getDevices(prefetched = null) {
@@ -52,12 +55,14 @@ export async function getDevices(prefetched = null) {
       status: device.Operation_Health,
       vendor: device.Name_Vendor
     });
-    if (device.Bat_CapacRtgWh) result.batteries.push({
+    if (
+      device.Bat_CapacRtgWh &&
+      device.Bat_Diag_ActlCapacNom
+    ) result.batteries.push({
       capacity: device.Bat_CapacRtgWh,
       capacityOfOriginalCapacity: device.Bat_Diag_ActlCapacNom
     });
     if (
-      device.Energy_Meter_Add &&
       !result.energyMeters.includes(device.Energy_Meter_Add)
     ) result.energyMeters.push(device.Energy_Meter_Add);
   }
@@ -80,6 +85,7 @@ function wattHoursToWatts(wattHours, hours) {
 export async function constructHistory() {
   const devices = await fetchDeviceLogger();
   if (devices.length === 0) return [];
+  /** @type {(NowResponse)[]} */
   const datasets = devices[0].Metering_TotWhOut.map(
     (/** @type {{t: number, v: number}} */ item) => ({
       batteryPercentage: null,
@@ -110,10 +116,10 @@ export async function constructHistory() {
       device.Metering_GridMs_TotWhIn[index]?.v
     );
     addIfNumber(dataset.energy, 'toGrid', device.Metering_TotWhOut[index]?.v);
-    if (device?.Battery_ChaStt) setIfNumber(
+    setIfNumber(
       dataset,
       'batteryPercentage',
-      device.Battery_ChaStt[index]?.v
+      device.Battery_ChaStt?.at(index)?.v
     );
     if (index > 0) setIfNumber(
       dataset.power,
@@ -124,11 +130,7 @@ export async function constructHistory() {
         5 / 60
       )
     );
-    if (device?.PvGen_PvW) addIfNumber(
-      dataset.power,
-      'fromRoof',
-      device.PvGen_PvW[index]?.v
-    );
+    addIfNumber(dataset.power, 'fromRoof', device.PvGen_PvW?.at(index)?.v);
     if (index > 0) addIfNumber(
       dataset.power,
       'toGrid',
@@ -143,7 +145,7 @@ export async function constructHistory() {
 }
 
 /**
- * @param {any[]|null} prefetched
+ * @param {SMASimplifiedDashValues[]|null} prefetched
  * @returns {Promise<NowResponse>}
  */
 export async function getLiveData(prefetched = null) {

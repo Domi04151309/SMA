@@ -9,6 +9,7 @@
   ],
   "extends": [
     "eslint:all",
+    "plugin:@typescript-eslint/strict-type-checked",
     "plugin:array-func/all",
     "plugin:eslint-comments/recommended",
     "plugin:import/recommended",
@@ -111,6 +112,14 @@
     "@typescript-eslint/ban-ts-comment": "off",
     "@typescript-eslint/no-base-to-string": "off",
     "@typescript-eslint/no-extraneous-class": "off",
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      { "checksVoidReturn": false }
+    ],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "_" }
+    ],
     "@typescript-eslint/no-unsafe-assignment": "off",
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",

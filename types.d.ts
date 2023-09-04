@@ -130,9 +130,75 @@ declare interface WeatherHour {
 }
 
 declare interface WeatherResponse {
-  astronomy: Astronomy[],
-  date: string,
-  hourly: WeatherHour[],
-  sunHour: string,
-  uvIndex: string
+  astronomy?: Astronomy[],
+  date?: string,
+  hourly?: WeatherHour[],
+  sunHour?: string,
+  uvIndex?: string
+}
+
+declare interface SMADashValuesReference {
+  tag: number
+}
+
+declare interface SMADashValuesValue {
+  val: number|string|null|SMADashValuesReference[]
+}
+
+declare interface SMADashValuesResult {
+  [a: string]: {
+    [b: string]: {
+      [c :string]: SMADashValuesValue[]
+    }
+  }
+}
+
+declare interface SMADashValues {
+  result: SMADashValuesResult
+}
+
+declare interface SMASimplifiedDashValues {
+  Bat_CapacRtgWh?: number,
+  Bat_Diag_ActlCapacNom?: number,
+  BatChrg_BatChrg?: number,
+  BatDsch_BatDsch?: number,
+  Battery_ChaStt?: number,
+  Battery_CurrentCharging?: number,
+  Battery_CurrentDischarging?: number,
+  Energy_Meter_Add: number,
+  GridMs_TotW_Cur: number,
+  Metering_GridMs_TotWhIn: number,
+  Metering_GridMs_TotWIn: number,
+  Metering_GridMs_TotWOut: number,
+  Metering_PvGen_PvWh: number,
+  Metering_TotWhOut: number,
+  Name_Model: string,
+  Name_Vendor: string,
+  Operation_Health: string,
+  Operation_RunStt: string,
+  PvGen_PvW: number
+}
+
+declare interface SMADashLoggerDataPoint {
+  t: number,
+  v: number
+}
+
+declare interface SMADashLoggerResult {
+  [a: string]: {
+    [b: string]: {
+      [c :string]: SMADashLoggerDataPoint[]
+    }
+  }
+}
+
+declare interface SMADashLogger {
+  result: SMADashLoggerResult
+}
+
+declare interface SMASimplifiedDashLogger {
+  Battery_ChaStt?: SMADashLoggerDataPoint[],
+  Metering_GridMs_TotWhIn: SMADashLoggerDataPoint[],
+  Metering_TotWhOut: SMADashLoggerDataPoint[],
+  PvGen_PvW?: SMADashLoggerDataPoint[]
 }

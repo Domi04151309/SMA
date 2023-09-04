@@ -28,11 +28,13 @@ async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
     if (
       onSuccess.constructor.name === 'AsyncFunction'
     ) await onSuccess(await response.json());
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     else onSuccess(await response.json());
   } catch {
     console.warn('Failed loading', API_URL + apiEndpoint);
     if (onError === null) return;
     if (onError.constructor.name === 'AsyncFunction') await onError();
+    // eslint-disable-next-line @typescript-eslint/no-floating-promises
     else onError();
   }
 }
@@ -43,7 +45,7 @@ async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
  */
 async function update(data = null) {
   updateCounter += LIVE_UPDATE_DELAY;
-  await fetchApiData('/now', json => {
+  await fetchApiData('/now', (/** @type {NowResponse} */ json) => {
     ConnectionBanner.connected();
     QuickSection.updateSource(json);
     PowerSection.update(json);
@@ -57,25 +59,31 @@ async function update(data = null) {
       updateCounter = 0;
       charts.update(json);
     }
-  }, () => ConnectionBanner.disconnected());
+  }, () => {
+    ConnectionBanner.disconnected();
+  });
 }
 
 PriceSection.update();
 
 await Promise.allSettled([
-  fetchApiData('/history', async json => {
+  fetchApiData('/history', async (/** @type {NowResponse[]} */ json) => {
     charts = new DataCharts(json);
     await update(json.at(-1));
-  }, () => DataCharts.error()),
-  fetchApiData('/devices', json => {
+  }, () => {
+    DataCharts.error();
+  }),
+  fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
     setBatteryInfo(json.batteries[0]);
     DevicesSection.update(json);
   }),
-  fetchApiData('/weather', json => {
+  fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
     QuickSection.updateWeather(json);
     // eslint-disable-next-line no-new
     new WeatherSection(json);
-  }, () => WeatherSection.error())
+  }, () => {
+    WeatherSection.error();
+  })
 ]);
 
 setInterval(update, LIVE_UPDATE_DELAY);
