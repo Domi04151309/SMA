@@ -77,8 +77,11 @@ class InverterSession {
   }
 
   async getValues() {
-    return await fetchJson(
+    if (this.sessionId === null) return await fetchJson(
       'https://' + this.address + '/dyn/getDashValues.json'
+    );
+    return await fetchJson(
+      'https://' + this.address + '/dyn/getAllOnlValues.json'
     );
   }
 

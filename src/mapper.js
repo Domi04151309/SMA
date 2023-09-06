@@ -175,8 +175,7 @@ export async function getLiveData(prefetched = null) {
     setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);
     addIfNumber(result.energy, 'toBattery', device.BatChrg_BatChrg);
-    addIfNumber(result.energy, 'toGrid', device.Metering_TotWhOut);
-    subtractIfNumber(result.energy, 'toGrid', device.BatChrg_BatChrg);
+    setIfNumber(result.energy, 'toGrid', device.Metering_GridMs_TotWhOut);
     setIfNumber(result, 'batteryPercentage', device.Battery_ChaStt);
     addIfNumber(
       result.power,

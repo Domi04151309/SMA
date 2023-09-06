@@ -175,6 +175,7 @@ declare interface SMASimplifiedValues {
   Energy_Meter_Add: number,
   GridMs_TotW_Cur: number,
   Metering_GridMs_TotWhIn: number,
+  Metering_GridMs_TotWhOut?: number,
   Metering_GridMs_TotWIn: number,
   Metering_GridMs_TotWOut: number,
   Metering_PvGen_PvWh: number,
