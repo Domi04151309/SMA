@@ -1,5 +1,5 @@
 import { fetchDeviceData, fetchDeviceLogger } from './fetcher.js';
-import { getAddresses } from './inverters.js';
+import { getInverters } from './inverters.js';
 
 /**
  * @template T
@@ -40,7 +40,7 @@ function subtractIfNumber(object, propertyName, value) {
  */
 export async function getDevices(prefetched = null) {
   const devices = prefetched ?? await fetchDeviceData();
-  const addresses = await getAddresses();
+  const inverters = await getInverters();
   /** @type {DevicesResponse} */
   const result = {
     batteries: [],
@@ -49,7 +49,7 @@ export async function getDevices(prefetched = null) {
   };
   for (const [index, device] of devices.entries()) {
     result.inverters.push({
-      address: addresses[index],
+      address: inverters[index].address,
       mode: device.Operation_RunStt,
       model: device.Name_Model,
       status: device.Operation_Health,

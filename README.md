@@ -39,8 +39,16 @@ configuration values:
 
 ```javascript
 [
-  "192.168.20.60",
-  "192.168.20.62"
+  {
+    "address": "192.168.20.60",
+    "group": "usr",
+    "password": ""
+  },
+  {
+    "address": "192.168.20.62",
+    "group": "usr",
+    "password": ""
+  }
 ]
 ```
 

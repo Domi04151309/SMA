@@ -1,7 +1,7 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { OBJECT_MAP } from './object-map.js';
 import { PRINT_DEBUG_INFO } from './config.js';
-import { getAddresses } from './inverters.js';
+import { getInverters } from './inverters.js';
 
 /** @type {{[index: string]: string}} */
 const LOGGER_MAP = {
@@ -72,8 +72,8 @@ export async function fetchDeviceLogger() {
   // Dispatch fetch requests
   /** @type {Promise<SMADashLogger|null>[]} */
   const dataRequests = [];
-  for (const address of await getAddresses()) dataRequests.push(fetchJson(
-    'https://' + address + '/dyn/getDashLogger.json'
+  for (const inverter of await getInverters()) dataRequests.push(fetchJson(
+    'https://' + inverter.address + '/dyn/getDashLogger.json'
   ));
 
   // Format data
@@ -103,13 +103,13 @@ export async function fetchDeviceData() {
   /** @type {Promise<SMADashValues|null>[]} */
   const dataRequests = [];
   const translationRequests = [];
-  const addresses = await getAddresses();
-  for (const [index, address] of addresses.entries()) {
+  const inverters = await getInverters();
+  for (const [index, inverter] of inverters.entries()) {
     dataRequests.push(fetchJson(
-      'https://' + address + '/dyn/getDashValues.json'
+      'https://' + inverter.address + '/dyn/getDashValues.json'
     ));
     if (!(index in strings)) translationRequests.push(fetchJson(
-      'https://' + address + '/data/l10n/de-DE.json'
+      'https://' + inverter.address + '/data/l10n/de-DE.json'
     ));
   }
 

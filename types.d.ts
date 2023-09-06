@@ -108,6 +108,12 @@ declare interface DevicesResponse {
   inverters: Inverter[]
 }
 
+declare interface InverterCredentials {
+  address: string,
+  group: string,
+  password: string
+}
+
 declare interface Astronomy {
   sunrise: string,
   sunset: string
