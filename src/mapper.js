@@ -1,4 +1,4 @@
-import { fetchDeviceData, fetchDeviceLogger } from './fetcher.js';
+import { fetchDeviceLogger, fetchDeviceValues } from './fetcher.js';
 import { getInverters } from './inverters.js';
 
 /**
@@ -35,11 +35,11 @@ function subtractIfNumber(object, propertyName, value) {
 }
 
 /**
- * @param {SMASimplifiedDashValues[]|null} prefetched
+ * @param {SMASimplifiedValues[]|null} prefetched
  * @returns {Promise<DevicesResponse>}
  */
 export async function getDevices(prefetched = null) {
-  const devices = prefetched ?? await fetchDeviceData();
+  const devices = prefetched ?? await fetchDeviceValues();
   const inverters = await getInverters();
   /** @type {DevicesResponse} */
   const result = {
@@ -145,11 +145,11 @@ export async function constructHistory() {
 }
 
 /**
- * @param {SMASimplifiedDashValues[]|null} prefetched
+ * @param {SMASimplifiedValues[]|null} prefetched
  * @returns {Promise<NowResponse>}
  */
 export async function getLiveData(prefetched = null) {
-  const devices = prefetched ?? await fetchDeviceData();
+  const devices = prefetched ?? await fetchDeviceValues();
   const result = {
     batteryPercentage: null,
     energy: {

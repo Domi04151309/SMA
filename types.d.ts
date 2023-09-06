@@ -143,27 +143,27 @@ declare interface WeatherResponse {
   uvIndex?: string
 }
 
-declare interface SMADashValuesReference {
+declare interface SMAValuesReference {
   tag: number
 }
 
-declare interface SMADashValuesValue {
-  val: number|string|null|SMADashValuesReference[]
+declare interface SMAValuesValue {
+  val: number|string|null|SMAValuesReference[]
 }
 
-declare interface SMADashValuesResult {
+declare interface SMAValuesResult {
   [a: string]: {
     [b: string]: {
-      [c :string]: SMADashValuesValue[]
+      [c :string]: SMAValuesValue[]
     }
   }
 }
 
-declare interface SMADashValues {
-  result: SMADashValuesResult
+declare interface SMAValues {
+  result: SMAValuesResult
 }
 
-declare interface SMASimplifiedDashValues {
+declare interface SMASimplifiedValues {
   Bat_CapacRtgWh?: number,
   Bat_Diag_ActlCapacNom?: number,
   BatChrg_BatChrg?: number,
@@ -185,26 +185,26 @@ declare interface SMASimplifiedDashValues {
   PvGen_PvW: number
 }
 
-declare interface SMADashLoggerDataPoint {
+declare interface SMALoggerDataPoint {
   t: number,
   v: number
 }
 
-declare interface SMADashLoggerResult {
+declare interface SMALoggerResult {
   [a: string]: {
     [b: string]: {
-      [c :string]: SMADashLoggerDataPoint[]
+      [c :string]: SMALoggerDataPoint[]
     }
   }
 }
 
-declare interface SMADashLogger {
-  result: SMADashLoggerResult
+declare interface SMALogger {
+  result: SMALoggerResult
 }
 
-declare interface SMASimplifiedDashLogger {
-  Battery_ChaStt?: SMADashLoggerDataPoint[],
-  Metering_GridMs_TotWhIn: SMADashLoggerDataPoint[],
-  Metering_TotWhOut: SMADashLoggerDataPoint[],
-  PvGen_PvW?: SMADashLoggerDataPoint[]
+declare interface SMASimplifiedLogger {
+  Battery_ChaStt?: SMALoggerDataPoint[],
+  Metering_GridMs_TotWhIn: SMALoggerDataPoint[],
+  Metering_TotWhOut: SMALoggerDataPoint[],
+  PvGen_PvW?: SMALoggerDataPoint[]
 }

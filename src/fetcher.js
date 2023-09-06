@@ -66,23 +66,23 @@ function getLoggerKey(id) {
 }
 
 /**
- * @returns {Promise<SMASimplifiedDashLogger[]>}
+ * @returns {Promise<SMASimplifiedLogger[]>}
  */
 export async function fetchDeviceLogger() {
   // Dispatch fetch requests
-  /** @type {Promise<SMADashLogger|null>[]} */
+  /** @type {Promise<SMALogger|null>[]} */
   const dataRequests = [];
   for (const inverter of await getInverters()) dataRequests.push(fetchJson(
     'https://' + inverter.address + '/dyn/getDashLogger.json'
   ));
 
   // Format data
-  /** @type {SMASimplifiedDashLogger[]} */
+  /** @type {SMASimplifiedLogger[]} */
   const result = [];
   await allSettledHandling(
     dataRequests,
     'Failed fetching logger',
-    (/** @type {SMADashLogger} */ json) => {
+    (/** @type {SMALogger} */ json) => {
       result.push(
         // @ts-expect-error
         Object.fromEntries(
@@ -96,11 +96,11 @@ export async function fetchDeviceLogger() {
 }
 
 /**
- * @returns {Promise<SMASimplifiedDashValues[]>}
+ * @returns {Promise<SMASimplifiedValues[]>}
  */
-export async function fetchDeviceData() {
+export async function fetchDeviceValues() {
   // Dispatch fetch requests
-  /** @type {Promise<SMADashValues|null>[]} */
+  /** @type {Promise<SMAValues|null>[]} */
   const dataRequests = [];
   const translationRequests = [];
   const inverters = await getInverters();
@@ -135,12 +135,12 @@ export async function fetchDeviceData() {
         .map(key => [key, []])
     )
     : {};
-  /** @type {SMASimplifiedDashValues[]} */
+  /** @type {SMASimplifiedValues[]} */
   const result = [];
   await allSettledHandling(
     dataRequests,
     'Failed fetching data',
-    (/** @type {SMADashValues} */json, index) => {
+    (/** @type {SMAValues} */json, index) => {
       const filteredJson = Object.fromEntries(
         Object.entries(Object.values(json.result)[0])
           .map(([key, value]) => [key, Object.values(value)[0][0].val])
@@ -159,7 +159,7 @@ export async function fetchDeviceData() {
             ]
           )
       );
-      const mappedJson = /** @type {SMASimplifiedDashValues} */(
+      const mappedJson = /** @type {SMASimplifiedValues} */(
         Object.fromEntries(
           Object.entries(OBJECT_MAP).map(
             ([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]]
