@@ -1,6 +1,7 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { OBJECT_MAP } from './object-map.js';
 import { PRINT_DEBUG_INFO } from './config.js';
+import { allSettledHandling } from './fetch-utils.js';
 import { getInverters } from './inverters.js';
 
 /** @type {{[index: string]: string}} */
@@ -18,45 +19,6 @@ const LOGGER_MAP = {
 const strings = {};
 
 /**
- * @template T
- * @param {string} url
- * @returns {Promise<T|null>}
- */
-async function fetchJson(url) {
-  // Catch fetch errors here because they are otherwise uncatchable.
-  const response = await fetch(url).catch(() => null);
-  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return await response?.json();
-}
-
-/**
- * @template T
- * @param {Promise<T|null>[]} promises
- * @param {string} errorMessage
- * @param {(result: T, index: number) => void} lambda
- * @returns {Promise<void>}
- */
-async function allSettledHandling(
-  promises,
-  errorMessage,
-  lambda = () => null
-) {
-  const settled = await Promise.allSettled(promises);
-  for (
-    const [index, promise] of settled.entries()
-  ) if (
-    promise.status === 'fulfilled' && promise.value
-  ) lambda(promise.value, index);
-  else if (
-    promise.status === 'rejected' && promise.reason
-  ) console.error(
-    errorMessage + ':',
-    promise.reason?.message ?? promise.reason
-  );
-  else console.error(errorMessage);
-}
-
-/**
  * @param {string} id
  * @returns {string}
  */
@@ -72,9 +34,10 @@ export async function fetchDeviceLogger() {
   // Dispatch fetch requests
   /** @type {Promise<SMALogger|null>[]} */
   const dataRequests = [];
-  for (const inverter of await getInverters()) dataRequests.push(fetchJson(
-    'https://' + inverter.address + '/dyn/getDashLogger.json'
-  ));
+  for (const inverter of await getInverters()) dataRequests.push(
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    inverter.getLogger()
+  );
 
   // Format data
   /** @type {SMASimplifiedLogger[]} */
@@ -105,12 +68,11 @@ export async function fetchDeviceValues() {
   const translationRequests = [];
   const inverters = await getInverters();
   for (const [index, inverter] of inverters.entries()) {
-    dataRequests.push(fetchJson(
-      'https://' + inverter.address + '/dyn/getDashValues.json'
-    ));
-    if (!(index in strings)) translationRequests.push(fetchJson(
-      'https://' + inverter.address + '/data/l10n/de-DE.json'
-    ));
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    dataRequests.push(inverter.getValues());
+    if (!(index in strings)) translationRequests.push(
+      inverter.getTranslations()
+    );
   }
 
   // Save translations
@@ -141,19 +103,19 @@ export async function fetchDeviceValues() {
     dataRequests,
     'Failed fetching data',
     (/** @type {SMAValues} */json, index) => {
+      if (!json.result) return;
       const filteredJson = Object.fromEntries(
         Object.entries(Object.values(json.result)[0])
-          .map(([key, value]) => [key, Object.values(value)[0][0].val])
+          .map(([key, value]) => [key, Object.values(value)[0]?.at(0)?.val])
           .map(
             entry => [
               entry[0],
-              typeof entry[1] === 'object' &&
-              entry[1] !== null
+              Array.isArray(entry[1]) && 'tag' in (entry[1][0] ?? {})
                 // eslint-disable-next-line no-extra-parens
                 ? (
                   index in strings
-                    ? strings[index][entry[1][0].tag]
-                    : '#' + entry[1][0].tag
+                    ? strings[index][entry[1][0]?.tag]
+                    : '#' + entry[1][0]?.tag
                 )
                 : entry[1]
             ]

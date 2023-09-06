@@ -160,7 +160,8 @@ declare interface SMAValuesResult {
 }
 
 declare interface SMAValues {
-  result: SMAValuesResult
+  error?: number,
+  result?: SMAValuesResult
 }
 
 declare interface SMASimplifiedValues {

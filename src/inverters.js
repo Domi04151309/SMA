@@ -1,12 +1,94 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { allSettledHandling, fetchJson } from './fetch-utils.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
 import { networkInterfaces } from 'node:os';
 
-/** @type {InverterCredentials[]} */
+/** @type {InverterSession[]} */
 const inverters = [];
+
+/* eslint-disable @typescript-eslint/no-unsafe-return */
+class InverterSession {
+  constructor(
+    /** @type {string} */ address,
+    /** @type {string|null} */ sessionId
+  ) {
+    this.address = address;
+    this.sessionId = sessionId;
+  }
+
+  static async create(/** @type {InverterCredentials} */ inverter) {
+    try {
+      const response = await fetch(
+        'https://' + inverter.address + '/dyn/login.json',
+        {
+          body: JSON.stringify({
+            pass: inverter.password,
+            right: inverter.group
+          }),
+          method: 'POST'
+        }
+      );
+      const json = await response.json();
+      if (json.err === 401) throw new Error('Wrong password');
+      if (json.err === 503) throw new Error('Login currently unavailable');
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      return new InverterSession(inverter.address, json.result.sid);
+    } catch (error) {
+      console.error(
+        'Failed logging in at ' + inverter.address + ':',
+        error instanceof Error ? error.message : error
+      );
+      return new InverterSession(inverter.address, null);
+    }
+  }
+
+  async getTranslations() {
+    return await fetchJson('https://' + this.address + '/data/l10n/de-DE.json');
+  }
+
+  async getAllValues() {
+    if (this.sessionId === null) return await fetchJson(
+      'https://' + this.address + '/dyn/getDashValues.json'
+    );
+    /** @type {SMAValues|null} */
+    const parameters = await fetchJson(
+      'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
+        this.sessionId,
+      JSON.stringify({ destDev: [] })
+    );
+    /** @type {SMAValues|null} */
+    const values = await fetchJson(
+      'https://' + this.address + '/dyn/getAllOnlValues.json?sid=' +
+        this.sessionId,
+      JSON.stringify({ destDev: [] })
+    );
+    if (!parameters?.result || !values?.result) return null;
+    return {
+      result: Object.fromEntries(
+        Object.entries(parameters.result).map(
+          // @ts-expect-error
+          ([key, value]) => [key, { ...value, ...values.result[key] }]
+        )
+      )
+    };
+  }
+
+  async getValues() {
+    return await fetchJson(
+      'https://' + this.address + '/dyn/getDashValues.json'
+    );
+  }
+
+  async getLogger() {
+    return await fetchJson(
+      'https://' + this.address + '/dyn/getDashLogger.json'
+    );
+  }
+}
+/* eslint-enable @typescript-eslint/no-unsafe-return */
 
 /**
  * @param {string} ipAddress
@@ -66,7 +148,11 @@ async function autofillInverters(invertersFilePath) {
     group: 'usr',
     password: ''
   }));
-  inverters.push(...mappedInverters);
+  await allSettledHandling(
+    mappedInverters.map(inverter => InverterSession.create(inverter)),
+    'Failed creating session',
+    session => inverters.push(session)
+  );
   writeFileSync(invertersFilePath, JSON.stringify(mappedInverters, null, 2));
   console.warn(
     'Found the following compatible devices:',
@@ -75,7 +161,7 @@ async function autofillInverters(invertersFilePath) {
 }
 
 /**
- * @returns {Promise<InverterCredentials[]>}
+ * @returns {Promise<InverterSession[]>}
  */
 export async function getInverters() {
   if (inverters.length > 0) return inverters;
@@ -102,8 +188,12 @@ export async function getInverters() {
     if (
       !fileContent.every(item => 'password' in item)
     ) throw new Error('Not all inverters have passwords');
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    inverters.push(...fileContent);
+    await allSettledHandling(
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+      fileContent.map(inverter => InverterSession.create(inverter)),
+      'Failed creating session',
+      session => inverters.push(session)
+    );
   } catch (error) {
     console.error(
       'Failed opening inverter file:',
