@@ -2,6 +2,7 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { allSettledHandling, fetchJson } from './fetch-utils.js';
 import { existsSync, readFileSync, writeFileSync } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
+import { OBJECT_MAP } from './object-map.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
 import { networkInterfaces } from 'node:os';
@@ -81,7 +82,33 @@ class InverterSession {
       'https://' + this.address + '/dyn/getDashValues.json'
     );
     return await fetchJson(
-      'https://' + this.address + '/dyn/getAllOnlValues.json'
+      'https://' + this.address + '/dyn/getValues.json?sid=' +
+        this.sessionId,
+      JSON.stringify({
+        destDev: [],
+        keys: [
+          'Bat_CapacRtgWh',
+          'Bat_Diag_ActlCapacNom',
+          'BatChrg_BatChrg',
+          'BatDsch_BatDsch',
+          'Battery_ChaStt',
+          'Battery_CurrentCharging',
+          'Battery_CurrentDischarging',
+          'Energy_Meter_Add',
+          'GridMs_TotW_Cur',
+          'Metering_GridMs_TotWhIn',
+          'Metering_GridMs_TotWhOut',
+          'Metering_GridMs_TotWIn',
+          'Metering_GridMs_TotWOut',
+          'Metering_PvGen_PvWh',
+          'Name_Model',
+          'Name_Vendor',
+          'Operation_Health',
+          'Operation_RunStt',
+          'PvGen_PvW'
+          // @ts-expect-error
+        ].map(key => OBJECT_MAP[key].obj + '_' + OBJECT_MAP[key].lri)
+      })
     );
   }
 

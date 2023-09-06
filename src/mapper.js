@@ -86,7 +86,7 @@ export async function constructHistory() {
   const devices = await fetchDeviceLogger();
   if (devices.length === 0) return [];
   /** @type {(NowResponse)[]} */
-  const datasets = devices[0].Metering_TotWhOut.map(
+  const datasets = devices[0].Metering_GridMs_TotWhOut.map(
     (/** @type {{t: number, v: number}} */ item) => ({
       batteryPercentage: null,
       energy: {
@@ -115,7 +115,11 @@ export async function constructHistory() {
       'fromGrid',
       device.Metering_GridMs_TotWhIn[index]?.v
     );
-    addIfNumber(dataset.energy, 'toGrid', device.Metering_TotWhOut[index]?.v);
+    addIfNumber(
+      dataset.energy,
+      'toGrid',
+      device.Metering_GridMs_TotWhOut[index]?.v
+    );
     setIfNumber(
       dataset,
       'batteryPercentage',
@@ -135,8 +139,8 @@ export async function constructHistory() {
       dataset.power,
       'toGrid',
       wattHoursToWatts(
-        device.Metering_TotWhOut[index]?.v -
-          device.Metering_TotWhOut[index - 1]?.v,
+        device.Metering_GridMs_TotWhOut[index]?.v -
+          device.Metering_GridMs_TotWhOut[index - 1]?.v,
         5 / 60
       )
     );

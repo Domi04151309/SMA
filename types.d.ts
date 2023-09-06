@@ -179,7 +179,6 @@ declare interface SMASimplifiedValues {
   Metering_GridMs_TotWIn: number,
   Metering_GridMs_TotWOut: number,
   Metering_PvGen_PvWh: number,
-  Metering_TotWhOut: number,
   Name_Model: string,
   Name_Vendor: string,
   Operation_Health: string,
@@ -207,6 +206,6 @@ declare interface SMALogger {
 declare interface SMASimplifiedLogger {
   Battery_ChaStt?: SMALoggerDataPoint[],
   Metering_GridMs_TotWhIn: SMALoggerDataPoint[],
-  Metering_TotWhOut: SMALoggerDataPoint[],
+  Metering_GridMs_TotWhOut: SMALoggerDataPoint[],
   PvGen_PvW?: SMALoggerDataPoint[]
 }

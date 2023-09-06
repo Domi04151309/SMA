@@ -7,7 +7,7 @@ import { getInverters } from './inverters.js';
 /** @type {{[index: string]: string}} */
 const LOGGER_MAP = {
   2720: 'PvGen_PvW',
-  7000: 'Metering_TotWhOut',
+  7000: 'Metering_GridMs_TotWhOut',
   7040: 'Metering_GridMs_TotWhIn',
   7090: 'Battery_ChaStt'
 };
