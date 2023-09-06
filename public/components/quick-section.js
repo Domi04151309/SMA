@@ -201,7 +201,7 @@ export const QuickSection = {
       sourceLabel.textContent = 'Batterie';
       break;
     case 'fromGrid':
-      sourceIcon.src = '/images/icons8-grid-96.png';
+      sourceIcon.src = '/images/icons8-electricity-96.png';
       sourceLabel.textContent = 'Netz';
       break;
     default:
