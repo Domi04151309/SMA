@@ -1,4 +1,5 @@
 import { Settings } from './settings.js';
+import { fetchJson } from './fetch-utils.js';
 
 /** @type {WeatherResponse|null} */
 let weather = null;
@@ -14,9 +15,9 @@ export async function getWeather() {
       .split('T')[0]
   ) return weather;
   try {
-    const response = await fetch('https://wttr.in/' +
+    const json = await fetchJson('https://wttr.in/' +
       Settings.getItem('location') + '?lang=de&format=j1');
-    const json = await response.json();
+    if (json === null) throw new Error('Fetch failed');
     if (Settings.getItem('location').length === 0) {
       Settings.setItem(
         'location',

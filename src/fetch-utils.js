@@ -1,3 +1,5 @@
+import { PRINT_DEBUG_INFO } from './config.js';
+
 /**
  * @template T
  * @param {string} url
@@ -13,8 +15,11 @@ export async function fetchJson(url, body = null) {
       method: body === null ? 'GET' : 'POST'
     }
   ).catch(() => null);
+  const json = await response?.json();
+  // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
+  if (PRINT_DEBUG_INFO) console.dir(json, { depth: null });
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return await response?.json();
+  return json;
 }
 
 /**

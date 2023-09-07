@@ -22,17 +22,14 @@ class InverterSession {
 
   static async create(/** @type {InverterCredentials} */ inverter) {
     try {
-      const response = await fetch(
+      const json = await fetchJson(
         'https://' + inverter.address + '/dyn/login.json',
-        {
-          body: JSON.stringify({
-            pass: inverter.password,
-            right: inverter.group
-          }),
-          method: 'POST'
-        }
+        JSON.stringify({
+          pass: inverter.password,
+          right: inverter.group
+        })
       );
-      const json = await response.json();
+      if (json === null) throw new Error('Fetch failed');
       if (json.err === 401) throw new Error('Wrong password');
       if (json.err === 503) throw new Error('Login currently unavailable');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
