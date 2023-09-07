@@ -19,7 +19,7 @@ function trimLargeObjectIfObject(json, limit = 50) {
             : '\u001B[93m' + value.toString()
         ) + '\u001B[39m'
       )
-      .join(',\n  ') + '\n  ... ' + (Object.keys(json).length - limit) +
+      .join(',\n  ') + ',\n  ... ' + (Object.keys(json).length - limit) +
       ' more items\n}'
     : json;
 }
