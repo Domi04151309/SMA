@@ -28,7 +28,7 @@ export function getLicenses() {
                 new URL('../' + entry[0] + '/' + file, import.meta.url)
               )
             ).toString(),
-            name: entry[0].slice(Math.max(0, entry[0].lastIndexOf('/')) + 1)
+            name: entry[0].slice(entry[0].lastIndexOf('/') + 1)
           })
         )
     )
