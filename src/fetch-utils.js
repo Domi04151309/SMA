@@ -1,6 +1,30 @@
 import { PRINT_DEBUG_INFO } from './config.js';
 
 /**
+ * @param {unknown} json
+ * @param {number} limit
+ * @returns {unknown}
+ */
+function trimLargeObjectIfObject(json, limit = 50) {
+  return typeof json === 'object' &&
+    !Array.isArray(json) &&
+    json !== null &&
+    Object.keys(json).length > limit
+    ? '{\n  ' + Object.entries(json)
+      .slice(0, limit)
+      .map(
+        ([key, value]) => '\u001B[92m\'' + key + '\'\u001B[39m: ' + (
+          typeof value === 'string'
+            ? '\u001B[92m\'' + value + '\''
+            : '\u001B[93m' + value.toString()
+        ) + '\u001B[39m'
+      )
+      .join(',\n  ') + '\n  ... ' + (Object.keys(json).length - limit) +
+      ' more items\n}'
+    : json;
+}
+
+/**
  * @template T
  * @param {string} url
  * @param {string|null} body
@@ -17,7 +41,7 @@ export async function fetchJson(url, body = null) {
   ).catch(() => null);
   const json = await response?.json();
   // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
-  if (PRINT_DEBUG_INFO) console.dir(json, { depth: null });
+  if (PRINT_DEBUG_INFO) console.log(trimLargeObjectIfObject(json));
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return json;
 }

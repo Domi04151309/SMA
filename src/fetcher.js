@@ -3,6 +3,7 @@ import { OBJECT_MAP } from './object-map.js';
 import { PRINT_DEBUG_INFO } from './config.js';
 import { allSettledHandling } from './fetch-utils.js';
 import { getInverters } from './inverters.js';
+import { plot } from 'asciichart';
 
 /** @type {{[index: string]: string}} */
 const LOGGER_MAP = {
@@ -50,7 +51,20 @@ export async function fetchDeviceLogger() {
         // @ts-expect-error
         Object.fromEntries(
           Object.entries(Object.values(json.result)[0])
-            .map(([key, value]) => [getLoggerKey(key), Object.values(value)[0]])
+            .map(([key, value]) => {
+              const readableKey = getLoggerKey(key);
+              const [values] = Object.values(value);
+              // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
+              if (PRINT_DEBUG_INFO) console.log(
+                readableKey + '\n' + plot(
+                  values
+                    .filter((_, index) => index % 3 === 0)
+                    .map(dataPoint => dataPoint.v),
+                  { colors: ['\u001B[93m'], height: 15 }
+                )
+              );
+              return [readableKey, values];
+            })
         )
       );
     }
