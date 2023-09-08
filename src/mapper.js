@@ -9,7 +9,7 @@ import { getInverters } from './inverters.js';
  * @returns {void}
  */
 function setIfNumber(object, propertyName, value) {
-  if (typeof value === 'number') object[propertyName] = value;
+  if (typeof value === 'number') object[propertyName] = Math.round(value);
 }
 
 /**
@@ -20,7 +20,7 @@ function setIfNumber(object, propertyName, value) {
  * @returns {void}
  */
 function addIfNumber(object, propertyName, value) {
-  if (typeof value === 'number') object[propertyName] += value;
+  if (typeof value === 'number') object[propertyName] += Math.round(value);
 }
 
 /**
@@ -31,7 +31,7 @@ function addIfNumber(object, propertyName, value) {
  * @returns {void}
  */
 function subtractIfNumber(object, propertyName, value) {
-  if (typeof value === 'number') object[propertyName] -= value;
+  if (typeof value === 'number') object[propertyName] -= Math.round(value);
 }
 
 /**
@@ -80,9 +80,40 @@ function wattHoursToWatts(wattHours, hours) {
 }
 
 /**
+ * @param {SMASimplifiedLogger[]} devices
+ * @returns {void}
+ */
+function interpolateBatteryStateOfCharge(devices) {
+  for (const device of devices) if (device.Battery_ChaStt) {
+    const states = [[0, device.Battery_ChaStt.length - 1]];
+    for (
+      let index = 1; index < device.Battery_ChaStt.length - 1; index++
+    ) if (
+      device.Battery_ChaStt[index].v !== device.Battery_ChaStt[index - 1].v
+    ) {
+      (states.at(-1) ?? [])[1] = index;
+      states.push([index, device.Battery_ChaStt.length - 1]);
+    }
+    for (const [start, end] of states) {
+      const stepSize = (
+        device.Battery_ChaStt[end].v - device.Battery_ChaStt[start].v
+      ) / (end - start);
+      for (
+        let index = start; index < end; index++
+        // eslint-disable-next-line id-length
+      ) device.Battery_ChaStt[index].v = device.Battery_ChaStt[start].v +
+        stepSize * (index - start);
+    }
+  }
+}
+
+/**
  * @returns {Promise<NowResponse[]>}
  */
 export async function constructHistory() {
+  const deviceData = await getDevices();
+  const batteryCapacity = (deviceData.batteries[0]?.capacity ?? 0) *
+    (deviceData.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100;
   const devices = await fetchDeviceLogger();
   if (devices.length === 0) return [];
   /** @type {(NowResponse)[]} */
@@ -107,6 +138,7 @@ export async function constructHistory() {
       timestamp: item.t * 1000
     })
   );
+  interpolateBatteryStateOfCharge(devices);
   for (const device of devices) for (
     const [index, dataset] of datasets.entries()
   ) {
@@ -125,25 +157,54 @@ export async function constructHistory() {
       'batteryPercentage',
       device.Battery_ChaStt?.at(index)?.v
     );
-    if (index > 0) setIfNumber(
-      dataset.power,
-      'fromGrid',
-      wattHoursToWatts(
+    const wattageFromGrid = index === 0
+      ? 0
+      : wattHoursToWatts(
         device.Metering_GridMs_TotWhIn[index]?.v -
           device.Metering_GridMs_TotWhIn[index - 1]?.v,
         5 / 60
-      )
-    );
-    addIfNumber(dataset.power, 'fromRoof', device.PvGen_PvW?.at(index)?.v);
-    if (index > 0) addIfNumber(
-      dataset.power,
-      'toGrid',
-      wattHoursToWatts(
+      );
+    const wattageToGrid = index === 0
+      ? 0
+      : wattHoursToWatts(
         device.Metering_GridMs_TotWhOut[index]?.v -
           device.Metering_GridMs_TotWhOut[index - 1]?.v,
         5 / 60
-      )
+      );
+    if (dataset.power.currentUsage === 0) addIfNumber(
+      dataset.power,
+      'currentUsage',
+      wattageFromGrid
     );
+    if (index > 0) {
+      if (device.Battery_ChaStt) {
+        const batteryWattage = wattHoursToWatts(
+          (
+            (device.Battery_ChaStt[index]?.v ?? 0) -
+              (device.Battery_ChaStt[index - 1]?.v ?? 0)
+          ) / 100 * batteryCapacity,
+          5 / 60
+        );
+        addIfNumber(
+          dataset.power,
+          'currentUsage',
+          batteryWattage > 0 ? batteryWattage : 0
+        );
+        addIfNumber(
+          dataset.power,
+          'fromBattery',
+          batteryWattage > 0 ? batteryWattage : 0
+        );
+        addIfNumber(
+          dataset.power,
+          'toBattery',
+          batteryWattage < 0 ? -batteryWattage : 0
+        );
+      }
+      setIfNumber(dataset.power, 'fromGrid', wattageFromGrid);
+    }
+    addIfNumber(dataset.power, 'fromRoof', device.PvGen_PvW?.at(index)?.v);
+    addIfNumber(dataset.power, 'toGrid', wattageToGrid);
   }
   return datasets;
 }
