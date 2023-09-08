@@ -1,6 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { allSettledHandling, fetchJson } from './fetch-utils.js';
-import { existsSync, readFileSync, writeFileSync } from 'node:fs';
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
 import { OBJECT_MAP } from './object-map.js';
 import { fileURLToPath } from 'node:url';
@@ -18,6 +18,15 @@ class InverterSession {
   ) {
     this.address = address;
     this.sessionId = sessionId;
+    const logFileDirectory = fileURLToPath(
+      new URL('../sessions/', import.meta.url)
+    );
+    if (!existsSync(logFileDirectory)) mkdirSync(logFileDirectory);
+    if (sessionId !== null) writeFileSync(
+      logFileDirectory + Date.now() + '.' +
+        this.address.replaceAll(/[^\dA-Za-z]/gu, '_') + '.json',
+      JSON.stringify(this, null, 2)
+    );
   }
 
   static async create(/** @type {InverterCredentials} */ inverter) {
