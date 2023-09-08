@@ -27,7 +27,7 @@ function trimLargeObjectIfObject(json, limit = 50) {
 /**
  * @template T
  * @param {string} url
- * @param {string|null} body
+ * @param {unknown|null} body
  * @returns {Promise<T|null>}
  */
 export async function fetchJson(url, body = null) {
@@ -35,13 +35,20 @@ export async function fetchJson(url, body = null) {
   const response = await fetch(
     url,
     {
-      body,
+      body: body === null ? null : JSON.stringify(body),
       method: body === null ? 'GET' : 'POST'
     }
   ).catch(() => null);
   const json = await response?.json();
   // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
-  if (PRINT_DEBUG_INFO) console.log(trimLargeObjectIfObject(json));
+  if (PRINT_DEBUG_INFO) console.log(
+    body === null ? 'GET' : 'POST',
+    url,
+    '\n',
+    body,
+    '\n',
+    trimLargeObjectIfObject(json)
+  );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return json;
 }

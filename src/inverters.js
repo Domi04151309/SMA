@@ -24,10 +24,10 @@ class InverterSession {
     try {
       const json = await fetchJson(
         'https://' + inverter.address + '/dyn/login.json',
-        JSON.stringify({
+        {
           pass: inverter.password,
           right: inverter.group
-        })
+        }
       );
       if (json === null) throw new Error('Fetch failed');
       if (json.err === 401) throw new Error('Wrong password');
@@ -55,13 +55,13 @@ class InverterSession {
     const parameters = await fetchJson(
       'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
         this.sessionId,
-      JSON.stringify({ destDev: [] })
+      { destDev: [] }
     );
     /** @type {SMAValues|null} */
     const values = await fetchJson(
       'https://' + this.address + '/dyn/getAllOnlValues.json?sid=' +
         this.sessionId,
-      JSON.stringify({ destDev: [] })
+      { destDev: [] }
     );
     if (!parameters?.result || !values?.result) return null;
     return {
@@ -81,7 +81,7 @@ class InverterSession {
     return await fetchJson(
       'https://' + this.address + '/dyn/getValues.json?sid=' +
         this.sessionId,
-      JSON.stringify({
+      {
         destDev: [],
         keys: [
           'Bat_CapacRtgWh',
@@ -105,7 +105,7 @@ class InverterSession {
           'PvGen_PvW'
           // @ts-expect-error
         ].map(key => OBJECT_MAP[key].obj + '_' + OBJECT_MAP[key].lri)
-      })
+      }
     );
   }
 
