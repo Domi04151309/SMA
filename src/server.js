@@ -27,6 +27,10 @@ export class Server {
       '/frappe-charts.min.esm.js.map',
       'frappe-charts/dist/frappe-charts.min.esm.js.map'
     );
+    this.registerNodeModulesFile(
+      '/suncalc.js',
+      'suncalc/suncalc.js'
+    );
     this.registerApiEndpoint('/settings', request => {
       if (
         request.socket.remoteAddress &&

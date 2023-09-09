@@ -1,4 +1,7 @@
+/* global SunCalc */
+import '/suncalc.js';
 import { Chart, commonChartOptions, error } from '/components/charts.js';
+import { Settings } from '../utils/settings.js';
 
 const sunrise = document.getElementById('sunrise');
 const sunset = document.getElementById('sunset');
@@ -13,7 +16,22 @@ export class WeatherSection {
       sunHours === null ||
       uvIndex === null
     ) throw new Error('Invalid layout');
-
+    const location = Settings.getItem('location')
+      ?.split(',', 2)
+      .map(parseFloat) ?? [];
+    const date = new Date(json.date ?? 0);
+    let positions = json.hourly?.map(
+      hour => {
+        date.setHours(parseInt(hour.time, 10) / 100);
+        return Math.max(
+          0,
+          /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          SunCalc.getPosition(date, ...location).altitude
+        );
+      }
+    ) ?? [];
+    const maxPosition = Math.max(...positions);
+    positions = positions.map(position => position / maxPosition);
     this.weatherChart = new Chart('#weather-chart', {
       ...commonChartOptions,
       colors: ['#FFD600', '#304FFE', '#2979FF', '#40C4FF', '#84FFFF'],
@@ -21,7 +39,12 @@ export class WeatherSection {
         datasets: [
           {
             name: 'Sonne',
-            values: json.hourly?.map(hour => hour.chanceofsunshine) ?? []
+            values: json.hourly?.map(
+              (
+                hour,
+                index
+              ) => parseInt(hour.chanceofsunshine, 10) * positions[index]
+            ) ?? []
           },
           {
             name: 'Regen',
@@ -57,7 +80,9 @@ export class WeatherSection {
             item => item.time === time
           )?.lang_de[0]?.value;
         },
-        formatTooltipY: (/** @type {number|null} */ value) => value + ' %'
+        formatTooltipY: (
+          /** @type {number|null} */ value
+        ) => value !== null ? Math.round(value) + ' %' : ''
       },
       type: 'line'
     });
