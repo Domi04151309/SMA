@@ -232,7 +232,7 @@ h2, .match-chart-padding {
   display: block;
   padding: 16px;
 }
-#devices th, #devices .icon {
+#devices th, .icon {
   display: none;
 }
 #devices td {
@@ -276,21 +276,60 @@ h2, .match-chart-padding {
   #devices th {
     display: table-cell;
   }
-  #devices td, #devices .icon {
+  #devices td, .icon {
     display: table-cell;
     padding: 16px;
   }
-  #devices .icon {
+  .icon {
     background-image: url(/images/icons8-dynamo-96.png);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2em;
   }
-  #devices .icon.battery {
+  .icon.sunrise {
+    background-image: url(/images/icons8-sunrise-96.png);
+  }
+  .icon.sunset {
+    background-image: url(/images/icons8-sunset-96.png);
+  }
+  .icon.timer {
+    background-image: url(/images/icons8-timer-96.png);
+  }
+  .icon.waves {
+    background-image: url(/images/icons8-wave-lines-96.png);
+  }
+  .icon.home {
+    background-image: url(/images/icons8-home.svg);
+  }
+  .icon.solar {
+    background-image: url(/images/icons8-solar-96.png);
+  }
+  .icon.solar-energy {
+    background-image: url(/images/icons8-solar-energy-96.png);
+  }
+  .icon.empty-battery {
+    background-image: url(/images/icons8-nearly-empty-battery-96.png);
+  }
+  .icon.full-battery {
+    background-image: url(/images/icons8-battery-96-2.png);
+  }
+  .icon.battery {
     background-image: url(/images/icons8-battery-96.png);
   }
-  #devices .icon.energy-meter {
+  .icon.electricity {
+    background-image: url(/images/icons8-electricity-96.png);
+  }
+  .icon.energy-meter {
     background-image: url(/images/icons8-energy-meter-96.png);
+  }
+  .icon.money {
+    background-image: url(/images/icons8-euro-money-96.png);
+  }
+  .icon.send-money {
+    background-image: url(/images/icons8-initiate-money-transfer-96.png);
+  }
+  .icon.request-money {
+    background-image: url(/images/icons8-request-money-96.png);
   }
 }
 
