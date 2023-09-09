@@ -136,11 +136,11 @@ declare interface WeatherHour {
 }
 
 declare interface WeatherResponse {
-  astronomy?: Astronomy[],
-  date?: string,
-  hourly?: WeatherHour[],
-  sunHour?: string,
-  uvIndex?: string
+  astronomy: Astronomy[],
+  date: string,
+  hourly: WeatherHour[],
+  sunHour: string,
+  uvIndex: string
 }
 
 declare interface SMAValuesReference {
