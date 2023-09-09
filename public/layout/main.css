@@ -43,22 +43,34 @@ nav {
 }
 nav a {
   margin: 4px;
-  padding: 0 8px;
-  line-height: 48px;
-  color: var(--text-color-primary);
-  text-decoration: none;
+  font-size: 0;
   border-radius: var(--border-radius);
+  width: 46px;
+  height: 46px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+}
+nav a.overview {
+  background-image: url(/images/home_FILL0_wght400_GRAD0_opsz24.svg);
+}
+nav a.forecast {
+  background-image: url(/images/sunny_FILL0_wght400_GRAD0_opsz24.svg);
+}
+nav a.settings {
+  background-image: url(/images/settings_FILL0_wght400_GRAD0_opsz24.svg);
 }
 nav a:hover {
-  background: var(--hover-color);
+  background-color: var(--hover-color);
 }
 nav a.selected::after {
   content: '';
   display: block;
   position: relative;
-  top: -12px;
+  top: 40px;
+  left: 25%;
+  width: 50%;
   height: 2px;
-  width: 100%;
   margin-bottom: -1px;
   background: var(--accent-color);
   border-radius: 1px;
@@ -152,9 +164,8 @@ dialog > div > input {
 dialog::backdrop {
   background: rgba(0, 0, 0, .5);
 }
-
 footer {
-  padding: 32px;
+  padding: 32px 32px 86px;
   text-align: center;
   font-size: 12px;
   box-sizing: border-box;
@@ -300,7 +311,27 @@ h2, .match-chart-padding {
     position: static;
     box-shadow: none;
   }
+  nav a {
+    background-image: none;
+    width: initial;
+    padding: 0 8px;
+    font-size: initial;
+    line-height: 48px;
+    color: var(--text-color-primary);
+    text-decoration: none;
+  }
+  nav a.overview, nav a.forecast, nav a.settings {
+    background-image: none;
+  }
+  nav a.selected::after {
+    top: -12px;
+    left: 0;
+    width: 100%;
+  }
   main {
+    padding: 32px;
+  }
+  footer {
     padding: 32px;
   }
   tr:not(:last-child) > * {
