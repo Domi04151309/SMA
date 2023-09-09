@@ -30,8 +30,8 @@ export const WeatherSection = {
     const location = Settings.getItem('location')
       ?.split(',', 2)
       .map(parseFloat) ?? [];
-    const date = new Date(json.date ?? 0);
-    let positions = json.hourly?.map(
+    const date = new Date(json.date);
+    let positions = json.hourly.map(
       hour => {
         date.setHours(parseInt(hour.time, 10) / 100);
         return Math.max(
@@ -40,7 +40,7 @@ export const WeatherSection = {
           SunCalc.getPosition(date, ...location).altitude
         );
       }
-    ) ?? [];
+    );
     const maxPosition = Math.max(...positions);
     positions = positions.map(position => position / maxPosition);
     // eslint-disable-next-line no-new
@@ -51,33 +51,31 @@ export const WeatherSection = {
         datasets: [
           {
             name: 'Sonne',
-            values: json.hourly?.map(
+            values: json.hourly.map(
               (
                 hour,
                 index
               ) => parseInt(hour.chanceofsunshine, 10) * positions[index]
-            ) ?? []
+            )
           },
           {
             name: 'Regen',
-            values: json.hourly?.map(hour => hour.chanceofrain) ?? []
+            values: json.hourly.map(hour => hour.chanceofrain)
           },
           {
             name: 'Nebel',
-            values: json.hourly?.map(hour => hour.chanceoffog) ?? []
+            values: json.hourly.map(hour => hour.chanceoffog)
           },
           {
             name: 'Wolken',
-            values: json.hourly?.map(hour => hour.chanceofovercast) ?? []
+            values: json.hourly.map(hour => hour.chanceofovercast)
           },
           {
             name: 'Schnee',
-            values: json.hourly?.map(hour => hour.chanceofsnow) ?? []
+            values: json.hourly.map(hour => hour.chanceofsnow)
           }
         ],
-        labels: json.hourly?.map(
-          hour => parseInt(hour.time, 10) / 100 + ' Uhr'
-        ) ?? [],
+        labels: json.hourly.map(hour => parseInt(hour.time, 10) / 100 + ' Uhr'),
         yMarkers: [
           { label: '', value: 0 },
           { label: '', value: 100 }
@@ -88,7 +86,7 @@ export const WeatherSection = {
         formatTooltipX: (/** @type {string|null} */ value) => {
           if (value === null) return '';
           const time = (parseInt(value, 10) * 100).toString();
-          return value + ' | ' + json.hourly?.find(
+          return value + ' | ' + json.hourly.find(
             item => item.time === time
           )?.lang_de[0]?.value;
         },
@@ -99,12 +97,12 @@ export const WeatherSection = {
       type: 'line'
     });
 
-    const sunHourValue = parseFloat(json.sunHour ?? '');
-    sunrise.textContent = json.astronomy?.at(0)?.sunrise ?? '?';
-    sunset.textContent = json.astronomy?.at(0)?.sunset ?? '?';
+    const sunHourValue = parseFloat(json.sunHour);
+    sunrise.textContent = json.astronomy.at(0)?.sunrise ?? '?';
+    sunset.textContent = json.astronomy.at(0)?.sunset ?? '?';
     sunHours.textContent = isNaN(sunHourValue)
       ? '?'
       : sunHourValue.toLocaleString('de');
-    uvIndex.textContent = json.uvIndex ?? '?';
+    uvIndex.textContent = json.uvIndex;
   }
 };

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="de">
+  {{ head }}
+  <body>
+    {{ header }}
+    <main>
+      <template>
+        <h2 class="weather-title">Wetter</h2>
+        <div class="grid-1-2">
+          <div class="weather-chart"></div>
+          <div class="match-chart-padding">
+            <h3>Wetterdaten</h3>
+            <table>
+              <tr>
+                <td class="icon sunrise"></td>
+                <th>Sonnenaufgang</th>
+                <td class="weather-sunrise">?</td>
+              </tr>
+              <tr>
+                <td class="icon sunset"></td>
+                <th>Sonnenuntergang</th>
+                <td class="weather-sunset">?</td>
+              </tr>
+              <tr>
+                <td class="icon timer"></td>
+                <th>Sonnenstunden</th>
+                <td><span class="weather-sun-hours">?</span> Stunden</td>
+              </tr>
+              <tr>
+                <td class="icon waves"></td>
+                <th>UV-Index</th>
+                <td class="weather-uv-index">?</td>
+              </tr>
+            </table>
+          </div>
+        </div>
+      </template>
+    </main>
+    {{ footer }}
+    <script src="/forecast.js" type="module"></script>
+  </body>
+</html>

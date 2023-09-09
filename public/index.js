@@ -52,9 +52,9 @@ await Promise.allSettled([
   fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
     setBatteryInfo(json.batteries[0]);
   }),
-  fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
-    QuickSection.updateWeather(json);
-    WeatherSection.update(document.getElementById('weather'), json);
+  fetchApiData('/weather', (/** @type {WeatherResponse[]} */json) => {
+    QuickSection.updateWeather(json[0]);
+    WeatherSection.update(document.getElementById('weather'), json[0]);
   }, () => {
     WeatherSection.error(document.getElementById('weather'));
   })

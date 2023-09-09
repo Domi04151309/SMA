@@ -1,16 +1,16 @@
 import { Settings } from './settings.js';
 import { fetchJson } from './fetch-utils.js';
 
-/** @type {WeatherResponse|null} */
-let weather = null;
+/** @type {WeatherResponse[]} */
+let weather = [];
 
 /**
- * @returns {Promise<WeatherResponse>}
+ * @returns {Promise<WeatherResponse[]>}
  */
 export async function getWeather() {
   if (
-    weather !== null &&
-    weather.date === new Date()
+    weather.length > 0 &&
+    weather[0].date === new Date()
       .toISOString()
       .split('T')[0]
   ) return weather;
@@ -29,13 +29,13 @@ export async function getWeather() {
       Settings.save();
     }
     // eslint-disable-next-line require-atomic-updates
-    [weather] = json.weather;
-    return weather ?? {};
+    ({ weather } = json);
+    return weather;
   } catch (error) {
     console.error(
       'Failed getting weather:',
       error instanceof Error ? error.message : error
     );
-    return {};
+    return [];
   }
 }
