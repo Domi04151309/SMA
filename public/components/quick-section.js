@@ -1,3 +1,7 @@
+/* global SunCalc */
+import '/suncalc.js';
+import { Settings } from '../utils/settings.js';
+
 const sourceIcon = document.querySelector('#quick-source img');
 const sourceLabel = document.querySelector('#quick-source .primary');
 const weatherIcon = document.querySelector('#quick-weather img');
@@ -22,21 +26,37 @@ function getMatchingTime() {
  */
 function getWeatherIcon(code) {
   if (!code) return 'icons8-sand-timer-96.png';
+  /* @ts-expect-error */
+  const sunPosition = SunCalc.getPosition(
+    new Date(),
+    ...Settings.getItem('location')
+      ?.split(',', 2)
+      .map(parseFloat) ?? []
+  ).altitude;
+  const sunnyIcon = sunPosition >= 0
+    ? 'icons8-sunny-96.png'
+    : 'icons8-moon-96.png';
+  const cloudyIcon = sunPosition >= 0
+    ? 'icons8-cloudy-96.png'
+    : 'icons8-nigth-96.png';
+  const thunderIcon = sunPosition >= 0
+    ? 'icons8-thunder-96.png'
+    : 'icons8-stormy-night-96.png';
   /* eslint-disable sonarjs/no-duplicate-string */
   /** @type {{[key: string]: string}} */
   const iconMap = {
 
     /** Sunny */
-    113: 'icons8-sunny-96.png',
+    113: sunnyIcon,
 
     /** PartlyCloudy */
-    116: 'icons8-cloudy-96.png',
+    116: cloudyIcon,
 
     /** Cloudy */
-    119: 'icons8-cloudy-96.png',
+    119: cloudyIcon,
 
     /** VeryCloudy */
-    122: 'icons8-cloudy-96.png',
+    122: cloudyIcon,
 
     /** Fog */
     143: 'icons8-fog-96.png',
@@ -54,7 +74,7 @@ function getWeatherIcon(code) {
     185: 'icons8-sleet-96.png',
 
     /** ThunderyShowers */
-    200: 'icons8-thunder-96.png',
+    200: thunderIcon,
 
     /** LightSnow */
     227: 'icons8-snow-96.png',
@@ -159,13 +179,13 @@ function getWeatherIcon(code) {
     377: 'icons8-sleet-96.png',
 
     /** ThunderyShowers */
-    386: 'icons8-thunder-96.png',
+    386: thunderIcon,
 
     /** ThunderyHeavyRain */
-    389: 'icons8-thunder-96.png',
+    389: thunderIcon,
 
     /** ThunderySnowShowers */
-    392: 'icons8-thunder-96.png',
+    392: thunderIcon,
 
     /** HeavySnowShowers */
     395: 'icons8-sleet-96.png'
