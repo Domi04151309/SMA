@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head>
+    <title>Echtzeit-Übersicht Solarenergieerzeugung für Zuhause</title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="description" content="Überwachen und optimieren Sie die Erzeugung von Solarenergie für Ihr Zuhause mit unserer umfassenden Datenübersicht. Erhalten Sie Echtzeit-Einblicke in Ihre Solarstromerzeugung.">
+    <meta name="theme-color" content="#ffffff"/>
+    <link rel="manifest" href="/pwa/manifest.json">
+    <link rel="icon" href="/images/icons8-home.svg" type="image/svg+xml" >
+    <link rel="stylesheet" href="/main.css">
+  </head>
+  <body>
+    <header>
+      <span></span>
+      <a href="/">Übersicht</a>
+      <a href="/settings.html">Einstellungen</a>
+    </header>
+    <aside id="connection">
+      Verbindung unterbrochen!
+    </aside>
+    <main>
+      <h2>Einstellungen</h2>
+      <div id="devices" class="match-chart-padding">
+        <h3>Geräte</h3>
+        <table>
+          <tr>
+            <th></th>
+            <th>Verkäufer</th>
+            <th>Modell</th>
+            <th>Info</th>
+            <th>Status</th>
+            <th width="1%">Link</th>
+          </tr>
+        </table>
+        <template>
+          <tr>
+            <td class="icon"></td>
+            <td class="vendor"></td>
+            <td class="model"></td>
+            <td class="mode"></td>
+            <td class="status"></td>
+            <td><a class="btn link" target="_blank">Öffnen</a></td>
+          </tr>
+        </template>
+      </div>
+      <div class="match-chart-padding">
+        <h3>Preise</h3>
+        <table>
+          <tr>
+            <td class="icon send-money"></td>
+            <th>Einkaufspreis</th>
+            <td><span class="energy-price-in">?</span> €/kWh</td>
+            <td width="1%"><button id="energy-price-in" type="button">Ändern</button></td>
+          </tr>
+          <tr>
+            <td class="icon request-money"></td>
+            <th>Verkaufspreis</th>
+            <td><span class="energy-price-out">?</span> €/kWh</td>
+            <td><button id="energy-price-out" type="button">Ändern</button></td>
+          </tr>
+        </table>
+      </div>
+    </main>
+    <footer>
+      Icons von <a href="https://icons8.com/">Icons8</a><br>
+      <a href="/api/licenses">Lizenzen</a>
+    </footer>
+    <dialog id="input-dialog">
+      <p></p>
+      <div>
+        <input type="text" aria-label="Eingabe">
+      </div>
+      <button class="cancel" type="button">Abbrechen</button>
+      <button class="ok" type="button">Ok</button>
+    </dialog>
+    <script src="/settings.js" type="module"></script>
+  </body>
+</html>

@@ -2,6 +2,7 @@
   --accent-color: #1976D2;
   --text-color-primary: rgba(0, 0, 0, .87);
   --text-color-secondary: rgba(0, 0, 0, .6);
+  --hover-color: rgba(128, 128, 128, .125);
   --border-color: #f4f4f4;
   --border-radius: 8px;
   --border-radius-2: 16px;
@@ -17,23 +18,38 @@ body {
   color: var(--text-color-secondary);
 }
 header {
-  position: fixed;
+  display: flex;
   top: 0;
+  align-items: center;
+  position: fixed;
   height: 54px;
   width: 100%;
   background: #fff;
   box-shadow: 0 0 12px rgba(0,0,0,.2);
   overflow: hidden;
-  text-align: center;
-  z-index: 3;
+  z-index: 999999;
 }
-header h1 {
-  height: 100%;
-  display: inline-block;
-  font-size: 1.17em;
-  color: var(--text-color-secondary);
-  line-height: 56px;
-  margin: 0;
+header span {
+  width: 46px;
+  height: 46px;
+  margin: 4px;
+  margin-left: 16px;
+  background-image: url(/images/sunny_FILL0_wght400_GRAD0_opsz24.svg);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 24px;
+
+}
+header a {
+  margin: 4px;
+  padding: 0 8px;
+  line-height: 48px;
+  color: var(--text-color-primary);
+  text-decoration: none;
+  border-radius: var(--border-radius);
+}
+header a:hover {
+  background: var(--hover-color);
 }
 #connection {
   display: none;
