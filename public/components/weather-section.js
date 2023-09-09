@@ -3,19 +3,30 @@ import '/suncalc.js';
 import { Chart, commonChartOptions, error } from '/components/charts.js';
 import { Settings } from '../utils/settings.js';
 
-const sunrise = document.getElementById('sunrise');
-const sunset = document.getElementById('sunset');
-const sunHours = document.getElementById('sun-hours');
-const uvIndex = document.getElementById('uv-index');
+const INVALID_LAYOUT = 'Invalid layout';
 
-export class WeatherSection {
-  constructor(/** @type {WeatherResponse} */ json) {
+export const WeatherSection = {
+  error(/** @type {DocumentFragment|Element|null} */ node) {
+    if (node === null) throw new Error(INVALID_LAYOUT);
+    error(node.querySelector('.weather-chart'), {
+      title: 'Wetterverlauf'
+    });
+  },
+  update(
+    /** @type {DocumentFragment|Element|null} */ node,
+    /** @type {WeatherResponse} */ json
+  ) {
+    if (node === null) throw new Error(INVALID_LAYOUT);
+    const sunrise = node.querySelector('.weather-sunrise');
+    const sunset = node.querySelector('.weather-sunset');
+    const sunHours = node.querySelector('.weather-sun-hours');
+    const uvIndex = node.querySelector('.weather-uv-index');
     if (
       sunrise === null ||
       sunset === null ||
       sunHours === null ||
       uvIndex === null
-    ) throw new Error('Invalid layout');
+    ) throw new Error(INVALID_LAYOUT);
     const location = Settings.getItem('location')
       ?.split(',', 2)
       .map(parseFloat) ?? [];
@@ -32,7 +43,8 @@ export class WeatherSection {
     ) ?? [];
     const maxPosition = Math.max(...positions);
     positions = positions.map(position => position / maxPosition);
-    this.weatherChart = new Chart('#weather-chart', {
+    // eslint-disable-next-line no-new
+    new Chart(node.querySelector('.weather-chart'), {
       ...commonChartOptions,
       colors: ['#FFD600', '#304FFE', '#2979FF', '#40C4FF', '#84FFFF'],
       data: {
@@ -95,10 +107,4 @@ export class WeatherSection {
       : sunHourValue.toLocaleString('de');
     uvIndex.textContent = json.uvIndex ?? '?';
   }
-
-  static error() {
-    error('#weather-chart', {
-      title: 'Wetterverlauf'
-    });
-  }
-}
+};

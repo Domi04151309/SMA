@@ -54,10 +54,9 @@ await Promise.allSettled([
   }),
   fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
     QuickSection.updateWeather(json);
-    // eslint-disable-next-line no-new
-    new WeatherSection(json);
+    WeatherSection.update(document.getElementById('weather'), json);
   }, () => {
-    WeatherSection.error();
+    WeatherSection.error(document.getElementById('weather'));
   })
 ]);
 

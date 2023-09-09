@@ -17,7 +17,7 @@ export const commonChartOptions = {
 };
 
 /**
- * @param {string} selector
+ * @param {string|Element|null} selector
  * @param {object} options
  * @returns {void}
  */

@@ -267,7 +267,7 @@ h2, .match-chart-padding {
   padding: 0;
 }
 
-#source-chart, #history-chart, #battery-chart, #grid-chart, #weather-chart {
+#source-chart, #history-chart, #battery-chart, #grid-chart, .weather-chart {
   display: flex;
   align-items: flex-end;
   margin-top: -64px;
