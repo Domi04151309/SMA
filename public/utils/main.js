@@ -1,3 +1,9 @@
+for (
+  const link of /** @type {NodeListOf<HTMLAnchorElement>} */ (
+    document.querySelectorAll('header a')
+  )
+) if (link.href === location.href) link.classList.add('selected');
+
 /**
  * @returns {Promise<void>}
  */

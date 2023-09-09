@@ -51,6 +51,17 @@ header a {
 header a:hover {
   background: var(--hover-color);
 }
+header a.selected::after {
+  content: '';
+  display: block;
+  position: relative;
+  top: -12px;
+  height: 2px;
+  width: 100%;
+  margin-bottom: -1px;
+  background: var(--accent-color);
+  border-radius: 1px;
+}
 #connection {
   display: none;
   margin: 54px 0 -54px;
