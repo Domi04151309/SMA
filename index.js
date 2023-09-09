@@ -23,4 +23,18 @@ new Server()
   .registerApiEndpoint('/licenses', () => getLicenses())
   .registerApiEndpoint('/now', async () => await getLiveData())
   .registerApiEndpoint('/weather', async () => await getWeather())
+  .registerTemplatedFile('/', 'index.html')
+  .registerTemplatedFile('/settings', 'settings.html')
+  .registerNodeModulesFile(
+    '/frappe-charts.min.esm.js',
+    'frappe-charts/dist/frappe-charts.min.esm.js'
+  )
+  .registerNodeModulesFile(
+    '/frappe-charts.min.esm.js.map',
+    'frappe-charts/dist/frappe-charts.min.esm.js.map'
+  )
+  .registerNodeModulesFile(
+    '/suncalc.js',
+    'suncalc/suncalc.js'
+  )
   .start();

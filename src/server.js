@@ -6,6 +6,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import helmet from 'helmet';
 import ip from 'ip';
+import { readFileSync } from 'node:fs';
 
 export class Server {
   constructor() {
@@ -17,19 +18,10 @@ export class Server {
     this.app.use(compression());
     this.app.use(bodyParser.json());
     this.app.use(
-      express.static(fileURLToPath(new URL('../public/', import.meta.url)))
-    );
-    this.registerNodeModulesFile(
-      '/frappe-charts.min.esm.js',
-      'frappe-charts/dist/frappe-charts.min.esm.js'
-    );
-    this.registerNodeModulesFile(
-      '/frappe-charts.min.esm.js.map',
-      'frappe-charts/dist/frappe-charts.min.esm.js.map'
-    );
-    this.registerNodeModulesFile(
-      '/suncalc.js',
-      'suncalc/suncalc.js'
+      express.static(
+        fileURLToPath(new URL('../public/', import.meta.url)),
+        { index: false }
+      )
     );
     this.registerApiEndpoint('/settings', request => {
       if (
@@ -63,6 +55,30 @@ export class Server {
         fileURLToPath(new URL('../node_modules/' + filePath, import.meta.url))
       );
     });
+    return this;
+  }
+
+  registerTemplatedFile(
+    /** @type {string} */ path,
+    /** @type {string} */ filePath
+  ) {
+    this.app.get(path, (_, response) => {
+      let sourceFile = readFileSync(
+        fileURLToPath(new URL('../public/' + filePath, import.meta.url))
+      ).toString();
+      for (
+        const template of ['head', 'header', 'footer']
+      ) sourceFile = sourceFile.replaceAll(
+        '{{ ' + template + ' }}',
+        readFileSync(
+          fileURLToPath(
+            new URL('../public/layout/' + template + '.html', import.meta.url)
+          )
+        ).toString()
+      );
+      response.send(sourceFile);
+    });
+    return this;
   }
 
   registerApiEndpoint(

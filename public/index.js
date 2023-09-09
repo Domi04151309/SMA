@@ -3,6 +3,7 @@ import { ConnectionBanner } from '/components/connection-banner.js';
 import { EnergySection } from '/components/energy-section.js';
 import { MoneySection } from '/components/money-section.js';
 import { PowerSection } from '/components/power-section.js';
+import { PriceSection } from '/components/price-section.js';
 import { QuickSection } from '/components/quick-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 import { fetchApiData } from '/utils/api.js';
@@ -39,6 +40,8 @@ async function update(data = null) {
     ConnectionBanner.disconnected();
   });
 }
+
+PriceSection.update();
 
 await Promise.allSettled([
   fetchApiData('/history', async (/** @type {NowResponse[]} */ json) => {

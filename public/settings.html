@@ -1,23 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
-  <head>
-    <title>Echtzeit-Übersicht Solarenergieerzeugung für Zuhause</title>
-    <meta name="viewport" content="width=device-width">
-    <meta name="description" content="Überwachen und optimieren Sie die Erzeugung von Solarenergie für Ihr Zuhause mit unserer umfassenden Datenübersicht. Erhalten Sie Echtzeit-Einblicke in Ihre Solarstromerzeugung.">
-    <meta name="theme-color" content="#ffffff"/>
-    <link rel="manifest" href="/pwa/manifest.json">
-    <link rel="icon" href="/images/icons8-home.svg" type="image/svg+xml" >
-    <link rel="stylesheet" href="/main.css">
-  </head>
+  {{ head }}
   <body>
-    <header>
-      <span></span>
-      <a href="/">Übersicht</a>
-      <a href="/settings.html">Einstellungen</a>
-    </header>
-    <aside id="connection">
-      Verbindung unterbrochen!
-    </aside>
+    {{ header }}
     <main>
       <h2>Einstellungen</h2>
       <div id="devices" class="match-chart-padding">
@@ -61,18 +46,7 @@
         </table>
       </div>
     </main>
-    <footer>
-      Icons von <a href="https://icons8.com/">Icons8</a><br>
-      <a href="/api/licenses">Lizenzen</a>
-    </footer>
-    <dialog id="input-dialog">
-      <p></p>
-      <div>
-        <input type="text" aria-label="Eingabe">
-      </div>
-      <button class="cancel" type="button">Abbrechen</button>
-      <button class="ok" type="button">Ok</button>
-    </dialog>
+    {{ footer }}
     <script src="/settings.js" type="module"></script>
   </body>
 </html>
