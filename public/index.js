@@ -7,7 +7,6 @@ import { PriceSection } from '/components/price-section.js';
 import { QuickSection } from '/components/quick-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 import { fetchApiData } from '/utils/api.js';
-import { registerServiceWorker } from '/utils/main.js';
 
 const LIVE_UPDATE_DELAY = 10_000;
 const CHART_UPDATE_DELAY = 300_000;
@@ -63,5 +62,3 @@ await Promise.allSettled([
 ]);
 
 setInterval(update, LIVE_UPDATE_DELAY);
-
-await registerServiceWorker();
