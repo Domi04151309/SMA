@@ -17,10 +17,10 @@ html, body {
 body {
   color: var(--text-color-secondary);
 }
-header {
+header, nav {
   display: flex;
-  top: 0;
   align-items: center;
+  justify-content: space-evenly;
   position: fixed;
   height: 54px;
   width: 100%;
@@ -29,18 +29,19 @@ header {
   overflow: hidden;
   z-index: 999999;
 }
-header span {
-  width: 46px;
-  height: 46px;
-  margin: 4px;
-  margin-left: 16px;
-  background-image: url(/images/sunny_FILL0_wght400_GRAD0_opsz24.svg);
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: 24px;
-
+header {
+  top: 0;
 }
-header a {
+header h1 {
+  font-size: 1.17em;
+  color: var(--text-color-secondary);
+  line-height: 54px;
+  margin: 0;
+}
+nav {
+  bottom: 0;
+}
+nav a {
   margin: 4px;
   padding: 0 8px;
   line-height: 48px;
@@ -48,10 +49,10 @@ header a {
   text-decoration: none;
   border-radius: var(--border-radius);
 }
-header a:hover {
+nav a:hover {
   background: var(--hover-color);
 }
-header a.selected::after {
+nav a.selected::after {
   content: '';
   display: block;
   position: relative;
@@ -280,6 +281,25 @@ h2, .match-chart-padding {
  }
 
 @media screen and (min-width: 1080px) {
+  header, nav {
+    justify-content: flex-start;
+  }
+  header h1 {
+    flex: none;
+    width: 46px;
+    height: 46px;
+    margin: 4px;
+    margin-left: 16px;
+    background-image: url(/images/sunny_FILL0_wght400_GRAD0_opsz24.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 24px;
+    font-size: 0;
+  }
+  nav {
+    position: static;
+    box-shadow: none;
+  }
   main {
     padding: 32px;
   }
