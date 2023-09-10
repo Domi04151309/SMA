@@ -54,10 +54,11 @@ export function toColoredString(json, limit = 10) {
  * @returns {void}
  */
 export function logChart(title, data) {
-  if (data.length === 0) return;
   // eslint-disable-next-line no-console
   console.log(
-    title + '\n' + plot(data, { colors: ['\u001B[33m'], height: 15 })
+    data.length === 0
+      ? title
+      : title + '\n' + plot(data, { colors: ['\u001B[33m'], height: 15 })
   );
 }
 
