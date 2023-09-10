@@ -64,6 +64,14 @@ declare interface NowResponse {
   timestamp: number
 }
 
+declare interface Cluster {
+
+  /**
+   * The power of the cluster in W.
+   */
+  power: number
+}
+
 declare interface Battery {
 
   /**
@@ -76,6 +84,25 @@ declare interface Battery {
    * and 100.
    */
   capacityOfOriginalCapacity: number
+
+  /**
+   * The status of the device.
+   */
+  status: string
+
+  /**
+   * The type of the device.
+   */
+  type: string|null
+}
+
+declare interface EnergyMeter {
+
+  /** The address of the device. */
+  address: number,
+
+  /** The type of the device. */
+  type: string
 }
 
 declare interface Inverter {
@@ -84,7 +111,7 @@ declare interface Inverter {
   address: string,
 
   /** The operating mode of the device. */
-  mode: string,
+  mode: string|null,
 
   /** The model of the device. */
   model: string,
@@ -98,11 +125,14 @@ declare interface Inverter {
 
 declare interface DevicesResponse {
 
+  /** A list of the connected clusters. */
+  clusters: Cluster[],
+
   /** A list of the connected batteries. */
   batteries: Battery[],
 
-  /** A list of the connected energy meter addresses. */
-  energyMeters: number[],
+  /** A list of the connected energy meters. */
+  energyMeters: EnergyMeter[],
 
   /** A list of the connected inverters. */
   inverters: Inverter[]
@@ -167,13 +197,17 @@ declare interface SMAValues {
 declare interface SMASimplifiedValues {
   Bat_CapacRtgWh?: number,
   Bat_Diag_ActlCapacNom?: number,
+  Bat_Typ?: string,
   BatChrg_BatChrg?: number,
   BatDsch_BatDsch?: number,
   Battery_ChaStt?: number,
   Battery_CurrentCharging?: number,
   Battery_CurrentDischarging?: number,
+  Battery_OpStt?: string,
   Energy_Meter_Add: number,
   GridMs_TotW_Cur: number,
+  Inverter_WLim: number,
+  Metering_EnMtrTyp: string,
   Metering_GridMs_TotWhIn: number,
   Metering_GridMs_TotWhOut?: number,
   Metering_GridMs_TotWIn: number,
@@ -181,8 +215,8 @@ declare interface SMASimplifiedValues {
   Metering_PvGen_PvWh: number,
   Name_Model: string,
   Name_Vendor: string,
-  Operation_Health: string,
-  Operation_RunUsr: string,
+  Operation_OpStt: string,
+  Operation_RunUsr?: string,
   PvGen_PvW: number
 }
 
