@@ -227,6 +227,11 @@ export async function constructHistory() {
   for (const dataset of datasets) {
     if (dataset.power.currentUsage < 0) dataset.power.currentUsage = 0;
     if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;
+    if (
+      dataset.power.fromGrid + dataset.power.fromBattery >
+        dataset.power.currentUsage
+    ) dataset.power.currentUsage = dataset.power.fromGrid +
+      dataset.power.fromBattery;
   }
   return datasets;
 }
