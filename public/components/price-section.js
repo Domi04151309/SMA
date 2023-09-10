@@ -7,6 +7,10 @@ const dialog = document.getElementById('input-dialog');
 
 export const PriceSection = {
   update() {
+    const localeOptions = {
+      maximumFractionDigits: 2,
+      minimumFractionDigits: 2
+    };
     const energyPriceInValue = parseFloat(
       Settings.getItem('energyPriceIn') ?? '0'
     );
@@ -15,10 +19,16 @@ export const PriceSection = {
     );
     for (
       const element of energyPriceIn
-    ) element.textContent = energyPriceInValue.toLocaleString('de');
+    ) element.textContent = energyPriceInValue.toLocaleString(
+      'de',
+      localeOptions
+    );
     for (
       const element of energyPriceOut
-    ) element.textContent = energyPriceOutValue.toLocaleString('de');
+    ) element.textContent = energyPriceOutValue.toLocaleString(
+      'de',
+      localeOptions
+    );
   }
 };
 
