@@ -4,36 +4,39 @@
   <body>
     {{ header }}
     <main>
+      <img id="loading" class="loading-indicator" src="/images/icons8-loading.gif" alt="Laden">
       <template>
-        <h2 class="weather-title"></h2>
-        <div class="grid-1-2">
-          <div class="weather-chart"></div>
-          <div class="match-chart-padding">
-            <h3>Wetterdaten</h3>
-            <table>
-              <tr>
-                <td class="icon sunrise"></td>
-                <th>Sonnenaufgang</th>
-                <td class="weather-sunrise">?</td>
-              </tr>
-              <tr>
-                <td class="icon sunset"></td>
-                <th>Sonnenuntergang</th>
-                <td class="weather-sunset">?</td>
-              </tr>
-              <tr>
-                <td class="icon timer"></td>
-                <th>Sonnenstunden</th>
-                <td><span class="weather-sun-hours">?</span> Stunden</td>
-              </tr>
-              <tr>
-                <td class="icon waves"></td>
-                <th>UV-Index</th>
-                <td class="weather-uv-index">?</td>
-              </tr>
-            </table>
+        <div class="fade-in">
+          <h2 class="weather-title"></h2>
+          <div class="grid-1-2">
+            <div class="weather-chart"></div>
+            <div class="match-chart-padding">
+              <h3>Wetterdaten</h3>
+              <table>
+                <tr>
+                  <td class="icon sunrise"></td>
+                  <th>Sonnenaufgang</th>
+                  <td><span class="weather-sunrise loadable"></span></td>
+                </tr>
+                <tr>
+                  <td class="icon sunset"></td>
+                  <th>Sonnenuntergang</th>
+                  <td><span class="weather-sunset loadable"></span></td>
+                </tr>
+                <tr>
+                  <td class="icon timer"></td>
+                  <th>Sonnenstunden</th>
+                  <td><span class="weather-sun-hours loadable"></span> Stunden</td>
+                </tr>
+                <tr>
+                  <td class="icon waves"></td>
+                  <th>UV-Index</th>
+                  <td><span class="weather-uv-index loadable"></span></td>
+                </tr>
+              </table>
+            </div>
+            <div class="forecast-chart"></div>
           </div>
-          <div class="forecast-chart"></div>
         </div>
       </template>
     </main>

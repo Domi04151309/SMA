@@ -174,11 +174,33 @@ footer {
   box-sizing: border-box;
 }
 
+.loading-indicator {
+  display: block;
+  margin: auto;
+  padding: 16px;
+}
+.loadable:empty {
+  display: inline-block;
+  vertical-align: middle;
+}
+.loadable:empty {
+  --size: 1em;
+  width: var(--size);
+  height: calc(var(--size) / 6);
+  background-color: currentColor;
+  transform: scaleX(0);
+  transform-origin: center left;
+  animation: cubic-bezier(0.85, 0, 0.15, 1) 2s infinite loadable-animation;
+  border-radius: var(--border-radius);
+}
 .grid-1-2 {
   display: grid;
   gap: 16px;
   grid-template-columns: repeat(1, 1fr);
   align-items: start;
+}
+main, .fade-in {
+  animation: fade-in .5s;
 }
 
 .quick-card, .quick-card {
@@ -197,6 +219,7 @@ footer {
 .quick-card > div {
   display: flex;
   justify-content: space-between;
+  align-items: center;
 }
 .quick-card > div > span:first-child {
   color: var(--text-color-primary);
@@ -252,6 +275,7 @@ footer {
 .arrow-up ,
 .arrow-top-left {
   background-image: url(/images/icons8-arrow-96.png);
+  animation: fade-in .5s;
 }
 .arrow-right {
   rotate: 90deg;
@@ -264,6 +288,7 @@ footer {
 }
 .arrow-minus {
   background-image: url(/images/icons8-minus-96.png);
+  animation: fade-in .5s;
 }
 
 h2, .match-chart-padding {
@@ -426,5 +451,29 @@ h2, .match-chart-padding {
   }
   #devices a {
     display: none;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+}
+@keyframes loadable-animation {
+  0% {
+    transform: scaleX(0);
+    transform-origin: center left;
+  }
+  50% {
+    transform: scaleX(1);
+    transform-origin: center left;
+  }
+  51% {
+    transform: scaleX(1);
+    transform-origin: center right;
+  }
+  100% {
+    transform: scaleX(0);
+    transform-origin: center right;
   }
 }

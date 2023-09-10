@@ -25,7 +25,7 @@ function getMatchingTime() {
  * @returns {string}
  */
 function getWeatherIcon(code) {
-  if (!code) return 'icons8-sand-timer-96.png';
+  if (!code) return 'icons8-loading.gif';
   /* @ts-expect-error */
   const sunPosition = SunCalc.getPosition(
     new Date(),
@@ -192,7 +192,7 @@ function getWeatherIcon(code) {
   };
   /* eslint-enable sonarjs/no-duplicate-string */
   if (code in iconMap) return iconMap[code];
-  return 'icons8-sand-timer-96.png';
+  return 'icons8-loading.gif';
 }
 
 export const QuickSection = {

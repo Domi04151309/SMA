@@ -2,10 +2,9 @@ import { ForecastSection } from '/components/forecast-section.js';
 import { WeatherSection } from '/components/weather-section.js';
 import { fetchApiData } from '/utils/api.js';
 
-const [main] = document.getElementsByTagName('main');
-const template = document.getElementsByTagName('template')[0].content;
-
 await fetchApiData('/weather', async (/** @type {WeatherResponse[]} */json) => {
+  const [main] = document.getElementsByTagName('main');
+  const template = document.getElementsByTagName('template')[0].content;
   let maxPower = 0;
   await fetchApiData('/devices', (/** @type {DevicesResponse} */devices) => {
     maxPower = devices.clusters.reduce(
@@ -13,6 +12,7 @@ await fetchApiData('/weather', async (/** @type {WeatherResponse[]} */json) => {
       0
     );
   });
+  document.getElementById('loading')?.remove();
   for (const date of json) {
     const clone = template.cloneNode(true);
     if (!(clone instanceof DocumentFragment)) return;
