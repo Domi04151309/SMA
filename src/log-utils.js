@@ -67,6 +67,7 @@ export function logChart(title, data) {
  * @returns {void}
  */
 export function logTable(data) {
+  if (data.length === 0) return;
   // eslint-disable-next-line no-console
   console.log(
     table(
