@@ -16,7 +16,7 @@ function setIfNumber(object, propertyName, value) {
  * @template T
  * @param {{[K in keyof T]: any}} object
  * @param {keyof T} propertyName
- * @param {number|undefined} value
+ * @param {unknown} value
  * @returns {void}
  */
 function addIfNumber(object, propertyName, value) {
@@ -27,7 +27,7 @@ function addIfNumber(object, propertyName, value) {
  * @template T
  * @param {{[K in keyof T]: any}} object
  * @param {keyof T} propertyName
- * @param {number|undefined} value
+ * @param {unknown} value
  * @returns {void}
  */
 function subtractIfNumber(object, propertyName, value) {
@@ -50,7 +50,7 @@ export async function getDevices(prefetched = null) {
   for (const [index, device] of devices.entries()) {
     result.inverters.push({
       address: inverters[index].address,
-      mode: device.Operation_RunStt,
+      mode: device.Operation_RunUsr,
       model: device.Name_Model,
       status: device.Operation_Health,
       vendor: device.Name_Vendor
@@ -96,12 +96,13 @@ function interpolateBatteryStateOfCharge(devices) {
     }
     for (const [start, end] of states) {
       const stepSize = (
-        device.Battery_ChaStt[end].v - device.Battery_ChaStt[start].v
+        (device.Battery_ChaStt[end].v ?? 0) -
+          (device.Battery_ChaStt[start].v ?? 0)
       ) / (end - start);
       for (
         let index = start; index < end; index++
         // eslint-disable-next-line id-length
-      ) device.Battery_ChaStt[index].v = device.Battery_ChaStt[start].v +
+      ) device.Battery_ChaStt[index].v = (device.Battery_ChaStt[start].v ?? 0) +
         stepSize * (index - start);
     }
   }
@@ -118,7 +119,7 @@ export async function constructHistory() {
   if (devices.length === 0) return [];
   /** @type {(NowResponse)[]} */
   const datasets = devices[0].Metering_GridMs_TotWhOut.map(
-    (/** @type {{t: number, v: number}} */ item) => ({
+    (/** @type {SMALoggerDataPoint} */ item) => ({
       batteryPercentage: null,
       energy: {
         fromBattery: 0,
@@ -160,15 +161,15 @@ export async function constructHistory() {
     const wattageFromGrid = index === 0
       ? 0
       : wattHoursToWatts(
-        device.Metering_GridMs_TotWhIn[index]?.v -
-          device.Metering_GridMs_TotWhIn[index - 1]?.v,
+        (device.Metering_GridMs_TotWhIn[index]?.v ?? 0) -
+          (device.Metering_GridMs_TotWhIn[index - 1]?.v ?? 0),
         5 / 60
       );
     const wattageToGrid = index === 0
       ? 0
       : wattHoursToWatts(
-        device.Metering_GridMs_TotWhOut[index]?.v -
-          device.Metering_GridMs_TotWhOut[index - 1]?.v,
+        (device.Metering_GridMs_TotWhOut[index]?.v ?? 0) -
+          (device.Metering_GridMs_TotWhOut[index - 1]?.v ?? 0),
         5 / 60
       );
     if (dataset.power.currentUsage === 0) addIfNumber(

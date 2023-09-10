@@ -182,7 +182,7 @@ declare interface SMASimplifiedValues {
   Name_Model: string,
   Name_Vendor: string,
   Operation_Health: string,
-  Operation_RunStt: string,
+  Operation_RunUsr: string,
   PvGen_PvW: number
 }
 
