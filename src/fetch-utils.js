@@ -1,5 +1,5 @@
 import { PRINT_DEBUG_INFO } from './config.js';
-import { trimLargeObjectIfObject } from './log-utils.js';
+import { toColoredString } from './log-utils.js';
 
 /**
  * @template T
@@ -19,12 +19,8 @@ export async function fetchJson(url, body = null) {
   const json = await response?.json();
   // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
   if (PRINT_DEBUG_INFO) console.log(
-    body === null ? 'GET' : 'POST',
-    url,
-    '\n',
-    body,
-    '\n',
-    trimLargeObjectIfObject(json)
+    '\u001B[1m' + (body === null ? 'GET' : 'POST') + '\u001B[0m ' + url +
+      '\n' + toColoredString(body) + '\n' + toColoredString(json)
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return json;
