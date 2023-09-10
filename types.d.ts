@@ -188,7 +188,7 @@ declare interface SMASimplifiedValues {
 
 declare interface SMALoggerDataPoint {
   t: number,
-  v: number
+  v: number|null
 }
 
 declare interface SMALoggerResult {

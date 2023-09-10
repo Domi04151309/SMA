@@ -2,7 +2,6 @@ process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { allSettledHandling, fetchJson } from './fetch-utils.js';
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
-import { OBJECT_MAP } from './object-map.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
 import { networkInterfaces } from 'node:os';
@@ -40,7 +39,9 @@ class InverterSession {
       );
       if (json === null) throw new Error('Fetch failed');
       if (json.err === 401) throw new Error('Wrong password');
-      if (json.err === 503) throw new Error('Login currently unavailable');
+      if (json.err === 503) throw new Error(
+        'Login currently unavailable'
+      );
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       return new InverterSession(inverter.address, json.result.sid);
     } catch (error) {
@@ -56,66 +57,39 @@ class InverterSession {
     return await fetchJson('https://' + this.address + '/data/l10n/de-DE.json');
   }
 
-  async getAllValues() {
-    if (this.sessionId === null) return await fetchJson(
-      'https://' + this.address + '/dyn/getDashValues.json'
-    );
-    /** @type {SMAValues|null} */
-    const parameters = await fetchJson(
-      'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
-        this.sessionId,
-      { destDev: [] }
-    );
-    /** @type {SMAValues|null} */
-    const values = await fetchJson(
-      'https://' + this.address + '/dyn/getAllOnlValues.json?sid=' +
-        this.sessionId,
-      { destDev: [] }
-    );
-    if (!parameters?.result || !values?.result) return null;
-    return {
-      result: Object.fromEntries(
-        Object.entries(parameters.result).map(
-          // @ts-expect-error
-          ([key, value]) => [key, { ...value, ...values.result[key] }]
-        )
-      )
-    };
-  }
-
   async getValues() {
     if (this.sessionId === null) return await fetchJson(
       'https://' + this.address + '/dyn/getDashValues.json'
     );
-    return await fetchJson(
-      'https://' + this.address + '/dyn/getValues.json?sid=' +
-        this.sessionId,
-      {
-        destDev: [],
-        keys: [
-          'Bat_CapacRtgWh',
-          'Bat_Diag_ActlCapacNom',
-          'BatChrg_BatChrg',
-          'BatDsch_BatDsch',
-          'Battery_ChaStt',
-          'Battery_CurrentCharging',
-          'Battery_CurrentDischarging',
-          'Energy_Meter_Add',
-          'GridMs_TotW_Cur',
-          'Metering_GridMs_TotWhIn',
-          'Metering_GridMs_TotWhOut',
-          'Metering_GridMs_TotWIn',
-          'Metering_GridMs_TotWOut',
-          'Metering_PvGen_PvWh',
-          'Name_Model',
-          'Name_Vendor',
-          'Operation_Health',
-          'Operation_RunStt',
-          'PvGen_PvW'
-          // @ts-expect-error
-        ].map(key => OBJECT_MAP[key].obj + '_' + OBJECT_MAP[key].lri)
+    /** @type {SMAValues[]} */
+    const responses = [];
+    await allSettledHandling(
+      [
+        fetchJson(
+          'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
+            this.sessionId,
+          { destDev: [] }
+        ),
+        fetchJson(
+          'https://' + this.address + '/dyn/getAllOnlValues.json?sid=' +
+            this.sessionId,
+          { destDev: [] }
+        )
+      ],
+      'Failed fetching values',
+      (/** @type {SMAValues} */ json) => {
+        if (json.result) responses.push(json);
       }
     );
+    if (responses.length === 0) return null;
+    const [result] = responses;
+    const [layerTwoKey] = Object.keys(result.result ?? {});
+    if (result.result) for (
+      const response of responses.slice(1)
+    ) if (response.result) for (
+      const [key, value] of Object.entries(response.result[layerTwoKey])
+    ) result.result[layerTwoKey][key] = value;
+    return result;
   }
 
   async getLogger() {

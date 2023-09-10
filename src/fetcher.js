@@ -10,7 +10,9 @@ const LOGGER_MAP = {
   2720: 'PvGen_PvW',
   7000: 'Metering_GridMs_TotWhOut',
   7040: 'Metering_GridMs_TotWhIn',
-  7090: 'Battery_ChaStt'
+  7090: 'Battery_ChaStt',
+  '72A0': 'BatChrg_BatChrg',
+  '72B0': 'BatDsch_BatDsch'
 };
 
 /**
@@ -57,9 +59,12 @@ export async function fetchDeviceLogger() {
               // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
               if (PRINT_DEBUG_INFO) logChart(
                 readableKey,
-                values
-                  .filter((_, index) => index % 3 === 0)
-                  .map(dataPoint => dataPoint.v)
+                /** @type {number[]} */ (
+                  values
+                    .filter((_, index) => index % 3 === 0)
+                    .map(dataPoint => dataPoint.v)
+                    .filter(dataPoint => dataPoint !== null)
+                )
               );
               return [readableKey, values];
             })
