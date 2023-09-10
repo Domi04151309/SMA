@@ -132,7 +132,7 @@ export async function constructHistory() {
   const devices = await fetchDeviceLogger();
   if (devices.length === 0) return [];
   /** @type {(NowResponse)[]} */
-  const datasets = devices[0].Metering_GridMs_TotWhOut.map(
+  const datasets = devices[0].Metering_TotWhOut.map(
     (/** @type {SMALoggerDataPoint} */ item) => ({
       batteryPercentage: null,
       energy: {
@@ -165,7 +165,7 @@ export async function constructHistory() {
     addIfNumber(
       dataset.energy,
       'toGrid',
-      device.Metering_GridMs_TotWhOut[index]?.v
+      device.Metering_TotWhOut[index]?.v
     );
     setIfNumber(
       dataset,
@@ -182,8 +182,8 @@ export async function constructHistory() {
     const wattageToGrid = index === 0
       ? 0
       : wattHoursToWatts(
-        (device.Metering_GridMs_TotWhOut[index]?.v ?? 0) -
-          (device.Metering_GridMs_TotWhOut[index - 1]?.v ?? 0),
+        (device.Metering_TotWhOut[index]?.v ?? 0) -
+          (device.Metering_TotWhOut[index - 1]?.v ?? 0),
         5 / 60
       );
     if (dataset.power.currentUsage === 0) addIfNumber(

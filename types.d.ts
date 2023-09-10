@@ -240,6 +240,6 @@ declare interface SMALogger {
 declare interface SMASimplifiedLogger {
   Battery_ChaStt?: SMALoggerDataPoint[],
   Metering_GridMs_TotWhIn: SMALoggerDataPoint[],
-  Metering_GridMs_TotWhOut: SMALoggerDataPoint[],
+  Metering_TotWhOut: SMALoggerDataPoint[],
   PvGen_PvW?: SMALoggerDataPoint[]
 }
