@@ -1,9 +1,9 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+import { logChart, logTable } from './log-utils.js';
 import { OBJECT_MAP } from './object-map.js';
 import { PRINT_DEBUG_INFO } from './config.js';
 import { allSettledHandling } from './fetch-utils.js';
 import { getInverters } from './inverters.js';
-import { plot } from 'asciichart';
 
 /** @type {{[index: string]: string}} */
 const LOGGER_MAP = {
@@ -54,14 +54,12 @@ export async function fetchDeviceLogger() {
             .map(([key, value]) => {
               const readableKey = getLoggerKey(key);
               const [values] = Object.values(value);
-              // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
-              if (PRINT_DEBUG_INFO) console.log(
-                readableKey + '\n' + plot(
-                  values
-                    .filter((_, index) => index % 3 === 0)
-                    .map(dataPoint => dataPoint.v),
-                  { colors: ['\u001B[93m'], height: 15 }
-                )
+              // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+              if (PRINT_DEBUG_INFO) logChart(
+                readableKey,
+                values
+                  .filter((_, index) => index % 3 === 0)
+                  .map(dataPoint => dataPoint.v)
               );
               return [readableKey, values];
             })
@@ -149,13 +147,11 @@ export async function fetchDeviceValues() {
       result.push(mappedJson);
     }
   );
-  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition, no-console
-  if (PRINT_DEBUG_INFO) console.table(
-    Object.fromEntries(
-      Object.entries(debugInfo).filter(
-        entry => entry[1].some(item => (item ?? null) !== null)
-      )
-    )
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
+  if (PRINT_DEBUG_INFO) logTable(
+    Object.entries(debugInfo)
+      .filter(entry => entry[1].some(item => (item ?? null) !== null))
+      .map(entry => entry.flat())
   );
   return result;
 }

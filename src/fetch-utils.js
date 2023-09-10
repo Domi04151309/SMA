@@ -1,28 +1,5 @@
 import { PRINT_DEBUG_INFO } from './config.js';
-
-/**
- * @param {unknown} json
- * @param {number} limit
- * @returns {unknown}
- */
-function trimLargeObjectIfObject(json, limit = 50) {
-  return typeof json === 'object' &&
-    !Array.isArray(json) &&
-    json !== null &&
-    Object.keys(json).length > limit
-    ? '{\n  ' + Object.entries(json)
-      .slice(0, limit)
-      .map(
-        ([key, value]) => '\u001B[92m\'' + key + '\'\u001B[39m: ' + (
-          typeof value === 'string'
-            ? '\u001B[92m\'' + value + '\''
-            : '\u001B[93m' + value.toString()
-        ) + '\u001B[39m'
-      )
-      .join(',\n  ') + ',\n  ... ' + (Object.keys(json).length - limit) +
-      ' more items\n}'
-    : json;
-}
+import { trimLargeObjectIfObject } from './log-utils.js';
 
 /**
  * @template T
