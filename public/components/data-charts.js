@@ -103,7 +103,7 @@ export class DataCharts {
           {
             chartType: 'line',
             name: 'Netz',
-            values: json.map(item => item.power.toGrid - item.power.fromGrid)
+            values: json.map(item => item.power.toGrid)
           }
         ],
         labels: json.map(item => toTimeString(new Date(item.timestamp)))
