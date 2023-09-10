@@ -24,6 +24,7 @@ new Server()
   .registerApiEndpoint('/now', async () => await getLiveData())
   .registerApiEndpoint('/weather', async () => await getWeather())
   .registerTemplatedFile('/', 'index.html')
+  .registerTemplatedFile('/history', 'history.html')
   .registerTemplatedFile('/forecast', 'forecast.html')
   .registerTemplatedFile('/settings', 'settings.html')
   .registerNodeModulesFile(

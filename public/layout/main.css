@@ -54,6 +54,9 @@ nav a {
 nav a.overview {
   background-image: url(/images/home_FILL0_wght400_GRAD0_opsz24.svg);
 }
+nav a.history {
+  background-image: url(/images/history_FILL0_wght400_GRAD0_opsz24.svg);
+}
 nav a.forecast {
   background-image: url(/images/sunny_FILL0_wght400_GRAD0_opsz24.svg);
 }
@@ -320,7 +323,7 @@ h2, .match-chart-padding {
     color: var(--text-color-primary);
     text-decoration: none;
   }
-  nav a.overview, nav a.forecast, nav a.settings {
+  nav a.overview, nav a.history, nav a.forecast, nav a.settings {
     background-image: none;
   }
   nav a.selected::after {
