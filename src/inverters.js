@@ -1,6 +1,13 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { allSettledHandling, fetchJson } from './fetch-utils.js';
-import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  readdirSync,
+  unlinkSync,
+  writeFileSync
+} from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
@@ -171,35 +178,92 @@ async function autofillInverters(invertersFilePath) {
 }
 
 /**
+ * @param {string} address
+ * @param {string} sessionId
+ * @returns {Promise<boolean>}
+ */
+async function logout(address, sessionId) {
+  const result = await fetchJson(
+    'https://' + address + '/dyn/logout.json?sid=' + sessionId,
+    {}
+  );
+  return 'result' in result;
+}
+
+/**
+ * @param {string} path
+ * @returns {Promise<void>}
+ */
+async function invalidateSessionFromFile(path) {
+  const file = JSON.parse(
+    readFileSync(path).toString()
+  );
+  if (
+    typeof file.address === 'string' &&
+    typeof file.sessionId === 'string' &&
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+    await logout(file.address, file.sessionId)
+  ) unlinkSync(path);
+}
+
+/**
+ * @returns {Promise<void>}
+ */
+async function invalidateOldSessions() {
+  const logFileDirectory = fileURLToPath(
+    new URL('../sessions/', import.meta.url)
+  );
+  if (!existsSync(logFileDirectory)) return;
+  await Promise.allSettled(
+    readdirSync(logFileDirectory).map(
+      filename => invalidateSessionFromFile(logFileDirectory + filename)
+    )
+  );
+}
+
+/**
+ * @param {string} content
+ * @returns {InverterCredentials[]}
+ * @throws {Error}
+ */
+function parseInverterFile(content) {
+  const fileContent = JSON.parse(content);
+  if (!Array.isArray(fileContent)) throw new Error('Not an array');
+  if (
+    !fileContent.every(
+      item => typeof item === 'object' &&
+      item !== null &&
+      !Array.isArray(item)
+    )
+  ) throw new Error('Not all entries are objects');
+  if (
+    !fileContent.every(item => 'address' in item)
+  ) throw new Error('Not all inverters have addresses');
+  if (
+    !fileContent.every(item => 'group' in item)
+  ) throw new Error('Not all inverters have groups');
+  if (
+    !fileContent.every(item => 'password' in item)
+  ) throw new Error('Not all inverters have passwords');
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-return
+  return fileContent;
+}
+
+/**
  * @returns {Promise<InverterSession[]>}
  */
 export async function getInverters() {
   if (inverters.length > 0) return inverters;
 
+  await invalidateOldSessions();
   const invertersFilePath = fileURLToPath(
     new URL('../' + INVERTERS_FILE, import.meta.url)
   );
   if (existsSync(invertersFilePath)) try {
-    const fileContent = JSON.parse(readFileSync(invertersFilePath).toString());
-    if (!Array.isArray(fileContent)) throw new Error('Not an array');
-    if (
-      !fileContent.every(
-        item => typeof item === 'object' &&
-        item !== null &&
-        !Array.isArray(item)
-      )
-    ) throw new Error('Not all entries are objects');
-    if (
-      !fileContent.every(item => 'address' in item)
-    ) throw new Error('Not all inverters have addresses');
-    if (
-      !fileContent.every(item => 'group' in item)
-    ) throw new Error('Not all inverters have groups');
-    if (
-      !fileContent.every(item => 'password' in item)
-    ) throw new Error('Not all inverters have passwords');
+    const fileContent = parseInverterFile(
+      readFileSync(invertersFilePath).toString()
+    );
     await allSettledHandling(
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
       fileContent.map(inverter => InverterSession.create(inverter)),
       'Failed creating session',
       session => inverters.push(session)
