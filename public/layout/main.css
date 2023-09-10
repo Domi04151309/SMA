@@ -269,25 +269,29 @@ main, .fade-in {
   background-position: center;
   background-size: contain;
   background-repeat: no-repeat;
+  opacity: .6;
 }
 .arrow-right,
 .arrow-top-right,
 .arrow-up ,
 .arrow-top-left {
-  background-image: url(/images/icons8-arrow-96.png);
+  background-image: url(/images/icons8-arrow.gif);
   animation: fade-in .5s;
 }
+.arrow-up {
+  rotate: -90deg
+}
 .arrow-right {
-  rotate: 90deg;
+  rotate: 0deg;
 }
 .arrow-top-right {
-  rotate: 45deg;
+  rotate: -45deg;
 }
 .arrow-top-left {
-  rotate: 315deg;
+  rotate: -135deg;
 }
 .arrow-minus {
-  background-image: url(/images/icons8-minus-96.png);
+  background-image: url(/images/icons8-minus-50.png);
   animation: fade-in .5s;
 }
 
