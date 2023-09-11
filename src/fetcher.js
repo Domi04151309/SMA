@@ -35,7 +35,7 @@ function getLoggerKey(id) {
 /**
  * @returns {Promise<SMASimplifiedLogger[]>}
  */
-export async function fetchDeviceLogger() {
+export async function fetchLoggers() {
   // Dispatch fetch requests
   /** @type {Promise<SMALogger|null>[]} */
   const dataRequests = [];
@@ -80,7 +80,7 @@ export async function fetchDeviceLogger() {
 /**
  * @returns {Promise<SMASimplifiedValues[]>}
  */
-export async function fetchDeviceValues() {
+export async function fetchValues() {
   // Dispatch fetch requests
   /** @type {Promise<SMAValues|null>[]} */
   const dataRequests = [];

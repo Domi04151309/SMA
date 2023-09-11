@@ -1,4 +1,4 @@
-import { constructHistory, getDevices, getLiveData } from './src/mapper.js';
+import { constructHistory, getDevices, getNow } from './src/mapper.js';
 import { Server } from './src/server.js';
 import { getLicenses } from './src/licenses.js';
 import { getWeather } from './src/weather.js';
@@ -11,7 +11,7 @@ const historyData = await constructHistory();
  */
 async function fetchNewData() {
   while (historyData.length > 288) historyData.shift();
-  historyData.push(await getLiveData());
+  historyData.push(await getNow());
 }
 
 await fetchNewData();
@@ -21,7 +21,7 @@ new Server()
   .registerApiEndpoint('/devices', async () => await getDevices())
   .registerApiEndpoint('/history', () => historyData)
   .registerApiEndpoint('/licenses', () => getLicenses())
-  .registerApiEndpoint('/now', async () => await getLiveData())
+  .registerApiEndpoint('/now', async () => await getNow())
   .registerApiEndpoint('/weather', async () => await getWeather())
   .registerTemplatedFile('/', 'index.html')
   .registerTemplatedFile('/history', 'history.html')
