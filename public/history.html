@@ -4,7 +4,16 @@
   <body>
     {{ header }}
     <main>
-      <h2>Historie</h2>
+      <h2><span id="now" class="loadable"></span></h2>
+      <div class="match-chart-padding">
+        <button type="button" id="previous">&lt;</button>
+        <button type="button" id="day">Tag</button>
+        <button type="button" id="month">Monat</button>
+        <button type="button" id="year">Jahr</button>
+        <button type="button" id="next">&gt;</button>
+      </div>
+      <div id="history-chart"></div>
+      <div id="battery-chart"></div>
     </main>
     {{ footer }}
     <script src="/history.js" type="module"></script>
