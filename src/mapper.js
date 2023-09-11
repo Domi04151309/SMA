@@ -183,11 +183,6 @@ export async function constructHistory() {
           (device.Metering_TotWhOut[index - 1]?.v ?? 0),
         5 / 60
       );
-    if (dataset.power.currentUsage === 0) addIfNumber(
-      dataset.power,
-      'currentUsage',
-      wattageFromGrid
-    );
     if (index > 0 && device.Battery_ChaStt) {
       const batteryWattage = -wattHoursToWatts(
         (
@@ -196,7 +191,6 @@ export async function constructHistory() {
         ) / 100 * batteryCapacity,
         5 / 60
       );
-      addIfNumber(dataset.power, 'currentUsage', batteryWattage);
       subtractIfNumber(
         dataset.power,
         'toGrid',
@@ -213,26 +207,18 @@ export async function constructHistory() {
         batteryWattage < 0 ? batteryWattage : 0
       );
     }
-    if (device.PvGen_PvW) {
-      addIfNumber(dataset.power, 'currentUsage', device.PvGen_PvW.at(index)?.v);
-      addIfNumber(dataset.power, 'fromRoof', device.PvGen_PvW.at(index)?.v);
-    } else {
-      addIfNumber(dataset.power, 'fromRoof', wattageToGrid);
-      addIfNumber(dataset.power, 'currentUsage', wattageToGrid);
-    }
-    subtractIfNumber(dataset.power, 'currentUsage', wattageToGrid);
+    if (device.PvGen_PvW) addIfNumber(
+      dataset.power,
+      'fromRoof',
+      device.PvGen_PvW.at(index)?.v
+    );
+    else addIfNumber(dataset.power, 'fromRoof', wattageToGrid);
     setIfNumber(dataset.power, 'fromGrid', wattageFromGrid);
     addIfNumber(dataset.power, 'toGrid', wattageToGrid);
   }
-  for (const dataset of datasets) {
-    if (dataset.power.currentUsage < 0) dataset.power.currentUsage = 0;
-    if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;
-    if (
-      dataset.power.fromGrid + dataset.power.fromBattery >
-        dataset.power.currentUsage
-    ) dataset.power.currentUsage = dataset.power.fromGrid +
-      dataset.power.fromBattery;
-  }
+  for (
+    const dataset of datasets
+  ) if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;
   return datasets;
 }
 /* eslint-enable complexity */
