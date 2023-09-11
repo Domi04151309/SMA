@@ -1,6 +1,6 @@
 #!/bin/bash
-if [ "$EUID" -ne 0 ]
-  then echo "Please run as root"
+if [ "$EUID" -ne 0 ]; then
+  exec sudo /bin/bash "$0" "$@"
   exit
 fi
 
@@ -17,12 +17,13 @@ fi
 apt-get -y -f install nodejs build-essential git
 
 # Create user
-adduser --disabled-password --gecos "" sma
-cd /home/sma
+adduser sma --system
 
 # Clone repository
-git clone https://github.com/Domi04151309/SMA.git
-cd SMA
+cd /opt
+git clone https://github.com/Domi04151309/SMA.git sma
+chown -R sma: ./sma
+cd sma
 
 # Install dependencies
 npm ci --omit=dev
@@ -37,7 +38,7 @@ Wants=network-online.target
 [Service]
 Type=simple
 User=sma
-ExecStart=/usr/bin/node /home/sma/SMA/index.js
+ExecStart=/usr/bin/node /opt/sma/index.js
 Restart=on-failure
 
 [Install]
