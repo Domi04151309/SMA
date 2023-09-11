@@ -94,46 +94,101 @@ function wattHoursToWatts(wattHours, hours) {
 }
 
 /**
- * @param {SMASimplifiedLogger[]} devices
+ * @param {SMASimplifiedLogger[]} loggers
  * @returns {void}
  */
-function interpolateBatteryStateOfCharge(devices) {
-  for (const device of devices) if (device.Battery_ChaStt) {
-    const states = [[0, device.Battery_ChaStt.length - 1]];
+function interpolateBatteryStateOfCharge(loggers) {
+  for (const logger of loggers) if (logger.Battery_ChaStt) {
+    const states = [[0, logger.Battery_ChaStt.length - 1]];
     for (
-      let index = 1; index < device.Battery_ChaStt.length - 1; index++
+      let index = 1; index < logger.Battery_ChaStt.length - 1; index++
     ) if (
-      device.Battery_ChaStt[index].v !== device.Battery_ChaStt[index - 1].v
+      logger.Battery_ChaStt[index].v !== logger.Battery_ChaStt[index - 1].v
     ) {
       (states.at(-1) ?? [])[1] = index;
-      states.push([index, device.Battery_ChaStt.length - 1]);
+      states.push([index, logger.Battery_ChaStt.length - 1]);
     }
     for (const [start, end] of states) {
       const stepSize = (
-        (device.Battery_ChaStt[end].v ?? 0) -
-          (device.Battery_ChaStt[start].v ?? 0)
+        (logger.Battery_ChaStt[end].v ?? 0) -
+          (logger.Battery_ChaStt[start].v ?? 0)
       ) / (end - start);
       for (
         let index = start; index < end; index++
         // eslint-disable-next-line id-length
-      ) device.Battery_ChaStt[index].v = (device.Battery_ChaStt[start].v ?? 0) +
+      ) logger.Battery_ChaStt[index].v = (logger.Battery_ChaStt[start].v ?? 0) +
         stepSize * (index - start);
     }
   }
 }
 
-/* eslint-disable complexity */
 /**
+ * @param {SMASimplifiedLogger} logger
+ * @param {number} index
+ * @param {NowResponse} dataset
+ * @param {number} batteryCapacity
+ * @returns {void}
+ */
+function processDataSet(
+  logger,
+  index,
+  dataset,
+  batteryCapacity
+) {
+  const batteryWattage = index > 0 && logger.Battery_ChaStt
+    ? -wattHoursToWatts(
+      (
+        (logger.Battery_ChaStt[index]?.v ?? 0) -
+          (logger.Battery_ChaStt[index - 1]?.v ?? 0)
+      ) / 100 * batteryCapacity,
+      5 / 60
+    )
+    : 0;
+  const wattageFromGrid = index === 0
+    ? 0
+    : wattHoursToWatts(
+      (logger.Metering_GridMs_TotWhIn[index]?.v ?? 0) -
+        (logger.Metering_GridMs_TotWhIn[index - 1]?.v ?? 0),
+      5 / 60
+    );
+  const wattageToGrid = index === 0
+    ? 0
+    : wattHoursToWatts(
+      (logger.Metering_TotWhOut[index]?.v ?? 0) -
+        (logger.Metering_TotWhOut[index - 1]?.v ?? 0),
+      5 / 60
+    );
+  setIfNumber(
+    dataset,
+    'batteryPercentage',
+    logger.Battery_ChaStt?.at(index)?.v
+  );
+  setIfNumber(
+    dataset.energy,
+    'fromGrid',
+    logger.Metering_GridMs_TotWhIn[index]?.v
+  );
+  addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
+  addIfNumber(dataset.power, 'fromBattery', Math.max(batteryWattage, 0));
+  setIfNumber(dataset.power, 'fromGrid', wattageFromGrid);
+  if (logger.PvGen_PvW) addIfNumber(
+    dataset.power,
+    'fromRoof',
+    logger.PvGen_PvW.at(index)?.v
+  );
+  else addIfNumber(dataset.power, 'fromRoof', wattageToGrid);
+  subtractIfNumber(dataset.power, 'toBattery', Math.min(batteryWattage, 0));
+  addIfNumber(dataset.power, 'toGrid', wattageToGrid);
+  subtractIfNumber(dataset.power, 'toGrid', Math.max(batteryWattage, 0));
+}
+
+/**
+ * @param {SMASimplifiedLogger[]} loggers
  * @returns {Promise<NowResponse[]>}
  */
-export async function constructHistory() {
-  const deviceData = await getDevices();
-  const batteryCapacity = (deviceData.batteries[0]?.capacity ?? 0) *
-    (deviceData.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100;
-  const devices = await fetchDeviceLogger();
-  if (devices.length === 0) return [];
+async function processLoggers(loggers) {
   /** @type {(NowResponse)[]} */
-  const datasets = devices[0].Metering_TotWhOut.map(
+  const datasets = loggers[0].Metering_TotWhOut.map(
     (/** @type {SMALoggerDataPoint} */ item) => ({
       batteryPercentage: null,
       energy: {
@@ -154,74 +209,27 @@ export async function constructHistory() {
       timestamp: item.t * 1000
     })
   );
-  interpolateBatteryStateOfCharge(devices);
-  for (const device of devices) for (
+  const devices = await getDevices();
+  const batteryCapacity = (devices.batteries[0]?.capacity ?? 0) *
+    (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100;
+  interpolateBatteryStateOfCharge(loggers);
+  for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
-  ) {
-    setIfNumber(
-      dataset.energy,
-      'fromGrid',
-      device.Metering_GridMs_TotWhIn[index]?.v
-    );
-    addIfNumber(dataset.energy, 'toGrid', device.Metering_TotWhOut[index]?.v);
-    setIfNumber(
-      dataset,
-      'batteryPercentage',
-      device.Battery_ChaStt?.at(index)?.v
-    );
-    const wattageFromGrid = index === 0
-      ? 0
-      : wattHoursToWatts(
-        (device.Metering_GridMs_TotWhIn[index]?.v ?? 0) -
-          (device.Metering_GridMs_TotWhIn[index - 1]?.v ?? 0),
-        5 / 60
-      );
-    const wattageToGrid = index === 0
-      ? 0
-      : wattHoursToWatts(
-        (device.Metering_TotWhOut[index]?.v ?? 0) -
-          (device.Metering_TotWhOut[index - 1]?.v ?? 0),
-        5 / 60
-      );
-    if (index > 0 && device.Battery_ChaStt) {
-      const batteryWattage = -wattHoursToWatts(
-        (
-          (device.Battery_ChaStt[index]?.v ?? 0) -
-            (device.Battery_ChaStt[index - 1]?.v ?? 0)
-        ) / 100 * batteryCapacity,
-        5 / 60
-      );
-      subtractIfNumber(
-        dataset.power,
-        'toGrid',
-        batteryWattage > 0 ? batteryWattage : 0
-      );
-      addIfNumber(
-        dataset.power,
-        'fromBattery',
-        batteryWattage > 0 ? batteryWattage : 0
-      );
-      subtractIfNumber(
-        dataset.power,
-        'toBattery',
-        batteryWattage < 0 ? batteryWattage : 0
-      );
-    }
-    if (device.PvGen_PvW) addIfNumber(
-      dataset.power,
-      'fromRoof',
-      device.PvGen_PvW.at(index)?.v
-    );
-    else addIfNumber(dataset.power, 'fromRoof', wattageToGrid);
-    setIfNumber(dataset.power, 'fromGrid', wattageFromGrid);
-    addIfNumber(dataset.power, 'toGrid', wattageToGrid);
-  }
+  ) processDataSet(logger, index, dataset, batteryCapacity);
   for (
     const dataset of datasets
   ) if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;
   return datasets;
 }
-/* eslint-enable complexity */
+
+/**
+ * @returns {Promise<NowResponse[]>}
+ */
+export async function constructHistory() {
+  const loggers = await fetchDeviceLogger();
+  if (loggers.length === 0) return [];
+  return await processLoggers(loggers);
+}
 
 /**
  * @param {SMASimplifiedValues[]|null} prefetched
