@@ -6,6 +6,7 @@ import express from 'express';
 import { fileURLToPath } from 'node:url';
 import helmet from 'helmet';
 import ip from 'ip';
+import { lookup } from 'mime-types';
 import { readFileSync } from 'node:fs';
 
 export class Server {
@@ -51,8 +52,17 @@ export class Server {
     /** @type {string} */ filePath
   ) {
     this.app.get(path, (_, response) => {
-      response.sendFile(
-        fileURLToPath(new URL('../node_modules/' + filePath, import.meta.url))
+      const fullFilePath = fileURLToPath(
+        new URL('../node_modules/' + filePath, import.meta.url)
+      );
+      response.setHeader('content-type', lookup(fullFilePath) || '');
+      const fileToSend = readFileSync(fullFilePath)
+        .toString()
+        .trim();
+      response.send(
+        fileToSend.startsWith('module.exports =')
+          ? fileToSend.replaceAll('module.exports =', 'export default')
+          : fileToSend
       );
     });
     return this;

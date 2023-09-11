@@ -28,6 +28,10 @@ new Server()
   .registerTemplatedFile('/forecast', 'forecast.html')
   .registerTemplatedFile('/settings', 'settings.html')
   .registerNodeModulesFile(
+    '/cubic-spline.js',
+    'cubic-spline/index.js'
+  )
+  .registerNodeModulesFile(
     '/frappe-charts.min.esm.js',
     'frappe-charts/dist/frappe-charts.min.esm.js'
   )
