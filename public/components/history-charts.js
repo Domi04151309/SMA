@@ -28,6 +28,11 @@ function getHistoryChartData(json) {
       },
       {
         chartType: 'bar',
+        name: 'Batterie',
+        values: json.map(item => item.power.fromBattery)
+      },
+      {
+        chartType: 'bar',
         name: 'Netz',
         values: json.map(item => item.power.fromGrid)
       }
@@ -58,24 +63,19 @@ function getBatteryChartData(json) {
   };
 }
 
-/**
- * @returns {unknown}
- */
-function getErrorData() {
-  return {
-    datasets: [
-      {
-        chartType: 'bar',
-        values: [1]
-      }
-    ],
-    labels: ['Fehler']
-  };
-}
-
-export class HistoryCharts {
-  constructor(/** @type {NowResponse[]} */ json) {
-    this.historyChart = new Chart('#history-chart', {
+export const HistoryCharts = {
+  error() {
+    error('#history-chart', {
+      height: 480,
+      title: 'Leistung'
+    });
+    error('#battery-chart', {
+      title: 'Batterie'
+    });
+  },
+  update(/** @type {NowResponse[]} */ json) {
+    // eslint-disable-next-line no-new
+    new Chart('#history-chart', {
       ...commonChartOptions,
       barOptions: {
         spaceRatio: 0.1,
@@ -90,7 +90,8 @@ export class HistoryCharts {
         ) => value?.toLocaleString('de') + ' W'
       }
     });
-    this.batteryChart = new Chart('#battery-chart', {
+    // eslint-disable-next-line no-new
+    new Chart('#battery-chart', {
       ...commonChartOptions,
       colors: ['#00B0FF'],
       data: getBatteryChartData(json),
@@ -100,24 +101,4 @@ export class HistoryCharts {
       }
     });
   }
-
-  update(/** @type {NowResponse[]} */ json) {
-    this.historyChart.update(getHistoryChartData(json));
-    this.batteryChart.update(getBatteryChartData(json));
-  }
-
-  error() {
-    this.historyChart.update(getErrorData());
-    this.batteryChart.update(getErrorData());
-  }
-
-  static error() {
-    error('#history-chart', {
-      height: 480,
-      title: 'Leistung'
-    });
-    error('#battery-chart', {
-      title: 'Batterie'
-    });
-  }
-}
+};

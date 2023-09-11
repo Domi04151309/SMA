@@ -2,8 +2,6 @@ import { HistoryCharts } from '/components/history-charts.js';
 import { fetchApiData } from '/utils/api.js';
 
 const nowDisplay = document.getElementById('now');
-/** @type {HistoryCharts|null} */
-let charts = null;
 /** @type {{[key: string]: Intl.DateTimeFormatOptions }} */
 const options = {
   day: { day: 'numeric', month: 'long', year: 'numeric' },
@@ -22,11 +20,9 @@ if (nowDisplay === null) throw new Error('Invalid layout');
 async function updateViews(titleView) {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
   await fetchApiData('/history', (/** @type {NowResponse[]} */ json) => {
-    if (charts === null) charts = new HistoryCharts(json);
-    else charts.update(json);
+    HistoryCharts.update(json);
   }, () => {
-    if (charts === null) HistoryCharts.error();
-    else charts.error();
+    HistoryCharts.error();
   });
 }
 
