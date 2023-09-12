@@ -1,3 +1,5 @@
+![Icon](https://raw.githubusercontent.com/Domi04151309/SMA/main/public/images/icons8-home.svg)
+
 # Solar Power Visualization (DE)
 
 Welcome to the **Solar Power Visualization** repository!
@@ -40,15 +42,11 @@ configuration values:
 ```javascript
 [
   {
-    "address": "192.168.20.60",
+    "address": "192.168.XXX.XXX",
     "group": "usr",
     "password": ""
   },
-  {
-    "address": "192.168.20.62",
-    "group": "usr",
-    "password": ""
-  }
+  ...
 ]
 ```
 
@@ -78,7 +76,8 @@ The project provides the following API endpoints:
 - **GET /api/weather**: Returns todays weather. See
   [`WeatherResponse`](https://domi04151309.github.io/SMA/interfaces/types.WeatherResponse.html).
 
-For more detailed information about each endpoint, refer to the source code and documentation.
+For more detailed information about each endpoint, refer to the source code and
+the available [diagrams](https://github.com/Domi04151309/SMA/blob/main/docs/).
 
 ## Configuration
 
