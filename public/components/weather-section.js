@@ -34,10 +34,12 @@ export const WeatherSection = {
     let positions = json.hourly.map(
       hour => {
         date.setHours(parseInt(hour.time, 10) / 100);
+        // @ts-expect-error
+        const sunPosition = SunCalc.getPosition(date, ...location).altitude;
         return Math.max(
           0,
-          /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          SunCalc.getPosition(date, ...location).altitude
+          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          isNaN(sunPosition) ? 1 : sunPosition
         );
       }
     );
