@@ -1,3 +1,4 @@
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { PRINT_DEBUG_INFO } from './config.js';
 import { toColoredString } from './log-utils.js';
 
@@ -58,3 +59,18 @@ export async function allSettledHandling(
   );
   else console.error(errorMessage);
 }
+
+// eslint-disable-next-line @typescript-eslint/unbound-method
+const originalEmitWarning = process.emitWarning;
+/** @type {(warning: string | Error, ...otherArguments: any[]) => void} */
+process.emitWarning = (warning, ...otherArguments) => {
+  if (
+    typeof warning === 'string' &&
+    warning.includes('NODE_TLS_REJECT_UNAUTHORIZED')
+  ) {
+    process.emitWarning = originalEmitWarning;
+    return;
+  }
+  // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+  originalEmitWarning.call(process, warning, ...otherArguments);
+};
