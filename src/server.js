@@ -73,19 +73,41 @@ export class Server {
     /** @type {string} */ filePath
   ) {
     this.app.get(path, (_, response) => {
-      let sourceFile = readFileSync(
-        fileURLToPath(new URL('../public/' + filePath, import.meta.url))
-      ).toString();
-      for (
-        const template of ['head', 'header', 'footer']
-      ) sourceFile = sourceFile.replaceAll(
-        '{{ ' + template + ' }}',
-        readFileSync(
-          fileURLToPath(
-            new URL('../public/layout/' + template + '.html', import.meta.url)
-          )
-        ).toString()
+      const fullFilePath = fileURLToPath(
+        new URL('../public/' + filePath, import.meta.url)
       );
+      let sourceFile = readFileSync(fullFilePath).toString();
+      for (
+        let instructionStart = sourceFile.indexOf('{%');
+        instructionStart > -1;
+        instructionStart = sourceFile.indexOf('{%')
+      ) {
+        const instructionEnd = sourceFile.slice(instructionStart)
+          .indexOf('%}') + instructionStart + 2;
+        const [instruction, parameter] = sourceFile.slice(
+          instructionStart + 2,
+          instructionEnd - 2
+        ).trim()
+          .split(' ', 2);
+        if (instruction === 'include') sourceFile = sourceFile.slice(
+          0,
+          instructionStart
+        ) + readFileSync(
+          fileURLToPath(
+            new URL('../public/_includes/' + parameter, import.meta.url)
+          )
+        ).toString() + sourceFile.slice(instructionEnd);
+        else {
+          console.warn(
+            'Invalid instruction in',
+            fullFilePath,
+            'at',
+            instructionStart
+          );
+          sourceFile = sourceFile.slice(0, instructionStart) +
+            sourceFile.slice(instructionEnd);
+        }
+      }
       response.send(sourceFile);
     });
     return this;

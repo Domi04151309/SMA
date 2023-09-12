@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
-  {{ head }}
+  {% include head.html %}
   <body>
-    {{ header }}
+    {% include header.html %}
     <main>
       <h2>Echtzeit-Übersicht</h2>
       <div class="grid-1-2">
@@ -163,7 +163,7 @@
         </div>
       </div>
     </main>
-    {{ footer }}
+    {% include footer.html %}
     <script src="/index.js" type="module"></script>
   </body>
 </html>

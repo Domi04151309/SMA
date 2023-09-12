@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="de">
-  {{ head }}
+  {% include head.html %}
   <body>
-    {{ header }}
+    {% include header.html %}
     <main>
       <img id="loading" class="loading-indicator" src="/images/icons8-loading.gif" alt="Laden">
       <template>
@@ -40,7 +40,7 @@
         </div>
       </template>
     </main>
-    {{ footer }}
+    {% include footer.html %}
     <script src="/forecast.js" type="module"></script>
   </body>
 </html>
