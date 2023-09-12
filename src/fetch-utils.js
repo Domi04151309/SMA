@@ -15,7 +15,13 @@ export async function fetchJson(url, body = null) {
       body: body === null ? null : JSON.stringify(body),
       method: body === null ? 'GET' : 'POST'
     }
-  ).catch(() => null);
+  ).catch(error => {
+    console.error(
+      'Fetch of ' + url + ' failed:',
+      error instanceof Error ? error.message : error
+    );
+    return null;
+  });
   const json = await response?.json();
   // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
   if (PRINT_DEBUG_INFO) console.log(
