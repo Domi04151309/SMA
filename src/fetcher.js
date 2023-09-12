@@ -124,19 +124,29 @@ export async function fetchValues() {
       if (!json.result) return;
       const filteredJson = Object.fromEntries(
         Object.entries(Object.values(json.result)[0])
-          .map(([key, value]) => [key, Object.values(value)[0]?.at(0)?.val])
+          .map(
+            ([key, value]) => /** @type {[string, SMAValuesPureValue[]]} */ ([
+              key,
+              Object.values(value)[0]?.map(values => values.val)
+            ])
+          )
           .map(
             entry => [
               entry[0],
-              Array.isArray(entry[1]) && 'tag' in (entry[1][0] ?? {})
-                // eslint-disable-next-line no-extra-parens
-                ? (
-                  index in strings
-                    ? strings[index][entry[1][0]?.tag]
-                    : '#' + entry[1][0]?.tag
-                )
-                : entry[1]
+              entry[1].map(
+                value => Array.isArray(value) && 'tag' in (value[0] ?? {})
+                  // eslint-disable-next-line no-extra-parens
+                  ? (
+                    index in strings
+                      ? strings[index][value[0]?.tag]
+                      : '#' + value[0]?.tag
+                  )
+                  : value
+              )
             ]
+          )
+          .map(
+            entry => [entry[0], entry[1].length === 1 ? entry[1][0] : entry[1]]
           )
       );
       const mappedJson = /** @type {SMASimplifiedValues} */(

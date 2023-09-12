@@ -71,7 +71,7 @@ export function logTable(data) {
   // eslint-disable-next-line no-console
   console.log(
     table(
-      data.map(row => row.map(column => toColoredString(column))),
+      data.map(row => row.map(column => toColoredString(column, 0))),
       {
         border: {
           bodyJoin: '│',

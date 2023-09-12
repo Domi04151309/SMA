@@ -177,8 +177,10 @@ declare interface SMAValuesReference {
   tag: number
 }
 
+type SMAValuesPureValue = number|string|null|SMAValuesReference[];
+
 declare interface SMAValuesValue {
-  val: number|string|null|SMAValuesReference[]
+  val: SMAValuesPureValue
 }
 
 declare interface SMAValuesResult {
