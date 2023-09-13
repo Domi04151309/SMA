@@ -143,6 +143,28 @@ export async function constructHistory() {
 }
 
 /**
+ * @param {number} start
+ * @param {number} end
+ * @returns {Promise<NowResponse[]>}
+ */
+export async function getExact(start, end) {
+  if (isNaN(start) || isNaN(end)) return [];
+  console.error('"getExact" not yet implemented');
+  return await constructHistory();
+}
+
+/**
+ * @param {number} start
+ * @param {number} end
+ * @returns {Promise<DailyResponse[]>}
+ */
+export async function getDaily(start, end) {
+  if (isNaN(start) || isNaN(end)) return [];
+  console.error('"getDaily" not yet implemented');
+  return await constructHistory();
+}
+
+/**
  * @returns {Promise<NowResponse>}
  */
 export async function getNow() {

@@ -64,6 +64,21 @@ declare interface NowResponse {
   timestamp: number
 }
 
+declare interface DailyResponse {
+
+  /**
+   * The amount of energy transferred to and from different sources in Wh.
+   */
+  energy: Energy,
+
+  /**
+   * The timestamp of the measurement as the number of milliseconds elapsed
+   * since the epoch, which is defined as the midnight at the beginning of
+   * January 1, 1970, UTC.
+   */
+  timestamp: number
+}
+
 declare interface Cluster {
 
   /**

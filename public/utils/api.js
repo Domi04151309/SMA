@@ -14,8 +14,12 @@ export async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
     ) await onSuccess(await response.json());
     // eslint-disable-next-line @typescript-eslint/no-floating-promises
     else onSuccess(await response.json());
-  } catch {
-    console.warn('Failed loading', API_URL + apiEndpoint);
+  } catch (error) {
+    console.warn(
+      'Failed loading',
+      API_URL + apiEndpoint + ':',
+      error instanceof Error ? error.message : error
+    );
     if (onError === null) return;
     if (onError.constructor.name === 'AsyncFunction') await onError();
     // eslint-disable-next-line @typescript-eslint/no-floating-promises

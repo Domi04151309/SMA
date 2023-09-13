@@ -19,11 +19,39 @@ if (nowDisplay === null) throw new Error('Invalid layout');
  */
 async function updateViews(titleView) {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
-  await fetchApiData('/history', (/** @type {NowResponse[]} */ json) => {
-    HistoryCharts.update(json);
-  }, () => {
-    HistoryCharts.error();
-  });
+  const endDate = new Date(date);
+  switch (category) {
+  case 'day':
+    endDate.setDate(endDate.getDate() + 1);
+    break;
+  case 'month':
+    endDate.setMonth(endDate.getMonth() + 1);
+    break;
+  case 'year':
+    endDate.setFullYear(endDate.getFullYear() + 1);
+    break;
+  default:
+    break;
+  }
+  const query = '?start=' + date.getTime() + '&end=' + endDate.getTime();
+  if (category === 'month' || category === 'year') await fetchApiData(
+    '/daily' + query,
+    (/** @type {DailyResponse[]} */ json) => {
+      HistoryCharts.updateDaily(json);
+    },
+    () => {
+      HistoryCharts.error();
+    }
+  );
+  else if (category === 'day') await fetchApiData(
+    '/exact' + query,
+    (/** @type {NowResponse[]} */ json) => {
+      HistoryCharts.updateExact(json);
+    },
+    () => {
+      HistoryCharts.error();
+    }
+  );
 }
 
 /**
