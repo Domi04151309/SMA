@@ -1,8 +1,11 @@
 import { Settings } from './settings.js';
 import { fetchJson } from './fetch-utils.js';
 
+const HOUR_IN_MILLISECONDS = 3.6e6;
+
 /** @type {WeatherResponse[]} */
 let weather = [];
+let lastRefresh = 0;
 
 /**
  * @returns {Promise<WeatherResponse[]>}
@@ -10,9 +13,7 @@ let weather = [];
 export async function getWeather() {
   if (
     weather.length > 0 &&
-    weather[0].date === new Date()
-      .toISOString()
-      .split('T')[0]
+    Date.now() - lastRefresh < HOUR_IN_MILLISECONDS
   ) return weather;
   try {
     const json = await fetchJson('https://wttr.in/' +
@@ -30,6 +31,8 @@ export async function getWeather() {
     }
     // eslint-disable-next-line require-atomic-updates
     ({ weather } = json);
+    // eslint-disable-next-line require-atomic-updates
+    lastRefresh = Date.now();
     return weather;
   } catch (error) {
     console.error(
