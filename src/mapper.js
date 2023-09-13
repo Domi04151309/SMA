@@ -105,10 +105,10 @@ function processDataSet(
     dataset.energy,
     'fromBattery',
     index === 0
-      ? logger.BatChrg_BatChrg?.at(0)?.v
+      ? logger.BatDsch_BatDsch?.at(0)?.v
       // eslint-disable-next-line no-extra-parens
       : (
-        logger.BatChrg_BatChrg
+        logger.BatDsch_BatDsch
           ? datasets[index - 1].energy.fromBattery + Math.max(
             0,
             batteryWattHourChange
@@ -126,10 +126,10 @@ function processDataSet(
     dataset.energy,
     'toBattery',
     index === 0
-      ? logger.BatDsch_BatDsch?.at(0)?.v
+      ? logger.BatChrg_BatChrg?.at(0)?.v
       // eslint-disable-next-line no-extra-parens
       : (
-        logger.BatDsch_BatDsch
+        logger.BatChrg_BatChrg
           ? datasets[index - 1].energy.toBattery + Math.max(
             0,
             -batteryWattHourChange
