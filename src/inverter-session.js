@@ -11,8 +11,12 @@ import { fileURLToPath } from 'node:url';
 const LOGGER_MAP = {
   10_016: 'PvGen_PvW',
   28_672: 'Metering_TotWhOut',
+  28_704: 'Metering_TotWhOut',
   28_736: 'Metering_GridMs_TotWhIn',
-  28_816: 'Battery_ChaStt'
+  28_768: 'Metering_GridMs_TotWhIn',
+  28_816: 'Battery_ChaStt',
+  29_344: 'BatChrg_BatChrg',
+  29_360: 'BatDsch_BatDsch'
 };
 
 /* eslint-disable @typescript-eslint/no-unsafe-return */
@@ -104,11 +108,14 @@ export class InverterSession {
     );
   }
 
-  async getExact(/** @type {number} */ start, /** @type {number} */ end) {
+  async getLoggerByKeys(
+    /** @type {number[]} */ keys,
+    /** @type {number} */ start,
+    /** @type {number} */ end
+  ) {
     if (this.sessionId === null) return null;
     /** @type {{[key: string]: SMALoggerDataPoint[]}} */
     const response = {};
-    const keys = [10_016, 28_672, 28_736, 28_816];
     await allSettledHandling(
       keys.map(key => fetchJson(
         'https://' + this.address + '/dyn/getLogger.json?sid=' +
@@ -129,6 +136,22 @@ export class InverterSession {
       }
     );
     return response;
+  }
+
+  async getExact(/** @type {number} */ start, /** @type {number} */ end) {
+    return await this.getLoggerByKeys(
+      [10_016, 28_672, 28_736, 28_816],
+      start,
+      end
+    );
+  }
+
+  async getDaily(/** @type {number} */ start, /** @type {number} */ end) {
+    return await this.getLoggerByKeys(
+      [28_704, 28_768, 29_344, 29_360],
+      start,
+      end
+    );
   }
 }
 /* eslint-enable @typescript-eslint/no-unsafe-return */

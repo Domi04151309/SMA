@@ -1,5 +1,6 @@
 import {
   addIfNumber,
+  getDailyResponseTemplate,
   getNowResponseTemplate,
   interpolateBatteryStateOfCharge,
   setIfNumber,
@@ -173,6 +174,50 @@ async function processLoggers(loggers) {
 }
 
 /**
+ * @param {SMASimplifiedLogger} logger
+ * @param {number} index
+ * @param {DailyResponse} dataset
+ * @returns {void}
+ */
+function processDailyDataSet(
+  logger,
+  index,
+  dataset
+) {
+  setIfNumber(
+    dataset.energy,
+    'fromBattery',
+    logger.BatDsch_BatDsch?.at(index)?.v
+  );
+  setIfNumber(
+    dataset.energy,
+    'fromGrid',
+    logger.Metering_GridMs_TotWhIn[index]?.v
+  );
+  addIfNumber(dataset.energy, 'fromRoof', logger.Metering_TotWhOut[index]?.v);
+  setIfNumber(
+    dataset.energy,
+    'toBattery',
+    logger.BatChrg_BatChrg?.at(index)?.v
+  );
+  addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
+}
+
+/**
+ * @param {SMASimplifiedLogger[]} loggers
+ * @returns {DailyResponse[]}
+ */
+function processDailyLoggers(loggers) {
+  const datasets = loggers[0].Metering_TotWhOut.map(
+    item => getDailyResponseTemplate(item.t * 1000)
+  );
+  for (const logger of loggers) for (
+    const [index, dataset] of datasets.entries()
+  ) processDailyDataSet(logger, index, dataset);
+  return datasets;
+}
+
+/**
  * @returns {Promise<NowResponse[]>}
  */
 export async function constructHistory() {
@@ -204,8 +249,13 @@ export async function getExact(start, end) {
  */
 export async function getDaily(start, end) {
   if (isNaN(start) || isNaN(end)) return [];
-  console.error('"getDaily" not yet implemented');
-  return await constructHistory();
+  const inverters = await getInverters();
+  const loggerRequests = inverters.map(
+    async item => await item.getDaily(start / 1000, end / 1000)
+  );
+  const loggers = await Promise.all(loggerRequests);
+  // @ts-expect-error
+  return processDailyLoggers(loggers.filter(entry => entry !== null));
 }
 
 /**

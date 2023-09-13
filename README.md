@@ -64,6 +64,8 @@ This will start the server and make it available at http://localhost:3000/.
 
 The project provides the following API endpoints:
 
+- **GET /api/daily?start=[start]&end=[end]**: Returns a list of collected data points. See
+  [`DailyResponse`](https://domi04151309.github.io/SMA/interfaces/types.DailyResponse.html).
 - **GET /api/devices**: Returns a list of devices. See
   [`DevicesResponse`](https://domi04151309.github.io/SMA/interfaces/types.DevicesResponse.html).
 - **GET /api/exact?start=[start]&end=[end]**: Returns a list of collected data points. See

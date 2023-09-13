@@ -57,6 +57,23 @@ export function getNowResponseTemplate(timestamp) {
 }
 
 /**
+ * @param {number} timestamp
+ * @returns {DailyResponse}
+ */
+export function getDailyResponseTemplate(timestamp) {
+  return {
+    energy: {
+      fromBattery: 0,
+      fromGrid: 0,
+      fromRoof: 0,
+      toBattery: 0,
+      toGrid: 0
+    },
+    timestamp
+  };
+}
+
+/**
  * @param {SMASimplifiedLogger[]} loggers
  * @returns {void}
  */
