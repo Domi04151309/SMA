@@ -255,6 +255,8 @@ declare interface SMALogger {
 }
 
 declare interface SMASimplifiedLogger {
+  BatChrg_BatChrg?: SMALoggerDataPoint[],
+  BatDsch_BatDsch?: SMALoggerDataPoint[],
   Battery_ChaStt?: SMALoggerDataPoint[],
   Metering_GridMs_TotWhIn: SMALoggerDataPoint[],
   Metering_TotWhOut: SMALoggerDataPoint[],

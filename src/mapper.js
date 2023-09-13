@@ -55,6 +55,7 @@ export async function getDevices() {
 /**
  * @param {SMASimplifiedLogger} logger
  * @param {number} index
+ * @param {NowResponse[]} datasets
  * @param {NowResponse} dataset
  * @param {number} batteryCapacity
  * @returns {void}
@@ -62,6 +63,7 @@ export async function getDevices() {
 function processDataSet(
   logger,
   index,
+  datasets,
   dataset,
   batteryCapacity
 ) {
@@ -73,6 +75,12 @@ function processDataSet(
       ) / 100 * batteryCapacity,
       5 / 60
     )
+    : 0;
+  const batteryWattHourChange = index > 0 && logger.Battery_ChaStt
+    ? -(
+      (logger.Battery_ChaStt[index]?.v ?? 0) -
+        (logger.Battery_ChaStt[index - 1]?.v ?? 0)
+    ) / 100 * batteryCapacity
     : 0;
   const wattageFromGrid = index === 0
     ? 0
@@ -95,8 +103,39 @@ function processDataSet(
   );
   setIfNumber(
     dataset.energy,
+    'fromBattery',
+    index === 0
+      ? logger.BatChrg_BatChrg?.at(0)?.v
+      // eslint-disable-next-line no-extra-parens
+      : (
+        logger.BatChrg_BatChrg
+          ? datasets[index - 1].energy.fromBattery + Math.max(
+            0,
+            batteryWattHourChange
+          )
+          : null
+      )
+  );
+  setIfNumber(
+    dataset.energy,
     'fromGrid',
     logger.Metering_GridMs_TotWhIn[index]?.v
+  );
+  addIfNumber(dataset.energy, 'fromRoof', logger.Metering_TotWhOut[index]?.v);
+  setIfNumber(
+    dataset.energy,
+    'toBattery',
+    index === 0
+      ? logger.BatDsch_BatDsch?.at(0)?.v
+      // eslint-disable-next-line no-extra-parens
+      : (
+        logger.BatDsch_BatDsch
+          ? datasets[index - 1].energy.toBattery + Math.max(
+            0,
+            -batteryWattHourChange
+          )
+          : null
+      )
   );
   addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
   addIfNumber(dataset.power, 'fromBattery', Math.max(batteryWattage, 0));
@@ -126,7 +165,7 @@ async function processLoggers(loggers) {
   interpolateBatteryStateOfCharge(loggers);
   for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
-  ) processDataSet(logger, index, dataset, batteryCapacity);
+  ) processDataSet(logger, index, datasets, dataset, batteryCapacity);
   for (
     const dataset of datasets
   ) if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;

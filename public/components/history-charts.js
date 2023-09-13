@@ -42,7 +42,10 @@ export const HistoryCharts = {
             name: 'Dach',
             values: json.map(
               (item, index) => index < json.length - 1
-                ? json[index + 1].energy.fromRoof - item.energy.fromRoof
+                ? Math.max(
+                  0,
+                  json[index + 1].energy.fromRoof - item.energy.fromRoof
+                )
                 : 0
             ).slice(0, -1)
           },
@@ -51,7 +54,10 @@ export const HistoryCharts = {
             name: 'Batterie',
             values: json.map(
               (item, index) => index < json.length - 1
-                ? json[index + 1].energy.fromBattery - item.energy.fromBattery
+                ? Math.max(
+                  0,
+                  json[index + 1].energy.fromBattery - item.energy.fromBattery
+                )
                 : 0
             ).slice(0, -1)
           },
@@ -60,7 +66,10 @@ export const HistoryCharts = {
             name: 'Netz',
             values: json.map(
               (item, index) => index < json.length - 1
-                ? json[index + 1].energy.fromGrid - item.energy.fromGrid
+                ? Math.max(
+                  0,
+                  json[index + 1].energy.fromGrid - item.energy.fromGrid
+                )
                 : 0
             ).slice(0, -1)
           }
