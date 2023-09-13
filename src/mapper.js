@@ -157,6 +157,7 @@ function processDataSet(
  * @returns {Promise<NowResponse[]>}
  */
 async function processLoggers(loggers) {
+  if (loggers.length === 0) return [];
   const datasets = loggers[0].Metering_TotWhOut.map(
     item => getNowResponseTemplate(item.t * 1000)
   );
@@ -208,6 +209,7 @@ function processDailyDataSet(
  * @returns {DailyResponse[]}
  */
 function processDailyLoggers(loggers) {
+  if (loggers.length === 0) return [];
   const datasets = loggers[0].Metering_TotWhOut.map(
     item => getDailyResponseTemplate(item.t * 1000)
   );

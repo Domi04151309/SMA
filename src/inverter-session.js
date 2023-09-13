@@ -135,7 +135,7 @@ export class InverterSession {
         ) response[LOGGER_MAP[keys[index]]] = json.result[layerTwoKey];
       }
     );
-    return response;
+    return Object.keys(response).length === 0 ? null : response;
   }
 
   async getExact(/** @type {number} */ start, /** @type {number} */ end) {
