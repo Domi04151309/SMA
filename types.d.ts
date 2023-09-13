@@ -174,6 +174,7 @@ declare interface WeatherHour {
   chanceofrain: string,
   chanceofsnow: string,
   chanceofsunshine: string,
+  cloudcover: string,
   lang_de: WeatherTranslation[],
   tempC: string,
   time: string,

@@ -26,7 +26,16 @@ export const ForecastSection = {
     const date = new Date(json.date);
     const spline = new Spline(
       json.hourly.map(hour => parseInt(hour.time, 10) / 100),
-      json.hourly.map(hour => parseInt(hour.chanceofsunshine, 10) / 100)
+      json.hourly.map(
+        hour => [
+          parseInt(hour.chanceofsunshine, 10) / 100,
+          1 - parseInt(hour.chanceofovercast, 10) / 100,
+          1 - parseInt(hour.cloudcover, 10) / 100
+        ].reduce(
+          (accumulator, item) => accumulator + item,
+          0
+        ) / 3 * (3 / 4) + 0.25
+      )
     );
     // eslint-disable-next-line no-new
     new Chart(node.querySelector('.forecast-chart'), {
