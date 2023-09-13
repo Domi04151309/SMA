@@ -23,7 +23,7 @@ export const HistoryCharts = {
       height: 480,
       title: 'Leistung'
     });
-    error('#battery-chart', {
+    error(BATTERY_CHART_SELECTOR, {
       title: 'Batterie'
     });
   },

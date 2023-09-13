@@ -2,6 +2,9 @@ import { HistoryCharts } from '/components/history-charts.js';
 import { fetchApiData } from '/utils/api.js';
 
 const nowDisplay = document.getElementById('now');
+const loadingIndicator = document.getElementById('loading');
+const historyChart = document.getElementById('history-chart');
+const batteryChart = document.getElementById('battery-chart');
 /** @type {{[key: string]: Intl.DateTimeFormatOptions }} */
 const options = {
   day: { day: 'numeric', month: 'long', year: 'numeric' },
@@ -11,14 +14,39 @@ const options = {
 let category = 'day';
 let date = new Date();
 
-if (nowDisplay === null) throw new Error('Invalid layout');
+if (
+  nowDisplay === null ||
+  loadingIndicator === null ||
+  historyChart === null ||
+  batteryChart === null
+) throw new Error('Invalid layout');
+
+/**
+ * @param {HTMLElement} loadingView
+ * @returns {void}
+ */
+function onError(loadingView) {
+  loadingView.style.display = 'none';
+  HistoryCharts.error();
+}
 
 /**
  * @param {Node} titleView
+ * @param {HTMLElement} loadingView
+ * @param {Node} historyView
+ * @param {Node} batteryView
  * @returns {Promise<void>}
  */
-async function updateViews(titleView) {
+async function updateViews(
+  titleView,
+  loadingView,
+  historyView,
+  batteryView
+) {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
+  loadingView.style.display = 'block';
+  historyView.textContent = '';
+  batteryView.textContent = '';
   const endDate = new Date(date);
   switch (category) {
   case 'day':
@@ -37,19 +65,21 @@ async function updateViews(titleView) {
   if (category === 'month' || category === 'year') await fetchApiData(
     '/daily' + query,
     (/** @type {DailyResponse[]} */ json) => {
+      loadingView.style.display = 'none';
       HistoryCharts.updateDaily(json);
     },
     () => {
-      HistoryCharts.error();
+      onError(loadingView);
     }
   );
   else if (category === 'day') await fetchApiData(
     '/exact' + query,
     (/** @type {NowResponse[]} */ json) => {
+      loadingView.style.display = 'none';
       HistoryCharts.updateExact(json);
     },
     () => {
-      HistoryCharts.error();
+      onError(loadingView);
     }
   );
 }
@@ -57,25 +87,44 @@ async function updateViews(titleView) {
 /**
  * @param {string} id
  * @param {Node} titleView
+ * @param {HTMLElement} loadingView
+ * @param {Node} historyView
+ * @param {Node} batteryView
  * @returns {Promise<void>}
  */
-async function handleCategoryChange(id, titleView) {
+async function handleCategoryChange(
+  id,
+  titleView,
+  loadingView,
+  historyView,
+  batteryView
+) {
   category = id;
   date = new Date();
   date.setHours(0, 0, 0, 0);
   if (category === 'month' || category === 'year') date.setDate(1);
   if (category === 'year') date.setMonth(0);
-  await updateViews(titleView);
+  await updateViews(titleView, loadingView, historyView, batteryView);
 }
 
-await handleCategoryChange('day', nowDisplay);
+await handleCategoryChange(
+  'day',
+  nowDisplay,
+  loadingIndicator,
+  historyChart,
+  batteryChart
+);
 for (
   const id of ['day', 'month', 'year']
 ) document.getElementById(id)?.addEventListener(
   'click',
   async event => {
     await handleCategoryChange(
-      /** @type {Element} */ (event.target).id, nowDisplay
+      /** @type {Element} */ (event.target).id,
+      nowDisplay,
+      loadingIndicator,
+      historyChart,
+      batteryChart
     );
   }
 );
@@ -94,7 +143,7 @@ document.getElementById('previous')?.addEventListener('click', async () => {
   default:
     break;
   }
-  await updateViews(nowDisplay);
+  await updateViews(nowDisplay, loadingIndicator, historyChart, batteryChart);
 });
 
 document.getElementById('next')?.addEventListener('click', async () => {
@@ -111,5 +160,5 @@ document.getElementById('next')?.addEventListener('click', async () => {
   default:
     break;
   }
-  await updateViews(nowDisplay);
+  await updateViews(nowDisplay, loadingIndicator, historyChart, batteryChart);
 });
