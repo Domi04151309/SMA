@@ -1,12 +1,12 @@
 import {
   constructHistory,
   getDaily,
-  getDevices,
-  getExact,
-  getNow
-} from './src/mapper.js';
+  getExact
+} from './src/mappers/loggers.js';
 import { Server } from './src/server.js';
+import { getDevices } from './src/mappers/devices.js';
 import { getLicenses } from './src/licenses.js';
+import { getNow } from './src/mappers/values.js';
 import { getWeather } from './src/weather.js';
 
 /** @type {NowResponse[]} */
