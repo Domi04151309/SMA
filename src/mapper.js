@@ -188,8 +188,13 @@ export async function constructHistory() {
  */
 export async function getExact(start, end) {
   if (isNaN(start) || isNaN(end)) return [];
-  console.error('"getExact" not yet implemented');
-  return await constructHistory();
+  const inverters = await getInverters();
+  const loggerRequests = inverters.map(
+    async item => await item.getExact(start / 1000, end / 1000)
+  );
+  const loggers = await Promise.all(loggerRequests);
+  // @ts-expect-error
+  return await processLoggers(loggers.filter(entry => entry !== null));
 }
 
 /**

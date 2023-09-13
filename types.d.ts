@@ -255,6 +255,14 @@ declare interface SMALogger {
   result: SMALoggerResult
 }
 
+declare interface SMASingleLoggerResult {
+  [a: string]: SMALoggerDataPoint[]
+}
+
+declare interface SMASingleLogger {
+  result: SMASingleLoggerResult
+}
+
 declare interface SMASimplifiedLogger {
   BatChrg_BatChrg?: SMALoggerDataPoint[],
   BatDsch_BatDsch?: SMALoggerDataPoint[],
