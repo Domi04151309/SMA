@@ -214,6 +214,15 @@ function processDailyLoggers(loggers) {
   for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
   ) processDailyDataSet(logger, index, dataset);
+  for (
+    let index = 0; index < datasets.length; index++
+  ) for (
+    const key of /** @type {(keyof Energy)[]} */ (
+      Object.keys(datasets[index].energy)
+    )
+  ) if (
+    index > 0 && datasets[index].energy[key] === 0
+  ) datasets[index].energy[key] = datasets[index - 1].energy[key];
   return datasets;
 }
 

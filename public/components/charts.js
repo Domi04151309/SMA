@@ -6,6 +6,7 @@ export const commonChartOptions = {
     xAxisMode: 'tick',
     xIsSeries: 1
   },
+  barOptions: { spaceRatio: 0.1 },
   colors: ['#00E676', '#00B0FF', '#2979FF', '#651FFF'],
   height: 240,
   lineOptions: {

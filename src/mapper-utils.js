@@ -83,6 +83,8 @@ export function interpolateBatteryStateOfCharge(loggers) {
     for (
       let index = 1; index < logger.Battery_ChaStt.length - 1; index++
     ) if (
+      logger.Battery_ChaStt[index].v !== null &&
+      logger.Battery_ChaStt[index - 1].v !== null &&
       logger.Battery_ChaStt[index].v !== logger.Battery_ChaStt[index - 1].v
     ) {
       (states.at(-1) ?? [])[1] = index;

@@ -31,10 +31,6 @@ export const HistoryCharts = {
     // eslint-disable-next-line no-new
     new Chart(HISTORY_CHART_SELECTOR, {
       ...commonChartOptions,
-      barOptions: {
-        spaceRatio: 0.1,
-        stacked: 1
-      },
       data: {
         datasets: [
           {

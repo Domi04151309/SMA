@@ -40,7 +40,6 @@ export const ForecastSection = {
     // eslint-disable-next-line no-new
     new Chart(node.querySelector('.forecast-chart'), {
       ...commonChartOptions,
-      barOptions: { spaceRatio: 0.1 },
       data: {
         datasets: [
           {
