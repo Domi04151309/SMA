@@ -1,16 +1,31 @@
-const energyFromRoof = document.getElementById('energy-from-roof');
-const energyUsed = document.getElementById('energy-used');
-const energyFromRoofUsed = document.getElementById('energy-from-roof-used');
-const energyFromRoofUsedWithBattery = document.getElementById(
-  'energy-from-roof-used-with-battery'
-);
-const energyFromBattery = document.getElementById('energy-from-battery');
-const energyFromGrid = document.getElementById('energy-from-grid');
-const energyToBattery = document.getElementById('energy-to-battery');
-const energyToGrid = document.getElementById('energy-to-grid');
+const energySection = document.querySelector('.energy-section');
+const energyFromRoof = energySection?.querySelector(
+  '.energy-from-roof'
+) ?? null;
+const energyUsed = energySection?.querySelector(
+  '.energy-used'
+) ?? null;
+const energyFromRoofUsed = energySection?.querySelector(
+  '.energy-from-roof-used'
+) ?? null;
+const energyFromRoofUsedWithBattery = energySection?.querySelector(
+  '.energy-from-roof-used-with-battery'
+) ?? null;
+const energyFromBattery = energySection?.querySelector(
+  '.energy-from-battery'
+) ?? null;
+const energyFromGrid = energySection?.querySelector(
+  '.energy-from-grid'
+) ?? null;
+const energyToBattery = energySection?.querySelector(
+  '.energy-to-battery'
+) ?? null;
+const energyToGrid = energySection?.querySelector(
+  '.energy-to-grid'
+) ?? null;
 
 export const EnergySection = {
-  update(/** @type {NowResponse} */ json) {
+  update(/** @type {Energy} */ json) {
     if (
       energyFromRoof === null ||
       energyUsed === null ||
@@ -21,22 +36,22 @@ export const EnergySection = {
       energyToBattery === null ||
       energyToGrid === null
     ) throw new Error('Invalid layout');
-    energyFromRoof.textContent = json.energy.fromRoof.toLocaleString('de');
+    energyFromRoof.textContent = json.fromRoof.toLocaleString('de');
     energyUsed.textContent = (
-      json.energy.fromRoof - json.energy.toGrid - json.energy.toBattery +
-      json.energy.fromBattery + json.energy.fromGrid
+      json.fromRoof - json.toGrid - json.toBattery +
+      json.fromBattery + json.fromGrid
     ).toLocaleString('de');
     energyFromRoofUsed.textContent = (
-      json.energy.fromRoof - json.energy.toGrid - json.energy.toBattery
+      json.fromRoof - json.toGrid - json.toBattery
     ).toLocaleString('de');
     energyFromRoofUsedWithBattery.textContent = (
-      json.energy.fromRoof - json.energy.toGrid
+      json.fromRoof - json.toGrid
     ).toLocaleString('de');
-    energyFromBattery.textContent = json.energy.fromBattery.toLocaleString(
+    energyFromBattery.textContent = json.fromBattery.toLocaleString(
       'de'
     );
-    energyFromGrid.textContent = json.energy.fromGrid.toLocaleString('de');
-    energyToBattery.textContent = json.energy.toBattery.toLocaleString('de');
-    energyToGrid.textContent = json.energy.toGrid.toLocaleString('de');
+    energyFromGrid.textContent = json.fromGrid.toLocaleString('de');
+    energyToBattery.textContent = json.toBattery.toLocaleString('de');
+    energyToGrid.textContent = json.toGrid.toLocaleString('de');
   }
 };

@@ -1,10 +1,22 @@
+import { EnergySection } from '/components/energy-section.js';
+import { EnergySectionSmall } from '/components/energy-section-small.js';
 import { HistoryCharts } from '/components/history-charts.js';
+import { MoneySection } from '/components/money-section.js';
+import { PriceSection } from '/components/price-section.js';
+import { SourceSection } from '/components/source-section.js';
 import { fetchApiData } from '/utils/api.js';
 
-const nowDisplay = document.getElementById('now');
-const loadingIndicator = document.getElementById('loading');
-const historyChart = document.getElementById('history-chart');
-const batteryChart = document.getElementById('battery-chart');
+const titleView = document.getElementById('now') ?? new HTMLElement();
+const loadingView = document.getElementById(
+  'loading'
+) ?? new HTMLElement();
+const historyView = document.getElementById(
+  'history-chart'
+) ?? new HTMLElement();
+const batteryView = document.getElementById(
+  'battery-chart'
+) ?? new HTMLElement();
+const fullSection = document.getElementById('full') ?? new HTMLElement();
 /** @type {{[key: string]: Intl.DateTimeFormatOptions }} */
 const options = {
   day: { day: 'numeric', month: 'long', year: 'numeric' },
@@ -14,39 +26,39 @@ const options = {
 let category = 'day';
 let date = new Date();
 
-if (
-  nowDisplay === null ||
-  loadingIndicator === null ||
-  historyChart === null ||
-  batteryChart === null
-) throw new Error('Invalid layout');
+/**
+ * @param {NowResponse[]} json
+ * @returns {Energy}
+ */
+function getEnergyDifference(json) {
+  return Object.keys(json[0].energy).reduce(
+    (result, key) => {
+      // @ts-expect-error
+      result[key] = (json.at(-1)?.energy[key] ?? 0) - json[0].energy[key];
+      return result;
+    },
+    json[0].energy
+  );
+}
 
 /**
- * @param {HTMLElement} loadingView
  * @returns {void}
  */
-function onError(loadingView) {
+function onError() {
   loadingView.style.display = 'none';
   HistoryCharts.error();
 }
 
 /**
- * @param {Node} titleView
- * @param {HTMLElement} loadingView
- * @param {Node} historyView
- * @param {Node} batteryView
  * @returns {Promise<void>}
  */
-async function updateViews(
-  titleView,
-  loadingView,
-  historyView,
-  batteryView
-) {
+async function updateViews() {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
-  loadingView.style.display = 'block';
   historyView.textContent = '';
   batteryView.textContent = '';
+  EnergySectionSmall.hide();
+  fullSection.style.display = 'none';
+  loadingView.style.display = '';
   const endDate = new Date(date);
   switch (category) {
   case 'day':
@@ -64,12 +76,18 @@ async function updateViews(
   const query = '?start=' + date.getTime() + '&end=' + endDate.getTime();
   if (category === 'month' || category === 'year') await fetchApiData(
     '/daily' + query,
-    (/** @type {DailyResponse[]} */ json) => {
+    (/** @type {NowResponse[]} */ json) => {
       loadingView.style.display = 'none';
       HistoryCharts.updateDaily(json);
+      if (json.length === 0) return;
+      fullSection.style.display = '';
+      const difference = getEnergyDifference(json);
+      EnergySection.update(difference);
+      SourceSection.update(difference);
+      MoneySection.update(difference);
     },
     () => {
-      onError(loadingView);
+      onError();
     }
   );
   else if (category === 'day') await fetchApiData(
@@ -77,55 +95,40 @@ async function updateViews(
     (/** @type {NowResponse[]} */ json) => {
       loadingView.style.display = 'none';
       HistoryCharts.updateExact(json);
+      if (json.length === 0) return;
+      EnergySectionSmall.update(getEnergyDifference(json));
     },
     () => {
-      onError(loadingView);
+      onError();
     }
   );
 }
 
 /**
  * @param {string} id
- * @param {Node} titleView
- * @param {HTMLElement} loadingView
- * @param {Node} historyView
- * @param {Node} batteryView
  * @returns {Promise<void>}
  */
-async function handleCategoryChange(
-  id,
-  titleView,
-  loadingView,
-  historyView,
-  batteryView
-) {
+async function handleCategoryChange(id) {
+  for (const buttonId of ['day', 'month', 'year']) {
+    const button = document.getElementById(buttonId);
+    if (button !== null) button.classList.toggle('outlined', buttonId !== id);
+  }
   category = id;
   date = new Date();
   date.setHours(0, 0, 0, 0);
   if (category === 'month' || category === 'year') date.setDate(1);
   if (category === 'year') date.setMonth(0);
-  await updateViews(titleView, loadingView, historyView, batteryView);
+  await updateViews();
 }
 
-await handleCategoryChange(
-  'day',
-  nowDisplay,
-  loadingIndicator,
-  historyChart,
-  batteryChart
-);
+await handleCategoryChange('day');
+PriceSection.update();
 for (
   const id of ['day', 'month', 'year']
 ) document.getElementById(id)?.addEventListener(
   'click',
   async event => {
-    await handleCategoryChange(
-      /** @type {Element} */ (event.target).id,
-      nowDisplay,
-      loadingIndicator,
-      historyChart,
-      batteryChart
-    );
+    await handleCategoryChange(/** @type {Element} */ (event.target).id);
   }
 );
 
@@ -143,7 +146,7 @@ document.getElementById('previous')?.addEventListener('click', async () => {
   default:
     break;
   }
-  await updateViews(nowDisplay, loadingIndicator, historyChart, batteryChart);
+  await updateViews();
 });
 
 document.getElementById('next')?.addEventListener('click', async () => {
@@ -160,5 +163,5 @@ document.getElementById('next')?.addEventListener('click', async () => {
   default:
     break;
   }
-  await updateViews(nowDisplay, loadingIndicator, historyChart, batteryChart);
+  await updateViews();
 });

@@ -3,6 +3,8 @@ import { Chart, commonChartOptions, error } from '/components/charts.js';
 const HISTORY_CHART_SELECTOR = '#history-chart';
 const BATTERY_CHART_SELECTOR = '#battery-chart';
 
+const batteryChart = document.querySelector(BATTERY_CHART_SELECTOR);
+
 /**
  * @param {Date} date
  * @returns {string}
@@ -83,8 +85,10 @@ export const HistoryCharts = {
         ) => value?.toLocaleString('de') + ' Wh'
       }
     });
-    const batteryChart = document.querySelector(BATTERY_CHART_SELECTOR);
-    if (batteryChart !== null) batteryChart.textContent = '';
+    if (batteryChart !== null && batteryChart instanceof HTMLElement) {
+      batteryChart.style.display = 'none';
+      batteryChart.textContent = '';
+    }
   },
   updateExact(/** @type {NowResponse[]} */ json) {
     // eslint-disable-next-line no-new
@@ -123,6 +127,9 @@ export const HistoryCharts = {
         ) => value?.toLocaleString('de') + ' W'
       }
     });
+    if (
+      batteryChart !== null && batteryChart instanceof HTMLElement
+    ) batteryChart.style.display = '';
     // eslint-disable-next-line no-new
     new Chart(BATTERY_CHART_SELECTOR, {
       ...commonChartOptions,

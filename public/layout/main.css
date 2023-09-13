@@ -148,6 +148,17 @@ button:hover, .btn:hover {
 button:active, .btn:active {
   filter: brightness(1.4);
 }
+button.outlined, .btn.outlined {
+  background: #fff;
+  color: var(--accent-color);
+  box-shadow: none;
+}
+button.outlined:hover, .btn.outlined:hover,
+button.outlined:active, .btn.outlined:active {
+  background: var(--accent-color);
+  color: #fff;
+  box-shadow: var(--card-shadow);
+}
 dialog {
   background: #fff;
   color: var(--text-color-primary);
@@ -376,7 +387,7 @@ h2, .match-chart-padding {
   #devices, #history-chart {
     grid-column: span 2;
   }
-  #energy {
+  .energy-section {
     grid-row: span 2;
   }
   #devices tr:not(:first-child) {

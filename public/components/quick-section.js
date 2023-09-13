@@ -38,7 +38,7 @@ function getWeatherIcon(code) {
     : 'icons8-moon-96.png';
   const cloudyIcon = sunPosition >= 0
     ? 'icons8-cloudy-96.png'
-    : 'icons8-nigth-96.png';
+    : 'icons8-night-96.png';
   const thunderIcon = sunPosition >= 0
     ? 'icons8-thunder-96.png'
     : 'icons8-stormy-night-96.png';
@@ -196,7 +196,7 @@ function getWeatherIcon(code) {
 }
 
 export const QuickSection = {
-  updateSource(/** @type {NowResponse} */ json) {
+  updateSource(/** @type {Power} */ json) {
     if (
       sourceIcon === null ||
       sourceLabel === null ||
@@ -207,9 +207,9 @@ export const QuickSection = {
       const key of /** @type {(keyof Power)[]} */ (
         ['fromRoof', 'fromBattery', 'fromGrid']
       )
-    ) if (json.power[key] > maxValue) [maxKey, maxValue] = [
+    ) if (json[key] > maxValue) [maxKey, maxValue] = [
       key,
-      json.power[key]
+      json[key]
     ];
     switch (maxKey) {
     case 'fromRoof':

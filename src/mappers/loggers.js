@@ -10,6 +10,7 @@ import { fetchLoggers } from '../fetcher.js';
 import { getDevices } from './devices.js';
 import { getInverters } from '../inverters.js';
 
+/* eslint-disable complexity */
 /**
  * @param {SMASimplifiedLogger} logger
  * @param {number} index
@@ -96,6 +97,9 @@ function processDataSet(
       )
   );
   addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
+  if (
+    logger.BatChrg_BatChrg
+  ) addIfNumber(dataset.energy, 'toGrid', -dataset.energy.toBattery);
   addIfNumber(dataset.power, 'fromBattery', Math.max(batteryWattage, 0));
   setIfNumber(dataset.power, 'fromGrid', wattageFromGrid);
   if (logger.PvGen_PvW) addIfNumber(
@@ -108,6 +112,7 @@ function processDataSet(
   addIfNumber(dataset.power, 'toGrid', wattageToGrid);
   addIfNumber(dataset.power, 'toGrid', -Math.max(batteryWattage, 0));
 }
+/* eslint-enable complexity */
 
 /**
  * @param {SMASimplifiedLogger[]} loggers
@@ -127,7 +132,9 @@ async function processLoggers(loggers) {
   ) processDataSet(logger, index, datasets, dataset, batteryCapacity);
   for (
     const dataset of datasets
-  ) if (dataset.power.toGrid < 0) dataset.power.toGrid = 0;
+  ) if (
+    dataset.power.toGrid < 0 || dataset.power.toGrid > 100_000
+  ) dataset.power.toGrid = 0;
   return datasets;
 }
 
@@ -158,7 +165,11 @@ function processDailyDataSet(
     'toBattery',
     logger.BatChrg_BatChrg?.at(index)?.v
   );
-  addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
+  setIfNumber(
+    dataset.energy,
+    'toGrid',
+    logger.Metering_GridMs_TotWhOut?.at(index)?.v
+  );
 }
 
 /**

@@ -15,6 +15,35 @@
       <img id="loading" class="loading-indicator" src="/images/icons8-loading.gif" alt="Lädt">
       <div id="history-chart"></div>
       <div id="battery-chart"></div>
+      <div class="small-energy-section" class="match-chart-padding">
+        <h3>Energie</h3>
+        <table>
+          <tr>
+            <td class="icon solar"></td>
+            <th>Gesamterzeugung</th>
+            <td><span class="energy-from-roof loadable"></span> Wh</td>
+          </tr>
+          <tr>
+            <td class="icon full-battery"></td>
+            <th>Batterieladung</th>
+            <td><span class="energy-to-battery loadable"></span> Wh</td>
+          </tr>
+          <tr>
+            <td class="icon empty-battery"></td>
+            <th>Batterieentladung</th>
+            <td><span class="energy-from-battery loadable"></span> Wh</td>
+          </tr>
+          <tr>
+            <td class="icon electricity"></td>
+            <th>Netzbezug</th>
+            <td><span class="energy-from-grid loadable"></span> Wh</td>
+          </tr>
+        </table>
+      </div>
+      <div id="full" class="grid-1-2">
+        {% include energy-section.html %}
+        {% include sustainability-section.html %}
+      </div>
     </main>
     {% include footer.html %}
     <script src="/history.js" type="module"></script>

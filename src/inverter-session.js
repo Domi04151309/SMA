@@ -13,6 +13,7 @@ const LOGGER_MAP = {
   28_672: 'Metering_TotWhOut',
   28_704: 'Metering_TotWhOut',
   28_736: 'Metering_GridMs_TotWhIn',
+  28_752: 'Metering_GridMs_TotWhOut',
   28_768: 'Metering_GridMs_TotWhIn',
   28_816: 'Battery_ChaStt',
   29_344: 'BatChrg_BatChrg',
@@ -140,7 +141,7 @@ export class InverterSession {
 
   async getExact(/** @type {number} */ start, /** @type {number} */ end) {
     return await this.getLoggerByKeys(
-      [10_016, 28_672, 28_736, 28_816],
+      [10_016, 28_672, 28_736, 28_816, 29_344, 29_360],
       start,
       end
     );
@@ -148,7 +149,7 @@ export class InverterSession {
 
   async getDaily(/** @type {number} */ start, /** @type {number} */ end) {
     return await this.getLoggerByKeys(
-      [28_704, 28_768, 29_344, 29_360],
+      [28_704, 28_752, 28_768, 29_344, 29_360],
       start,
       end
     );

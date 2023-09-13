@@ -4,7 +4,7 @@ const energyCostIn = document.getElementById('energy-cost-in');
 const energySavedCostIn = document.getElementById('energy-saved-cost-in');
 const energyCostOut = document.getElementById('energy-cost-out');
 
-/** @type {NowResponse|null} */
+/** @type {Energy|null} */
 let lastEntry = null;
 
 /**
@@ -17,7 +17,7 @@ function getNumberItem(key) {
 }
 
 export const MoneySection = {
-  update(/** @type {NowResponse|null} */ json = lastEntry) {
+  update(/** @type {Energy|null} */ json = lastEntry) {
     if (json === null) return;
     lastEntry = json;
     if (
@@ -32,13 +32,13 @@ export const MoneySection = {
     const energyPriceInValue = getNumberItem('energyPriceIn');
     const energyPriceOutValue = getNumberItem('energyPriceOut');
     energyCostIn.textContent = (
-      json.energy.fromGrid / 1000 * energyPriceInValue
+      json.fromGrid / 1000 * energyPriceInValue
     ).toLocaleString('de', localeOptions);
     energySavedCostIn.textContent = (
-      (json.energy.fromRoof - json.energy.toGrid) / 1000 * energyPriceInValue
+      (json.fromRoof - json.toGrid) / 1000 * energyPriceInValue
     ).toLocaleString('de', localeOptions);
     energyCostOut.textContent = (
-      json.energy.toGrid / 1000 * energyPriceOutValue
+      json.toGrid / 1000 * energyPriceOutValue
     ).toLocaleString('de', localeOptions);
   }
 };

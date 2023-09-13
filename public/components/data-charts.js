@@ -115,30 +115,6 @@ export class DataCharts {
         ) => value?.toLocaleString('de') + ' W'
       }
     });
-    this.sourceChart = new Chart('#source-chart', {
-      ...commonChartOptions,
-      data: {
-        datasets: [
-          {
-            values: [
-              (json.at(-1)?.energy.fromRoof ?? 0) -
-                (json.at(-1)?.energy.toGrid ?? 0) -
-                (json.at(-1)?.energy.toBattery ?? 0),
-              json.at(-1)?.energy.fromBattery ?? 0,
-              json.at(-1)?.energy.fromGrid ?? 0
-            ]
-          }
-        ],
-        labels: ['Vom Dach', 'Aus der Batterie', 'Vom Netz']
-      },
-      title: 'Quelle genutzter Energie',
-      tooltipOptions: {
-        formatTooltipY: (
-          /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' Wh'
-      },
-      type: 'pie'
-    });
   }
 
   update(/** @type {NowResponse} */ json) {
@@ -162,15 +138,15 @@ export class DataCharts {
   }
 
   static error() {
-    error('#source-chart', {
-      title: 'Quelle genutzter Energie'
-    });
     error('#history-chart', {
       height: 480,
       title: 'Leistung'
     });
     error('#battery-chart', {
       title: 'Batterie'
+    });
+    error('#grid-chart', {
+      title: 'Netzeinspeisung'
     });
   }
 }

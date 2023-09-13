@@ -57,85 +57,18 @@
       </div>
       <h2>Wetter</h2>
       <div id="weather" class="grid-1-2">
-        {% include weather-data.html %}
+        {% include weather-section.html %}
       </div>
       <h2>Verlauf</h2>
       <div class="grid-1-2">
         <div id="history-chart"></div>
-        <div id="energy" class="match-chart-padding">
-          <h3>Energie</h3>
-          <table>
-            <tr>
-              <td class="icon solar"></td>
-              <th>Gesamterzeugung</th>
-              <td><span id="energy-from-roof" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon home"></td>
-              <th>Gesamtverbrauch</th>
-              <td><span id="energy-used" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon solar-energy"></td>
-              <th>Direktverbrauch</th>
-              <td><span id="energy-from-roof-used" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon solar-energy"></td>
-              <th>Eigenverbrauch</th>
-              <td><span id="energy-from-roof-used-with-battery" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon full-battery"></td>
-              <th>Batterieladung</th>
-              <td><span id="energy-to-battery" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon empty-battery"></td>
-              <th>Batterieentladung</th>
-              <td><span id="energy-from-battery" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon electricity"></td>
-              <th>Netzbezug</th>
-              <td><span id="energy-from-grid" class="loadable"></span> Wh</td>
-            </tr>
-            <tr>
-              <td class="icon electricity"></td>
-              <th>Netzeinspeisung</th>
-              <td><span id="energy-to-grid" class="loadable"></span> Wh</td>
-            </tr>
-          </table>
-        </div>
+        {% include energy-section.html %}
         <div id="battery-chart"></div>
         <div id="grid-chart"></div>
       </div>
       <h2>Nachhaltigkeit</h2>
       <div class="grid-1-2">
-        <div id="source-chart"></div>
-        <div class="match-chart-padding">
-          <h3>Ökonomisch</h3>
-          <table>
-            <tr>
-              <td class="icon send-money"></td>
-              <th>Gezahlt</th>
-              <td><span id="energy-cost-in" class="loadable"></span> €</td>
-              <td>bei <span class="energy-price-in loadable"></span> €/kWh</td>
-            </tr>
-            <tr>
-              <td class="icon money"></td>
-              <th>Gespart</th>
-              <td><span id="energy-saved-cost-in" class="loadable"></span> €</td>
-              <td>bei <span class="energy-price-in loadable"></span> €/kWh</td>
-            </tr>
-            <tr>
-              <td class="icon request-money"></td>
-              <th>Verdient</th>
-              <td><span id="energy-cost-out" class="loadable"></span> €</td>
-              <td>bei <span class="energy-price-out loadable"></span> €/kWh</td>
-            </tr>
-          </table>
-        </div>
+        {% include sustainability-section.html %}
       </div>
     </main>
     {% include footer.html %}
