@@ -1,4 +1,4 @@
-import { Chart, commonChartOptions, error } from '/components/charts.js';
+import { Chart, commonChartOptions, error } from '/utils/charts.js';
 
 const HISTORY_CHART_SELECTOR = '#history-chart';
 const BATTERY_CHART_SELECTOR = '#battery-chart';

@@ -1,4 +1,4 @@
-import { Chart, commonChartOptions, error } from '/components/charts.js';
+import { Chart, commonChartOptions, error } from '/utils/charts.js';
 
 /** @type {Battery|null} */
 let battery = null;

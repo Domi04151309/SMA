@@ -1,6 +1,6 @@
 /* global SunCalc */
 import '/suncalc.js';
-import { Chart, commonChartOptions, error } from '/components/charts.js';
+import { Chart, commonChartOptions, error } from '/utils/charts.js';
 import { Settings } from '../utils/settings.js';
 
 const INVALID_LAYOUT = 'Invalid layout';
