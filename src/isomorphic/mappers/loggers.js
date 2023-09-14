@@ -6,9 +6,6 @@ import {
   setIfNumber,
   wattHoursToWatts
 } from './utils.js';
-import { fetchLoggers } from '../fetcher.js';
-import { getDevices } from './devices.js';
-import { getInverters } from '../inverters.js';
 
 /* eslint-disable complexity */
 /**
@@ -19,7 +16,7 @@ import { getInverters } from '../inverters.js';
  * @param {number} batteryCapacity
  * @returns {void}
  */
-function processDataSet(
+function processExactDataSet(
   logger,
   index,
   datasets,
@@ -115,21 +112,21 @@ function processDataSet(
 /* eslint-enable complexity */
 
 /**
+ * @param {Battery|undefined} battery
  * @param {SMASimplifiedLogger[]} loggers
- * @returns {Promise<NowResponse[]>}
+ * @returns {NowResponse[]}
  */
-async function processLoggers(loggers) {
+export function processExactLoggers(battery, loggers) {
   if (loggers.length === 0) return [];
   const datasets = loggers[0].Metering_TotWhOut.map(
     item => getNowResponseTemplate(item.t * 1000)
   );
-  const devices = await getDevices();
-  const batteryCapacity = (devices.batteries[0]?.capacity ?? 0) *
-    (devices.batteries[0]?.capacityOfOriginalCapacity ?? 0) / 100;
+  const batteryCapacity = (battery?.capacity ?? 0) *
+    (battery?.capacityOfOriginalCapacity ?? 0) / 100;
   interpolateBatteryStateOfCharge(loggers);
   for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
-  ) processDataSet(logger, index, datasets, dataset, batteryCapacity);
+  ) processExactDataSet(logger, index, datasets, dataset, batteryCapacity);
   for (
     const dataset of datasets
   ) if (
@@ -144,11 +141,7 @@ async function processLoggers(loggers) {
  * @param {DailyResponse} dataset
  * @returns {void}
  */
-function processDailyDataSet(
-  logger,
-  index,
-  dataset
-) {
+function processDailyDataSet(logger, index, dataset) {
   setIfNumber(
     dataset.energy,
     'fromBattery',
@@ -176,7 +169,7 @@ function processDailyDataSet(
  * @param {SMASimplifiedLogger[]} loggers
  * @returns {DailyResponse[]}
  */
-function processDailyLoggers(loggers) {
+export function processDailyLoggers(loggers) {
   if (loggers.length === 0) return [];
   const datasets = loggers[0].Metering_TotWhOut.map(
     item => getDailyResponseTemplate(item.t * 1000)
@@ -194,45 +187,4 @@ function processDailyLoggers(loggers) {
     index > 0 && datasets[index].energy[key] === 0
   ) datasets[index].energy[key] = datasets[index - 1].energy[key];
   return datasets;
-}
-
-/**
- * @returns {Promise<NowResponse[]>}
- */
-export async function constructHistory() {
-  const loggers = await fetchLoggers();
-  if (loggers.length === 0) return [];
-  return await processLoggers(loggers);
-}
-
-/**
- * @param {number} start
- * @param {number} end
- * @returns {Promise<NowResponse[]>}
- */
-export async function getExact(start, end) {
-  if (isNaN(start) || isNaN(end)) return [];
-  const inverters = await getInverters();
-  const loggerRequests = inverters.map(
-    async item => await item.getExact(start / 1000, end / 1000)
-  );
-  const loggers = await Promise.all(loggerRequests);
-  // @ts-expect-error
-  return await processLoggers(loggers.filter(entry => entry !== null));
-}
-
-/**
- * @param {number} start
- * @param {number} end
- * @returns {Promise<DailyResponse[]>}
- */
-export async function getDaily(start, end) {
-  if (isNaN(start) || isNaN(end)) return [];
-  const inverters = await getInverters();
-  const loggerRequests = inverters.map(
-    async item => await item.getDaily(start / 1000, end / 1000)
-  );
-  const loggers = await Promise.all(loggerRequests);
-  // @ts-expect-error
-  return processDailyLoggers(loggers.filter(entry => entry !== null));
 }

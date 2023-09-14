@@ -1,4 +1,4 @@
-/** @type {{[key: string]: string|undefined}} */
+/** @type {{[key: string]: string}} */
 export const OBJECT_MAP = {
   '6100_00295A00': 'Battery_ChaStt',
   '6100_002F7A00': 'Env_HorWSpd',

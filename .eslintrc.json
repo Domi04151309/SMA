@@ -26,7 +26,7 @@
   },
   "ignorePatterns": [
     "out/*",
-    "src/object-map.js"
+    "src/isomorphic/object-map.js"
   ],
   "rules": {
     "array-element-newline": ["error", "consistent"],

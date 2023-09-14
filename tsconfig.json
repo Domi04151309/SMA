@@ -20,6 +20,6 @@
   ],
   "exclude": [
     "out/*",
-    "src/object-map.js"
+    "src/isomorphic/object-map.js"
   ]
 }

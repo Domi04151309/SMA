@@ -1,12 +1,9 @@
-import { fetchValues } from '../fetcher.js';
-import { getInverters } from '../inverters.js';
-
 /**
- * @returns {Promise<DevicesResponse>}
+ * @param {(import('../../inverter-session.js').InverterSession)[]} inverters
+ * @param {SMASimplifiedValues[]} values
+ * @returns {DevicesResponse}
  */
-export async function getDevices() {
-  const devices = await fetchValues();
-  const inverters = await getInverters();
+export function getDevices(inverters, values) {
   const knownMeters = new Set();
   /** @type {DevicesResponse} */
   const result = {
@@ -15,7 +12,7 @@ export async function getDevices() {
     energyMeters: [],
     inverters: []
   };
-  for (const [index, device] of devices.entries()) {
+  for (const [index, device] of values.entries()) {
     result.clusters.push({ power: device.Inverter_WLim });
     result.inverters.push({
       address: inverters[index].address,

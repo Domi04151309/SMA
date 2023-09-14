@@ -1,6 +1,6 @@
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { PRINT_DEBUG_INFO } from './config.js';
-import { toColoredString } from './log-utils.js';
+import { toColoredString } from './logging/utils.js';
 
 /**
  * @template T

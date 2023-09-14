@@ -1,7 +1,6 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
-import { allSettledHandling, fetchJson } from './fetch-utils.js';
 import {
   existsSync,
+  mkdirSync,
   readFileSync,
   readdirSync,
   unlinkSync,
@@ -9,6 +8,7 @@ import {
 } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
 import { InverterSession } from './inverter-session.js';
+import { allSettledHandling } from './fetch-utils.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
 import { networkInterfaces } from 'node:os';
@@ -24,8 +24,8 @@ async function isInverter(ipAddress) {
   try {
     const response = await fetch(
       'https://' + ipAddress + '/dyn/getDashTime.json'
-    ).catch(() => null);
-    if (response === null || response.status !== 200) return null;
+    );
+    if (response.status !== 200) return null;
     return ipAddress;
   } catch {
     return null;
@@ -76,7 +76,7 @@ async function autofillInverters(invertersFilePath) {
   }));
   await allSettledHandling(
     mappedInverters.map(inverter => InverterSession.create(inverter)),
-    'Failed creating session',
+    'Session',
     session => inverters.push(session)
   );
   writeFileSync(invertersFilePath, JSON.stringify(mappedInverters, null, 2));
@@ -87,32 +87,16 @@ async function autofillInverters(invertersFilePath) {
 }
 
 /**
- * @param {string} address
- * @param {string} sessionId
- * @returns {Promise<boolean>}
- */
-async function logout(address, sessionId) {
-  const result = await fetchJson(
-    'https://' + address + '/dyn/logout.json?sid=' + sessionId,
-    {}
-  );
-  return 'result' in result;
-}
-
-/**
  * @param {string} path
  * @returns {Promise<void>}
  */
 async function invalidateSessionFromFile(path) {
-  const file = JSON.parse(
-    readFileSync(path).toString()
-  );
-  if (
-    typeof file.address === 'string' &&
-    typeof file.sessionId === 'string' &&
+  const file = JSON.parse(readFileSync(path).toString());
+  if (typeof file.address === 'string' && typeof file.sessionId === 'string') {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-    await logout(file.address, file.sessionId)
-  ) unlinkSync(path);
+    const session = new InverterSession(file.address, file.sessionId);
+    if (await session.logout()) unlinkSync(path);
+  }
 }
 
 /**
@@ -123,10 +107,26 @@ async function invalidateOldSessions() {
     new URL('../sessions/', import.meta.url)
   );
   if (!existsSync(logFileDirectory)) return;
-  await Promise.allSettled(
+  await Promise.all(
     readdirSync(logFileDirectory).map(
       filename => invalidateSessionFromFile(logFileDirectory + filename)
     )
+  );
+}
+
+/**
+ * @param {InverterSession} session
+ * @returns {void}
+ */
+function saveSession(session) {
+  const logFileDirectory = fileURLToPath(
+    new URL('../sessions/', import.meta.url)
+  );
+  if (!existsSync(logFileDirectory)) mkdirSync(logFileDirectory);
+  if (session.sessionId !== null) writeFileSync(
+    logFileDirectory + Date.now() + '.' +
+      session.address.replaceAll(/[^\dA-Za-z]/gu, '_') + '.json',
+    JSON.stringify(session, null, 2)
   );
 }
 
@@ -163,7 +163,6 @@ function parseInverterFile(content) {
  */
 export async function getInverters() {
   if (inverters.length > 0) return inverters;
-
   await invalidateOldSessions();
   const invertersFilePath = fileURLToPath(
     new URL('../' + INVERTERS_FILE, import.meta.url)
@@ -174,8 +173,11 @@ export async function getInverters() {
     );
     await allSettledHandling(
       fileContent.map(inverter => InverterSession.create(inverter)),
-      'Failed creating session',
-      session => inverters.push(session)
+      'Session',
+      session => {
+        saveSession(session);
+        inverters.push(session);
+      }
     );
   } catch (error) {
     console.error(

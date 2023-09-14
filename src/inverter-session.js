@@ -1,45 +1,44 @@
-process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
 import { allSettledHandling, fetchJson } from './fetch-utils.js';
-import {
-  existsSync,
-  mkdirSync,
-  writeFileSync
-} from 'node:fs';
-import { fileURLToPath } from 'node:url';
+import { LOGGER_MAP } from './isomorphic/logger-map.js';
+import { OBJECT_MAP } from './isomorphic/object-map.js';
 
-/** @type {{[index: string]: string}} */
-const LOGGER_MAP = {
-  10_016: 'PvGen_PvW',
-  28_672: 'Metering_TotWhOut',
-  28_704: 'Metering_TotWhOut',
-  28_736: 'Metering_GridMs_TotWhIn',
-  28_752: 'Metering_GridMs_TotWhOut',
-  28_768: 'Metering_GridMs_TotWhIn',
-  28_816: 'Battery_ChaStt',
-  29_344: 'BatChrg_BatChrg',
-  29_360: 'BatDsch_BatDsch'
-};
+/**
+ * @param {SMATranslation|null} translations
+ * @param {SMAValuesValue[]} values
+ * @returns {SMAValuesPureValue|SMAValuesPureValue[]}
+ */
+function parseValues(translations, values) {
+  const convertedValues = values.map(
+    value => {
+      const innerValue = value.val;
+      if (
+        Array.isArray(innerValue) && 'tag' in (innerValue[0] ?? {})
+      ) return translations === null
+        ? '#' + innerValue[0]?.tag
+        : translations[innerValue[0]?.tag];
+      return innerValue;
+    }
+  );
+  return convertedValues.length === 1 ? convertedValues[0] : convertedValues;
+}
 
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 export class InverterSession {
+  /** @type {SMATranslation|null} */
+  #translations = null;
+
   constructor(
     /** @type {string} */ address,
     /** @type {string|null} */ sessionId
   ) {
     this.address = address;
     this.sessionId = sessionId;
-    const logFileDirectory = fileURLToPath(
-      new URL('../sessions/', import.meta.url)
-    );
-    if (!existsSync(logFileDirectory)) mkdirSync(logFileDirectory);
-    if (sessionId !== null) writeFileSync(
-      logFileDirectory + Date.now() + '.' +
-        this.address.replaceAll(/[^\dA-Za-z]/gu, '_') + '.json',
-      JSON.stringify(this, null, 2)
-    );
   }
 
-  static async create(/** @type {InverterCredentials} */ inverter) {
+  /**
+   * @param {InverterCredentials} inverter
+   * @returns {Promise<InverterSession>}
+   */
+  static async create(inverter) {
     try {
       const json = await fetchJson(
         'https://' + inverter.address + '/dyn/login.json',
@@ -50,11 +49,9 @@ export class InverterSession {
       );
       if (json === null) throw new Error('Fetch failed');
       if (json.err === 401) throw new Error('Wrong password');
-      if (json.err === 503) throw new Error(
-        'Login currently unavailable'
-      );
+      if (json.err === 503) throw new Error('Login currently unavailable');
       // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return new InverterSession(inverter.address, json.result.sid);
+      return new InverterSession(inverter.address, json?.result?.sid);
     } catch (error) {
       console.error(
         'Failed logging in at ' + inverter.address + ':',
@@ -64,17 +61,31 @@ export class InverterSession {
     }
   }
 
+  /**
+   * @returns {Promise<SMATranslation|null>}
+   */
   async getTranslations() {
-    return await fetchJson('https://' + this.address + '/data/l10n/de-DE.json');
+    if (this.#translations === null) this.#translations = await fetchJson(
+      'https://' + this.address + '/data/l10n/de-DE.json'
+    );
+    return this.#translations;
   }
 
+  /**
+   * @returns {Promise<SMASimplifiedValues|null>}
+   */
   async getValues() {
-    if (this.sessionId === null) return await fetchJson(
-      'https://' + this.address + '/dyn/getDashValues.json'
-    );
-    /** @type {SMAValues[]} */
+    /** @type {SMAValuesResult[]} */
     const responses = [];
-    await allSettledHandling(
+    /** @type {{[key: string]: SMAValuesPureValue|SMAValuesPureValue[]}} */
+    const result = {};
+    if (this.sessionId === null) {
+      /** @type {SMAValues|null} */
+      const json = await fetchJson(
+        'https://' + this.address + '/dyn/getDashValues.json'
+      );
+      if (json?.result) responses.push(json.result);
+    } else await allSettledHandling(
       [
         fetchJson(
           'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
@@ -87,40 +98,54 @@ export class InverterSession {
           { destDev: [] }
         )
       ],
-      'Failed fetching values',
+      'Values',
       (/** @type {SMAValues} */ json) => {
-        if (json.result) responses.push(json);
+        if (json.result) responses.push(json.result);
       }
     );
+
     if (responses.length === 0) return null;
-    const [result] = responses;
-    const [layerTwoKey] = Object.keys(result.result ?? {});
-    if (result.result) for (
-      const response of responses.slice(1)
-    ) if (response.result) for (
-      const [key, value] of Object.entries(response.result[layerTwoKey])
-    ) result.result[layerTwoKey][key] = value;
-    return result;
+    const [layerTwoKey] = Object.keys(responses[0]);
+    for (const response of responses) for (
+      const [key, value] of Object.entries(response[layerTwoKey])
+    ) if (key in OBJECT_MAP) result[OBJECT_MAP[key]] = parseValues(
+      // eslint-disable-next-line no-await-in-loop
+      await this.getTranslations(),
+      Object.values(value)[0]
+    );
+    // @ts-expect-error
+    return Object.keys(result).length === 0 ? null : result;
   }
 
+  /**
+   * @returns {Promise<SMASimplifiedLogger|null>}
+   */
   async getLogger() {
-    return await fetchJson(
+  /** @type {SMALogger|null} */
+    const json = await fetchJson(
       'https://' + this.address + '/dyn/getDashLogger.json'
+    );
+    if (json === null) return null;
+    // @ts-expect-error
+    return Object.fromEntries(
+      Object.entries(Object.values(json.result)[0])
+        .map(([key, value]) => [LOGGER_MAP[key], Object.values(value)[0]])
     );
   }
 
-  async getLoggerByKeys(
-    /** @type {number[]} */ keys,
-    /** @type {number} */ start,
-    /** @type {number} */ end
-  ) {
+  /**
+   * @param {number[]} keys
+   * @param {number} start
+   * @param {number} end
+   * @returns {Promise<SMASimplifiedLogger|null>}
+   */
+  async #getLoggerByKeys(keys, start, end) {
     if (this.sessionId === null) return null;
     /** @type {{[key: string]: SMALoggerDataPoint[]}} */
     const response = {};
     await allSettledHandling(
       keys.map(key => fetchJson(
-        'https://' + this.address + '/dyn/getLogger.json?sid=' +
-          this.sessionId,
+        'https://' + this.address + '/dyn/getLogger.json?sid=' + this.sessionId,
         {
           destDev: [],
           key,
@@ -128,7 +153,7 @@ export class InverterSession {
           tStart: start
         }
       )),
-      'Failed fetching values',
+      'Loggers',
       (/** @type {SMASingleLogger} */ json, index) => {
         const [layerTwoKey] = Object.keys(json.result);
         if (
@@ -136,23 +161,44 @@ export class InverterSession {
         ) response[LOGGER_MAP[keys[index]]] = json.result[layerTwoKey];
       }
     );
+    // @ts-expect-error
     return Object.keys(response).length === 0 ? null : response;
   }
 
+  /**
+   * @param {number} start
+   * @param {number} end
+   * @returns {Promise<SMASimplifiedLogger|null>}
+   */
   async getExact(/** @type {number} */ start, /** @type {number} */ end) {
-    return await this.getLoggerByKeys(
+    return await this.#getLoggerByKeys(
       [10_016, 28_672, 28_736, 28_816, 29_344, 29_360],
       start,
       end
     );
   }
 
+  /**
+   * @param {number} start
+   * @param {number} end
+   * @returns {Promise<SMASimplifiedLogger|null>}
+   */
   async getDaily(/** @type {number} */ start, /** @type {number} */ end) {
-    return await this.getLoggerByKeys(
+    return await this.#getLoggerByKeys(
       [28_704, 28_752, 28_768, 29_344, 29_360],
       start,
       end
     );
   }
+
+  /**
+   * @returns {Promise<boolean>}
+   */
+  async logout() {
+    const result = await fetchJson(
+      'https://' + this.address + '/dyn/logout.json?sid=' + this.sessionId,
+      {}
+    );
+    return 'result' in result;
+  }
 }
-/* eslint-enable @typescript-eslint/no-unsafe-return */

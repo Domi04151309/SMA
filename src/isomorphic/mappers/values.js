@@ -3,16 +3,15 @@ import {
   getNowResponseTemplate,
   setIfNumber
 } from './utils.js';
-import { fetchValues } from '../fetcher.js';
 
 /**
- * @returns {Promise<NowResponse>}
+ * @param {SMASimplifiedValues[]} values
+ * @returns {NowResponse}
  */
-export async function getNow() {
-  const devices = await fetchValues();
+export function getNow(values) {
   const result = getNowResponseTemplate(Date.now());
   let device = null;
-  for (device of devices) {
+  for (device of values) {
     addIfNumber(result.energy, 'fromBattery', device.BatDsch_BatDsch);
     setIfNumber(result.energy, 'fromGrid', device.Metering_GridMs_TotWhIn);
     addIfNumber(result.energy, 'fromRoof', device.Metering_PvGen_PvWh);
