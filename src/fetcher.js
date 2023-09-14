@@ -110,7 +110,7 @@ export async function fetchValues() {
   /** @type {{[key: string]: unknown[]}} */// eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
   const debugInfo = PRINT_DEBUG_INFO
     ? Object.fromEntries(
-      Object.keys(OBJECT_MAP)
+      Object.values(OBJECT_MAP)
         .sort()
         .map(key => [key, []])
     )
@@ -122,45 +122,42 @@ export async function fetchValues() {
     'Failed fetching data',
     (/** @type {SMAValues} */json, index) => {
       if (!json.result) return;
-      const filteredJson = Object.fromEntries(
-        Object.entries(Object.values(json.result)[0])
-          .map(
-            ([key, value]) => /** @type {[string, SMAValuesPureValue[]]} */ ([
-              key,
-              Object.values(value)[0]?.map(values => values.val)
-            ])
-          )
-          .map(
-            entry => [
-              entry[0],
-              entry[1].map(
-                value => Array.isArray(value) && 'tag' in (value[0] ?? {})
-                  // eslint-disable-next-line no-extra-parens
-                  ? (
-                    index in strings
-                      ? strings[index][value[0]?.tag]
-                      : '#' + value[0]?.tag
-                  )
-                  : value
-              )
-            ]
-          )
-          .map(
-            entry => [entry[0], entry[1].length === 1 ? entry[1][0] : entry[1]]
-          )
-      );
-      const mappedJson = /** @type {SMASimplifiedValues} */(
+      const filteredJson = /** @type {SMASimplifiedValues} */ (
         Object.fromEntries(
-          Object.entries(OBJECT_MAP).map(
-            ([key, value]) => [key, filteredJson[value.obj + '_' + value.lri]]
-          )
+          Object.entries(Object.values(json.result)[0])
+            .map(
+              ([key, value]) => /** @type {[string, SMAValuesPureValue[]]} */ ([
+                key,
+                Object.values(value)[0]?.map(values => values.val)
+              ])
+            )
+            .map(
+              ([key, values]) => [
+                OBJECT_MAP[key] ?? key,
+                values.map(
+                  value => Array.isArray(value) && 'tag' in (value[0] ?? {})
+                    // eslint-disable-next-line no-extra-parens
+                    ? (
+                      index in strings
+                        ? strings[index][value[0]?.tag]
+                        : '#' + value[0]?.tag
+                    )
+                    : value
+                )
+              ]
+            )
+            .map(
+              ([key, values]) => [key, values.length === 1 ? values[0] : values]
+            )
         )
       );
       // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
       if (PRINT_DEBUG_INFO) for (
-        const [key, value] of Object.entries(mappedJson)
-      ) debugInfo[key].push(value);
-      result.push(mappedJson);
+        const key of /** @type {(keyof SMASimplifiedValues)[]} */ (
+          Object.values(OBJECT_MAP)
+        )
+      ) debugInfo[key].push(filteredJson[key]);
+      result.push(filteredJson);
     }
   );
   // eslint-disable-next-line @typescript-eslint/no-unnecessary-condition
