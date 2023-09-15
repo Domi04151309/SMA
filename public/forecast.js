@@ -1,8 +1,8 @@
+import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ForecastSection } from '/components/forecast-section.js';
 import { WeatherSection } from '/components/weather-section.js';
-import { fetchApiData } from '/utils/api.js';
 
-await fetchApiData('/weather', async (/** @type {WeatherResponse} */json) => {
+await fetchWeatherData(async (/** @type {WeatherResponse} */json) => {
   const [main] = document.getElementsByTagName('main');
   const template = document.getElementsByTagName('template')[0].content;
   let maxPower = 0;

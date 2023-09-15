@@ -1,42 +1,35 @@
-import { Settings } from './settings.js';
 import { fetchJson } from './fetch-utils.js';
 
 const HOUR_IN_MILLISECONDS = 3.6e6;
 
 /** @type {WeatherResponse} */
 let weather = {};
+let lastLocation = '';
 let lastRefresh = 0;
 
 /**
+ * @param {string} location
  * @returns {Promise<WeatherResponse>}
  */
-export async function getWeather() {
+export async function getWeather(location) {
   if (
     Object.keys(weather).length > 0 &&
+    location === lastLocation &&
     Date.now() - lastRefresh < HOUR_IN_MILLISECONDS
   ) return weather;
   try {
     const json = await fetchJson('https://wttr.in/' +
-      Settings.getItem('location') + '?lang=de&format=j1');
+      encodeURIComponent(location) + '?lang=de&format=j1');
     if (json === null) throw new Error('Fetch failed');
-    if (Settings.getItem('location').length === 0) {
-      Settings.setItem(
-        'location',
-        [
-          json.nearest_area[0].latitude,
-          json.nearest_area[0].longitude
-        ].join(',')
-      );
-      Settings.save();
-    }
-    // eslint-disable-next-line require-atomic-updates
+    /* eslint-disable require-atomic-updates */
     weather = json;
-    // eslint-disable-next-line require-atomic-updates
+    lastLocation = location;
     lastRefresh = Date.now();
+    /* eslint-enable require-atomic-updates */
     return weather;
   } catch (error) {
     console.error(
-      'Failed getting weather:',
+      'Weather:',
       error instanceof Error ? error.message : error
     );
     return {};
