@@ -27,6 +27,7 @@ async function update(data = null) {
     QuickSection.updateSource(json.power);
     PowerSection.update(json);
     EnergySection.update(json.energy);
+    SourceSection.update(json.energy);
     MoneySection.update(json.energy);
     if (
       data === null &&
@@ -46,7 +47,6 @@ PriceSection.update();
 await Promise.allSettled([
   fetchApiData('/history', async (/** @type {NowResponse[]} */ json) => {
     charts = new DataCharts(json);
-    SourceSection.update(json.at(-1)?.energy);
     await update(json.at(-1));
   }, () => {
     DataCharts.error();

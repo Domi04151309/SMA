@@ -8,8 +8,14 @@ const energyUsed = energySection?.querySelector(
 const energyFromRoofUsed = energySection?.querySelector(
   '.energy-from-roof-used'
 ) ?? null;
+const energyFromRoofUsedPercentage = energySection?.querySelector(
+  '.energy-from-roof-used-percentage'
+) ?? null;
 const energyFromRoofUsedWithBattery = energySection?.querySelector(
   '.energy-from-roof-used-with-battery'
+) ?? null;
+const energyFromRoofUsedWithBatteryPercentage = energySection?.querySelector(
+  '.energy-from-roof-used-with-battery-percentage'
 ) ?? null;
 const energyFromBattery = energySection?.querySelector(
   '.energy-from-battery'
@@ -30,7 +36,9 @@ export const EnergySection = {
       energyFromRoof === null ||
       energyUsed === null ||
       energyFromRoofUsed === null ||
+      energyFromRoofUsedPercentage === null ||
       energyFromRoofUsedWithBattery === null ||
+      energyFromRoofUsedWithBatteryPercentage === null ||
       energyFromBattery === null ||
       energyFromGrid === null ||
       energyToBattery === null ||
@@ -41,12 +49,17 @@ export const EnergySection = {
       json.fromRoof - json.toGrid - json.toBattery +
       json.fromBattery + json.fromGrid
     ).toLocaleString('de');
-    energyFromRoofUsed.textContent = (
-      json.fromRoof - json.toGrid - json.toBattery
-    ).toLocaleString('de');
-    energyFromRoofUsedWithBattery.textContent = (
-      json.fromRoof - json.toGrid
-    ).toLocaleString('de');
+    const fromRoofUsed = json.fromRoof - json.toGrid - json.toBattery;
+    energyFromRoofUsed.textContent = fromRoofUsed.toLocaleString('de');
+    energyFromRoofUsedPercentage.textContent = Math.round(
+      fromRoofUsed / json.fromRoof * 100
+    ).toString();
+    const fromRoofUsedWithBattery = json.fromRoof - json.toGrid;
+    energyFromRoofUsedWithBattery.textContent = fromRoofUsedWithBattery
+      .toLocaleString('de');
+    energyFromRoofUsedWithBatteryPercentage.textContent = Math.round(
+      fromRoofUsedWithBattery / json.fromRoof * 100
+    ).toString();
     energyFromBattery.textContent = json.fromBattery.toLocaleString(
       'de'
     );
