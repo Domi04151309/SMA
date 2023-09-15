@@ -176,17 +176,32 @@ declare interface WeatherHour {
   chanceofsunshine: string,
   cloudcover: string,
   lang_de: WeatherTranslation[],
-  tempC: string,
-  time: string,
-  weatherCode: string
+  time: string
 }
 
-declare interface WeatherResponse {
+declare interface WeatherDay {
   astronomy: Astronomy[],
   date: string,
   hourly: WeatherHour[],
   sunHour: string,
   uvIndex: string
+}
+
+declare interface WeatherArea {
+  latitude: string,
+  longitude: string
+}
+
+declare interface WeatherCondition {
+  lang_de: WeatherTranslation[],
+  temp_C: string,
+  weatherCode: string
+}
+
+declare interface WeatherResponse {
+  current_condition?: WeatherCondition[],
+  nearest_area?: WeatherArea[],
+  weather?: WeatherDay[]
 }
 
 declare interface SMAValuesReference {

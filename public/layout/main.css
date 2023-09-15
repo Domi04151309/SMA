@@ -406,6 +406,10 @@ h2, .match-chart-padding {
     background-repeat: no-repeat;
     background-position: center;
     background-size: 2em;
+    width: 2em;
+  }
+  .icon.cloudy {
+    background-image: url(/images/icons8-cloudy-96.png);
   }
   .icon.sunrise {
     background-image: url(/images/icons8-sunrise-96.png);

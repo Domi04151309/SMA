@@ -1,7 +1,6 @@
 /* global SunCalc */
 import '/suncalc.js';
 import { Chart, commonChartOptions, error } from '/utils/charts.js';
-import { Settings } from '../utils/settings.js';
 
 const INVALID_LAYOUT = 'Invalid layout';
 
@@ -14,7 +13,8 @@ export const WeatherSection = {
   },
   update(
     /** @type {DocumentFragment|Element|null} */ node,
-    /** @type {WeatherResponse} */ json
+    /** @type {WeatherArea} */ location,
+    /** @type {WeatherDay} */ json
   ) {
     if (node === null) throw new Error(INVALID_LAYOUT);
     const sunrise = node.querySelector('.weather-sunrise');
@@ -27,15 +27,18 @@ export const WeatherSection = {
       sunHours === null ||
       uvIndex === null
     ) throw new Error(INVALID_LAYOUT);
-    const location = Settings.getItem('location')
-      ?.split(',', 2)
-      .map(parseFloat) ?? [];
     const date = new Date(json.date);
+    const latitude = parseFloat(location.latitude);
+    const longitude = parseFloat(location.longitude);
     let positions = json.hourly.map(
       hour => {
         date.setHours(parseInt(hour.time, 10) / 100);
         // @ts-expect-error
-        const sunPosition = SunCalc.getPosition(date, ...location).altitude;
+        const sunPosition = SunCalc.getPosition(
+          date,
+          latitude,
+          longitude
+        ).altitude;
         return Math.max(
           0,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument

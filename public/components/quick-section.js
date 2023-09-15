@@ -1,6 +1,5 @@
 /* global SunCalc */
 import '/suncalc.js';
-import { Settings } from '../utils/settings.js';
 
 const sourceIcon = document.querySelector('#quick-source img');
 const sourceLabel = document.querySelector('#quick-source .primary');
@@ -11,27 +10,17 @@ const weatherSecondaryLabel = document.querySelector(
 );
 
 /**
- * @returns {string}
- */
-function getMatchingTime() {
-  const time = new Date();
-  return (
-    Math.floor((time.getHours() + time.getMinutes() / 100) / 3) * 300
-  ).toString();
-}
-
-/**
+ * @param {WeatherArea} location
  * @param {string|undefined} code
  * @returns {string}
  */
-function getWeatherIcon(code) {
+function getWeatherIcon(location, code) {
   if (!code) return 'icons8-loading.gif';
   /* @ts-expect-error */
   const sunPosition = SunCalc.getPosition(
     new Date(),
-    ...Settings.getItem('location')
-      ?.split(',', 2)
-      .map(parseFloat) ?? []
+    parseFloat(location.latitude),
+    parseFloat(location.longitude)
   ).altitude;
   const sunnyIcon = sunPosition >= 0
     ? 'icons8-sunny-96.png'
@@ -228,19 +217,21 @@ export const QuickSection = {
       break;
     }
   },
-  updateWeather(/** @type {WeatherResponse} */ json) {
+  updateWeather(
+    /** @type {WeatherArea} */ location,
+    /** @type {WeatherCondition} */ json
+  ) {
     if (
       weatherIcon === null ||
       weatherLabel === null ||
       weatherSecondaryLabel === null ||
       !(weatherIcon instanceof HTMLImageElement)
     ) throw new Error('Invalid layout');
-    const currentTime = getMatchingTime();
-    const currentState = json.hourly.find(
-      item => item.time === currentTime
+    weatherIcon.src = '/images/' + getWeatherIcon(
+      location,
+      json.weatherCode
     );
-    weatherIcon.src = '/images/' + getWeatherIcon(currentState?.weatherCode);
-    weatherLabel.textContent = currentState?.lang_de[0]?.value ?? '?';
-    weatherSecondaryLabel.textContent = currentState?.tempC ?? '?';
+    weatherLabel.textContent = json.lang_de[0]?.value ?? '?';
+    weatherSecondaryLabel.textContent = json.temp_C;
   }
 };

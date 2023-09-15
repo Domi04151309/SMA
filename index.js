@@ -73,7 +73,10 @@ new Server()
     '/now',
     async () => getNow(await fetchValues(await getInverters()))
   )
-  .registerApiEndpoint('/weather', async () => await getWeather())
+  .registerApiEndpoint(
+    '/weather',
+    async request => await getWeather(request.query.location?.toString() ?? '')
+  )
   .registerTemplatedFile('/', 'index.html')
   .registerTemplatedFile('/forecast', 'forecast.html')
   .registerTemplatedFile('/history', 'history.html')

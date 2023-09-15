@@ -1,7 +1,6 @@
 /* global SunCalc */
 import '/suncalc.js';
 import { Chart, commonChartOptions, error } from '/utils/charts.js';
-import { Settings } from '../utils/settings.js';
 // @ts-expect-error
 import Spline from '/cubic-spline.js';
 
@@ -16,14 +15,14 @@ export const ForecastSection = {
   },
   update(
     /** @type {DocumentFragment|Element|null} */ node,
-    /** @type {WeatherResponse} */ json,
+    /** @type {WeatherArea} */ location,
+    /** @type {WeatherDay} */ json,
     /** @type {number} */ maxPower
   ) {
     if (node === null) throw new Error(INVALID_LAYOUT);
-    const location = Settings.getItem('location')
-      ?.split(',', 2)
-      .map(parseFloat) ?? [];
     const date = new Date(json.date);
+    const latitude = parseFloat(location.latitude);
+    const longitude = parseFloat(location.longitude);
     const spline = new Spline(
       json.hourly.map(hour => parseInt(hour.time, 10) / 100),
       json.hourly.map(
@@ -51,7 +50,7 @@ export const ForecastSection = {
                 return Math.max(
                   0,
                   /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                  SunCalc.getPosition(date, ...location).altitude
+                  SunCalc.getPosition(date, latitude, longitude).altitude
                 ) / (Math.PI / 2) * spline.at(hour) * maxPower;
               }
             )

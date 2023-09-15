@@ -1,8 +1,8 @@
+import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ForecastSection } from '/components/forecast-section.js';
 import { WeatherSection } from '/components/weather-section.js';
-import { fetchApiData } from '/utils/api.js';
 
-await fetchApiData('/weather', async (/** @type {WeatherResponse[]} */json) => {
+await fetchWeatherData(async (/** @type {WeatherResponse} */json) => {
   const [main] = document.getElementsByTagName('main');
   const template = document.getElementsByTagName('template')[0].content;
   let maxPower = 0;
@@ -13,7 +13,9 @@ await fetchApiData('/weather', async (/** @type {WeatherResponse[]} */json) => {
     );
   });
   document.getElementById('loading')?.remove();
-  for (const date of json) {
+  const location = json.nearest_area?.at(0) ?? null;
+  if (location === null) return;
+  for (const date of json.weather ?? []) {
     const clone = template.cloneNode(true);
     if (!(clone instanceof DocumentFragment)) return;
     const title = clone.querySelector('.weather-title');
@@ -22,8 +24,8 @@ await fetchApiData('/weather', async (/** @type {WeatherResponse[]} */json) => {
         'de-DE',
         { day: 'numeric', month: 'long', year: 'numeric' }
       );
-    WeatherSection.update(clone, date);
-    ForecastSection.update(clone, date, maxPower);
+    WeatherSection.update(clone, location, date);
+    ForecastSection.update(clone, location, date, maxPower);
     main.append(clone);
   }
 });

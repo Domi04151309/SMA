@@ -1,4 +1,5 @@
 import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
+import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ConnectionBanner } from '/components/connection-banner.js';
 import { EnergySection } from '/components/energy-section.js';
 import { MoneySection } from '/components/money-section.js';
@@ -7,7 +8,6 @@ import { PriceSection } from '/components/price-section.js';
 import { QuickSection } from '/components/quick-section.js';
 import { SourceSection } from '/components/source-section.js';
 import { WeatherSection } from '/components/weather-section.js';
-import { fetchApiData } from '/utils/api.js';
 
 const LIVE_UPDATE_DELAY = 10_000;
 const CHART_UPDATE_DELAY = 300_000;
@@ -55,9 +55,21 @@ await Promise.allSettled([
   fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
     setBatteryInfo(json.batteries[0]);
   }),
-  fetchApiData('/weather', (/** @type {WeatherResponse[]} */json) => {
-    QuickSection.updateWeather(json[0]);
-    WeatherSection.update(document.getElementById('weather'), json[0]);
+  fetchWeatherData((/** @type {WeatherResponse} */json) => {
+    const location = json.nearest_area?.at(0) ?? null;
+    const currentCondition = json.current_condition?.at(0) ?? null;
+    const todaysWeather = json.weather?.at(0) ?? null;
+    if (location !== null) {
+      if (currentCondition !== null) QuickSection.updateWeather(
+        location,
+        currentCondition
+      );
+      if (todaysWeather !== null) WeatherSection.update(
+        document.getElementById('weather'),
+        location,
+        todaysWeather
+      );
+    }
   }, () => {
     WeatherSection.error(document.getElementById('weather'));
   })

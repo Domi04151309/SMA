@@ -1,9 +1,9 @@
 import { MoneySection } from '/components/money-section.js';
 import { Settings } from '../utils/settings.js';
+import { openModal } from './settings-modal.js';
 
 const energyPriceIn = document.querySelectorAll('.energy-price-in');
 const energyPriceOut = document.querySelectorAll('.energy-price-out');
-const dialog = document.getElementById('input-dialog');
 
 export const PriceSection = {
   update() {
@@ -31,48 +31,6 @@ export const PriceSection = {
     );
   }
 };
-
-/**
- * @param {string} message
- * @param {string|null} initialValue
- * @returns {Promise<string>}
- */
-async function openModal(message, initialValue) {
-  return await new Promise((resolve, reject) => {
-    if (!(dialog instanceof HTMLDialogElement)) {
-      reject(new Error('invalid layout'));
-      return;
-    }
-    const dialogText = dialog.querySelector('p');
-    const dialogInput = dialog.querySelector('input');
-    const cancel = dialog.querySelector('.cancel');
-    const ok = dialog.querySelector('.ok');
-    if (
-      dialogText === null ||
-      dialogInput === null ||
-      cancel === null ||
-      ok === null
-    ) {
-      reject(new Error('invalid layout'));
-      return;
-    }
-    dialogText.textContent = message;
-    dialogInput.value = initialValue ?? '';
-    const closeListener = () => {
-      dialog.close();
-    };
-    const okListener = () => {
-      dialog.close();
-      cancel.removeEventListener('click', closeListener);
-      ok.removeEventListener('click', okListener);
-      resolve(dialogInput.value);
-    };
-    cancel.addEventListener('click', closeListener);
-    ok.addEventListener('click', okListener);
-    dialog.showModal();
-    dialogInput.focus();
-  });
-}
 
 document.getElementById('energy-price-in')?.addEventListener(
   'click',
