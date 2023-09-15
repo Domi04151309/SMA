@@ -13,6 +13,8 @@ await fetchApiData('/weather', async (/** @type {WeatherResponse} */json) => {
     );
   });
   document.getElementById('loading')?.remove();
+  const location = json.nearest_area?.at(0) ?? null;
+  if (location === null) return;
   for (const date of json.weather ?? []) {
     const clone = template.cloneNode(true);
     if (!(clone instanceof DocumentFragment)) return;
@@ -22,8 +24,8 @@ await fetchApiData('/weather', async (/** @type {WeatherResponse} */json) => {
         'de-DE',
         { day: 'numeric', month: 'long', year: 'numeric' }
       );
-    WeatherSection.update(clone, date);
-    ForecastSection.update(clone, date, maxPower);
+    WeatherSection.update(clone, location, date);
+    ForecastSection.update(clone, location, date, maxPower);
     main.append(clone);
   }
 });

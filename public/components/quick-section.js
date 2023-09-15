@@ -1,6 +1,5 @@
 /* global SunCalc */
 import '/suncalc.js';
-import { Settings } from '../utils/settings.js';
 
 const sourceIcon = document.querySelector('#quick-source img');
 const sourceLabel = document.querySelector('#quick-source .primary');
@@ -21,17 +20,17 @@ function getMatchingTime() {
 }
 
 /**
+ * @param {WeatherArea} location
  * @param {string|undefined} code
  * @returns {string}
  */
-function getWeatherIcon(code) {
+function getWeatherIcon(location, code) {
   if (!code) return 'icons8-loading.gif';
   /* @ts-expect-error */
   const sunPosition = SunCalc.getPosition(
     new Date(),
-    ...Settings.getItem('location')
-      ?.split(',', 2)
-      .map(parseFloat) ?? []
+    parseFloat(location.latitude),
+    parseFloat(location.longitude)
   ).altitude;
   const sunnyIcon = sunPosition >= 0
     ? 'icons8-sunny-96.png'
@@ -228,7 +227,10 @@ export const QuickSection = {
       break;
     }
   },
-  updateWeather(/** @type {WeatherDay} */ json) {
+  updateWeather(
+    /** @type {WeatherArea} */ location,
+    /** @type {WeatherDay} */ json
+  ) {
     if (
       weatherIcon === null ||
       weatherLabel === null ||
@@ -239,7 +241,10 @@ export const QuickSection = {
     const currentState = json.hourly.find(
       item => item.time === currentTime
     );
-    weatherIcon.src = '/images/' + getWeatherIcon(currentState?.weatherCode);
+    weatherIcon.src = '/images/' + getWeatherIcon(
+      location,
+      currentState?.weatherCode
+    );
     weatherLabel.textContent = currentState?.lang_de[0]?.value ?? '?';
     weatherSecondaryLabel.textContent = currentState?.tempC ?? '?';
   }

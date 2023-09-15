@@ -189,7 +189,13 @@ declare interface WeatherDay {
   uvIndex: string
 }
 
+declare interface WeatherArea {
+  latitude: string,
+  longitude: string
+}
+
 declare interface WeatherResponse {
+  nearest_area?: WeatherArea[],
   weather?: WeatherDay[]
 }
 

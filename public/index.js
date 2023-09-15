@@ -56,10 +56,15 @@ await Promise.allSettled([
     setBatteryInfo(json.batteries[0]);
   }),
   fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
+    const location = json.nearest_area?.at(0) ?? null;
     const todaysWeather = json.weather?.at(0) ?? null;
-    if (todaysWeather !== null) {
-      QuickSection.updateWeather(todaysWeather);
-      WeatherSection.update(document.getElementById('weather'), todaysWeather);
+    if (location !== null && todaysWeather !== null) {
+      QuickSection.updateWeather(location, todaysWeather);
+      WeatherSection.update(
+        document.getElementById('weather'),
+        location,
+        todaysWeather
+      );
     }
   }, () => {
     WeatherSection.error(document.getElementById('weather'));
