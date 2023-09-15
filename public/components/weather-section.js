@@ -14,7 +14,7 @@ export const WeatherSection = {
   },
   update(
     /** @type {DocumentFragment|Element|null} */ node,
-    /** @type {WeatherResponse} */ json
+    /** @type {WeatherDay} */ json
   ) {
     if (node === null) throw new Error(INVALID_LAYOUT);
     const sunrise = node.querySelector('.weather-sunrise');

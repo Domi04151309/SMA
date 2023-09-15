@@ -16,7 +16,7 @@ export const ForecastSection = {
   },
   update(
     /** @type {DocumentFragment|Element|null} */ node,
-    /** @type {WeatherResponse} */ json,
+    /** @type {WeatherDay} */ json,
     /** @type {number} */ maxPower
   ) {
     if (node === null) throw new Error(INVALID_LAYOUT);

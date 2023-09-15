@@ -55,9 +55,12 @@ await Promise.allSettled([
   fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
     setBatteryInfo(json.batteries[0]);
   }),
-  fetchApiData('/weather', (/** @type {WeatherResponse[]} */json) => {
-    QuickSection.updateWeather(json[0]);
-    WeatherSection.update(document.getElementById('weather'), json[0]);
+  fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
+    const todaysWeather = json.weather?.at(0) ?? null;
+    if (todaysWeather !== null) {
+      QuickSection.updateWeather(todaysWeather);
+      WeatherSection.update(document.getElementById('weather'), todaysWeather);
+    }
   }, () => {
     WeatherSection.error(document.getElementById('weather'));
   })

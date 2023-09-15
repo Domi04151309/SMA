@@ -228,7 +228,7 @@ export const QuickSection = {
       break;
     }
   },
-  updateWeather(/** @type {WeatherResponse} */ json) {
+  updateWeather(/** @type {WeatherDay} */ json) {
     if (
       weatherIcon === null ||
       weatherLabel === null ||

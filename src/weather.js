@@ -3,16 +3,16 @@ import { fetchJson } from './fetch-utils.js';
 
 const HOUR_IN_MILLISECONDS = 3.6e6;
 
-/** @type {WeatherResponse[]} */
-let weather = [];
+/** @type {WeatherResponse} */
+let weather = {};
 let lastRefresh = 0;
 
 /**
- * @returns {Promise<WeatherResponse[]>}
+ * @returns {Promise<WeatherResponse>}
  */
 export async function getWeather() {
   if (
-    weather.length > 0 &&
+    Object.keys(weather).length > 0 &&
     Date.now() - lastRefresh < HOUR_IN_MILLISECONDS
   ) return weather;
   try {
@@ -30,7 +30,7 @@ export async function getWeather() {
       Settings.save();
     }
     // eslint-disable-next-line require-atomic-updates
-    ({ weather } = json);
+    weather = json;
     // eslint-disable-next-line require-atomic-updates
     lastRefresh = Date.now();
     return weather;
@@ -39,6 +39,6 @@ export async function getWeather() {
       'Failed getting weather:',
       error instanceof Error ? error.message : error
     );
-    return [];
+    return {};
   }
 }

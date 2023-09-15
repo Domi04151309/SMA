@@ -181,12 +181,16 @@ declare interface WeatherHour {
   weatherCode: string
 }
 
-declare interface WeatherResponse {
+declare interface WeatherDay {
   astronomy: Astronomy[],
   date: string,
   hourly: WeatherHour[],
   sunHour: string,
   uvIndex: string
+}
+
+declare interface WeatherResponse {
+  weather?: WeatherDay[]
 }
 
 declare interface SMAValuesReference {
