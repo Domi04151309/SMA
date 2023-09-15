@@ -10,16 +10,6 @@ const weatherSecondaryLabel = document.querySelector(
 );
 
 /**
- * @returns {string}
- */
-function getMatchingTime() {
-  const time = new Date();
-  return (
-    Math.floor((time.getHours() + time.getMinutes() / 100) / 3) * 300
-  ).toString();
-}
-
-/**
  * @param {WeatherArea} location
  * @param {string|undefined} code
  * @returns {string}
@@ -229,7 +219,7 @@ export const QuickSection = {
   },
   updateWeather(
     /** @type {WeatherArea} */ location,
-    /** @type {WeatherDay} */ json
+    /** @type {WeatherCondition} */ json
   ) {
     if (
       weatherIcon === null ||
@@ -237,15 +227,11 @@ export const QuickSection = {
       weatherSecondaryLabel === null ||
       !(weatherIcon instanceof HTMLImageElement)
     ) throw new Error('Invalid layout');
-    const currentTime = getMatchingTime();
-    const currentState = json.hourly.find(
-      item => item.time === currentTime
-    );
     weatherIcon.src = '/images/' + getWeatherIcon(
       location,
-      currentState?.weatherCode
+      json.weatherCode
     );
-    weatherLabel.textContent = currentState?.lang_de[0]?.value ?? '?';
-    weatherSecondaryLabel.textContent = currentState?.tempC ?? '?';
+    weatherLabel.textContent = json.lang_de[0]?.value ?? '?';
+    weatherSecondaryLabel.textContent = json.temp_C;
   }
 };

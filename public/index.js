@@ -57,10 +57,14 @@ await Promise.allSettled([
   }),
   fetchApiData('/weather', (/** @type {WeatherResponse} */json) => {
     const location = json.nearest_area?.at(0) ?? null;
+    const currentCondition = json.current_condition?.at(0) ?? null;
     const todaysWeather = json.weather?.at(0) ?? null;
-    if (location !== null && todaysWeather !== null) {
-      QuickSection.updateWeather(location, todaysWeather);
-      WeatherSection.update(
+    if (location !== null) {
+      if (currentCondition !== null) QuickSection.updateWeather(
+        location,
+        currentCondition
+      );
+      if (todaysWeather !== null) WeatherSection.update(
         document.getElementById('weather'),
         location,
         todaysWeather
