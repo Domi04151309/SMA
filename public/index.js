@@ -1,6 +1,8 @@
 import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
 import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ConnectionBanner } from '/components/connection-banner.js';
+import { EcologySection } from '/components/ecology-section.js';
+import { EcologySettings } from '/components/ecology-settings.js';
 import { EconomySection } from '/components/economy-section.js';
 import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
@@ -32,6 +34,7 @@ async function update(data = null) {
     if (sources === null) sources = new SourceSection(json.energy);
     else sources.update(json.energy);
     EconomySection.update(json.energy);
+    EcologySection.update(json.energy);
     if (
       data === null &&
       charts !== null &&
@@ -45,6 +48,7 @@ async function update(data = null) {
   });
 }
 
+EcologySettings.update();
 EconomySettings.update();
 
 await Promise.allSettled([

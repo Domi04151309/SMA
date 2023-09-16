@@ -11,12 +11,8 @@ export const EconomySettings = {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2
     };
-    const energyPriceInValue = parseFloat(
-      Settings.getItem('energyPriceIn') ?? '0'
-    );
-    const energyPriceOutValue = parseFloat(
-      Settings.getItem('energyPriceOut') ?? '0'
-    );
+    const energyPriceInValue = Settings.getNumberItem('energyPriceIn');
+    const energyPriceOutValue = Settings.getNumberItem('energyPriceOut');
     for (
       const element of energyPriceIn
     ) element.textContent = energyPriceInValue.toLocaleString(

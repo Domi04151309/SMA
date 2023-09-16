@@ -1,3 +1,5 @@
+import { EcologySection } from '/components/ecology-section.js';
+import { EcologySettings } from '/components/ecology-settings.js';
 import { EconomySection } from '/components/economy-section.js';
 import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
@@ -86,6 +88,7 @@ async function updateViews() {
       // eslint-disable-next-line no-new
       new SourceSection(difference);
       EconomySection.update(difference);
+      EcologySection.update(difference);
     },
     () => {
       onError();
@@ -124,6 +127,7 @@ async function handleCategoryChange(id) {
 
 await handleCategoryChange('day');
 EconomySettings.update();
+EcologySettings.update();
 for (
   const id of ['day', 'month', 'year']
 ) document.getElementById(id)?.addEventListener(

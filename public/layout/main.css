@@ -411,6 +411,12 @@ h2, .match-chart-padding {
   .icon.cloudy {
     background-image: url(/images/icons8-cloudy-96.png);
   }
+  .icon.tree {
+    background-image: url(/images/icons8-tree-96.png);
+  }
+  .icon.co2 {
+    background-image: url(/images/icons8-co2-96.png);
+  }
   .icon.sunrise {
     background-image: url(/images/icons8-sunrise-96.png);
   }

@@ -1,0 +1,5401 @@
+{
+  "items": [
+    {
+      "indicative_level_high": 265, 
+      "indicative_level_low": 265, 
+      "label": 1, 
+      "member_state": "EU-27", 
+      "year": 2020
+    }, 
+    {
+      "indicative_level_high": 118, 
+      "indicative_level_low": 110, 
+      "label": 2, 
+      "member_state": "EU-27", 
+      "year": 2030
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 10, 
+      "member_state": "Sweden", 
+      "label": 3, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 15, 
+      "member_state": "Sweden", 
+      "label": 4, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 16, 
+      "member_state": "Sweden", 
+      "label": 5, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 18, 
+      "member_state": "Sweden", 
+      "label": 6, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 25, 
+      "member_state": "Sweden", 
+      "label": 7, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 20, 
+      "member_state": "Sweden", 
+      "label": 8, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 47, 
+      "member_state": "Sweden", 
+      "label": 9, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 20, 
+      "member_state": "Sweden", 
+      "label": 10, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 24, 
+      "member_state": "Sweden", 
+      "label": 11, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 19, 
+      "member_state": "Sweden", 
+      "label": 12, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 17, 
+      "member_state": "Sweden", 
+      "label": 13, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 19, 
+      "member_state": "Sweden", 
+      "label": 14, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 24, 
+      "member_state": "Sweden", 
+      "label": 15, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 35, 
+      "member_state": "Sweden", 
+      "label": 16, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 21, 
+      "member_state": "Sweden", 
+      "label": 17, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 17, 
+      "member_state": "Sweden", 
+      "label": 18, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 19, 
+      "member_state": "Sweden", 
+      "label": 19, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 17, 
+      "member_state": "Sweden", 
+      "label": 20, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 17, 
+      "member_state": "Sweden", 
+      "label": 21, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 17, 
+      "member_state": "Sweden", 
+      "label": 22, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 23, 
+      "member_state": "Sweden", 
+      "label": 23, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 16, 
+      "member_state": "Sweden", 
+      "label": 24, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 13, 
+      "member_state": "Sweden", 
+      "label": 25, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 13, 
+      "member_state": "Sweden", 
+      "label": 26, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 11, 
+      "member_state": "Sweden", 
+      "label": 27, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 10, 
+      "member_state": "Sweden", 
+      "label": 28, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 10, 
+      "member_state": "Sweden", 
+      "label": 29, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 10, 
+      "member_state": "Sweden", 
+      "label": 30, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 12, 
+      "member_state": "Sweden", 
+      "label": 31, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 10, 
+      "member_state": "Sweden", 
+      "label": 32, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 8, 
+      "member_state": "Sweden", 
+      "label": 33, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 9, 
+      "member_state": "Sweden", 
+      "label": 34, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 431, 
+      "member_state": "Luxembourg", 
+      "label": 35, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 462, 
+      "member_state": "Luxembourg", 
+      "label": 36, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 527, 
+      "member_state": "Luxembourg", 
+      "label": 37, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 577, 
+      "member_state": "Luxembourg", 
+      "label": 38, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 438, 
+      "member_state": "Luxembourg", 
+      "label": 39, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 956, 
+      "member_state": "Luxembourg", 
+      "label": 40, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 929, 
+      "member_state": "Luxembourg", 
+      "label": 41, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 494, 
+      "member_state": "Luxembourg", 
+      "label": 42, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 345, 
+      "member_state": "Luxembourg", 
+      "label": 43, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 464, 
+      "member_state": "Luxembourg", 
+      "label": 44, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 92, 
+      "member_state": "Luxembourg", 
+      "label": 45, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 163, 
+      "member_state": "Luxembourg", 
+      "label": 46, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 273, 
+      "member_state": "Luxembourg", 
+      "label": 47, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 245, 
+      "member_state": "Luxembourg", 
+      "label": 48, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 266, 
+      "member_state": "Luxembourg", 
+      "label": 49, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 262, 
+      "member_state": "Luxembourg", 
+      "label": 50, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 263, 
+      "member_state": "Luxembourg", 
+      "label": 51, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 262, 
+      "member_state": "Luxembourg", 
+      "label": 52, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 235, 
+      "member_state": "Luxembourg", 
+      "label": 53, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 275, 
+      "member_state": "Luxembourg", 
+      "label": 54, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 227, 
+      "member_state": "Luxembourg", 
+      "label": 55, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 229, 
+      "member_state": "Luxembourg", 
+      "label": 56, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 231, 
+      "member_state": "Luxembourg", 
+      "label": 57, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 180, 
+      "member_state": "Luxembourg", 
+      "label": 58, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 193, 
+      "member_state": "Luxembourg", 
+      "label": 59, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 136, 
+      "member_state": "Luxembourg", 
+      "label": 60, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 69, 
+      "member_state": "Luxembourg", 
+      "label": 61, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 63, 
+      "member_state": "Luxembourg", 
+      "label": 62, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 63, 
+      "member_state": "Luxembourg", 
+      "label": 63, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 71, 
+      "member_state": "Luxembourg", 
+      "label": 64, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 59, 
+      "member_state": "Luxembourg", 
+      "label": 65, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 45, 
+      "member_state": "Luxembourg", 
+      "label": 66, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 210, 
+      "member_state": "France", 
+      "label": 67, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 176, 
+      "member_state": "France", 
+      "label": 68, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 178, 
+      "member_state": "France", 
+      "label": 69, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 166, 
+      "member_state": "France", 
+      "label": 70, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 152, 
+      "member_state": "France", 
+      "label": 71, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 139, 
+      "member_state": "France", 
+      "label": 72, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 139, 
+      "member_state": "France", 
+      "label": 73, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 136, 
+      "member_state": "France", 
+      "label": 74, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 160, 
+      "member_state": "France", 
+      "label": 75, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 114, 
+      "member_state": "France", 
+      "label": 76, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 90, 
+      "member_state": "France", 
+      "label": 77, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 70, 
+      "member_state": "France", 
+      "label": 78, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 75, 
+      "member_state": "France", 
+      "label": 79, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 82, 
+      "member_state": "France", 
+      "label": 80, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 81, 
+      "member_state": "France", 
+      "label": 81, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 102, 
+      "member_state": "France", 
+      "label": 82, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 99, 
+      "member_state": "France", 
+      "label": 83, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 95, 
+      "member_state": "France", 
+      "label": 84, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 86, 
+      "member_state": "France", 
+      "label": 85, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 79, 
+      "member_state": "France", 
+      "label": 86, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 78, 
+      "member_state": "France", 
+      "label": 87, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 71, 
+      "member_state": "France", 
+      "label": 88, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 78, 
+      "member_state": "France", 
+      "label": 89, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 75, 
+      "member_state": "France", 
+      "label": 90, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 57, 
+      "member_state": "France", 
+      "label": 91, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 60, 
+      "member_state": "France", 
+      "label": 92, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 66, 
+      "member_state": "France", 
+      "label": 93, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 75, 
+      "member_state": "France", 
+      "label": 94, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 61, 
+      "member_state": "France", 
+      "label": 95, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 62, 
+      "member_state": "France", 
+      "label": 96, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 57, 
+      "member_state": "France", 
+      "label": 97, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 58, 
+      "member_state": "France", 
+      "label": 98, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 195, 
+      "member_state": "Finland", 
+      "label": 99, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 175, 
+      "member_state": "Finland", 
+      "label": 100, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 155, 
+      "member_state": "Finland", 
+      "label": 101, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 190, 
+      "member_state": "Finland", 
+      "label": 102, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 250, 
+      "member_state": "Finland", 
+      "label": 103, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 223, 
+      "member_state": "Finland", 
+      "label": 104, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 276, 
+      "member_state": "Finland", 
+      "label": 105, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 253, 
+      "member_state": "Finland", 
+      "label": 106, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 205, 
+      "member_state": "Finland", 
+      "label": 107, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 191, 
+      "member_state": "Finland", 
+      "label": 108, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 158, 
+      "member_state": "Finland", 
+      "label": 109, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 203, 
+      "member_state": "Finland", 
+      "label": 110, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 226, 
+      "member_state": "Finland", 
+      "label": 111, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 286, 
+      "member_state": "Finland", 
+      "label": 112, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 239, 
+      "member_state": "Finland", 
+      "label": 113, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 146, 
+      "member_state": "Finland", 
+      "label": 114, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 244, 
+      "member_state": "Finland", 
+      "label": 115, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 220, 
+      "member_state": "Finland", 
+      "label": 116, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 162, 
+      "member_state": "Finland", 
+      "label": 117, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 176, 
+      "member_state": "Finland", 
+      "label": 118, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 215, 
+      "member_state": "Finland", 
+      "label": 119, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 174, 
+      "member_state": "Finland", 
+      "label": 120, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 124, 
+      "member_state": "Finland", 
+      "label": 121, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 158, 
+      "member_state": "Finland", 
+      "label": 122, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 138, 
+      "member_state": "Finland", 
+      "label": 123, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 99, 
+      "member_state": "Finland", 
+      "label": 124, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 107, 
+      "member_state": "Finland", 
+      "label": 125, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 93, 
+      "member_state": "Finland", 
+      "label": 126, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 109, 
+      "member_state": "Finland", 
+      "label": 127, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 85, 
+      "member_state": "Finland", 
+      "label": 128, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 65, 
+      "member_state": "Finland", 
+      "label": 129, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 70, 
+      "member_state": "Finland", 
+      "label": 130, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 232, 
+      "member_state": "Austria", 
+      "label": 131, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 240, 
+      "member_state": "Austria", 
+      "label": 132, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 187, 
+      "member_state": "Austria", 
+      "label": 133, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 172, 
+      "member_state": "Austria", 
+      "label": 134, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 189, 
+      "member_state": "Austria", 
+      "label": 135, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 202, 
+      "member_state": "Austria", 
+      "label": 136, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 206, 
+      "member_state": "Austria", 
+      "label": 137, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 206, 
+      "member_state": "Austria", 
+      "label": 138, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 179, 
+      "member_state": "Austria", 
+      "label": 139, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 163, 
+      "member_state": "Austria", 
+      "label": 140, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 155, 
+      "member_state": "Austria", 
+      "label": 141, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 162, 
+      "member_state": "Austria", 
+      "label": 142, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 154, 
+      "member_state": "Austria", 
+      "label": 143, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 204, 
+      "member_state": "Austria", 
+      "label": 144, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 185, 
+      "member_state": "Austria", 
+      "label": 145, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 180, 
+      "member_state": "Austria", 
+      "label": 146, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 175, 
+      "member_state": "Austria", 
+      "label": 147, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 160, 
+      "member_state": "Austria", 
+      "label": 148, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 146, 
+      "member_state": "Austria", 
+      "label": 149, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 131, 
+      "member_state": "Austria", 
+      "label": 150, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 153, 
+      "member_state": "Austria", 
+      "label": 151, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 160, 
+      "member_state": "Austria", 
+      "label": 152, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 116, 
+      "member_state": "Austria", 
+      "label": 153, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 106, 
+      "member_state": "Austria", 
+      "label": 154, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 92, 
+      "member_state": "Austria", 
+      "label": 155, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 107, 
+      "member_state": "Austria", 
+      "label": 156, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 94, 
+      "member_state": "Austria", 
+      "label": 157, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 103, 
+      "member_state": "Austria", 
+      "label": 158, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 99, 
+      "member_state": "Austria", 
+      "label": 159, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 92, 
+      "member_state": "Austria", 
+      "label": 160, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 79, 
+      "member_state": "Austria", 
+      "label": 161, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 82, 
+      "member_state": "Austria", 
+      "label": 162, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 301, 
+      "member_state": "Latvia", 
+      "label": 163, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 248, 
+      "member_state": "Latvia", 
+      "label": 164, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 273, 
+      "member_state": "Latvia", 
+      "label": 165, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 215, 
+      "member_state": "Latvia", 
+      "label": 166, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 164, 
+      "member_state": "Latvia", 
+      "label": 167, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 108, 
+      "member_state": "Latvia", 
+      "label": 168, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 175, 
+      "member_state": "Latvia", 
+      "label": 169, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 115, 
+      "member_state": "Latvia", 
+      "label": 170, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 96, 
+      "member_state": "Latvia", 
+      "label": 171, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 157, 
+      "member_state": "Latvia", 
+      "label": 172, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 113, 
+      "member_state": "Latvia", 
+      "label": 173, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 110, 
+      "member_state": "Latvia", 
+      "label": 174, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 120, 
+      "member_state": "Latvia", 
+      "label": 175, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 126, 
+      "member_state": "Latvia", 
+      "label": 176, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 89, 
+      "member_state": "Latvia", 
+      "label": 177, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 84, 
+      "member_state": "Latvia", 
+      "label": 178, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 107, 
+      "member_state": "Latvia", 
+      "label": 179, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 100, 
+      "member_state": "Latvia", 
+      "label": 180, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 109, 
+      "member_state": "Latvia", 
+      "label": 181, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 96, 
+      "member_state": "Latvia", 
+      "label": 182, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 119, 
+      "member_state": "Latvia", 
+      "label": 183, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 129, 
+      "member_state": "Latvia", 
+      "label": 184, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 89, 
+      "member_state": "Latvia", 
+      "label": 185, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 126, 
+      "member_state": "Latvia", 
+      "label": 186, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 126, 
+      "member_state": "Latvia", 
+      "label": 187, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 146, 
+      "member_state": "Latvia", 
+      "label": 188, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 115, 
+      "member_state": "Latvia", 
+      "label": 189, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 64, 
+      "member_state": "Latvia", 
+      "label": 190, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 137, 
+      "member_state": "Latvia", 
+      "label": 191, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 150, 
+      "member_state": "Latvia", 
+      "label": 192, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 102, 
+      "member_state": "Latvia", 
+      "label": 193, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 106, 
+      "member_state": "Latvia", 
+      "label": 194, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 467, 
+      "member_state": "Slovakia", 
+      "label": 195, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 412, 
+      "member_state": "Slovakia", 
+      "label": 196, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 345, 
+      "member_state": "Slovakia", 
+      "label": 197, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 330, 
+      "member_state": "Slovakia", 
+      "label": 198, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 279, 
+      "member_state": "Slovakia", 
+      "label": 199, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 256, 
+      "member_state": "Slovakia", 
+      "label": 200, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 254, 
+      "member_state": "Slovakia", 
+      "label": 201, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 271, 
+      "member_state": "Slovakia", 
+      "label": 202, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 247, 
+      "member_state": "Slovakia", 
+      "label": 203, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 220, 
+      "member_state": "Slovakia", 
+      "label": 204, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 210, 
+      "member_state": "Slovakia", 
+      "label": 205, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 214, 
+      "member_state": "Slovakia", 
+      "label": 206, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 202, 
+      "member_state": "Slovakia", 
+      "label": 207, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 217, 
+      "member_state": "Slovakia", 
+      "label": 208, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 221, 
+      "member_state": "Slovakia", 
+      "label": 209, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 193, 
+      "member_state": "Slovakia", 
+      "label": 210, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 183, 
+      "member_state": "Slovakia", 
+      "label": 211, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 185, 
+      "member_state": "Slovakia", 
+      "label": 212, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 188, 
+      "member_state": "Slovakia", 
+      "label": 213, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 166, 
+      "member_state": "Slovakia", 
+      "label": 214, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 141, 
+      "member_state": "Slovakia", 
+      "label": 215, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 152, 
+      "member_state": "Slovakia", 
+      "label": 216, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 149, 
+      "member_state": "Slovakia", 
+      "label": 217, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 131, 
+      "member_state": "Slovakia", 
+      "label": 218, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 118, 
+      "member_state": "Slovakia", 
+      "label": 219, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 125, 
+      "member_state": "Slovakia", 
+      "label": 220, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 117, 
+      "member_state": "Slovakia", 
+      "label": 221, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 112, 
+      "member_state": "Slovakia", 
+      "label": 222, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 134, 
+      "member_state": "Slovakia", 
+      "label": 223, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 120, 
+      "member_state": "Slovakia", 
+      "label": 224, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 104, 
+      "member_state": "Slovakia", 
+      "label": 225, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 113, 
+      "member_state": "Slovakia", 
+      "label": 226, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 686, 
+      "member_state": "Denmark", 
+      "label": 227, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 707, 
+      "member_state": "Denmark", 
+      "label": 228, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 677, 
+      "member_state": "Denmark", 
+      "label": 229, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 643, 
+      "member_state": "Denmark", 
+      "label": 230, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 643, 
+      "member_state": "Denmark", 
+      "label": 231, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 618, 
+      "member_state": "Denmark", 
+      "label": 232, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 638, 
+      "member_state": "Denmark", 
+      "label": 233, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 587, 
+      "member_state": "Denmark", 
+      "label": 234, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 550, 
+      "member_state": "Denmark", 
+      "label": 235, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 518, 
+      "member_state": "Denmark", 
+      "label": 236, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 488, 
+      "member_state": "Denmark", 
+      "label": 237, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 480, 
+      "member_state": "Denmark", 
+      "label": 238, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 471, 
+      "member_state": "Denmark", 
+      "label": 239, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 497, 
+      "member_state": "Denmark", 
+      "label": 240, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 431, 
+      "member_state": "Denmark", 
+      "label": 241, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 397, 
+      "member_state": "Denmark", 
+      "label": 242, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 481, 
+      "member_state": "Denmark", 
+      "label": 243, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 448, 
+      "member_state": "Denmark", 
+      "label": 244, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 420, 
+      "member_state": "Denmark", 
+      "label": 245, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 420, 
+      "member_state": "Denmark", 
+      "label": 246, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 375, 
+      "member_state": "Denmark", 
+      "label": 247, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 337, 
+      "member_state": "Denmark", 
+      "label": 248, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 285, 
+      "member_state": "Denmark", 
+      "label": 249, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 319, 
+      "member_state": "Denmark", 
+      "label": 250, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 275, 
+      "member_state": "Denmark", 
+      "label": 251, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 197, 
+      "member_state": "Denmark", 
+      "label": 252, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 228, 
+      "member_state": "Denmark", 
+      "label": 253, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 175, 
+      "member_state": "Denmark", 
+      "label": 254, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 187, 
+      "member_state": "Denmark", 
+      "label": 255, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 114, 
+      "member_state": "Denmark", 
+      "label": 256, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 112, 
+      "member_state": "Denmark", 
+      "label": 257, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 123, 
+      "member_state": "Denmark", 
+      "label": 258, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 183, 
+      "member_state": "Lithuania", 
+      "label": 259, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 185, 
+      "member_state": "Lithuania", 
+      "label": 260, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 109, 
+      "member_state": "Lithuania", 
+      "label": 261, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 85, 
+      "member_state": "Lithuania", 
+      "label": 262, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 99, 
+      "member_state": "Lithuania", 
+      "label": 263, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 56, 
+      "member_state": "Lithuania", 
+      "label": 264, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 90, 
+      "member_state": "Lithuania", 
+      "label": 265, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 75, 
+      "member_state": "Lithuania", 
+      "label": 266, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 104, 
+      "member_state": "Lithuania", 
+      "label": 267, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 110, 
+      "member_state": "Lithuania", 
+      "label": 268, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 94, 
+      "member_state": "Lithuania", 
+      "label": 269, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 80, 
+      "member_state": "Lithuania", 
+      "label": 270, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 66, 
+      "member_state": "Lithuania", 
+      "label": 271, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 60, 
+      "member_state": "Lithuania", 
+      "label": 272, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 63, 
+      "member_state": "Lithuania", 
+      "label": 273, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 98, 
+      "member_state": "Lithuania", 
+      "label": 274, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 98, 
+      "member_state": "Lithuania", 
+      "label": 275, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 82, 
+      "member_state": "Lithuania", 
+      "label": 276, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 76, 
+      "member_state": "Lithuania", 
+      "label": 277, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 78, 
+      "member_state": "Lithuania", 
+      "label": 278, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 308, 
+      "member_state": "Lithuania", 
+      "label": 279, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 240, 
+      "member_state": "Lithuania", 
+      "label": 280, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 251, 
+      "member_state": "Lithuania", 
+      "label": 281, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 184, 
+      "member_state": "Lithuania", 
+      "label": 282, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 178, 
+      "member_state": "Lithuania", 
+      "label": 283, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 185, 
+      "member_state": "Lithuania", 
+      "label": 284, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 143, 
+      "member_state": "Lithuania", 
+      "label": 285, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 84, 
+      "member_state": "Lithuania", 
+      "label": 286, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 54, 
+      "member_state": "Lithuania", 
+      "label": 287, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 73, 
+      "member_state": "Lithuania", 
+      "label": 288, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 164, 
+      "member_state": "Lithuania", 
+      "label": 289, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 127, 
+      "member_state": "Lithuania", 
+      "label": 290, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 332, 
+      "member_state": "Croatia", 
+      "label": 291, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 198, 
+      "member_state": "Croatia", 
+      "label": 292, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 314, 
+      "member_state": "Croatia", 
+      "label": 293, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 329, 
+      "member_state": "Croatia", 
+      "label": 294, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 221, 
+      "member_state": "Croatia", 
+      "label": 295, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 246, 
+      "member_state": "Croatia", 
+      "label": 296, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 186, 
+      "member_state": "Croatia", 
+      "label": 297, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 281, 
+      "member_state": "Croatia", 
+      "label": 298, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 315, 
+      "member_state": "Croatia", 
+      "label": 299, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 286, 
+      "member_state": "Croatia", 
+      "label": 300, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 278, 
+      "member_state": "Croatia", 
+      "label": 301, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 296, 
+      "member_state": "Croatia", 
+      "label": 302, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 353, 
+      "member_state": "Croatia", 
+      "label": 303, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 384, 
+      "member_state": "Croatia", 
+      "label": 304, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 279, 
+      "member_state": "Croatia", 
+      "label": 305, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 294, 
+      "member_state": "Croatia", 
+      "label": 306, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 304, 
+      "member_state": "Croatia", 
+      "label": 307, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 389, 
+      "member_state": "Croatia", 
+      "label": 308, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 336, 
+      "member_state": "Croatia", 
+      "label": 309, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 263, 
+      "member_state": "Croatia", 
+      "label": 310, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 209, 
+      "member_state": "Croatia", 
+      "label": 311, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 295, 
+      "member_state": "Croatia", 
+      "label": 312, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 280, 
+      "member_state": "Croatia", 
+      "label": 313, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 197, 
+      "member_state": "Croatia", 
+      "label": 314, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 168, 
+      "member_state": "Croatia", 
+      "label": 315, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 202, 
+      "member_state": "Croatia", 
+      "label": 316, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 204, 
+      "member_state": "Croatia", 
+      "label": 317, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 188, 
+      "member_state": "Croatia", 
+      "label": 318, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 130, 
+      "member_state": "Croatia", 
+      "label": 319, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 163, 
+      "member_state": "Croatia", 
+      "label": 320, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 155, 
+      "member_state": "Croatia", 
+      "label": 321, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 138, 
+      "member_state": "Croatia", 
+      "label": 322, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 353, 
+      "member_state": "Belgium", 
+      "label": 323, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 356, 
+      "member_state": "Belgium", 
+      "label": 324, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 343, 
+      "member_state": "Belgium", 
+      "label": 325, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 350, 
+      "member_state": "Belgium", 
+      "label": 326, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 359, 
+      "member_state": "Belgium", 
+      "label": 327, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 347, 
+      "member_state": "Belgium", 
+      "label": 328, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 320, 
+      "member_state": "Belgium", 
+      "label": 329, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 291, 
+      "member_state": "Belgium", 
+      "label": 330, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 312, 
+      "member_state": "Belgium", 
+      "label": 331, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 259, 
+      "member_state": "Belgium", 
+      "label": 332, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 267, 
+      "member_state": "Belgium", 
+      "label": 333, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 251, 
+      "member_state": "Belgium", 
+      "label": 334, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 259, 
+      "member_state": "Belgium", 
+      "label": 335, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 260, 
+      "member_state": "Belgium", 
+      "label": 336, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 261, 
+      "member_state": "Belgium", 
+      "label": 337, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 258, 
+      "member_state": "Belgium", 
+      "label": 338, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 247, 
+      "member_state": "Belgium", 
+      "label": 339, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 236, 
+      "member_state": "Belgium", 
+      "label": 340, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 230, 
+      "member_state": "Belgium", 
+      "label": 341, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 211, 
+      "member_state": "Belgium", 
+      "label": 342, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 209, 
+      "member_state": "Belgium", 
+      "label": 343, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 186, 
+      "member_state": "Belgium", 
+      "label": 344, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 199, 
+      "member_state": "Belgium", 
+      "label": 345, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 184, 
+      "member_state": "Belgium", 
+      "label": 346, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 166, 
+      "member_state": "Belgium", 
+      "label": 347, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 220, 
+      "member_state": "Belgium", 
+      "label": 348, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 162, 
+      "member_state": "Belgium", 
+      "label": 349, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 170, 
+      "member_state": "Belgium", 
+      "label": 350, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 199, 
+      "member_state": "Belgium", 
+      "label": 351, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 170, 
+      "member_state": "Belgium", 
+      "label": 352, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 167, 
+      "member_state": "Belgium", 
+      "label": 353, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 139, 
+      "member_state": "Belgium", 
+      "label": 354, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 449, 
+      "member_state": "Spain", 
+      "label": 355, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 444, 
+      "member_state": "Spain", 
+      "label": 356, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 485, 
+      "member_state": "Spain", 
+      "label": 357, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 457, 
+      "member_state": "Spain", 
+      "label": 358, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 450, 
+      "member_state": "Spain", 
+      "label": 359, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 496, 
+      "member_state": "Spain", 
+      "label": 360, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 388, 
+      "member_state": "Spain", 
+      "label": 361, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 428, 
+      "member_state": "Spain", 
+      "label": 362, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 425, 
+      "member_state": "Spain", 
+      "label": 363, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 501, 
+      "member_state": "Spain", 
+      "label": 364, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 467, 
+      "member_state": "Spain", 
+      "label": 365, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 417, 
+      "member_state": "Spain", 
+      "label": 366, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 468, 
+      "member_state": "Spain", 
+      "label": 367, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 413, 
+      "member_state": "Spain", 
+      "label": 368, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 423, 
+      "member_state": "Spain", 
+      "label": 369, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 440, 
+      "member_state": "Spain", 
+      "label": 370, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 398, 
+      "member_state": "Spain", 
+      "label": 371, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 411, 
+      "member_state": "Spain", 
+      "label": 372, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 348, 
+      "member_state": "Spain", 
+      "label": 373, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 318, 
+      "member_state": "Spain", 
+      "label": 374, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 257, 
+      "member_state": "Spain", 
+      "label": 375, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 319, 
+      "member_state": "Spain", 
+      "label": 376, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 333, 
+      "member_state": "Spain", 
+      "label": 377, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 271, 
+      "member_state": "Spain", 
+      "label": 378, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 280, 
+      "member_state": "Spain", 
+      "label": 379, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 318, 
+      "member_state": "Spain", 
+      "label": 380, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 266, 
+      "member_state": "Spain", 
+      "label": 381, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 306, 
+      "member_state": "Spain", 
+      "label": 382, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 276, 
+      "member_state": "Spain", 
+      "label": 383, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 215, 
+      "member_state": "Spain", 
+      "label": 384, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 177, 
+      "member_state": "Spain", 
+      "label": 385, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 165, 
+      "member_state": "Spain", 
+      "label": 386, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 519, 
+      "member_state": "Portugal", 
+      "label": 387, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 526, 
+      "member_state": "Portugal", 
+      "label": 388, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 621, 
+      "member_state": "Portugal", 
+      "label": 389, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 543, 
+      "member_state": "Portugal", 
+      "label": 390, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 506, 
+      "member_state": "Portugal", 
+      "label": 391, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 573, 
+      "member_state": "Portugal", 
+      "label": 392, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 436, 
+      "member_state": "Portugal", 
+      "label": 393, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 466, 
+      "member_state": "Portugal", 
+      "label": 394, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 474, 
+      "member_state": "Portugal", 
+      "label": 395, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 576, 
+      "member_state": "Portugal", 
+      "label": 396, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 482, 
+      "member_state": "Portugal", 
+      "label": 397, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 459, 
+      "member_state": "Portugal", 
+      "label": 398, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 537, 
+      "member_state": "Portugal", 
+      "label": 399, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 437, 
+      "member_state": "Portugal", 
+      "label": 400, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 481, 
+      "member_state": "Portugal", 
+      "label": 401, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 532, 
+      "member_state": "Portugal", 
+      "label": 402, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 447, 
+      "member_state": "Portugal", 
+      "label": 403, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 418, 
+      "member_state": "Portugal", 
+      "label": 404, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 413, 
+      "member_state": "Portugal", 
+      "label": 405, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 389, 
+      "member_state": "Portugal", 
+      "label": 406, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 277, 
+      "member_state": "Portugal", 
+      "label": 407, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 328, 
+      "member_state": "Portugal", 
+      "label": 408, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 392, 
+      "member_state": "Portugal", 
+      "label": 409, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 312, 
+      "member_state": "Portugal", 
+      "label": 410, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 294, 
+      "member_state": "Portugal", 
+      "label": 411, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 360, 
+      "member_state": "Portugal", 
+      "label": 412, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 292, 
+      "member_state": "Portugal", 
+      "label": 413, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 359, 
+      "member_state": "Portugal", 
+      "label": 414, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 306, 
+      "member_state": "Portugal", 
+      "label": 415, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 251, 
+      "member_state": "Portugal", 
+      "label": 416, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 200, 
+      "member_state": "Portugal", 
+      "label": 417, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 167, 
+      "member_state": "Portugal", 
+      "label": 418, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 484, 
+      "member_state": "Hungary", 
+      "label": 419, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 486, 
+      "member_state": "Hungary", 
+      "label": 420, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 504, 
+      "member_state": "Hungary", 
+      "label": 421, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 495, 
+      "member_state": "Hungary", 
+      "label": 422, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 475, 
+      "member_state": "Hungary", 
+      "label": 423, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 480, 
+      "member_state": "Hungary", 
+      "label": 424, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 476, 
+      "member_state": "Hungary", 
+      "label": 425, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 472, 
+      "member_state": "Hungary", 
+      "label": 426, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 483, 
+      "member_state": "Hungary", 
+      "label": 427, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 468, 
+      "member_state": "Hungary", 
+      "label": 428, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 447, 
+      "member_state": "Hungary", 
+      "label": 429, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 445, 
+      "member_state": "Hungary", 
+      "label": 430, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 436, 
+      "member_state": "Hungary", 
+      "label": 431, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 480, 
+      "member_state": "Hungary", 
+      "label": 432, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 438, 
+      "member_state": "Hungary", 
+      "label": 433, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 363, 
+      "member_state": "Hungary", 
+      "label": 434, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 366, 
+      "member_state": "Hungary", 
+      "label": 435, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 364, 
+      "member_state": "Hungary", 
+      "label": 436, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 353, 
+      "member_state": "Hungary", 
+      "label": 437, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 310, 
+      "member_state": "Hungary", 
+      "label": 438, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 306, 
+      "member_state": "Hungary", 
+      "label": 439, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 314, 
+      "member_state": "Hungary", 
+      "label": 440, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 319, 
+      "member_state": "Hungary", 
+      "label": 441, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 279, 
+      "member_state": "Hungary", 
+      "label": 442, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 262, 
+      "member_state": "Hungary", 
+      "label": 443, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 262, 
+      "member_state": "Hungary", 
+      "label": 444, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 252, 
+      "member_state": "Hungary", 
+      "label": 445, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 265, 
+      "member_state": "Hungary", 
+      "label": 446, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 250, 
+      "member_state": "Hungary", 
+      "label": 447, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 227, 
+      "member_state": "Hungary", 
+      "label": 448, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 215, 
+      "member_state": "Hungary", 
+      "label": 449, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 188, 
+      "member_state": "Hungary", 
+      "label": 450, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 477, 
+      "member_state": "Slovenia", 
+      "label": 451, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 366, 
+      "member_state": "Slovenia", 
+      "label": 452, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 440, 
+      "member_state": "Slovenia", 
+      "label": 453, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 434, 
+      "member_state": "Slovenia", 
+      "label": 454, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 392, 
+      "member_state": "Slovenia", 
+      "label": 455, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 398, 
+      "member_state": "Slovenia", 
+      "label": 456, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 359, 
+      "member_state": "Slovenia", 
+      "label": 457, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 378, 
+      "member_state": "Slovenia", 
+      "label": 458, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 390, 
+      "member_state": "Slovenia", 
+      "label": 459, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 343, 
+      "member_state": "Slovenia", 
+      "label": 460, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 353, 
+      "member_state": "Slovenia", 
+      "label": 461, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 379, 
+      "member_state": "Slovenia", 
+      "label": 462, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 394, 
+      "member_state": "Slovenia", 
+      "label": 463, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 385, 
+      "member_state": "Slovenia", 
+      "label": 464, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 363, 
+      "member_state": "Slovenia", 
+      "label": 465, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 362, 
+      "member_state": "Slovenia", 
+      "label": 466, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 368, 
+      "member_state": "Slovenia", 
+      "label": 467, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 392, 
+      "member_state": "Slovenia", 
+      "label": 468, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 343, 
+      "member_state": "Slovenia", 
+      "label": 469, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 329, 
+      "member_state": "Slovenia", 
+      "label": 470, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 334, 
+      "member_state": "Slovenia", 
+      "label": 471, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 343, 
+      "member_state": "Slovenia", 
+      "label": 472, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 332, 
+      "member_state": "Slovenia", 
+      "label": 473, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 308, 
+      "member_state": "Slovenia", 
+      "label": 474, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 218, 
+      "member_state": "Slovenia", 
+      "label": 475, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 257, 
+      "member_state": "Slovenia", 
+      "label": 476, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 253, 
+      "member_state": "Slovenia", 
+      "label": 477, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 255, 
+      "member_state": "Slovenia", 
+      "label": 478, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 247, 
+      "member_state": "Slovenia", 
+      "label": 479, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 238, 
+      "member_state": "Slovenia", 
+      "label": 480, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 220, 
+      "member_state": "Slovenia", 
+      "label": 481, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 211, 
+      "member_state": "Slovenia", 
+      "label": 482, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 754, 
+      "member_state": "Romania", 
+      "label": 483, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 793, 
+      "member_state": "Romania", 
+      "label": 484, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 546, 
+      "member_state": "Romania", 
+      "label": 485, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 608, 
+      "member_state": "Romania", 
+      "label": 486, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 669, 
+      "member_state": "Romania", 
+      "label": 487, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 588, 
+      "member_state": "Romania", 
+      "label": 488, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 591, 
+      "member_state": "Romania", 
+      "label": 489, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 461, 
+      "member_state": "Romania", 
+      "label": 490, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 403, 
+      "member_state": "Romania", 
+      "label": 491, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 396, 
+      "member_state": "Romania", 
+      "label": 492, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 457, 
+      "member_state": "Romania", 
+      "label": 493, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 453, 
+      "member_state": "Romania", 
+      "label": 494, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 449, 
+      "member_state": "Romania", 
+      "label": 495, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 512, 
+      "member_state": "Romania", 
+      "label": 496, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 443, 
+      "member_state": "Romania", 
+      "label": 497, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 389, 
+      "member_state": "Romania", 
+      "label": 498, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 419, 
+      "member_state": "Romania", 
+      "label": 499, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 495, 
+      "member_state": "Romania", 
+      "label": 500, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 509, 
+      "member_state": "Romania", 
+      "label": 501, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 449, 
+      "member_state": "Romania", 
+      "label": 502, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 371, 
+      "member_state": "Romania", 
+      "label": 503, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 454, 
+      "member_state": "Romania", 
+      "label": 504, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 459, 
+      "member_state": "Romania", 
+      "label": 505, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 364, 
+      "member_state": "Romania", 
+      "label": 506, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 327, 
+      "member_state": "Romania", 
+      "label": 507, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 347, 
+      "member_state": "Romania", 
+      "label": 508, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 314, 
+      "member_state": "Romania", 
+      "label": 509, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 332, 
+      "member_state": "Romania", 
+      "label": 510, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 319, 
+      "member_state": "Romania", 
+      "label": 511, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 294, 
+      "member_state": "Romania", 
+      "label": 512, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 254, 
+      "member_state": "Romania", 
+      "label": 513, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 212, 
+      "member_state": "Romania", 
+      "label": 514, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 562, 
+      "member_state": "Italy", 
+      "label": 515, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 536, 
+      "member_state": "Italy", 
+      "label": 516, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 525, 
+      "member_state": "Italy", 
+      "label": 517, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 518, 
+      "member_state": "Italy", 
+      "label": 518, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 512, 
+      "member_state": "Italy", 
+      "label": 519, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 541, 
+      "member_state": "Italy", 
+      "label": 520, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 521, 
+      "member_state": "Italy", 
+      "label": 521, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 512, 
+      "member_state": "Italy", 
+      "label": 522, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 513, 
+      "member_state": "Italy", 
+      "label": 523, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 495, 
+      "member_state": "Italy", 
+      "label": 524, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 397, 
+      "member_state": "Italy", 
+      "label": 525, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 385, 
+      "member_state": "Italy", 
+      "label": 526, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 408, 
+      "member_state": "Italy", 
+      "label": 527, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 445, 
+      "member_state": "Italy", 
+      "label": 528, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 414, 
+      "member_state": "Italy", 
+      "label": 529, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 397, 
+      "member_state": "Italy", 
+      "label": 530, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 388, 
+      "member_state": "Italy", 
+      "label": 531, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 380, 
+      "member_state": "Italy", 
+      "label": 532, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 370, 
+      "member_state": "Italy", 
+      "label": 533, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 352, 
+      "member_state": "Italy", 
+      "label": 534, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 337, 
+      "member_state": "Italy", 
+      "label": 535, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 326, 
+      "member_state": "Italy", 
+      "label": 536, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 310, 
+      "member_state": "Italy", 
+      "label": 537, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 271, 
+      "member_state": "Italy", 
+      "label": 538, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 256, 
+      "member_state": "Italy", 
+      "label": 539, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 282, 
+      "member_state": "Italy", 
+      "label": 540, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 262, 
+      "member_state": "Italy", 
+      "label": 541, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 263, 
+      "member_state": "Italy", 
+      "label": 542, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 247, 
+      "member_state": "Italy", 
+      "label": 543, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 232, 
+      "member_state": "Italy", 
+      "label": 544, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 215, 
+      "member_state": "Italy", 
+      "label": 545, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 234, 
+      "member_state": "Italy", 
+      "label": 546, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 768, 
+      "member_state": "Ireland", 
+      "label": 547, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 767, 
+      "member_state": "Ireland", 
+      "label": 548, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 768, 
+      "member_state": "Ireland", 
+      "label": 549, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 752, 
+      "member_state": "Ireland", 
+      "label": 550, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 740, 
+      "member_state": "Ireland", 
+      "label": 551, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 748, 
+      "member_state": "Ireland", 
+      "label": 552, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 734, 
+      "member_state": "Ireland", 
+      "label": 553, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 739, 
+      "member_state": "Ireland", 
+      "label": 554, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 716, 
+      "member_state": "Ireland", 
+      "label": 555, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 719, 
+      "member_state": "Ireland", 
+      "label": 556, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 674, 
+      "member_state": "Ireland", 
+      "label": 557, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 694, 
+      "member_state": "Ireland", 
+      "label": 558, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 650, 
+      "member_state": "Ireland", 
+      "label": 559, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 618, 
+      "member_state": "Ireland", 
+      "label": 560, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 595, 
+      "member_state": "Ireland", 
+      "label": 561, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 601, 
+      "member_state": "Ireland", 
+      "label": 562, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 552, 
+      "member_state": "Ireland", 
+      "label": 563, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 517, 
+      "member_state": "Ireland", 
+      "label": 564, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 494, 
+      "member_state": "Ireland", 
+      "label": 565, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 474, 
+      "member_state": "Ireland", 
+      "label": 566, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 485, 
+      "member_state": "Ireland", 
+      "label": 567, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 456, 
+      "member_state": "Ireland", 
+      "label": 568, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 487, 
+      "member_state": "Ireland", 
+      "label": 569, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 461, 
+      "member_state": "Ireland", 
+      "label": 570, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 450, 
+      "member_state": "Ireland", 
+      "label": 571, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 436, 
+      "member_state": "Ireland", 
+      "label": 572, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 429, 
+      "member_state": "Ireland", 
+      "label": 573, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 398, 
+      "member_state": "Ireland", 
+      "label": 574, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 353, 
+      "member_state": "Ireland", 
+      "label": 575, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 315, 
+      "member_state": "Ireland", 
+      "label": 576, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 281, 
+      "member_state": "Ireland", 
+      "label": 577, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 332, 
+      "member_state": "Ireland", 
+      "label": 578, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 607, 
+      "member_state": "Netherlands", 
+      "label": 579, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 584, 
+      "member_state": "Netherlands", 
+      "label": 580, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 574, 
+      "member_state": "Netherlands", 
+      "label": 581, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 576, 
+      "member_state": "Netherlands", 
+      "label": 582, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 583, 
+      "member_state": "Netherlands", 
+      "label": 583, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 571, 
+      "member_state": "Netherlands", 
+      "label": 584, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 544, 
+      "member_state": "Netherlands", 
+      "label": 585, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 542, 
+      "member_state": "Netherlands", 
+      "label": 586, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 523, 
+      "member_state": "Netherlands", 
+      "label": 587, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 506, 
+      "member_state": "Netherlands", 
+      "label": 588, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 503, 
+      "member_state": "Netherlands", 
+      "label": 589, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 525, 
+      "member_state": "Netherlands", 
+      "label": 590, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 516, 
+      "member_state": "Netherlands", 
+      "label": 591, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 520, 
+      "member_state": "Netherlands", 
+      "label": 592, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 505, 
+      "member_state": "Netherlands", 
+      "label": 593, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 492, 
+      "member_state": "Netherlands", 
+      "label": 594, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 480, 
+      "member_state": "Netherlands", 
+      "label": 595, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 484, 
+      "member_state": "Netherlands", 
+      "label": 596, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 478, 
+      "member_state": "Netherlands", 
+      "label": 597, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 445, 
+      "member_state": "Netherlands", 
+      "label": 598, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 441, 
+      "member_state": "Netherlands", 
+      "label": 599, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 428, 
+      "member_state": "Netherlands", 
+      "label": 600, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 452, 
+      "member_state": "Netherlands", 
+      "label": 601, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 466, 
+      "member_state": "Netherlands", 
+      "label": 602, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 493, 
+      "member_state": "Netherlands", 
+      "label": 603, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 524, 
+      "member_state": "Netherlands", 
+      "label": 604, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 492, 
+      "member_state": "Netherlands", 
+      "label": 605, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 461, 
+      "member_state": "Netherlands", 
+      "label": 606, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 440, 
+      "member_state": "Netherlands", 
+      "label": 607, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 390, 
+      "member_state": "Netherlands", 
+      "label": 608, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 333, 
+      "member_state": "Netherlands", 
+      "label": 609, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 339, 
+      "member_state": "Netherlands", 
+      "label": 610, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 652, 
+      "member_state": "Germany", 
+      "label": 611, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 656, 
+      "member_state": "Germany", 
+      "label": 612, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 628, 
+      "member_state": "Germany", 
+      "label": 613, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 620, 
+      "member_state": "Germany", 
+      "label": 614, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 616, 
+      "member_state": "Germany", 
+      "label": 615, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 594, 
+      "member_state": "Germany", 
+      "label": 616, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 580, 
+      "member_state": "Germany", 
+      "label": 617, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 566, 
+      "member_state": "Germany", 
+      "label": 618, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 569, 
+      "member_state": "Germany", 
+      "label": 619, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 550, 
+      "member_state": "Germany", 
+      "label": 620, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 551, 
+      "member_state": "Germany", 
+      "label": 621, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 566, 
+      "member_state": "Germany", 
+      "label": 622, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 558, 
+      "member_state": "Germany", 
+      "label": 623, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 543, 
+      "member_state": "Germany", 
+      "label": 624, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 527, 
+      "member_state": "Germany", 
+      "label": 625, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 510, 
+      "member_state": "Germany", 
+      "label": 626, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 503, 
+      "member_state": "Germany", 
+      "label": 627, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 520, 
+      "member_state": "Germany", 
+      "label": 628, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 490, 
+      "member_state": "Germany", 
+      "label": 629, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 486, 
+      "member_state": "Germany", 
+      "label": 630, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 471, 
+      "member_state": "Germany", 
+      "label": 631, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 488, 
+      "member_state": "Germany", 
+      "label": 632, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 495, 
+      "member_state": "Germany", 
+      "label": 633, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 488, 
+      "member_state": "Germany", 
+      "label": 634, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 478, 
+      "member_state": "Germany", 
+      "label": 635, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 448, 
+      "member_state": "Germany", 
+      "label": 636, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 445, 
+      "member_state": "Germany", 
+      "label": 637, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 412, 
+      "member_state": "Germany", 
+      "label": 638, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 405, 
+      "member_state": "Germany", 
+      "label": 639, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 347, 
+      "member_state": "Germany", 
+      "label": 640, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 313, 
+      "member_state": "Germany", 
+      "label": 641, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 348, 
+      "member_state": "Germany", 
+      "label": 642, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1605, 
+      "member_state": "Malta", 
+      "label": 643, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1131, 
+      "member_state": "Malta", 
+      "label": 644, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1035, 
+      "member_state": "Malta", 
+      "label": 645, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1407, 
+      "member_state": "Malta", 
+      "label": 646, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1178, 
+      "member_state": "Malta", 
+      "label": 647, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 978, 
+      "member_state": "Malta", 
+      "label": 648, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 997, 
+      "member_state": "Malta", 
+      "label": 649, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 959, 
+      "member_state": "Malta", 
+      "label": 650, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 954, 
+      "member_state": "Malta", 
+      "label": 651, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 925, 
+      "member_state": "Malta", 
+      "label": 652, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 839, 
+      "member_state": "Malta", 
+      "label": 653, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1004, 
+      "member_state": "Malta", 
+      "label": 654, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 957, 
+      "member_state": "Malta", 
+      "label": 655, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 969, 
+      "member_state": "Malta", 
+      "label": 656, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 935, 
+      "member_state": "Malta", 
+      "label": 657, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 884, 
+      "member_state": "Malta", 
+      "label": 658, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 885, 
+      "member_state": "Malta", 
+      "label": 659, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 886, 
+      "member_state": "Malta", 
+      "label": 660, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 862, 
+      "member_state": "Malta", 
+      "label": 661, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 863, 
+      "member_state": "Malta", 
+      "label": 662, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 884, 
+      "member_state": "Malta", 
+      "label": 663, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 878, 
+      "member_state": "Malta", 
+      "label": 664, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 883, 
+      "member_state": "Malta", 
+      "label": 665, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 731, 
+      "member_state": "Malta", 
+      "label": 666, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 715, 
+      "member_state": "Malta", 
+      "label": 667, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 654, 
+      "member_state": "Malta", 
+      "label": 668, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 653, 
+      "member_state": "Malta", 
+      "label": 669, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 435, 
+      "member_state": "Malta", 
+      "label": 670, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 356, 
+      "member_state": "Malta", 
+      "label": 671, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 359, 
+      "member_state": "Malta", 
+      "label": 672, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 378, 
+      "member_state": "Malta", 
+      "label": 673, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 349, 
+      "member_state": "Malta", 
+      "label": 674, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1188, 
+      "member_state": "Greece", 
+      "label": 675, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1131, 
+      "member_state": "Greece", 
+      "label": 676, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1153, 
+      "member_state": "Greece", 
+      "label": 677, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1118, 
+      "member_state": "Greece", 
+      "label": 678, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1101, 
+      "member_state": "Greece", 
+      "label": 679, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1042, 
+      "member_state": "Greece", 
+      "label": 680, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 991, 
+      "member_state": "Greece", 
+      "label": 681, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1046, 
+      "member_state": "Greece", 
+      "label": 682, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1034, 
+      "member_state": "Greece", 
+      "label": 683, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 978, 
+      "member_state": "Greece", 
+      "label": 684, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 974, 
+      "member_state": "Greece", 
+      "label": 685, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 983, 
+      "member_state": "Greece", 
+      "label": 686, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 955, 
+      "member_state": "Greece", 
+      "label": 687, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 914, 
+      "member_state": "Greece", 
+      "label": 688, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 920, 
+      "member_state": "Greece", 
+      "label": 689, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 915, 
+      "member_state": "Greece", 
+      "label": 690, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 853, 
+      "member_state": "Greece", 
+      "label": 691, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 879, 
+      "member_state": "Greece", 
+      "label": 692, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 869, 
+      "member_state": "Greece", 
+      "label": 693, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 854, 
+      "member_state": "Greece", 
+      "label": 694, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 874, 
+      "member_state": "Greece", 
+      "label": 695, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 882, 
+      "member_state": "Greece", 
+      "label": 696, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 869, 
+      "member_state": "Greece", 
+      "label": 697, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 807, 
+      "member_state": "Greece", 
+      "label": 698, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 845, 
+      "member_state": "Greece", 
+      "label": 699, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 738, 
+      "member_state": "Greece", 
+      "label": 700, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 621, 
+      "member_state": "Greece", 
+      "label": 701, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 656, 
+      "member_state": "Greece", 
+      "label": 702, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 654, 
+      "member_state": "Greece", 
+      "label": 703, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 605, 
+      "member_state": "Greece", 
+      "label": 704, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 453, 
+      "member_state": "Greece", 
+      "label": 705, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 397, 
+      "member_state": "Greece", 
+      "label": 706, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 771, 
+      "member_state": "Czechia", 
+      "label": 707, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 766, 
+      "member_state": "Czechia", 
+      "label": 708, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 764, 
+      "member_state": "Czechia", 
+      "label": 709, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 755, 
+      "member_state": "Czechia", 
+      "label": 710, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 764, 
+      "member_state": "Czechia", 
+      "label": 711, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 772, 
+      "member_state": "Czechia", 
+      "label": 712, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 778, 
+      "member_state": "Czechia", 
+      "label": 713, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 727, 
+      "member_state": "Czechia", 
+      "label": 714, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 719, 
+      "member_state": "Czechia", 
+      "label": 715, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 669, 
+      "member_state": "Czechia", 
+      "label": 716, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 683, 
+      "member_state": "Czechia", 
+      "label": 717, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 683, 
+      "member_state": "Czechia", 
+      "label": 718, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 665, 
+      "member_state": "Czechia", 
+      "label": 719, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 600, 
+      "member_state": "Czechia", 
+      "label": 720, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 583, 
+      "member_state": "Czechia", 
+      "label": 721, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 611, 
+      "member_state": "Czechia", 
+      "label": 722, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 606, 
+      "member_state": "Czechia", 
+      "label": 723, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 609, 
+      "member_state": "Czechia", 
+      "label": 724, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 597, 
+      "member_state": "Czechia", 
+      "label": 725, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 567, 
+      "member_state": "Czechia", 
+      "label": 726, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 555, 
+      "member_state": "Czechia", 
+      "label": 727, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 546, 
+      "member_state": "Czechia", 
+      "label": 728, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 509, 
+      "member_state": "Czechia", 
+      "label": 729, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 477, 
+      "member_state": "Czechia", 
+      "label": 730, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 480, 
+      "member_state": "Czechia", 
+      "label": 731, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 492, 
+      "member_state": "Czechia", 
+      "label": 732, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 501, 
+      "member_state": "Czechia", 
+      "label": 733, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 472, 
+      "member_state": "Czechia", 
+      "label": 734, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 464, 
+      "member_state": "Czechia", 
+      "label": 735, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 431, 
+      "member_state": "Czechia", 
+      "label": 736, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 389, 
+      "member_state": "Czechia", 
+      "label": 737, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 397, 
+      "member_state": "Czechia", 
+      "label": 738, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 559, 
+      "member_state": "Bulgaria", 
+      "label": 739, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 540, 
+      "member_state": "Bulgaria", 
+      "label": 740, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 612, 
+      "member_state": "Bulgaria", 
+      "label": 741, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 677, 
+      "member_state": "Bulgaria", 
+      "label": 742, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 584, 
+      "member_state": "Bulgaria", 
+      "label": 743, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 539, 
+      "member_state": "Bulgaria", 
+      "label": 744, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 513, 
+      "member_state": "Bulgaria", 
+      "label": 745, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 551, 
+      "member_state": "Bulgaria", 
+      "label": 746, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 565, 
+      "member_state": "Bulgaria", 
+      "label": 747, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 516, 
+      "member_state": "Bulgaria", 
+      "label": 748, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 487, 
+      "member_state": "Bulgaria", 
+      "label": 749, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 532, 
+      "member_state": "Bulgaria", 
+      "label": 750, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 491, 
+      "member_state": "Bulgaria", 
+      "label": 751, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 541, 
+      "member_state": "Bulgaria", 
+      "label": 752, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 544, 
+      "member_state": "Bulgaria", 
+      "label": 753, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 497, 
+      "member_state": "Bulgaria", 
+      "label": 754, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 485, 
+      "member_state": "Bulgaria", 
+      "label": 755, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 608, 
+      "member_state": "Bulgaria", 
+      "label": 756, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 572, 
+      "member_state": "Bulgaria", 
+      "label": 757, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 532, 
+      "member_state": "Bulgaria", 
+      "label": 758, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 534, 
+      "member_state": "Bulgaria", 
+      "label": 759, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 587, 
+      "member_state": "Bulgaria", 
+      "label": 760, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 528, 
+      "member_state": "Bulgaria", 
+      "label": 761, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 485, 
+      "member_state": "Bulgaria", 
+      "label": 762, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 479, 
+      "member_state": "Bulgaria", 
+      "label": 763, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 487, 
+      "member_state": "Bulgaria", 
+      "label": 764, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 467, 
+      "member_state": "Bulgaria", 
+      "label": 765, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 499, 
+      "member_state": "Bulgaria", 
+      "label": 766, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 426, 
+      "member_state": "Bulgaria", 
+      "label": 767, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 426, 
+      "member_state": "Bulgaria", 
+      "label": 768, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 362, 
+      "member_state": "Bulgaria", 
+      "label": 769, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 398, 
+      "member_state": "Bulgaria", 
+      "label": 770, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 852, 
+      "member_state": "Cyprus", 
+      "label": 771, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 840, 
+      "member_state": "Cyprus", 
+      "label": 772, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 839, 
+      "member_state": "Cyprus", 
+      "label": 773, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 839, 
+      "member_state": "Cyprus", 
+      "label": 774, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 844, 
+      "member_state": "Cyprus", 
+      "label": 775, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 834, 
+      "member_state": "Cyprus", 
+      "label": 776, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 845, 
+      "member_state": "Cyprus", 
+      "label": 777, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 854, 
+      "member_state": "Cyprus", 
+      "label": 778, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 856, 
+      "member_state": "Cyprus", 
+      "label": 779, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 869, 
+      "member_state": "Cyprus", 
+      "label": 780, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 849, 
+      "member_state": "Cyprus", 
+      "label": 781, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 786, 
+      "member_state": "Cyprus", 
+      "label": 782, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 766, 
+      "member_state": "Cyprus", 
+      "label": 783, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 773, 
+      "member_state": "Cyprus", 
+      "label": 784, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 782, 
+      "member_state": "Cyprus", 
+      "label": 785, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 800, 
+      "member_state": "Cyprus", 
+      "label": 786, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 793, 
+      "member_state": "Cyprus", 
+      "label": 787, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 795, 
+      "member_state": "Cyprus", 
+      "label": 788, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 793, 
+      "member_state": "Cyprus", 
+      "label": 789, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 776, 
+      "member_state": "Cyprus", 
+      "label": 790, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 735, 
+      "member_state": "Cyprus", 
+      "label": 791, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 759, 
+      "member_state": "Cyprus", 
+      "label": 792, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 757, 
+      "member_state": "Cyprus", 
+      "label": 793, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 666, 
+      "member_state": "Cyprus", 
+      "label": 794, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 682, 
+      "member_state": "Cyprus", 
+      "label": 795, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 670, 
+      "member_state": "Cyprus", 
+      "label": 796, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 679, 
+      "member_state": "Cyprus", 
+      "label": 797, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 661, 
+      "member_state": "Cyprus", 
+      "label": 798, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 664, 
+      "member_state": "Cyprus", 
+      "label": 799, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 642, 
+      "member_state": "Cyprus", 
+      "label": 800, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 623, 
+      "member_state": "Cyprus", 
+      "label": 801, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 605, 
+      "member_state": "Cyprus", 
+      "label": 802, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1007, 
+      "member_state": "Estonia", 
+      "label": 803, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 978, 
+      "member_state": "Estonia", 
+      "label": 804, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1000, 
+      "member_state": "Estonia", 
+      "label": 805, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1006, 
+      "member_state": "Estonia", 
+      "label": 806, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1155, 
+      "member_state": "Estonia", 
+      "label": 807, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1217, 
+      "member_state": "Estonia", 
+      "label": 808, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1225, 
+      "member_state": "Estonia", 
+      "label": 809, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1181, 
+      "member_state": "Estonia", 
+      "label": 810, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1141, 
+      "member_state": "Estonia", 
+      "label": 811, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1136, 
+      "member_state": "Estonia", 
+      "label": 812, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1075, 
+      "member_state": "Estonia", 
+      "label": 813, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1033, 
+      "member_state": "Estonia", 
+      "label": 814, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1019, 
+      "member_state": "Estonia", 
+      "label": 815, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1018, 
+      "member_state": "Estonia", 
+      "label": 816, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1004, 
+      "member_state": "Estonia", 
+      "label": 817, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 999, 
+      "member_state": "Estonia", 
+      "label": 818, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 953, 
+      "member_state": "Estonia", 
+      "label": 819, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1015, 
+      "member_state": "Estonia", 
+      "label": 820, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 991, 
+      "member_state": "Estonia", 
+      "label": 821, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 957, 
+      "member_state": "Estonia", 
+      "label": 822, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 957, 
+      "member_state": "Estonia", 
+      "label": 823, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 966, 
+      "member_state": "Estonia", 
+      "label": 824, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 909, 
+      "member_state": "Estonia", 
+      "label": 825, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 956, 
+      "member_state": "Estonia", 
+      "label": 826, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 962, 
+      "member_state": "Estonia", 
+      "label": 827, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 952, 
+      "member_state": "Estonia", 
+      "label": 828, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 919, 
+      "member_state": "Estonia", 
+      "label": 829, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 907, 
+      "member_state": "Estonia", 
+      "label": 830, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 887, 
+      "member_state": "Estonia", 
+      "label": 831, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 734, 
+      "member_state": "Estonia", 
+      "label": 832, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 628, 
+      "member_state": "Estonia", 
+      "label": 833, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 656, 
+      "member_state": "Estonia", 
+      "label": 834, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1397, 
+      "member_state": "Poland", 
+      "label": 835, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1369, 
+      "member_state": "Poland", 
+      "label": 836, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1356, 
+      "member_state": "Poland", 
+      "label": 837, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1188, 
+      "member_state": "Poland", 
+      "label": 838, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1144, 
+      "member_state": "Poland", 
+      "label": 839, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 1002, 
+      "member_state": "Poland", 
+      "label": 840, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 976, 
+      "member_state": "Poland", 
+      "label": 841, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 962, 
+      "member_state": "Poland", 
+      "label": 842, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 935, 
+      "member_state": "Poland", 
+      "label": 843, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 931, 
+      "member_state": "Poland", 
+      "label": 844, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 922, 
+      "member_state": "Poland", 
+      "label": 845, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 911, 
+      "member_state": "Poland", 
+      "label": 846, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 907, 
+      "member_state": "Poland", 
+      "label": 847, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 915, 
+      "member_state": "Poland", 
+      "label": 848, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 912, 
+      "member_state": "Poland", 
+      "label": 849, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 898, 
+      "member_state": "Poland", 
+      "label": 850, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 914, 
+      "member_state": "Poland", 
+      "label": 851, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 900, 
+      "member_state": "Poland", 
+      "label": 852, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 880, 
+      "member_state": "Poland", 
+      "label": 853, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 860, 
+      "member_state": "Poland", 
+      "label": 854, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 853, 
+      "member_state": "Poland", 
+      "label": 855, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 854, 
+      "member_state": "Poland", 
+      "label": 856, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 832, 
+      "member_state": "Poland", 
+      "label": 857, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 830, 
+      "member_state": "Poland", 
+      "label": 858, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 818, 
+      "member_state": "Poland", 
+      "label": 859, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 793, 
+      "member_state": "Poland", 
+      "label": 860, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 775, 
+      "member_state": "Poland", 
+      "label": 861, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 765, 
+      "member_state": "Poland", 
+      "label": 862, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 771, 
+      "member_state": "Poland", 
+      "label": 863, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 732, 
+      "member_state": "Poland", 
+      "label": 864, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 697, 
+      "member_state": "Poland", 
+      "label": 865, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 721, 
+      "member_state": "Poland", 
+      "label": 866, 
+      "year": 2021
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 501, 
+      "member_state": "EU-27", 
+      "label": 867, 
+      "year": 1990
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 490, 
+      "member_state": "EU-27", 
+      "label": 868, 
+      "year": 1991
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 478, 
+      "member_state": "EU-27", 
+      "label": 869, 
+      "year": 1992
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 459, 
+      "member_state": "EU-27", 
+      "label": 870, 
+      "year": 1993
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 456, 
+      "member_state": "EU-27", 
+      "label": 871, 
+      "year": 1994
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 445, 
+      "member_state": "EU-27", 
+      "label": 872, 
+      "year": 1995
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 432, 
+      "member_state": "EU-27", 
+      "label": 873, 
+      "year": 1996
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 419, 
+      "member_state": "EU-27", 
+      "label": 874, 
+      "year": 1997
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 420, 
+      "member_state": "EU-27", 
+      "label": 875, 
+      "year": 1998
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 410, 
+      "member_state": "EU-27", 
+      "label": 876, 
+      "year": 1999
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 394, 
+      "member_state": "EU-27", 
+      "label": 877, 
+      "year": 2000
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 388, 
+      "member_state": "EU-27", 
+      "label": 878, 
+      "year": 2001
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 394, 
+      "member_state": "EU-27", 
+      "label": 879, 
+      "year": 2002
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 391, 
+      "member_state": "EU-27", 
+      "label": 880, 
+      "year": 2003
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 380, 
+      "member_state": "EU-27", 
+      "label": 881, 
+      "year": 2004
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 379, 
+      "member_state": "EU-27", 
+      "label": 882, 
+      "year": 2005
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 377, 
+      "member_state": "EU-27", 
+      "label": 883, 
+      "year": 2006
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 386, 
+      "member_state": "EU-27", 
+      "label": 884, 
+      "year": 2007
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 363, 
+      "member_state": "EU-27", 
+      "label": 885, 
+      "year": 2008
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 350, 
+      "member_state": "EU-27", 
+      "label": 886, 
+      "year": 2009
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 335, 
+      "member_state": "EU-27", 
+      "label": 887, 
+      "year": 2010
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 342, 
+      "member_state": "EU-27", 
+      "label": 888, 
+      "year": 2011
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 339, 
+      "member_state": "EU-27", 
+      "label": 889, 
+      "year": 2012
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 322, 
+      "member_state": "EU-27", 
+      "label": 890, 
+      "year": 2013
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 313, 
+      "member_state": "EU-27", 
+      "label": 891, 
+      "year": 2014
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 313, 
+      "member_state": "EU-27", 
+      "label": 892, 
+      "year": 2015
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 303, 
+      "member_state": "EU-27", 
+      "label": 893, 
+      "year": 2016
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 302, 
+      "member_state": "EU-27", 
+      "label": 894, 
+      "year": 2017
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 289, 
+      "member_state": "EU-27", 
+      "label": 895, 
+      "year": 2018
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 255, 
+      "member_state": "EU-27", 
+      "label": 896, 
+      "year": 2019
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 228, 
+      "member_state": "EU-27", 
+      "label": 897, 
+      "year": 2020
+    }, 
+    {
+      "greenhouse_gas_emission_ghg_intensity": 238, 
+      "member_state": "EU-27", 
+      "label": 898, 
+      "year": 2021
+    }
+  ], 
+  "properties":{
+    "year": {"valueType": "number", "columnType": "year", "order": 0, "label": "Year"},
+    "member_state": {"valueType": "text", "columnType": "text", "order": 1, "label": "Member State"},
+    "greenhouse_gas_emission_ghg_intensity": {"valueType": "number", "columnType": "number", "order": 2, "label": "Greenhouse gas (GHG) emission intensity"},
+    "indicative_level_high": {"valueType": "number", "columnType": "number", "order": 3, "label": "Indicative level-high"},
+    "indicative_level_low": {"valueType": "number", "columnType": "number", "order": 4, "label": "Indicative level-low"}
+  }
+}

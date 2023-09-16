@@ -7,15 +7,6 @@ const energyCostOut = document.getElementById('energy-cost-out');
 /** @type {Energy|null} */
 let lastEntry = null;
 
-/**
- * @param {string} key
- * @returns {number}
- */
-function getNumberItem(key) {
-  const result = parseFloat(Settings.getItem(key) ?? '0');
-  return isNaN(result) ? 0 : result;
-}
-
 export const EconomySection = {
   update(/** @type {Energy|null} */ json = lastEntry) {
     if (json === null) return;
@@ -29,8 +20,8 @@ export const EconomySection = {
       maximumFractionDigits: 2,
       minimumFractionDigits: 2
     };
-    const energyPriceInValue = getNumberItem('energyPriceIn');
-    const energyPriceOutValue = getNumberItem('energyPriceOut');
+    const energyPriceInValue = Settings.getNumberItem('energyPriceIn');
+    const energyPriceOutValue = Settings.getNumberItem('energyPriceOut');
     energyCostIn.textContent = (
       json.fromGrid / 1000 * energyPriceInValue
     ).toLocaleString('de', localeOptions);

@@ -4,8 +4,10 @@ import { fileURLToPath } from 'node:url';
 
 /** @type {{[key: string]: string}} */
 let settings = {
+  energyCo2: '0.348',
   energyPriceIn: '0',
   energyPriceOut: '0',
+  energyTrees: '0.1',
   location: ''
 };
 

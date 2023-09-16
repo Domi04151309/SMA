@@ -12,3 +12,7 @@ console.log(
   JSON.stringify(OBJECT_MAP, null, 2).replaceAll('"', '\'')
 );
 ```
+
+# Greenhouse Gas Emission Intensity Of Electricity Generation
+
+- [European Environment Agency](https://www.eea.europa.eu/data-and-maps/daviz/co2-emission-intensity-13)

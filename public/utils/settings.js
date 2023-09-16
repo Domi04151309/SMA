@@ -13,6 +13,10 @@ export const Settings = {
   getItem(/** @type {string} */ key) {
     return localStorage.getItem(key);
   },
+  getNumberItem(/** @type {string} */ key) {
+    const result = parseFloat(Settings.getItem(key) ?? '0');
+    return isNaN(result) ? 0 : result;
+  },
   setItem(/** @type {string} */ key, /** @type {string} */ value) {
     localStorage.setItem(key, value);
     (async () => {
