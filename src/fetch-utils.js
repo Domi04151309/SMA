@@ -9,14 +9,21 @@ import { toColoredString } from './logging/utils.js';
  * @returns {Promise<T|null>}
  */
 export async function fetchJson(url, body = null) {
-  // Catch fetch errors here because they are otherwise uncatchable.
+  const controller = new AbortController();
+  setTimeout(() => {
+    controller.abort();
+  }, 6000);
   const response = await fetch(
     url,
     {
       body: body === null ? null : JSON.stringify(body),
-      method: body === null ? 'GET' : 'POST'
+      method: body === null ? 'GET' : 'POST',
+      signal: controller.signal,
+      // @ts-expect-error Workaround for Bun
+      tls: { rejectUnauthorized: false }
     }
   ).catch(error => {
+    // Catch fetch errors here because they are otherwise uncatchable in Node.
     console.error(
       'Fetch of ' + url + ' failed:',
       error instanceof Error ? error.message : error
@@ -30,7 +37,7 @@ export async function fetchJson(url, body = null) {
       '\n' + toColoredString(body) + '\n' + toColoredString(json)
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
-  return json;
+  return json ?? null;
 }
 
 /**

@@ -58,6 +58,7 @@ await Promise.allSettled([
   }, () => {
     DataCharts.error();
     SourceSection.error();
+    QuickSection.sourceError();
   }),
   fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
     setBatteryInfo(json.batteries[0]);
@@ -66,18 +67,19 @@ await Promise.allSettled([
     const location = json.nearest_area?.at(0) ?? null;
     const currentCondition = json.current_condition?.at(0) ?? null;
     const todaysWeather = json.weather?.at(0) ?? null;
-    if (location !== null) {
-      if (currentCondition !== null) QuickSection.updateWeather(
-        location,
-        currentCondition
-      );
-      if (todaysWeather !== null) WeatherSection.update(
-        document.getElementById('weather'),
-        location,
-        todaysWeather
-      );
-    }
+    if (
+      location === null ||
+      currentCondition === null ||
+      todaysWeather === null
+    ) throw new Error('Empty');
+    QuickSection.updateWeather(location, currentCondition);
+    WeatherSection.update(
+      document.getElementById('weather'),
+      location,
+      todaysWeather
+    );
   }, () => {
+    QuickSection.weatherError();
     WeatherSection.error(document.getElementById('weather'));
   })
 ]);

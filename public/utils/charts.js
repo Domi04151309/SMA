@@ -28,12 +28,12 @@ export function error(selector, options) {
     data: {
       datasets: [
         {
-          values: [1]
+          values: [0]
         }
       ],
       labels: ['Fehler']
     },
-    type: 'percentage'
+    type: 'bar'
   };
   // eslint-disable-next-line no-new
   new Chart(selector, {

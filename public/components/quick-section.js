@@ -1,6 +1,8 @@
 /* global SunCalc */
 import '/suncalc.js';
 
+const INVALID_LAYOUT = 'Invalid layout';
+
 const sourceIcon = document.querySelector('#quick-source img');
 const sourceLabel = document.querySelector('#quick-source .primary');
 const weatherIcon = document.querySelector('#quick-weather img');
@@ -185,12 +187,19 @@ function getWeatherIcon(location, code) {
 }
 
 export const QuickSection = {
+  sourceError() {
+    if (
+      sourceIcon === null ||
+      !(sourceIcon instanceof HTMLImageElement)
+    ) throw new Error(INVALID_LAYOUT);
+    sourceIcon.src = '/images/icons8-error.svg';
+  },
   updateSource(/** @type {Power} */ json) {
     if (
       sourceIcon === null ||
       sourceLabel === null ||
       !(sourceIcon instanceof HTMLImageElement)
-    ) throw new Error('Invalid layout');
+    ) throw new Error(INVALID_LAYOUT);
     let [maxKey, maxValue] = ['?', -Infinity];
     for (
       const key of /** @type {(keyof Power)[]} */ (
@@ -226,12 +235,23 @@ export const QuickSection = {
       weatherLabel === null ||
       weatherSecondaryLabel === null ||
       !(weatherIcon instanceof HTMLImageElement)
-    ) throw new Error('Invalid layout');
+    ) throw new Error(INVALID_LAYOUT);
     weatherIcon.src = '/images/' + getWeatherIcon(
       location,
       json.weatherCode
     );
     weatherLabel.textContent = json.lang_de[0]?.value ?? '?';
     weatherSecondaryLabel.textContent = json.temp_C;
+  },
+  weatherError() {
+    if (
+      weatherIcon === null ||
+      weatherLabel === null ||
+      weatherSecondaryLabel === null ||
+      !(weatherIcon instanceof HTMLImageElement)
+    ) throw new Error(INVALID_LAYOUT);
+    weatherIcon.src = '/images/icons8-error.svg';
+    weatherLabel.textContent = 'Wetter nicht abrufbar';
+    weatherSecondaryLabel.parentNode?.replaceChildren();
   }
 };
