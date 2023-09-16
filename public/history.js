@@ -12,11 +12,11 @@ const titleView = document.getElementById('now') ?? new HTMLElement();
 const loadingView = document.getElementById(
   'loading'
 ) ?? new HTMLElement();
-const historyView = document.getElementById(
-  'history-chart'
+const firstChart = document.getElementById(
+  'first-chart'
 ) ?? new HTMLElement();
-const batteryView = document.getElementById(
-  'battery-chart'
+const secondChart = document.getElementById(
+  'second-chart'
 ) ?? new HTMLElement();
 const fullSection = document.getElementById('full') ?? new HTMLElement();
 /** @type {{[key: string]: Intl.DateTimeFormatOptions }} */
@@ -56,8 +56,8 @@ function onError() {
  */
 async function updateViews() {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
-  historyView.textContent = '';
-  batteryView.textContent = '';
+  firstChart.textContent = '';
+  secondChart.textContent = '';
   EnergySectionSmall.hide();
   fullSection.style.display = 'none';
   loadingView.style.display = '';
@@ -125,7 +125,7 @@ async function handleCategoryChange(id) {
   await updateViews();
 }
 
-await handleCategoryChange('day');
+await handleCategoryChange('month');
 EconomySettings.update();
 EcologySettings.update();
 for (
