@@ -14,6 +14,8 @@ const CHART_UPDATE_DELAY = 300_000;
 
 /** @type {DataCharts|null} */
 let charts = null;
+/** @type {SourceSection|null} */
+let sources = null;
 let updateCounter = 0;
 
 /**
@@ -27,7 +29,8 @@ async function update(data = null) {
     QuickSection.updateSource(json.power);
     PowerSection.update(json);
     EnergySection.update(json.energy);
-    SourceSection.update(json.energy);
+    if (sources === null) sources = new SourceSection(json.energy);
+    else sources.update(json.energy);
     MoneySection.update(json.energy);
     if (
       data === null &&

@@ -83,7 +83,8 @@ async function updateViews() {
       fullSection.style.display = '';
       const difference = getEnergyDifference(json);
       EnergySection.update(difference);
-      SourceSection.update(difference);
+      // eslint-disable-next-line no-new
+      new SourceSection(difference);
       MoneySection.update(difference);
     },
     () => {
