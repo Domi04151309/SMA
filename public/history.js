@@ -1,8 +1,8 @@
+import { EconomySection } from '/components/economy-section.js';
+import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
 import { EnergySectionSmall } from '/components/energy-section-small.js';
 import { HistoryCharts } from '/components/history-charts.js';
-import { MoneySection } from '/components/money-section.js';
-import { PriceSection } from '/components/price-section.js';
 import { SourceSection } from '/components/source-section.js';
 import { fetchApiData } from '/utils/api.js';
 
@@ -85,7 +85,7 @@ async function updateViews() {
       EnergySection.update(difference);
       // eslint-disable-next-line no-new
       new SourceSection(difference);
-      MoneySection.update(difference);
+      EconomySection.update(difference);
     },
     () => {
       onError();
@@ -123,7 +123,7 @@ async function handleCategoryChange(id) {
 }
 
 await handleCategoryChange('day');
-PriceSection.update();
+EconomySettings.update();
 for (
   const id of ['day', 'month', 'year']
 ) document.getElementById(id)?.addEventListener(

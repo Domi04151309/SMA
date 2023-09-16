@@ -1,11 +1,11 @@
-import { MoneySection } from '/components/money-section.js';
+import { EconomySection } from '/components/economy-section.js';
 import { Settings } from '../utils/settings.js';
 import { openModal } from './settings-modal.js';
 
 const energyPriceIn = document.querySelectorAll('.energy-price-in');
 const energyPriceOut = document.querySelectorAll('.energy-price-out');
 
-export const PriceSection = {
+export const EconomySettings = {
   update() {
     const localeOptions = {
       maximumFractionDigits: 2,
@@ -41,8 +41,8 @@ document.getElementById('energy-price-in')?.addEventListener(
         Settings.getItem('energyPriceIn')
       );
       Settings.setItem('energyPriceIn', input);
-      PriceSection.update();
-      MoneySection.update();
+      EconomySettings.update();
+      EconomySection.update();
     } catch {
       // Do nothing on cancel
     }
@@ -58,8 +58,8 @@ document.getElementById('energy-price-out')?.addEventListener(
         Settings.getItem('energyPriceOut')
       );
       Settings.setItem('energyPriceOut', input);
-      PriceSection.update();
-      MoneySection.update();
+      EconomySettings.update();
+      EconomySection.update();
     } catch {
       // Do nothing on cancel
     }

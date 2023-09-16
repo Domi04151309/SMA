@@ -1,10 +1,10 @@
 import { DevicesSection } from '/components/devices-section.js';
-import { LocationSection } from '/components/location-section.js';
-import { PriceSection } from '/components/price-section.js';
+import { EconomySettings } from '/components/economy-settings.js';
+import { LocationSettings } from '/components/location-settings.js';
 import { fetchApiData } from '/utils/api.js';
 
-PriceSection.update();
-LocationSection.update();
+EconomySettings.update();
+LocationSettings.update();
 
 await fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
   DevicesSection.update(json);

@@ -16,7 +16,7 @@ function getNumberItem(key) {
   return isNaN(result) ? 0 : result;
 }
 
-export const MoneySection = {
+export const EconomySection = {
   update(/** @type {Energy|null} */ json = lastEntry) {
     if (json === null) return;
     lastEntry = json;

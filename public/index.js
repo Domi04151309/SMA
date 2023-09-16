@@ -1,10 +1,10 @@
 import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
 import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ConnectionBanner } from '/components/connection-banner.js';
+import { EconomySection } from '/components/economy-section.js';
+import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
-import { MoneySection } from '/components/money-section.js';
 import { PowerSection } from '/components/power-section.js';
-import { PriceSection } from '/components/price-section.js';
 import { QuickSection } from '/components/quick-section.js';
 import { SourceSection } from '/components/source-section.js';
 import { WeatherSection } from '/components/weather-section.js';
@@ -31,7 +31,7 @@ async function update(data = null) {
     EnergySection.update(json.energy);
     if (sources === null) sources = new SourceSection(json.energy);
     else sources.update(json.energy);
-    MoneySection.update(json.energy);
+    EconomySection.update(json.energy);
     if (
       data === null &&
       charts !== null &&
@@ -45,7 +45,7 @@ async function update(data = null) {
   });
 }
 
-PriceSection.update();
+EconomySettings.update();
 
 await Promise.allSettled([
   fetchApiData('/history', async (/** @type {NowResponse[]} */ json) => {

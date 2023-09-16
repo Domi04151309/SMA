@@ -3,7 +3,7 @@ import { openModal } from './settings-modal.js';
 
 const weatherLocation = document.querySelectorAll('.weather-location');
 
-export const LocationSection = {
+export const LocationSettings = {
   update() {
     const location = Settings.getItem('location') ?? '';
     for (const element of weatherLocation) element.textContent = location;
@@ -19,7 +19,7 @@ document.getElementById('weather-location')?.addEventListener(
         Settings.getItem('location')
       );
       Settings.setItem('location', input);
-      LocationSection.update();
+      LocationSettings.update();
     } catch {
       // Do nothing on cancel
     }
