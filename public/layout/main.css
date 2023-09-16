@@ -417,6 +417,9 @@ h2, .match-chart-padding {
   .icon.co2 {
     background-image: url(/images/icons8-co2-96.png);
   }
+  .icon.percentage {
+    background-image: url(/images/icons8-percentage-96.png);
+  }
   .icon.sunrise {
     background-image: url(/images/icons8-sunrise-96.png);
   }

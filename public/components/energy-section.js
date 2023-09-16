@@ -1,4 +1,7 @@
 const energySection = document.querySelector('.energy-section');
+const selfSufficiency = energySection?.querySelector(
+  '.energy-self-sufficiency'
+) ?? null;
 const energyFromRoof = energySection?.querySelector(
   '.energy-from-roof'
 ) ?? null;
@@ -33,6 +36,7 @@ const energyToGrid = energySection?.querySelector(
 export const EnergySection = {
   update(/** @type {Energy} */ json) {
     if (
+      selfSufficiency === null ||
       energyFromRoof === null ||
       energyUsed === null ||
       energyFromRoofUsed === null ||
@@ -44,12 +48,16 @@ export const EnergySection = {
       energyToBattery === null ||
       energyToGrid === null
     ) throw new Error('Invalid layout');
+    const fromRoofUsed = json.fromRoof - json.toGrid - json.toBattery;
+    selfSufficiency.textContent = Math.round(
+      (json.fromBattery + fromRoofUsed) /
+      (json.fromBattery + fromRoofUsed + json.fromGrid) * 100
+    ).toString();
     energyFromRoof.textContent = json.fromRoof.toLocaleString('de');
     energyUsed.textContent = (
       json.fromRoof - json.toGrid - json.toBattery +
       json.fromBattery + json.fromGrid
     ).toLocaleString('de');
-    const fromRoofUsed = json.fromRoof - json.toGrid - json.toBattery;
     energyFromRoofUsed.textContent = fromRoofUsed.toLocaleString('de');
     energyFromRoofUsedPercentage.textContent = Math.round(
       fromRoofUsed / json.fromRoof * 100
