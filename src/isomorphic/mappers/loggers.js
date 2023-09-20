@@ -129,9 +129,11 @@ export function processExactLoggers(battery, loggers) {
   ) processExactDataSet(logger, index, datasets, dataset, batteryCapacity);
   for (
     const dataset of datasets
+  ) for (
+    const key of /** @type {(keyof Power)[]} */ (Object.keys(dataset.power))
   ) if (
-    dataset.power.toGrid < 0 || dataset.power.toGrid > 100_000
-  ) dataset.power.toGrid = 0;
+    dataset.power[key] < 0 || dataset.power[key] > 100_000
+  ) dataset.power[key] = 0;
   return datasets;
 }
 
