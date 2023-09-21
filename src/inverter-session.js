@@ -50,8 +50,15 @@ export class InverterSession {
       if (json === null) throw new Error('Fetch failed');
       if (json.err === 401) throw new Error('Wrong password');
       if (json.err === 503) throw new Error('Login currently unavailable');
-      // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-      return new InverterSession(inverter.address, json?.result?.sid);
+      return typeof json === 'object' &&
+        'result' in json &&
+        typeof json.result === 'object' &&
+        json.result !== null &&
+        'sid' in json.result &&
+        typeof json.result.sid === 'string'
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+        ? new InverterSession(inverter.address, json.result.sid)
+        : new InverterSession(inverter.address, null);
     } catch (error) {
       console.error(
         'Failed logging in at ' + inverter.address + ':',
@@ -195,10 +202,11 @@ export class InverterSession {
    * @returns {Promise<boolean>}
    */
   async logout() {
+    /** @type {unknown} */
     const result = await fetchJson(
       'https://' + this.address + '/dyn/logout.json?sid=' + this.sessionId,
       {}
     );
-    return 'result' in result;
+    return typeof result === 'object' && result !== null;
   }
 }

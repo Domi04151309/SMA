@@ -34,12 +34,15 @@ export class Server {
     this.app.put('/api/settings', (request, response) => {
       if (
         request.socket.remoteAddress &&
-        ip.isPrivate(request.socket.remoteAddress)
+        ip.isPrivate(request.socket.remoteAddress) &&
+        typeof request.body === 'object' &&
+        request.body !== null
       ) {
         for (
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          const [key, value] of Object.entries(request.body)
-          // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          const [key, value] of /** @type {[string, string][]} */ (
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+            Object.entries(request.body)
+          )
         ) Settings.setItem(key, value.toString());
         Settings.save();
       }

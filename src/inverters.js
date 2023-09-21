@@ -92,7 +92,14 @@ async function autofillInverters(invertersFilePath) {
  */
 async function invalidateSessionFromFile(path) {
   const file = JSON.parse(readFileSync(path).toString());
-  if (typeof file.address === 'string' && typeof file.sessionId === 'string') {
+  if (
+    typeof file === 'object' &&
+    file !== null &&
+    'address' in file &&
+    typeof file.address === 'string' &&
+    'sessionId' in file &&
+    typeof file.sessionId === 'string'
+  ) {
     // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
     const session = new InverterSession(file.address, file.sessionId);
     if (await session.logout()) unlinkSync(path);
