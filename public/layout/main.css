@@ -204,35 +204,49 @@ footer {
   animation: cubic-bezier(0.85, 0, 0.15, 1) 2s infinite loadable-animation;
   border-radius: var(--border-radius);
 }
-.grid-1-2 {
+.grid-2, .grid-1-2 {
   display: grid;
   gap: 16px;
-  grid-template-columns: repeat(1, 1fr);
   align-items: start;
+}
+.grid-2 {
+  grid-template-columns: repeat(2, 2fr);
+}
+.grid-2 > .card {
+  margin: 0;
+}
+.grid-2 > .card > .icon {
+  margin-bottom: 8px;
+}
+.grid-2 > .card > div, .grid-2 > .card > div > span {
+  display: block;
+}
+.grid-1-2 {
+  grid-template-columns: repeat(1, 1fr);
 }
 main, .fade-in {
   animation: fade-in .5s;
 }
 
-.quick-card, .quick-card {
+.card {
   margin-bottom: 16px;
   padding: 16px;
   border-radius: var(--border-radius-2);
   box-shadow: var(--card-shadow);
-  border: 1px solid var(--footer-color);
+  border: 1px solid var(--hover-color);
 }
-.quick-card > img {
+.card > img {
   display: block;
-  height: 48px;
-  width: 48px;
+  height: 2em;
+  width: 2em;
   margin-bottom: 8px;
 }
-.quick-card > div {
+.card > div {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.quick-card > div > span:first-child {
+.card > div > span:first-child {
   color: var(--text-color-primary);
 }
 
@@ -314,7 +328,7 @@ h2, .match-chart-padding {
   display: block;
   padding: 16px;
 }
-#devices th, .icon {
+#devices th, table .icon {
   display: none;
 }
 #devices td {
@@ -332,6 +346,73 @@ h2, .match-chart-padding {
 }
  #history-chart {
   height: 544px;
+ }
+
+ .icon {
+   display: block;
+   background-image: url(/images/icons8-dynamo-96.png);
+   background-repeat: no-repeat;
+   background-position: center;
+   background-size: 2em;
+   width: 2em;
+   height: 2em;
+ }
+ .icon.cloudy {
+   background-image: url(/images/icons8-cloudy-96.png);
+ }
+ .icon.tree {
+   background-image: url(/images/icons8-tree-96.png);
+ }
+ .icon.co2 {
+   background-image: url(/images/icons8-co2-96.png);
+ }
+ .icon.percentage {
+   background-image: url(/images/icons8-percentage-96.png);
+ }
+ .icon.sunrise {
+   background-image: url(/images/icons8-sunrise-96.png);
+ }
+ .icon.sunset {
+   background-image: url(/images/icons8-sunset-96.png);
+ }
+ .icon.timer {
+   background-image: url(/images/icons8-timer-96.png);
+ }
+ .icon.waves {
+   background-image: url(/images/icons8-wave-lines-96.png);
+ }
+ .icon.home {
+   background-image: url(/images/icons8-home.svg);
+ }
+ .icon.solar {
+   background-image: url(/images/icons8-solar-96.png);
+ }
+ .icon.solar-energy {
+   background-image: url(/images/icons8-solar-energy-96.png);
+ }
+ .icon.empty-battery {
+   background-image: url(/images/icons8-nearly-empty-battery-96.png);
+ }
+ .icon.full-battery {
+   background-image: url(/images/icons8-battery-96-2.png);
+ }
+ .icon.battery {
+   background-image: url(/images/icons8-battery-96.png);
+ }
+ .icon.electricity {
+   background-image: url(/images/icons8-electricity-96.png);
+ }
+ .icon.energy-meter {
+   background-image: url(/images/icons8-energy-meter-96.png);
+ }
+ .icon.money {
+   background-image: url(/images/icons8-euro-money-96.png);
+ }
+ .icon.send-money {
+   background-image: url(/images/icons8-initiate-money-transfer-96.png);
+ }
+ .icon.request-money {
+   background-image: url(/images/icons8-request-money-96.png);
  }
 
 @media screen and (min-width: 1080px) {
@@ -388,82 +469,20 @@ h2, .match-chart-padding {
     grid-column: span 2;
   }
   .energy-section {
-    grid-row: span 2;
+    grid-row: span 3;
   }
   #devices tr:not(:first-child) {
     display: table-row;
     padding: 0;
   }
-  #devices th {
+  #devices th, #devices td, table .icon {
     display: table-cell;
   }
-  #devices td, .icon {
-    display: table-cell;
+  #devices td {
     padding: 16px;
   }
-  .icon {
-    background-image: url(/images/icons8-dynamo-96.png);
-    background-repeat: no-repeat;
-    background-position: center;
-    background-size: 2em;
-    width: 2em;
-  }
-  .icon.cloudy {
-    background-image: url(/images/icons8-cloudy-96.png);
-  }
-  .icon.tree {
-    background-image: url(/images/icons8-tree-96.png);
-  }
-  .icon.co2 {
-    background-image: url(/images/icons8-co2-96.png);
-  }
-  .icon.percentage {
-    background-image: url(/images/icons8-percentage-96.png);
-  }
-  .icon.sunrise {
-    background-image: url(/images/icons8-sunrise-96.png);
-  }
-  .icon.sunset {
-    background-image: url(/images/icons8-sunset-96.png);
-  }
-  .icon.timer {
-    background-image: url(/images/icons8-timer-96.png);
-  }
-  .icon.waves {
-    background-image: url(/images/icons8-wave-lines-96.png);
-  }
-  .icon.home {
-    background-image: url(/images/icons8-home.svg);
-  }
-  .icon.solar {
-    background-image: url(/images/icons8-solar-96.png);
-  }
-  .icon.solar-energy {
-    background-image: url(/images/icons8-solar-energy-96.png);
-  }
-  .icon.empty-battery {
-    background-image: url(/images/icons8-nearly-empty-battery-96.png);
-  }
-  .icon.full-battery {
-    background-image: url(/images/icons8-battery-96-2.png);
-  }
-  .icon.battery {
-    background-image: url(/images/icons8-battery-96.png);
-  }
-  .icon.electricity {
-    background-image: url(/images/icons8-electricity-96.png);
-  }
-  .icon.energy-meter {
-    background-image: url(/images/icons8-energy-meter-96.png);
-  }
-  .icon.money {
-    background-image: url(/images/icons8-euro-money-96.png);
-  }
-  .icon.send-money {
-    background-image: url(/images/icons8-initiate-money-transfer-96.png);
-  }
-  .icon.request-money {
-    background-image: url(/images/icons8-request-money-96.png);
+  table .icon {
+    padding: 0 16px;
   }
 }
 

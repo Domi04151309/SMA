@@ -1,26 +1,31 @@
 <div class="weather-chart"></div>
-<div class="match-chart-padding">
-  <h3>Wetterdaten</h3>
-  <table>
-    <tr>
-      <td class="icon sunrise"></td>
-      <th>Sonnenaufgang</th>
-      <td><span class="weather-sunrise loadable"></span></td>
-    </tr>
-    <tr>
-      <td class="icon sunset"></td>
-      <th>Sonnenuntergang</th>
-      <td><span class="weather-sunset loadable"></span></td>
-    </tr>
-    <tr>
-      <td class="icon timer"></td>
-      <th>Sonnenstunden</th>
-      <td><span class="weather-sun-hours loadable"></span> Stunden</td>
-    </tr>
-    <tr>
-      <td class="icon waves"></td>
-      <th>UV-Index</th>
-      <td><span class="weather-uv-index loadable"></span></td>
-    </tr>
-  </table>
+<div class="grid-2 match-chart-padding">
+  <div class="card">
+    <span class="icon sunrise"></span>
+    <div>
+      <span class="primary">Sonnenaufgang</span>
+      <small><span class="loadable weather-sunrise"></span></small>
+    </div>
+  </div>
+  <div class="card">
+    <span class="icon sunset"></span>
+    <div>
+      <span class="primary">Sonnenuntergang</span>
+      <small><span class="loadable weather-sunset"></span></small>
+    </div>
+  </div>
+  <div class="card">
+    <span class="icon timer"></span>
+    <div>
+      <span class="primary">Sonnenstunden</span>
+      <small><span class="loadable weather-sun-hours"></span> Stunden</small>
+    </div>
+  </div>
+  <div class="card">
+    <span class="icon waves"></span>
+    <div>
+      <span class="primary">UV-Index</span>
+      <small><span class="loadable weather-uv-index"></span></small>
+    </div>
+  </div>
 </div>
