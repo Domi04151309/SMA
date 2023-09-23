@@ -25,6 +25,29 @@ function formatTooltipY(value) {
   return value?.toLocaleString('de') + ' Wh';
 }
 
+/**
+ * @param {number[]} numbers
+ * @returns {unknown}
+ */
+function getYMarkers(numbers) {
+  return [
+    { label: '', value: 0 },
+    {
+      label: 'Ø',
+      value: Math.round(
+        numbers.reduce(
+          (accumulator, value) => accumulator + value,
+          0
+        ) / numbers.length
+      )
+    },
+    {
+      label: 'Max.',
+      value: Math.max(...numbers)
+    }
+  ];
+}
+
 export const HistoryCharts = {
   error() {
     error(FIRST_CHART_SELECTOR, {
@@ -43,23 +66,24 @@ export const HistoryCharts = {
     const datasets = {
       labels: json.map(
         item => new Date(item.timestamp).toLocaleDateString('de')
-      ).slice(0, -1),
-      yMarkers: [{ label: '', value: 0 }]
+      ).slice(0, -1)
     };
-    const fromRoof = Object.fromEntries(json.map(
+    /** @type {[string, number][]} */
+    const fromRoofEntries = json.map(
       (item, index) => index < json.length - 1
-        ? [
+        ? /** @type {[string, number]} */ ([
           new Date(item.timestamp).toLocaleDateString('de'),
           Math.max(
             0,
             json[index + 1].energy.fromRoof - item.energy.fromRoof
           )
-        ]
-        : [
+        ])
+        : /** @type {[string, number]} */ ([
           new Date(item.timestamp).toLocaleDateString('de'),
           0
-        ]
-    ).slice(0, -1));
+        ])
+    ).slice(0, -1);
+    const fromRoof = Object.fromEntries(fromRoofEntries);
     const fromRoofUsed = json.map(
       (item, index) => index < json.length - 1
         ? Math.max(
@@ -70,9 +94,10 @@ export const HistoryCharts = {
         )
         : 0
     ).slice(0, -1);
-    const energyUsed = Object.fromEntries(json.map(
+    /** @type {[string, number][]} */
+    const energyUsedEntries = json.map(
       (item, index) => index < json.length - 1
-        ? [
+        ? /** @type {[string, number]} */ ([
           new Date(item.timestamp).toLocaleDateString('de'),
           Math.max(
             0,
@@ -82,12 +107,13 @@ export const HistoryCharts = {
             json[index + 1].energy.fromBattery - item.energy.fromBattery +
             json[index + 1].energy.fromGrid - item.energy.fromGrid
           )
-        ]
-        : [
+        ])
+        : /** @type {[string, number]} */ ([
           new Date(item.timestamp).toLocaleDateString('de'),
           0
-        ]
-    ).slice(0, -1));
+        ])
+    ).slice(0, -1);
+    const energyUsed = Object.fromEntries(energyUsedEntries);
     // eslint-disable-next-line no-new
     new Chart(FIRST_CHART_SELECTOR, {
       ...commonChartOptions,
@@ -124,6 +150,7 @@ export const HistoryCharts = {
             ).slice(0, -1)
           }
         ],
+        yMarkers: getYMarkers(fromRoofEntries.map(entry => entry[1])),
         ...datasets
       },
       height: 480,
@@ -173,6 +200,7 @@ export const HistoryCharts = {
             ).slice(0, -1)
           }
         ],
+        yMarkers: getYMarkers(energyUsedEntries.map(entry => entry[1])),
         ...datasets
       },
       title: 'Verbrauch',
