@@ -162,6 +162,10 @@ export class InverterSession {
       )),
       'Loggers',
       (/** @type {SMASingleLogger} */ json, index) => {
+        if (
+          typeof json !== 'object' ||
+          !('result' in json)
+        ) return;
         const [layerTwoKey] = Object.keys(json.result);
         if (
           json.result[layerTwoKey].length > 0
