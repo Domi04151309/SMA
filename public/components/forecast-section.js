@@ -5,6 +5,8 @@ import { Chart, commonChartOptions, error } from '/utils/charts.js';
 import Spline from '/cubic-spline.js';
 
 const INVALID_LAYOUT = 'Invalid layout';
+const WEATHER_WEIGHT = 0.5;
+const SCALE_FACTOR = 0.6;
 
 export const ForecastSection = {
   error(/** @type {DocumentFragment|Element|null} */ node) {
@@ -33,7 +35,7 @@ export const ForecastSection = {
         ].reduce(
           (accumulator, item) => accumulator + item,
           0
-        ) / 3 * (3 / 4) + 0.25
+        ) / 3 * WEATHER_WEIGHT + 1 - WEATHER_WEIGHT
       )
     );
     // eslint-disable-next-line no-new
@@ -51,7 +53,7 @@ export const ForecastSection = {
                   0,
                   /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
                   SunCalc.getPosition(date, latitude, longitude).altitude
-                ) / (Math.PI / 2) * spline.at(hour) * maxPower;
+                ) / (Math.PI / 2) * spline.at(hour) * maxPower * SCALE_FACTOR;
               }
             )
           }
