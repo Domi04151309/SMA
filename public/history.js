@@ -3,7 +3,6 @@ import { EcologySettings } from '/components/ecology-settings.js';
 import { EconomySection } from '/components/economy-section.js';
 import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
-import { EnergySectionSmall } from '/components/energy-section-small.js';
 import { HistoryCharts } from '/components/history-charts.js';
 import { SourceSection } from '/components/source-section.js';
 import { fetchApiData } from '/utils/api.js';
@@ -58,7 +57,6 @@ async function updateViews() {
   titleView.textContent = date.toLocaleDateString('de', options[category]);
   firstChart.textContent = '';
   secondChart.textContent = '';
-  EnergySectionSmall.hide();
   fullSection.style.display = 'none';
   loadingView.style.display = '';
   const endDate = new Date(date);
@@ -90,22 +88,46 @@ async function updateViews() {
       EconomySection.update(difference);
       EcologySection.update(difference);
     },
-    () => {
-      onError();
-    }
+    onError
   );
-  else if (category === 'day') await fetchApiData(
-    '/exact' + query,
-    (/** @type {NowResponse[]} */ json) => {
-      loadingView.style.display = 'none';
-      HistoryCharts.updateExact(json);
-      if (json.length === 0) return;
-      EnergySectionSmall.update(getEnergyDifference(json));
-    },
-    () => {
-      onError();
-    }
-  );
+  else if (category === 'day') await Promise.all([
+    fetchApiData(
+      '/exact' + query,
+      (/** @type {NowResponse[]} */ json) => {
+        loadingView.style.display = 'none';
+        HistoryCharts.updateExact(json);
+      },
+      onError
+    ),
+    fetchApiData(
+      '/daily' + query,
+      async (/** @type {NowResponse[]} */ json) => {
+        if (json.length === 1) await fetchApiData(
+          '/now',
+          (/** @type {NowResponse} */ now) => {
+            fullSection.style.display = '';
+            const difference = getEnergyDifference([...json, now]);
+            EnergySection.update(difference);
+            // eslint-disable-next-line no-new
+            new SourceSection(difference);
+            EconomySection.update(difference);
+            EcologySection.update(difference);
+          },
+          onError
+        );
+        else if (json.length > 1) {
+          fullSection.style.display = '';
+          const difference = getEnergyDifference(json);
+          EnergySection.update(difference);
+          // eslint-disable-next-line no-new
+          new SourceSection(difference);
+          EconomySection.update(difference);
+          EcologySection.update(difference);
+        }
+      },
+      onError
+    )
+  ]);
 }
 
 /**
