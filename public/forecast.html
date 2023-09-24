@@ -11,6 +11,22 @@
           <div class="grid-1-2">
             {% include weather-section.html %}
             <div class="forecast-chart"></div>
+            <div class="grid-2 match-chart-padding">
+              <div class="card">
+                <span class="icon solar"></span>
+                <div>
+                  <span class="primary">Erzeugung</span>
+                  <small>~ <span class="loadable forecast-generation"></span> kWh</small>
+                </div>
+              </div>
+              <div class="card">
+                <span class="icon home"></span>
+                <div>
+                  <span class="primary">Verbrauch</span>
+                  <small>~ <span class="loadable forecast-consumption"></span> kWh</small>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </template>

@@ -19,9 +19,16 @@ export const ForecastSection = {
     /** @type {DocumentFragment|Element|null} */ node,
     /** @type {WeatherArea} */ location,
     /** @type {WeatherDay} */ json,
-    /** @type {number} */ maxPower
+    /** @type {number} */ maxPower,
+    /** @type {number} */ energyUsed
   ) {
     if (node === null) throw new Error(INVALID_LAYOUT);
+    const generation = node.querySelector('.forecast-generation');
+    const consumption = node.querySelector('.forecast-consumption');
+    if (
+      generation === null ||
+      consumption === null
+    ) throw new Error(INVALID_LAYOUT);
     const date = new Date(json.date);
     const latitude = parseFloat(location.latitude);
     const longitude = parseFloat(location.longitude);
@@ -38,6 +45,24 @@ export const ForecastSection = {
         ) / 3 * WEATHER_WEIGHT + 1 - WEATHER_WEIGHT
       )
     );
+    const forecast = Array.from(
+      { length: 22 },
+      (_, hour) => {
+        date.setHours(hour);
+        return Math.max(
+          0,
+          /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+          SunCalc.getPosition(date, latitude, longitude).altitude
+        ) / (Math.PI / 2) * spline.at(hour) * maxPower * SCALE_FACTOR;
+      }
+    );
+    generation.textContent = Math.round(
+      forecast.reduce(
+        (accumulator, value) => accumulator + value,
+        0
+      ) / 1000
+    ).toString();
+    consumption.textContent = energyUsed.toString();
     // eslint-disable-next-line no-new
     new Chart(node.querySelector('.forecast-chart'), {
       ...commonChartOptions,
@@ -45,17 +70,7 @@ export const ForecastSection = {
         datasets: [
           {
             name: 'Leistung',
-            values: Array.from(
-              { length: 22 },
-              (_, hour) => {
-                date.setHours(hour);
-                return Math.max(
-                  0,
-                  /* @ts-expect-error */// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-                  SunCalc.getPosition(date, latitude, longitude).altitude
-                ) / (Math.PI / 2) * spline.at(hour) * maxPower * SCALE_FACTOR;
-              }
-            )
+            values: forecast
           }
         ],
         labels: Array.from({ length: 22 }, (_, hour) => hour + ' Uhr'),
@@ -69,7 +84,7 @@ export const ForecastSection = {
         formatTooltipY: (
           /** @type {number|null} */ value
         ) => value !== null
-          ? Math.round(value).toLocaleString('de') + ' Wh'
+          ? Math.round(value).toLocaleString('de') + ' W'
           : ''
       },
       type: 'bar'
