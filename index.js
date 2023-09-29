@@ -33,7 +33,9 @@ async function fetchNewData() {
 }
 
 await fetchNewData();
-setInterval(fetchNewData, 300_000);
+setTimeout(() => {
+  setInterval(fetchNewData, 300_000);
+}, Date.now() % 300_000);
 
 new Server()
   .registerApiEndpoint(
