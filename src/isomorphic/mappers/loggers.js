@@ -3,6 +3,7 @@ import {
   getDailyResponseTemplate,
   getNowResponseTemplate,
   interpolateBatteryStateOfCharge,
+  removeInvalids,
   setIfNumber,
   wattHoursToWatts
 } from './utils.js';
@@ -127,13 +128,7 @@ export function processExactLoggers(battery, loggers) {
   for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
   ) processExactDataSet(logger, index, datasets, dataset, batteryCapacity);
-  for (
-    const dataset of datasets
-  ) for (
-    const key of /** @type {(keyof Power)[]} */ (Object.keys(dataset.power))
-  ) if (
-    dataset.power[key] < 0 || dataset.power[key] > 100_000
-  ) dataset.power[key] = 0;
+  for (const dataset of datasets) removeInvalids(dataset.power);
   return datasets;
 }
 

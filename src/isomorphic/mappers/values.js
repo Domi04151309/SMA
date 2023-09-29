@@ -1,6 +1,7 @@
 import {
   addIfNumber,
   getNowResponseTemplate,
+  removeInvalids,
   setIfNumber
 } from './utils.js';
 
@@ -35,5 +36,6 @@ export function getNow(values) {
     'currentUsage',
     -(device?.Metering_GridMs_TotWOut ?? 0)
   );
+  removeInvalids(result.power);
   return result;
 }

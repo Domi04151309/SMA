@@ -31,6 +31,18 @@ export function wattHoursToWatts(wattHours, hours) {
 }
 
 /**
+ * @param {Power} dataset
+ * @returns {void}
+ */
+export function removeInvalids(dataset) {
+  for (
+    const key of /** @type {(keyof Power)[]} */ (Object.keys(dataset))
+  ) if (
+    dataset[key] < 0 || dataset[key] > 100_000
+  ) dataset[key] = 0;
+}
+
+/**
  * @param {number} timestamp
  * @returns {NowResponse}
  */
