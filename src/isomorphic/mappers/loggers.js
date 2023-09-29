@@ -42,15 +42,15 @@ function processExactDataSet(
   const wattageFromGrid = index === 0
     ? 0
     : wattHoursToWatts(
-      (logger.Metering_GridMs_TotWhIn[index]?.v ?? 0) -
-        (logger.Metering_GridMs_TotWhIn[index - 1]?.v ?? 0),
+      (logger.Metering_GridMs_TotWhIn?.at(index)?.v ?? 0) -
+        (logger.Metering_GridMs_TotWhIn?.at(index - 1)?.v ?? 0),
       5 / 60
     );
   const wattageToGrid = index === 0
     ? 0
     : wattHoursToWatts(
-      (logger.Metering_TotWhOut[index]?.v ?? 0) -
-        (logger.Metering_TotWhOut[index - 1]?.v ?? 0),
+      (logger.Metering_TotWhOut?.at(index)?.v ?? 0) -
+        (logger.Metering_TotWhOut?.at(index - 1)?.v ?? 0),
       5 / 60
     );
   setIfNumber(
@@ -76,9 +76,13 @@ function processExactDataSet(
   setIfNumber(
     dataset.energy,
     'fromGrid',
-    logger.Metering_GridMs_TotWhIn[index]?.v
+    logger.Metering_GridMs_TotWhIn?.at(index)?.v
   );
-  addIfNumber(dataset.energy, 'fromRoof', logger.Metering_TotWhOut[index]?.v);
+  addIfNumber(
+    dataset.energy,
+    'fromRoof',
+    logger.Metering_TotWhOut?.at(index)?.v
+  );
   setIfNumber(
     dataset.energy,
     'toBattery',
@@ -94,7 +98,7 @@ function processExactDataSet(
           : null
       )
   );
-  addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut[index]?.v);
+  addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut?.at(index)?.v);
   if (
     logger.BatChrg_BatChrg
   ) addIfNumber(dataset.energy, 'toGrid', -dataset.energy.toBattery);
@@ -119,9 +123,10 @@ function processExactDataSet(
  */
 export function processExactLoggers(battery, loggers) {
   if (loggers.length === 0) return [];
-  const datasets = loggers[0].Metering_TotWhOut.map(
+  const datasets = loggers[0].Metering_TotWhOut?.map(
     item => getNowResponseTemplate(item.t * 1000)
-  );
+  ) ?? null;
+  if (datasets === null) return [];
   const batteryCapacity = (battery?.capacity ?? 0) *
     (battery?.capacityOfOriginalCapacity ?? 0) / 100;
   interpolateBatteryStateOfCharge(loggers);
@@ -147,9 +152,13 @@ function processDailyDataSet(logger, index, dataset) {
   setIfNumber(
     dataset.energy,
     'fromGrid',
-    logger.Metering_GridMs_TotWhIn[index]?.v
+    logger.Metering_GridMs_TotWhIn?.at(index)?.v
   );
-  addIfNumber(dataset.energy, 'fromRoof', logger.Metering_TotWhOut[index]?.v);
+  addIfNumber(
+    dataset.energy,
+    'fromRoof',
+    logger.Metering_TotWhOut?.at(index)?.v
+  );
   setIfNumber(
     dataset.energy,
     'toBattery',
@@ -168,9 +177,10 @@ function processDailyDataSet(logger, index, dataset) {
  */
 export function processDailyLoggers(loggers) {
   if (loggers.length === 0) return [];
-  const datasets = loggers[0].Metering_TotWhOut.map(
+  const datasets = loggers[0].Metering_TotWhOut?.map(
     item => getDailyResponseTemplate(item.t * 1000)
-  );
+  ) ?? null;
+  if (datasets === null) return [];
   for (const logger of loggers) for (
     const [index, dataset] of datasets.entries()
   ) processDailyDataSet(logger, index, dataset);

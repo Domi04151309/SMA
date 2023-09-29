@@ -282,10 +282,10 @@ declare interface SMASimplifiedLogger {
   BatChrg_BatChrg?: SMALoggerDataPoint[],
   BatDsch_BatDsch?: SMALoggerDataPoint[],
   Battery_ChaStt?: SMALoggerDataPoint[],
-  Metering_GridMs_TotWhIn: SMALoggerDataPoint[],
+  Metering_GridMs_TotWhIn?: SMALoggerDataPoint[],
   Metering_GridMs_TotWhIn_Daily?: SMALoggerDataPoint[],
   Metering_GridMs_TotWhOut?: SMALoggerDataPoint[],
-  Metering_TotWhOut: SMALoggerDataPoint[],
+  Metering_TotWhOut?: SMALoggerDataPoint[],
   Metering_TotWhOut_Daily?: SMALoggerDataPoint[],
   PvGen_PvW?: SMALoggerDataPoint[]
 }

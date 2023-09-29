@@ -133,7 +133,6 @@ export class InverterSession {
       'https://' + this.address + '/dyn/getDashLogger.json'
     );
     if (json === null) return null;
-    // @ts-expect-error
     return Object.fromEntries(
       Object.entries(Object.values(json.result)[0])
         .map(([key, value]) => [LOGGER_MAP[key], Object.values(value)[0]])
@@ -172,7 +171,6 @@ export class InverterSession {
         ) response[LOGGER_MAP[keys[index]]] = json.result[layerTwoKey];
       }
     );
-    // @ts-expect-error
     return Object.keys(response).length === 0 ? null : response;
   }
 
