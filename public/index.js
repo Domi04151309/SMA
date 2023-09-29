@@ -1,4 +1,9 @@
 import { DataCharts, setBatteryInfo } from '/components/data-charts.js';
+import {
+  QuickSection,
+  setBatteryCapacity,
+  setBatteryPercentage
+} from '/components/quick-section.js';
 import { fetchApiData, fetchWeatherData } from '/utils/api.js';
 import { ConnectionBanner } from '/components/connection-banner.js';
 import { EcologySection } from '/components/ecology-section.js';
@@ -7,10 +12,9 @@ import { EconomySection } from '/components/economy-section.js';
 import { EconomySettings } from '/components/economy-settings.js';
 import { EnergySection } from '/components/energy-section.js';
 import { PowerSection } from '/components/power-section.js';
-import { QuickSection } from '/components/quick-section.js';
 import { SourceSection } from '/components/source-section.js';
 import { WeatherSection } from '/components/weather-section.js';
-
+import { getBatteryPrediction } from '/utils/statistics.js';
 const LIVE_UPDATE_DELAY = 10_000;
 const CHART_UPDATE_DELAY = 300_000;
 
@@ -51,17 +55,24 @@ async function update(data = null) {
 EcologySettings.update();
 EconomySettings.update();
 
+const batteryPrediction = getBatteryPrediction();
 await Promise.allSettled([
   fetchApiData('/history', async (/** @type {NowResponse[]} */ json) => {
     charts = new DataCharts(json);
-    await update(json.at(-1));
+    const latest = json.at(-1);
+    setBatteryPercentage((latest?.batteryPercentage ?? 0) / 100);
+    await update(latest);
   }, () => {
     DataCharts.error();
     SourceSection.error();
     QuickSection.sourceError();
   }),
   fetchApiData('/devices', (/** @type {DevicesResponse} */json) => {
-    setBatteryInfo(json.batteries[0]);
+    const [battery] = json.batteries;
+    setBatteryInfo(battery);
+    setBatteryCapacity(
+      battery.capacity * battery.capacityOfOriginalCapacity / 100
+    );
   }),
   fetchWeatherData((/** @type {WeatherResponse} */json) => {
     const location = json.nearest_area?.at(0) ?? null;
@@ -83,5 +94,6 @@ await Promise.allSettled([
     WeatherSection.error(document.getElementById('weather'));
   })
 ]);
+QuickSection.updateBattery(await batteryPrediction);
 
 setInterval(update, LIVE_UPDATE_DELAY);

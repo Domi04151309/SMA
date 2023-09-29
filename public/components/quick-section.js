@@ -5,11 +5,31 @@ const INVALID_LAYOUT = 'Invalid layout';
 
 const sourceIcon = document.querySelector('#quick-source img');
 const sourceLabel = document.querySelector('#quick-source .primary');
+const batteryLabel = document.querySelector('#quick-battery .primary');
 const weatherIcon = document.querySelector('#quick-weather img');
 const weatherLabel = document.querySelector('#quick-weather .primary');
 const weatherSecondaryLabel = document.querySelector(
   '#quick-weather .secondary'
 );
+
+let batteryCapacity = 0;
+let batteryPercentage = 0;
+
+/**
+ * @param {number} value
+ * @returns {void}
+ */
+export function setBatteryCapacity(value) {
+  batteryCapacity = value;
+}
+
+/**
+ * @param {number} value
+ * @returns {void}
+ */
+export function setBatteryPercentage(value) {
+  batteryPercentage = value;
+}
 
 /**
  * @param {WeatherArea} location
@@ -193,6 +213,15 @@ export const QuickSection = {
       !(sourceIcon instanceof HTMLImageElement)
     ) throw new Error(INVALID_LAYOUT);
     sourceIcon.src = '/images/icons8-error.svg';
+  },
+  updateBattery(/** @type {number} */ batteryChange) {
+    if (batteryLabel === null) throw new Error(INVALID_LAYOUT);
+    const prediction = batteryChange === 0
+      ? 'Längere Dauer'
+      : Math.floor(
+        batteryCapacity * batteryPercentage / batteryChange
+      ).toString() + ' Tage';
+    batteryLabel.textContent = prediction;
   },
   updateSource(/** @type {Power} */ json) {
     if (
