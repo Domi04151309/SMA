@@ -4,13 +4,13 @@ import {
   fetchExactLoggers,
   fetchValues
 } from './src/logging/fetchers.js';
+import { getInverters, reloadInverters } from './src/inverters.js';
 import {
   processDailyLoggers,
   processExactLoggers
 } from './src/isomorphic/mappers/loggers.js';
 import { Server } from './src/server.js';
 import { getDevices } from './src/isomorphic/mappers/devices.js';
-import { getInverters } from './src/inverters.js';
 import { getLicenses } from './src/licenses.js';
 import { getNow } from './src/isomorphic/mappers/values.js';
 import { getWeather } from './src/weather.js';
@@ -36,6 +36,7 @@ await fetchNewData();
 setTimeout(() => {
   setInterval(fetchNewData, 300_000);
 }, Date.now() % 300_000);
+setInterval(reloadInverters, 1000 * 60 * 60 * 24);
 
 new Server()
   .registerApiEndpoint(

@@ -206,3 +206,10 @@ export async function getInverters() {
   }
   return inverters;
 }
+
+/**
+ * @returns {void}
+ */
+export function reloadInverters() {
+  inverters.length = 0;
+}
