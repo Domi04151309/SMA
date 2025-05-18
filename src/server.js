@@ -56,7 +56,7 @@ export class Server {
   ) {
     this.app.get(path, (_, response) => {
       const fullFilePath = fileURLToPath(
-        new URL('../node_modules/' + filePath, import.meta.url)
+        new URL(`../node_modules/${filePath}`, import.meta.url)
       );
       response.setHeader('content-type', lookup(fullFilePath) || '');
       const fileToSend = readFileSync(fullFilePath)
@@ -77,7 +77,7 @@ export class Server {
   ) {
     this.app.get(path, (_, response) => {
       const fullFilePath = fileURLToPath(
-        new URL('../public/' + filePath, import.meta.url)
+        new URL(`../public/${filePath}`, import.meta.url)
       );
       let sourceFile = readFileSync(fullFilePath).toString();
       for (
@@ -92,15 +92,16 @@ export class Server {
           instructionEnd - 2
         ).trim()
           .split(' ', 2);
-        if (instruction === 'include') sourceFile = sourceFile.slice(
-          0,
-          instructionStart
-        ) + readFileSync(
-          fileURLToPath(
-            new URL('../public/_includes/' + parameter, import.meta.url)
-          )
-        ).toString() + sourceFile.slice(instructionEnd);
-        else {
+        if (instruction === 'include') {
+          sourceFile = sourceFile.slice(
+            0,
+            instructionStart
+          ) + readFileSync(
+            fileURLToPath(
+              new URL(`../public/_includes/${parameter}`, import.meta.url)
+            )
+          ).toString() + sourceFile.slice(instructionEnd);
+        } else {
           console.warn(
             'Invalid instruction in',
             fullFilePath,
@@ -120,7 +121,7 @@ export class Server {
     /** @type {string} */ path,
     /** @type {(request: express.Request) => unknown} */ getResponse
   ) {
-    this.app.get('/api' + path, async (request, response) => {
+    this.app.get(`/api${path}`, async (request, response) => {
       const sendableResponse = getResponse.constructor.name === 'AsyncFunction'
         ? await getResponse(request)
         : getResponse(request);
@@ -133,7 +134,7 @@ export class Server {
   start() {
     this.app.listen(PORT, () => {
       // eslint-disable-next-line no-console
-      console.log('http://localhost:' + PORT + '/');
+      console.log(`http://localhost:${PORT.toString()}/`);
     });
   }
 }

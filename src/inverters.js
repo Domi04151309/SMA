@@ -8,7 +8,7 @@ import {
 } from 'node:fs';
 import { INVERTERS_FILE } from './config.js';
 import { InverterSession } from './inverter-session.js';
-import { allSettledHandling } from './fetch-utils.js';
+import { allSettledHandling } from './fetch-utilities.js';
 import { fileURLToPath } from 'node:url';
 import ip from 'ip';
 import { networkInterfaces } from 'node:os';
@@ -23,7 +23,7 @@ const inverters = [];
 async function isInverter(ipAddress) {
   try {
     const response = await fetch(
-      'https://' + ipAddress + '/dyn/getDashTime.json'
+      `https://${ipAddress}/dyn/getDashTime.json`
     );
     if (response.status !== 200) return null;
     return ipAddress;
@@ -131,8 +131,8 @@ function saveSession(session) {
   );
   if (!existsSync(logFileDirectory)) mkdirSync(logFileDirectory);
   if (session.sessionId !== null) writeFileSync(
-    logFileDirectory + Date.now() + '.' +
-      session.address.replaceAll(/[^\dA-Za-z]/gu, '_') + '.json',
+    `${logFileDirectory + Date.now().toString()}.${
+      session.address.replaceAll(/[^\dA-Za-z]/gu, '_')}.json`,
     JSON.stringify(session, null, 2)
   );
 }
@@ -172,27 +172,28 @@ export async function getInverters() {
   if (inverters.length > 0) return inverters;
   await invalidateOldSessions();
   const invertersFilePath = fileURLToPath(
-    new URL('../' + INVERTERS_FILE, import.meta.url)
+    new URL(`../${INVERTERS_FILE}`, import.meta.url)
   );
-  if (existsSync(invertersFilePath)) try {
-    const fileContent = parseInverterFile(
-      readFileSync(invertersFilePath).toString()
-    );
-    await allSettledHandling(
-      fileContent.map(inverter => InverterSession.create(inverter)),
-      'Session',
-      session => {
-        saveSession(session);
-        inverters.push(session);
-      }
-    );
-  } catch (error) {
-    console.error(
-      'Failed opening inverter file:',
-      error instanceof Error ? error.message : error
-    );
-  }
-  else {
+  if (existsSync(invertersFilePath)) {
+    try {
+      const fileContent = parseInverterFile(
+        readFileSync(invertersFilePath).toString()
+      );
+      await allSettledHandling(
+        fileContent.map(inverter => InverterSession.create(inverter)),
+        'Session',
+        session => {
+          saveSession(session);
+          inverters.push(session);
+        }
+      );
+    } catch (error) {
+      console.error(
+        'Failed opening inverter file:',
+        error instanceof Error ? error.message : error
+      );
+    }
+  } else {
     try {
       await autofillInverters(invertersFilePath);
     } catch (error) {
@@ -200,8 +201,8 @@ export async function getInverters() {
       writeFileSync(invertersFilePath, JSON.stringify([]));
     }
     console.warn(
-      'Please enter your converters\' login credentials in the `' +
-      INVERTERS_FILE + '` file!'
+      `Please enter your converters' login credentials in the \`${
+        INVERTERS_FILE}\` file!`
     );
   }
   return inverters;

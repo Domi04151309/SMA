@@ -10,32 +10,32 @@ export function toColoredString(json, limit = 10) {
   return JSON.stringify(
     json,
     (_, /** @type {unknown} */ value) => {
-      let colored = '';
+      let colored;
       switch (typeof value) {
-      case 'boolean':
-      case 'number':
-        colored = '\u001B[33m' + value.toString();
-        break;
-      case 'string':
-        colored = '\u001B[32m\'' + value + '\'';
-        break;
-      case 'undefined':
-        colored = '\u001B[37mundefined';
-        break;
-      case 'object':
-        if (value === null) colored = '\u001B[1mnull';
-        else if (
-          Array.isArray(value) && value.length > limit
-        ) colored = '\u001B[36m[Array]';
-        else if (
-          Object.keys(value).length > limit
-        ) colored = '\u001B[36m[Object]';
-        else return value;
-        break;
-      default:
-        return value;
+        case 'boolean':
+        case 'number':
+          colored = `\u001B[33m${value.toString()}`;
+          break;
+        case 'string':
+          colored = `\u001B[32m'${value}'`;
+          break;
+        case 'undefined':
+          colored = '\u001B[37mundefined';
+          break;
+        case 'object':
+          if (value === null) colored = '\u001B[1mnull';
+          else if (
+            Array.isArray(value) && value.length > limit
+          ) colored = '\u001B[36m[Array]';
+          else if (
+            Object.keys(value).length > limit
+          ) colored = '\u001B[36m[Object]';
+          else return value;
+          break;
+        default:
+          return value;
       }
-      return colored + '\u001B[39m\u001B[0m';
+      return `${colored}\u001B[39m\u001B[0m`;
     },
     2
   ).replaceAll('"', '')
@@ -58,7 +58,7 @@ export function logChart(title, data) {
   console.log(
     data.length === 0
       ? title
-      : title + '\n' + plot(data, { colors: ['\u001B[33m'], height: 15 })
+      : `${title}\n${plot(data, { colors: ['\u001B[33m'], height: 15 })}`
   );
 }
 

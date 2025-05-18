@@ -3,10 +3,12 @@ body {
   margin: auto;
   padding: 16px;
 }
+
 * {
   font-family: sans-serif;
   font-weight: normal;
 }
+
 p {
   opacity: .6;
   line-height: 1.5;

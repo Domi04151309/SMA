@@ -35,7 +35,7 @@ export function error(selector, options) {
     },
     type: 'bar'
   };
-  // eslint-disable-next-line no-new
+  // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
   new Chart(selector, {
     ...commonChartOptions,
     ...errorOptions,
@@ -51,7 +51,11 @@ addEventListener('beforeprint', () => {
   ) {
     chart.setAttribute(
       'viewBox',
-      '0 0 ' + chart.getAttribute('width') + ' ' + chart.getAttribute('height')
+      `0 0 ${
+        chart.getAttribute('width') ?? '0'
+      } ${
+        chart.getAttribute('height') ?? '0'
+      }`
     );
     chart.style.width = '100%';
   }

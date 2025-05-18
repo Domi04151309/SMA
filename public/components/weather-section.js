@@ -28,11 +28,11 @@ export const WeatherSection = {
       uvIndex === null
     ) throw new Error(INVALID_LAYOUT);
     const date = new Date(json.date);
-    const latitude = parseFloat(location.latitude);
-    const longitude = parseFloat(location.longitude);
+    const latitude = Number.parseFloat(location.latitude);
+    const longitude = Number.parseFloat(location.longitude);
     let positions = json.hourly.map(
       hour => {
-        date.setHours(parseInt(hour.time, 10) / 100);
+        date.setHours(Number.parseInt(hour.time, 10) / 100);
         // @ts-expect-error
         const sunPosition = SunCalc.getPosition(
           date,
@@ -42,13 +42,13 @@ export const WeatherSection = {
         return Math.max(
           0,
           // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-          isNaN(sunPosition) ? 1 : sunPosition
+          Number.isNaN(sunPosition) ? 1 : sunPosition
         );
       }
     );
     const maxPosition = Math.max(...positions);
     positions = positions.map(position => position / maxPosition);
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(node.querySelector('.weather-chart'), {
       ...commonChartOptions,
       colors: ['#FFD600', '#304FFE', '#2979FF', '#40C4FF', '#84FFFF'],
@@ -60,7 +60,7 @@ export const WeatherSection = {
               (
                 hour,
                 index
-              ) => parseInt(hour.chanceofsunshine, 10) * positions[index]
+              ) => Number.parseInt(hour.chanceofsunshine, 10) * positions[index]
             )
           },
           {
@@ -80,7 +80,9 @@ export const WeatherSection = {
             values: json.hourly.map(hour => hour.chanceofsnow)
           }
         ],
-        labels: json.hourly.map(hour => parseInt(hour.time, 10) / 100 + ' Uhr'),
+        labels: json.hourly.map(hour => `${
+          (Number.parseInt(hour.time, 10) / 100).toString()
+        } Uhr`),
         yMarkers: [
           { label: '', value: 0 },
           { label: '', value: 100 }
@@ -90,22 +92,24 @@ export const WeatherSection = {
       tooltipOptions: {
         formatTooltipX: (/** @type {string|null} */ value) => {
           if (value === null) return '';
-          const time = (parseInt(value, 10) * 100).toString();
-          return value + ' | ' + json.hourly.find(
-            item => item.time === time
-          )?.lang_de[0]?.value;
+          const time = (Number.parseInt(value, 10) * 100).toString();
+          return `${value} | ${
+            json.hourly.find(
+              item => item.time === time
+            )?.lang_de[0]?.value ?? '?'
+          }`;
         },
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value !== null ? Math.round(value) + ' %' : ''
+        ) => value !== null ? `${Math.round(value).toString()} %` : ''
       },
       type: 'line'
     });
 
-    const sunHourValue = parseFloat(json.sunHour);
+    const sunHourValue = Number.parseFloat(json.sunHour);
     sunrise.textContent = json.astronomy.at(0)?.sunrise ?? '?';
     sunset.textContent = json.astronomy.at(0)?.sunset ?? '?';
-    sunHours.textContent = isNaN(sunHourValue)
+    sunHours.textContent = Number.isNaN(sunHourValue)
       ? '?'
       : sunHourValue.toLocaleString('de');
     uvIndex.textContent = json.uvIndex;

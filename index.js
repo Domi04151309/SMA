@@ -44,8 +44,8 @@ new Server()
     async request => processDailyLoggers(
       await fetchDailyLoggers(
         await getInverters(),
-        parseInt(request.query.start?.toString() ?? '', 10),
-        parseInt(request.query.end?.toString() ?? '', 10)
+        Number.parseInt(request.query.start?.toString() ?? '', 10),
+        Number.parseInt(request.query.end?.toString() ?? '', 10)
       )
     )
   )
@@ -64,8 +64,8 @@ new Server()
         getDevices(inverters, await fetchValues(inverters)).batteries[0],
         await fetchExactLoggers(
           inverters,
-          parseInt(request.query.start?.toString() ?? '', 10),
-          parseInt(request.query.end?.toString() ?? '', 10)
+          Number.parseInt(request.query.start?.toString() ?? '', 10),
+          Number.parseInt(request.query.end?.toString() ?? '', 10)
         )
       );
     }
@@ -83,6 +83,7 @@ new Server()
   .registerTemplatedFile('/', 'index.html')
   .registerTemplatedFile('/forecast', 'forecast.html')
   .registerTemplatedFile('/history', 'history.html')
+  .registerTemplatedFile('/offline', 'offline.html')
   .registerTemplatedFile('/settings', 'settings.html')
   .registerNodeModulesFile('/cubic-spline.js', 'cubic-spline/index.js')
   .registerNodeModulesFile(

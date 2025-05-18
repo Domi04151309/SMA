@@ -4,7 +4,7 @@ import {
   fetchExactLoggers as fetchExactLoggersOriginal,
   fetchValues as fetchValuesOriginal
 } from '../isomorphic/fetchers.js';
-import { logChart, logTable } from './utils.js';
+import { logChart, logTable } from './utilities.js';
 import { PRINT_DEBUG_INFO } from '../config.js';
 
 /**
@@ -20,7 +20,7 @@ function printValuesDebugInfo(values) {
       const key of Object.keys(entry)
     ) keys.add(key);
     logTable(
-      [...keys].sort().map(
+      [...keys].sort((first, second) => first.localeCompare(second)).map(
         // eslint-disable-next-line @typescript-eslint/no-unsafe-return
         key => [
           key,

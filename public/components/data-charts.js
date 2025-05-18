@@ -8,13 +8,13 @@ let battery = null;
  * @returns {string}
  */
 function toTimeString(date) {
-  return date.toLocaleTimeString(
+  return `${date.toLocaleTimeString(
     'de',
     {
       hour: 'numeric',
       minute: 'numeric'
     }
-  ) + ' Uhr';
+  )} Uhr`;
 }
 
 /**
@@ -64,7 +64,7 @@ export class DataCharts {
       tooltipOptions: {
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' W'
+        ) => `${value?.toLocaleString('de') ?? '?'} W`
       }
     });
     this.batteryChart = new Chart('#battery-chart', {
@@ -88,11 +88,11 @@ export class DataCharts {
       tooltipOptions: {
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value + ' % | ' + (
+        ) => `${value?.toString() ?? '?'} % | ${(
           (battery?.capacity ?? 0) *
           (battery?.capacityOfOriginalCapacity ?? 0) / 100 *
           (value ?? 0) / 100
-        ).toLocaleString('de') + ' Wh'
+        ).toLocaleString('de')} Wh`
       }
     });
     this.gridChart = new Chart('#grid-chart', {
@@ -112,7 +112,7 @@ export class DataCharts {
       tooltipOptions: {
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' W'
+        ) => `${value?.toLocaleString('de') ?? '?'} W`
       }
     });
   }

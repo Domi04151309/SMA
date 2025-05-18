@@ -1,4 +1,4 @@
-import { fetchJson } from './fetch-utils.js';
+import { fetchJson } from './fetch-utilities.js';
 
 const HOUR_IN_MILLISECONDS = 3.6e6;
 
@@ -18,14 +18,14 @@ export async function getWeather(location) {
     Date.now() - lastRefresh < HOUR_IN_MILLISECONDS
   ) return weather;
   try {
-    const json = await fetchJson('https://wttr.in/' +
-      encodeURIComponent(location) + '?lang=de&format=j1');
+    const json = await fetchJson(`https://wttr.in/${
+      encodeURIComponent(location)}?lang=de&format=j1`);
     if (json === null) throw new Error('Fetch failed');
-    /* eslint-disable require-atomic-updates */
+
     weather = json;
     lastLocation = location;
     lastRefresh = Date.now();
-    /* eslint-enable require-atomic-updates */
+
     return weather;
   } catch (error) {
     console.error(

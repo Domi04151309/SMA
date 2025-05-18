@@ -23,7 +23,7 @@ if ('serviceWorker' in navigator) {
   let refreshing = false;
   navigator.serviceWorker.addEventListener('controllerchange', () => {
     if (refreshing) return;
-    window.location.reload();
+    globalThis.location.reload();
     refreshing = true;
   });
 }

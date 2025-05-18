@@ -35,7 +35,7 @@ async function update(data = null) {
     QuickSection.updateSource(json.power);
     PowerSection.update(json);
     EnergySection.update(json.energy);
-    if (sources === null) sources = new SourceSection(json.energy);
+    if (sources === null) sources = SourceSection.create(json.energy);
     else sources.update(json.energy);
     EconomySection.update(json.energy);
     EcologySection.update(json.energy);

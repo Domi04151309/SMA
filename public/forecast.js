@@ -11,7 +11,11 @@ dailyEnd.setDate(dailyEnd.getDate() - 1);
 const dailyStart = new Date(dailyEnd);
 dailyStart.setDate(dailyStart.getDate() - 7);
 const dailyRequest = fetchApiData(
-  '/daily?start=' + dailyStart.getTime() + '&end=' + dailyEnd.getTime(),
+  `/daily?start=${
+    dailyStart.getTime().toString()
+  }&end=${
+    dailyEnd.getTime().toString()
+  }`,
   (/** @type {DailyResponse[]} */ daily) => {
     const energyUsedLastWeek = daily.map(
       (item, index) => index < daily.length - 1

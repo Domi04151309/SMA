@@ -8,13 +8,13 @@ const SECOND_CHART_SELECTOR = '#second-chart';
  * @returns {string}
  */
 function toTimeString(date) {
-  return date.toLocaleTimeString(
+  return `${date.toLocaleTimeString(
     'de',
     {
       hour: 'numeric',
       minute: 'numeric'
     }
-  ) + ' Uhr';
+  )} Uhr`;
 }
 
 /**
@@ -22,7 +22,7 @@ function toTimeString(date) {
  * @returns {string}
  */
 function formatTooltipY(value) {
-  return value?.toLocaleString('de') + ' Wh';
+  return `${value?.toLocaleString('de') ?? '?'} Wh`;
 }
 
 /**
@@ -114,7 +114,7 @@ export const HistoryCharts = {
         ])
     ).slice(0, -1);
     const energyUsed = Object.fromEntries(energyUsedEntries);
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(FIRST_CHART_SELECTOR, {
       ...commonChartOptions,
       barOptions,
@@ -158,13 +158,13 @@ export const HistoryCharts = {
       tooltipOptions: {
         formatTooltipX: (
           /** @type {string|null} */ value
-        ) => value + ' | ' + (
+        ) => `${value ?? '?'} | ${(
           value !== null && value in fromRoof ? fromRoof[value] : 0
-        ).toLocaleString('de') + ' Wh',
+        ).toLocaleString('de')} Wh`,
         formatTooltipY
       }
     });
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(SECOND_CHART_SELECTOR, {
       ...commonChartOptions,
       barOptions,
@@ -207,15 +207,15 @@ export const HistoryCharts = {
       tooltipOptions: {
         formatTooltipX: (
           /** @type {string|null} */ value
-        ) => value + ' | ' + (
+        ) => `${value ?? '?'} | ${(
           value !== null && value in energyUsed ? energyUsed[value] : 0
-        ).toLocaleString('de') + ' Wh',
+        ).toLocaleString('de')} Wh`,
         formatTooltipY
       }
     });
   },
   updateExact(/** @type {NowResponse[]} */ json) {
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(FIRST_CHART_SELECTOR, {
       ...commonChartOptions,
       barOptions: {
@@ -248,10 +248,10 @@ export const HistoryCharts = {
       tooltipOptions: {
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' W'
+        ) => `${value?.toLocaleString('de') ?? '?'} W`
       }
     });
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(SECOND_CHART_SELECTOR, {
       ...commonChartOptions,
       colors: ['#00B0FF'],
@@ -271,7 +271,9 @@ export const HistoryCharts = {
       },
       title: 'Batterie',
       tooltipOptions: {
-        formatTooltipY: (/** @type {number|null} */ value) => value + ' %'
+        formatTooltipY: (/** @type {number|null} */ value) => `${
+          value?.toString() ?? '?'
+        } %`
       }
     });
   }

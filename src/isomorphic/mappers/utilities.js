@@ -1,6 +1,6 @@
 /**
  * @template T
- * @param {{[K in keyof T]: any}} object
+ * @param {{[K in keyof T]: unknown }} object
  * @param {keyof T} propertyName
  * @param {unknown} value
  * @returns {void}
@@ -11,13 +11,18 @@ export function setIfNumber(object, propertyName, value) {
 
 /**
  * @template T
- * @param {{[K in keyof T]: any}} object
+ * @param {{[K in keyof T]: unknown}} object
  * @param {keyof T} propertyName
  * @param {unknown} value
  * @returns {void}
  */
 export function addIfNumber(object, propertyName, value) {
-  if (typeof value === 'number') object[propertyName] += Math.round(value);
+  if (typeof value === 'number') {
+    const initialValue = object[propertyName];
+    object[propertyName] = (
+      typeof initialValue === 'number' ? initialValue : 0
+    ) + Math.round(value);
+  }
 }
 
 /**

@@ -19,7 +19,7 @@ export async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
   } catch (error) {
     console.warn(
       'Failed loading',
-      API_URL + apiEndpoint + ':',
+      `${API_URL + apiEndpoint}:`,
       error instanceof Error ? error.message : error
     );
     if (onError === null) return;
@@ -36,12 +36,12 @@ export async function fetchApiData(apiEndpoint, onSuccess, onError = null) {
  */
 export async function fetchWeatherData(onSuccess, onError = null) {
   const requestLocation = Settings.getItem('location') ?? null;
+  const location = requestLocation === null
+    ? ''
+    : `?location=${encodeURIComponent(requestLocation)}`;
+
   await fetchApiData(
-    '/weather' + (
-      requestLocation === null
-        ? ''
-        : '?location=' + encodeURIComponent(requestLocation)
-    ),
+    `/weather${location}`,
     async json => {
       if ((Settings.getItem('location') ?? '').length === 0) Settings.setItem(
         'location',

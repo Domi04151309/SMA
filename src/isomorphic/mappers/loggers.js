@@ -6,7 +6,53 @@ import {
   removeInvalids,
   setIfNumber,
   wattHoursToWatts
-} from './utils.js';
+} from './utilities.js';
+
+/**
+ * @param {SMASimplifiedLogger} logger
+ * @param {number} index
+ * @param {NowResponse[]} datasets
+ * @param {number} batteryWattHourChange
+ * @returns {number|null}
+ */
+function getFromBattery(
+  logger,
+  index,
+  datasets,
+  batteryWattHourChange
+) {
+  if (index === 0) return logger.BatDsch_BatDsch?.at(0)?.v ?? null;
+
+  return logger.BatDsch_BatDsch
+    ? datasets[index - 1].energy.fromBattery + Math.max(
+      0,
+      batteryWattHourChange
+    )
+    : null;
+}
+
+/**
+ * @param {SMASimplifiedLogger} logger
+ * @param {number} index
+ * @param {NowResponse[]} datasets
+ * @param {number} batteryWattHourChange
+ * @returns {number|null}
+ */
+function getToBattery(
+  logger,
+  index,
+  datasets,
+  batteryWattHourChange
+) {
+  if (index === 0) return logger.BatChrg_BatChrg?.at(0)?.v ?? null;
+
+  return logger.BatChrg_BatChrg
+    ? datasets[index - 1].energy.toBattery + Math.max(
+      0,
+      -batteryWattHourChange
+    )
+    : null;
+}
 
 /* eslint-disable complexity */
 /**
@@ -61,17 +107,7 @@ function processExactDataSet(
   setIfNumber(
     dataset.energy,
     'fromBattery',
-    index === 0
-      ? logger.BatDsch_BatDsch?.at(0)?.v
-      // eslint-disable-next-line no-extra-parens
-      : (
-        logger.BatDsch_BatDsch
-          ? datasets[index - 1].energy.fromBattery + Math.max(
-            0,
-            batteryWattHourChange
-          )
-          : null
-      )
+    getFromBattery(logger, index, datasets, batteryWattHourChange)
   );
   setIfNumber(
     dataset.energy,
@@ -86,17 +122,7 @@ function processExactDataSet(
   setIfNumber(
     dataset.energy,
     'toBattery',
-    index === 0
-      ? logger.BatChrg_BatChrg?.at(0)?.v
-      // eslint-disable-next-line no-extra-parens
-      : (
-        logger.BatChrg_BatChrg
-          ? datasets[index - 1].energy.toBattery + Math.max(
-            0,
-            -batteryWattHourChange
-          )
-          : null
-      )
+    getToBattery(logger, index, datasets, batteryWattHourChange)
   );
   addIfNumber(dataset.energy, 'toGrid', logger.Metering_TotWhOut?.at(index)?.v);
   if (

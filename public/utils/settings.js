@@ -14,8 +14,8 @@ export const Settings = {
     return localStorage.getItem(key);
   },
   getNumberItem(/** @type {string} */ key) {
-    const result = parseFloat(Settings.getItem(key) ?? '0');
-    return isNaN(result) ? 0 : result;
+    const result = Number.parseFloat(Settings.getItem(key) ?? '0');
+    return Number.isNaN(result) ? 0 : result;
   },
   setItem(/** @type {string} */ key, /** @type {string} */ value) {
     localStorage.setItem(key, value);

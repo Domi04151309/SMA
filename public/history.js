@@ -61,21 +61,25 @@ async function updateViews() {
   loadingView.style.display = '';
   const endDate = new Date(date);
   switch (category) {
-  case 'day':
-    endDate.setDate(endDate.getDate() + 1);
-    break;
-  case 'month':
-    endDate.setMonth(endDate.getMonth() + 1);
-    break;
-  case 'year':
-    endDate.setFullYear(endDate.getFullYear() + 1);
-    break;
-  default:
-    break;
+    case 'day':
+      endDate.setDate(endDate.getDate() + 1);
+      break;
+    case 'month':
+      endDate.setMonth(endDate.getMonth() + 1);
+      break;
+    case 'year':
+      endDate.setFullYear(endDate.getFullYear() + 1);
+      break;
+    default:
+      break;
   }
-  const query = '?start=' + date.getTime() + '&end=' + endDate.getTime();
+  const query = `?start=${
+    date.getTime().toString()
+  }&end=${
+    endDate.getTime().toString()
+  }`;
   if (category === 'month' || category === 'year') await fetchApiData(
-    '/daily' + query,
+    `/daily${query}`,
     (/** @type {NowResponse[]} */ json) => {
       loadingView.style.display = 'none';
       HistoryCharts.updateDaily(json);
@@ -83,8 +87,7 @@ async function updateViews() {
       fullSection.style.display = '';
       const difference = getEnergyDifference(json);
       EnergySection.update(difference);
-      // eslint-disable-next-line no-new
-      new SourceSection(difference);
+      SourceSection.create(difference);
       EconomySection.update(difference);
       EcologySection.update(difference);
     },
@@ -92,7 +95,7 @@ async function updateViews() {
   );
   else if (category === 'day') await Promise.all([
     fetchApiData(
-      '/exact' + query,
+      `/exact${query}`,
       (/** @type {NowResponse[]} */ json) => {
         loadingView.style.display = 'none';
         HistoryCharts.updateExact(json);
@@ -100,27 +103,26 @@ async function updateViews() {
       onError
     ),
     fetchApiData(
-      '/daily' + query,
+      `/daily${query}`,
       async (/** @type {NowResponse[]} */ json) => {
-        if (json.length === 1) await fetchApiData(
-          '/now',
-          (/** @type {NowResponse} */ now) => {
-            fullSection.style.display = '';
-            const difference = getEnergyDifference([...json, now]);
-            EnergySection.update(difference);
-            // eslint-disable-next-line no-new
-            new SourceSection(difference);
-            EconomySection.update(difference);
-            EcologySection.update(difference);
-          },
-          onError
-        );
-        else if (json.length > 1) {
+        if (json.length === 1) {
+          await fetchApiData(
+            '/now',
+            (/** @type {NowResponse} */ now) => {
+              fullSection.style.display = '';
+              const difference = getEnergyDifference([...json, now]);
+              EnergySection.update(difference);
+              SourceSection.create(difference);
+              EconomySection.update(difference);
+              EcologySection.update(difference);
+            },
+            onError
+          );
+        } else if (json.length > 1) {
           fullSection.style.display = '';
           const difference = getEnergyDifference(json);
           EnergySection.update(difference);
-          // eslint-disable-next-line no-new
-          new SourceSection(difference);
+          SourceSection.create(difference);
           EconomySection.update(difference);
           EcologySection.update(difference);
         }
@@ -161,34 +163,34 @@ for (
 
 document.getElementById('previous')?.addEventListener('click', async () => {
   switch (category) {
-  case 'day':
-    date.setDate(date.getDate() - 1);
-    break;
-  case 'month':
-    date.setMonth(date.getMonth() - 1);
-    break;
-  case 'year':
-    date.setFullYear(date.getFullYear() - 1);
-    break;
-  default:
-    break;
+    case 'day':
+      date.setDate(date.getDate() - 1);
+      break;
+    case 'month':
+      date.setMonth(date.getMonth() - 1);
+      break;
+    case 'year':
+      date.setFullYear(date.getFullYear() - 1);
+      break;
+    default:
+      break;
   }
   await updateViews();
 });
 
 document.getElementById('next')?.addEventListener('click', async () => {
   switch (category) {
-  case 'day':
-    date.setDate(date.getDate() + 1);
-    break;
-  case 'month':
-    date.setMonth(date.getMonth() + 1);
-    break;
-  case 'year':
-    date.setFullYear(date.getFullYear() + 1);
-    break;
-  default:
-    break;
+    case 'day':
+      date.setDate(date.getDate() + 1);
+      break;
+    case 'month':
+      date.setMonth(date.getMonth() + 1);
+      break;
+    case 'year':
+      date.setFullYear(date.getFullYear() + 1);
+      break;
+    default:
+      break;
   }
   await updateViews();
 });

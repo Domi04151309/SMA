@@ -3,7 +3,7 @@ import {
   getNowResponseTemplate,
   removeInvalids,
   setIfNumber
-} from './utils.js';
+} from './utilities.js';
 
 /**
  * @param {SMASimplifiedValues[]} values

@@ -35,7 +35,7 @@ export async function fetchDashLoggers(inverters) {
  * @returns {Promise<SMASimplifiedLogger[]>}
  */
 export async function fetchExactLoggers(inverters, start, end) {
-  if (isNaN(start) || isNaN(end)) return [];
+  if (Number.isNaN(start) || Number.isNaN(end)) return [];
   return await fetchMultiple(
     inverters,
     async item => await item.getExact(start / 1000, end / 1000)
@@ -49,7 +49,7 @@ export async function fetchExactLoggers(inverters, start, end) {
  * @returns {Promise<SMASimplifiedLogger[]>}
  */
 export async function fetchDailyLoggers(inverters, start, end) {
-  if (isNaN(start) || isNaN(end)) return [];
+  if (Number.isNaN(start) || Number.isNaN(end)) return [];
   return await fetchMultiple(
     inverters,
     async item => await item.getDaily(start / 1000, end / 1000)

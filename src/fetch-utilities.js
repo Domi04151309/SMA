@@ -1,6 +1,10 @@
+import process from 'node:process';
+
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = '0';
+
+// eslint-disable-next-line sort-imports
 import { PRINT_DEBUG_INFO } from './config.js';
-import { toColoredString } from './logging/utils.js';
+import { toColoredString } from './logging/utilities.js';
 
 /**
  * @template T
@@ -22,10 +26,10 @@ export async function fetchJson(url, body = null) {
       // @ts-expect-error Workaround for Bun
       tls: { rejectUnauthorized: false }
     }
-  ).catch(error => {
+  ).catch((/** @type {unknown} */ error) => {
     // Catch fetch errors here because they are otherwise uncatchable in Node.
     console.error(
-      'Fetch of ' + url + ' failed:',
+      `Fetch of ${url} failed:`,
       error instanceof Error ? error.message : error
     );
     return null;
@@ -33,8 +37,8 @@ export async function fetchJson(url, body = null) {
   const json = await response?.json();
   // eslint-disable-next-line no-console, @typescript-eslint/no-unnecessary-condition
   if (PRINT_DEBUG_INFO) console.log(
-    '\u001B[1m' + (body === null ? 'GET' : 'POST') + '\u001B[0m ' + url +
-      '\n' + toColoredString(body) + '\n' + toColoredString(json)
+    `\u001B[1m${body === null ? 'GET' : 'POST'}\u001B[0m ${url
+    }\n${toColoredString(body)}\n${toColoredString(json)}`
   );
   // eslint-disable-next-line @typescript-eslint/no-unsafe-return
   return json ?? null;
@@ -61,7 +65,7 @@ export async function allSettledHandling(
   else if (
     promise.status === 'rejected' && promise.reason
   ) console.error(
-    errorMessage + ':',
+    `${errorMessage}:`,
     promise.reason?.message ?? promise.reason
   );
   else console.error(errorMessage);

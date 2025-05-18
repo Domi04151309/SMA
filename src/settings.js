@@ -12,7 +12,7 @@ let settings = {
 };
 
 const settingsFilePath = fileURLToPath(
-  new URL('../' + SETTINGS_FILE, import.meta.url)
+  new URL(`../${SETTINGS_FILE}`, import.meta.url)
 );
 if (existsSync(settingsFilePath)) try {
   settings = {

@@ -22,9 +22,9 @@ export const DevicesSection = {
       ) throw new Error(INVALID_LAYOUT);
       icon.classList.add('battery');
       model.textContent = device.type ?? 'Batterie';
-      mode.textContent = device
-        .capacityOfOriginalCapacity + ' % von ' + (device.capacity / 1000)
-        .toLocaleString('de') + ' kWh Kapazität';
+      mode.textContent = `${device
+        .capacityOfOriginalCapacity.toString()} % von ${(device.capacity / 1000)
+        .toLocaleString('de')} kWh Kapazität`;
       status.textContent = device.status;
       link.remove();
       deviceTable?.append(row);
@@ -47,8 +47,8 @@ export const DevicesSection = {
       ) throw new Error(INVALID_LAYOUT);
       icon.classList.add('solar');
       model.textContent = 'Cluster';
-      mode.textContent = (device.power / 1000).toLocaleString('de') +
-        ' kW Maximalleistung';
+      mode.textContent = `${(device.power / 1000).toLocaleString('de')
+      } kW Maximalleistung`;
       link.remove();
       deviceTable?.append(row);
     }
@@ -91,10 +91,10 @@ export const DevicesSection = {
         link === null ||
         !(link instanceof HTMLAnchorElement)
       ) throw new Error(INVALID_LAYOUT);
-      model.textContent = device.vendor + ' ' + device.model;
+      model.textContent = `${device.vendor} ${device.model}`;
       mode.textContent = device.mode ?? '-';
       status.textContent = device.status;
-      link.href = 'https://' + device.address + '/';
+      link.href = `https://${device.address}/`;
       deviceTable?.append(row);
     }
   },

@@ -41,8 +41,8 @@ function getWeatherIcon(location, code) {
   /* @ts-expect-error */
   const sunPosition = SunCalc.getPosition(
     new Date(),
-    parseFloat(location.latitude),
-    parseFloat(location.longitude)
+    Number.parseFloat(location.latitude),
+    Number.parseFloat(location.longitude)
   ).altitude;
   const sunnyIcon = sunPosition >= 0
     ? 'icons8-sunny-96.png'
@@ -53,7 +53,7 @@ function getWeatherIcon(location, code) {
   const thunderIcon = sunPosition >= 0
     ? 'icons8-thunder-96.png'
     : 'icons8-stormy-night-96.png';
-  /* eslint-disable sonarjs/no-duplicate-string */
+
   /** @type {{[key: string]: string}} */
   const iconMap = {
 
@@ -201,7 +201,7 @@ function getWeatherIcon(location, code) {
     /** HeavySnowShowers */
     395: 'icons8-sleet-96.png'
   };
-  /* eslint-enable sonarjs/no-duplicate-string */
+
   if (code in iconMap) return iconMap[code];
   return 'icons8-loading.gif';
 }
@@ -218,9 +218,9 @@ export const QuickSection = {
     if (batteryLabel === null) throw new Error(INVALID_LAYOUT);
     const prediction = batteryChange === 0
       ? 'Längere Dauer'
-      : Math.floor(
+      : `${Math.floor(
         batteryCapacity * batteryPercentage / batteryChange
-      ).toString() + ' Tage';
+      ).toString()} Tage`;
     batteryLabel.textContent = prediction;
   },
   updateSource(/** @type {Power} */ json) {
@@ -239,20 +239,20 @@ export const QuickSection = {
       json[key]
     ];
     switch (maxKey) {
-    case 'fromRoof':
-      sourceIcon.src = '/images/icons8-solar-96.png';
-      sourceLabel.textContent = 'Dach';
-      break;
-    case 'fromBattery':
-      sourceIcon.src = '/images/icons8-battery-96.png';
-      sourceLabel.textContent = 'Batterie';
-      break;
-    case 'fromGrid':
-      sourceIcon.src = '/images/icons8-electricity-96.png';
-      sourceLabel.textContent = 'Netz';
-      break;
-    default:
-      break;
+      case 'fromRoof':
+        sourceIcon.src = '/images/icons8-solar-96.png';
+        sourceLabel.textContent = 'Dach';
+        break;
+      case 'fromBattery':
+        sourceIcon.src = '/images/icons8-battery-96.png';
+        sourceLabel.textContent = 'Batterie';
+        break;
+      case 'fromGrid':
+        sourceIcon.src = '/images/icons8-electricity-96.png';
+        sourceLabel.textContent = 'Netz';
+        break;
+      default:
+        break;
     }
   },
   updateWeather(
@@ -265,10 +265,10 @@ export const QuickSection = {
       weatherSecondaryLabel === null ||
       !(weatherIcon instanceof HTMLImageElement)
     ) throw new Error(INVALID_LAYOUT);
-    weatherIcon.src = '/images/' + getWeatherIcon(
+    weatherIcon.src = `/images/${getWeatherIcon(
       location,
       json.weatherCode
-    );
+    )}`;
     weatherLabel.textContent = json.lang_de[0]?.value ?? '?';
     weatherSecondaryLabel.textContent = json.temp_C;
   },

@@ -30,15 +30,15 @@ export const ForecastSection = {
       consumption === null
     ) throw new Error(INVALID_LAYOUT);
     const date = new Date(json.date);
-    const latitude = parseFloat(location.latitude);
-    const longitude = parseFloat(location.longitude);
+    const latitude = Number.parseFloat(location.latitude);
+    const longitude = Number.parseFloat(location.longitude);
     const spline = new Spline(
-      json.hourly.map(hour => parseInt(hour.time, 10) / 100),
+      json.hourly.map(hour => Number.parseInt(hour.time, 10) / 100),
       json.hourly.map(
         hour => [
-          parseInt(hour.chanceofsunshine, 10) / 100,
-          1 - parseInt(hour.chanceofovercast, 10) / 100,
-          1 - parseInt(hour.cloudcover, 10) / 100
+          Number.parseInt(hour.chanceofsunshine, 10) / 100,
+          1 - Number.parseInt(hour.chanceofovercast, 10) / 100,
+          1 - Number.parseInt(hour.cloudcover, 10) / 100
         ].reduce(
           (accumulator, item) => accumulator + item,
           0
@@ -63,7 +63,7 @@ export const ForecastSection = {
       ) / 1000
     ).toString();
     consumption.textContent = energyUsed.toString();
-    // eslint-disable-next-line no-new
+    // eslint-disable-next-line no-new, sonarjs/constructor-for-side-effects
     new Chart(node.querySelector('.forecast-chart'), {
       ...commonChartOptions,
       data: {
@@ -73,7 +73,10 @@ export const ForecastSection = {
             values: forecast
           }
         ],
-        labels: Array.from({ length: 22 }, (_, hour) => hour + ' Uhr'),
+        labels: Array.from(
+          { length: 22 },
+          (_, hour) => `${hour.toString()} Uhr`
+        ),
         yMarkers: [
           { label: '', value: 0 },
           { label: '', value: 100 }
@@ -84,7 +87,7 @@ export const ForecastSection = {
         formatTooltipY: (
           /** @type {number|null} */ value
         ) => value !== null
-          ? Math.round(value).toLocaleString('de') + ' W'
+          ? `${Math.round(value).toLocaleString('de')} W`
           : ''
       },
       type: 'bar'

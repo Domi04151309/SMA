@@ -1,4 +1,4 @@
-import { allSettledHandling, fetchJson } from './fetch-utils.js';
+import { allSettledHandling, fetchJson } from './fetch-utilities.js';
 import { LOGGER_MAP } from './isomorphic/logger-map.js';
 import { OBJECT_MAP } from './isomorphic/object-map.js';
 
@@ -9,12 +9,13 @@ import { OBJECT_MAP } from './isomorphic/object-map.js';
  */
 function parseValues(translations, values) {
   const convertedValues = values.map(
+    // eslint-disable-next-line sonarjs/function-return-type
     value => {
       const innerValue = value.val;
       if (
         Array.isArray(innerValue) && 'tag' in (innerValue[0] ?? {})
       ) return translations === null
-        ? '#' + innerValue[0]?.tag
+        ? `#${innerValue[0]?.tag.toString()}`
         : translations[innerValue[0]?.tag];
       return innerValue;
     }
@@ -41,7 +42,7 @@ export class InverterSession {
   static async create(inverter) {
     try {
       const json = await fetchJson(
-        'https://' + inverter.address + '/dyn/login.json',
+        `https://${inverter.address}/dyn/login.json`,
         {
           pass: inverter.password,
           right: inverter.group
@@ -61,7 +62,7 @@ export class InverterSession {
         : new InverterSession(inverter.address, null);
     } catch (error) {
       console.error(
-        'Failed logging in at ' + inverter.address + ':',
+        `Failed logging in at ${inverter.address}:`,
         error instanceof Error ? error.message : error
       );
       return new InverterSession(inverter.address, null);
@@ -73,7 +74,7 @@ export class InverterSession {
    */
   async getTranslations() {
     if (this.#translations === null) this.#translations = await fetchJson(
-      'https://' + this.address + '/data/l10n/de-DE.json'
+      `https://${this.address}/data/l10n/de-DE.json`
     );
     return this.#translations;
   }
@@ -89,27 +90,29 @@ export class InverterSession {
     if (this.sessionId === null) {
       /** @type {SMAValues|null} */
       const json = await fetchJson(
-        'https://' + this.address + '/dyn/getDashValues.json'
+        `https://${this.address}/dyn/getDashValues.json`
       );
       if (json?.result) responses.push(json.result);
-    } else await allSettledHandling(
-      [
-        fetchJson(
-          'https://' + this.address + '/dyn/getAllParamValues.json?sid=' +
-            this.sessionId,
-          { destDev: [] }
-        ),
-        fetchJson(
-          'https://' + this.address + '/dyn/getAllOnlValues.json?sid=' +
-            this.sessionId,
-          { destDev: [] }
-        )
-      ],
-      'Values',
-      (/** @type {SMAValues} */ json) => {
-        if (json.result) responses.push(json.result);
-      }
-    );
+    } else {
+      await allSettledHandling(
+        [
+          fetchJson(
+            `https://${this.address}/dyn/getAllParamValues.json?sid=${
+              this.sessionId}`,
+            { destDev: [] }
+          ),
+          fetchJson(
+            `https://${this.address}/dyn/getAllOnlValues.json?sid=${
+              this.sessionId}`,
+            { destDev: [] }
+          )
+        ],
+        'Values',
+        (/** @type {SMAValues} */ json) => {
+          if (json.result) responses.push(json.result);
+        }
+      );
+    }
 
     if (responses.length === 0) return null;
     const [layerTwoKey] = Object.keys(responses[0]);
@@ -130,7 +133,7 @@ export class InverterSession {
   async getLogger() {
   /** @type {SMALogger|null} */
     const json = await fetchJson(
-      'https://' + this.address + '/dyn/getDashLogger.json'
+      `https://${this.address}/dyn/getDashLogger.json`
     );
     if (json === null) return null;
     return Object.fromEntries(
@@ -151,7 +154,11 @@ export class InverterSession {
     const response = {};
     await allSettledHandling(
       keys.map(key => fetchJson(
-        'https://' + this.address + '/dyn/getLogger.json?sid=' + this.sessionId,
+        `https://${
+          this.address
+        }/dyn/getLogger.json?sid=${
+          this.sessionId ?? ''
+        }`,
         {
           destDev: [],
           key,
@@ -206,7 +213,7 @@ export class InverterSession {
   async logout() {
     /** @type {unknown} */
     const result = await fetchJson(
-      'https://' + this.address + '/dyn/logout.json?sid=' + this.sessionId,
+      `https://${this.address}/dyn/logout.json?sid=${this.sessionId ?? ''}`,
       {}
     );
     return typeof result === 'object' && result !== null;

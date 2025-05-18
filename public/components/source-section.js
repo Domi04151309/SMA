@@ -29,7 +29,7 @@ export class SourceSection {
       tooltipOptions: {
         formatTooltipY: (
           /** @type {number|null} */ value
-        ) => value?.toLocaleString('de') + ' Wh'
+        ) => `${value?.toLocaleString('de') ?? '?'} Wh`
       },
       type: 'pie'
     });
@@ -37,6 +37,10 @@ export class SourceSection {
 
   update(/** @type {Energy|undefined} */ json) {
     this.chart.update(getData(json));
+  }
+
+  static create(/** @type {Energy|undefined} */ json) {
+    return new SourceSection(json);
   }
 
   static error() {

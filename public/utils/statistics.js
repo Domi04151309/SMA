@@ -12,7 +12,11 @@ export async function getBatteryPrediction() {
   const dailyStart = new Date(dailyEnd);
   dailyStart.setDate(dailyStart.getDate() - 7);
   await fetchApiData(
-    '/daily?start=' + dailyStart.getTime() + '&end=' + dailyEnd.getTime(),
+    `/daily?start=${
+      dailyStart.getTime().toString()
+    }&end=${
+      dailyEnd.getTime().toString()
+    }`,
     (/** @type {DailyResponse[]} */ daily) => {
       const lastWeek = daily.map(
         (item, index) => index < daily.length - 1
