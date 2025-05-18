@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "target": "es2022",
-    "module": "es2022",
+    "target": "ESNext",
+    "module": "ESNext",
     "moduleResolution": "bundler",
     "paths": {
         "/*": ["./public/*"],
@@ -9,7 +9,7 @@
           "./node_modules/frappe-charts/dist/frappe-charts.min.esm.js"
         ]
     },
-    "outDir": "/tmp/sma/",
+    "noEmit": true,
     "allowJs": true,
     "checkJs": true,
     "strict": true
